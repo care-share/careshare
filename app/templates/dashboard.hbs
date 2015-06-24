@@ -1,0 +1,961 @@
+
+   <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+
+            <h3 class="panel-title">Care Plans Awaiting Action</h3>
+
+        </div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+    <th class="patient">
+      Patient
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=patient">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=patient">&darr;</a>
+</div>
+
+    </th>
+    <th class="vista_id">
+      Vista
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=vista_id">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=vista_id">&darr;</a>
+</div>
+
+    </th>
+    <th class="certifying_physician">
+      Certifying Physician
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=certifying_physician">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=certifying_physician">&darr;</a>
+</div>
+
+    </th>
+    <th class="hhs">
+      HH Agency
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=hhs">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=hhs">&darr;</a>
+</div>
+
+    </th>
+    <th class="referred_at">
+      Referral Date
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=referred_at">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=referred_at">&darr;</a>
+</div>
+
+    </th>
+    <th class="auth_end_date">
+      Auth Expires
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=auth_end_date">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=auth_end_date">&darr;</a>
+</div>
+
+    </th>
+    <th class="status">
+      Status
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=status">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=status">&darr;</a>
+</div>
+
+    </th>
+    <th class="awaiting_action_by">
+      Awaiting action by
+      
+    </th>
+</tr>
+
+  </thead>
+  <tbody>
+    <tr class="">
+    <td class="patient"><a href="/reviewable/107/edit">Blick, Esperanza</a></td>
+    <td class="vista_id">B5173</td>
+    <td class="certifying_physician">Gibson, Nora</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-15</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Gibson, Nora</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/81/edit">Collier, Zora</a></td>
+    <td class="vista_id">C8747</td>
+    <td class="certifying_physician">Schmidt, Carlo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/87/edit">Connelly, Cyrus</a></td>
+    <td class="vista_id">C0970</td>
+    <td class="certifying_physician">Goodwin, Jesse</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/86/edit">Conroy, Hilbert</a></td>
+    <td class="vista_id">C8527</td>
+    <td class="certifying_physician">Sawayn, Trever</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/112/edit">Conroy, Josefa</a></td>
+    <td class="vista_id">C7486</td>
+    <td class="certifying_physician">Flatley, Casimir</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-04</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Flatley, Casimir</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/104/edit">Deckow, Briana</a></td>
+    <td class="vista_id">D1848</td>
+    <td class="certifying_physician">Baumbach, John</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Baumbach, John</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/96/edit">Dibbert, Rossie</a></td>
+    <td class="vista_id">D2915</td>
+    <td class="certifying_physician">Boyer, Domingo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/105/edit">Feeney, Adolphus</a></td>
+    <td class="vista_id">F5353</td>
+    <td class="certifying_physician">Stamm, Janice</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-06</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Stamm, Janice</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/91/edit">Gerhold, Gladyce</a></td>
+    <td class="vista_id">G2227</td>
+    <td class="certifying_physician">Kovacek, Pierre</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-09</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/90/edit">Gerhold, Kiley</a></td>
+    <td class="vista_id">G8473</td>
+    <td class="certifying_physician">Bergstrom, Oliver</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/84/edit">Grady, Leonora</a></td>
+    <td class="vista_id">G6662</td>
+    <td class="certifying_physician">Hoeger, Einar</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/83/edit">Greenfelder, Alvena</a></td>
+    <td class="vista_id">G5482</td>
+    <td class="certifying_physician">Goyette, Henriette</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/101/edit">Hagenes, Ayden</a></td>
+    <td class="vista_id">H8136</td>
+    <td class="certifying_physician">Bahringer, Moshe</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-01</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Bahringer, Moshe</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/99/edit">Hamill, Julius</a></td>
+    <td class="vista_id">H1494</td>
+    <td class="certifying_physician">Koelpin, Damaris</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-06</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/113/edit">Heathcote, Jakayla</a></td>
+    <td class="vista_id">H2609</td>
+    <td class="certifying_physician">Larson, Aniya</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-15</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Larson, Aniya</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/115/edit">Heller, Denis</a></td>
+    <td class="vista_id">H6698</td>
+    <td class="certifying_physician">Renner, Kelvin</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-02</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Renner, Kelvin</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/120/edit">Hettinger, Meda</a></td>
+    <td class="vista_id">H4591</td>
+    <td class="certifying_physician">Goldner, Alycia</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-01</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Goldner, Alycia</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/108/edit">Hintz, Kraig</a></td>
+    <td class="vista_id">H2254</td>
+    <td class="certifying_physician">Yost, Prudence</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-15</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Yost, Prudence</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/82/edit">Kautzer, Neal</a></td>
+    <td class="vista_id">K3132</td>
+    <td class="certifying_physician">Wilkinson, Jarred</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/106/edit">King, Kiara</a></td>
+    <td class="vista_id">K5137</td>
+    <td class="certifying_physician">Christiansen, Mollie</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Christiansen, Mollie</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/119/edit">Kling, Nick</a></td>
+    <td class="vista_id">K6088</td>
+    <td class="certifying_physician">Hauck, Abelardo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-07</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Hauck, Abelardo</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/100/edit">Leannon, Ellis</a></td>
+    <td class="vista_id">L2828</td>
+    <td class="certifying_physician">Greenfelder, Ralph</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/92/edit">Moore, Ulices</a></td>
+    <td class="vista_id">M1085</td>
+    <td class="certifying_physician">Halvorson, Ephraim</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-07</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/85/edit">Morar, Jessica</a></td>
+    <td class="vista_id">M8988</td>
+    <td class="certifying_physician">Goyette, Giovanna</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/94/edit">Murphy, Lowell</a></td>
+    <td class="vista_id">M4522</td>
+    <td class="certifying_physician">Stracke, Dangelo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/102/edit">Nitzsche, Alvina</a></td>
+    <td class="vista_id">N5340</td>
+    <td class="certifying_physician">Kilback, Mason</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-08</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Kilback, Mason</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/88/edit">Parisian, Ron</a></td>
+    <td class="vista_id">P9927</td>
+    <td class="certifying_physician">Tillman, Aditya</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-04</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/103/edit">Pfannerstill, Joelle</a></td>
+    <td class="vista_id">P6261</td>
+    <td class="certifying_physician">Bernhard, Ocie</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Bernhard, Ocie</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/97/edit">Prosacco, Chad</a></td>
+    <td class="vista_id">P4152</td>
+    <td class="certifying_physician">Durgan, Krystal</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-13</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/109/edit">Sanford, Cesar</a></td>
+    <td class="vista_id">S6798</td>
+    <td class="certifying_physician">Kuhlman, Thomas</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-04</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Kuhlman, Thomas</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/89/edit">Schneider, Ethelyn</a></td>
+    <td class="vista_id">S7139</td>
+    <td class="certifying_physician">Ernser, Lamar</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/95/edit">Simonis, Marianna</a></td>
+    <td class="vista_id">S2581</td>
+    <td class="certifying_physician">Farrell, Emilie</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-09</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/111/edit">Smith, Frank</a></td>
+    <td class="vista_id">S0647</td>
+    <td class="certifying_physician">Wyman, Francesca</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Wyman, Francesca</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/110/edit">Sporer, Lindsay</a></td>
+    <td class="vista_id">S7801</td>
+    <td class="certifying_physician">Block, Deonte</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Block, Deonte</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/93/edit">Stiedemann, America</a></td>
+    <td class="vista_id">S7383</td>
+    <td class="certifying_physician">Schroeder, Wilburn</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-14</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/118/edit">Ward, Marvin</a></td>
+    <td class="vista_id">W6242</td>
+    <td class="certifying_physician">Swift, Marisa</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Swift, Marisa</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/98/edit">Watsica, Edwina</a></td>
+    <td class="vista_id">W3237</td>
+    <td class="certifying_physician">Effertz, Elmo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-01</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/116/edit">West, Timmy</a></td>
+    <td class="vista_id">W6841</td>
+    <td class="certifying_physician">Carroll, Deion</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Carroll, Deion</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/114/edit">Williamson, Khalil</a></td>
+    <td class="vista_id">W0776</td>
+    <td class="certifying_physician">Volkman, Lela</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Volkman, Lela</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/117/edit">Zemlak, Ena</a></td>
+    <td class="vista_id">Z4313</td>
+    <td class="certifying_physician">Connelly, Adrien</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Connelly, Adrien</td>
+</tr>
+
+  </tbody>
+</table></div>
+
+    </div>
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+
+            <h3 class="panel-title">My Patients</h3>
+
+        </div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+    <th class="patient">
+      Patient
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=patient">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=patient">&darr;</a>
+</div>
+
+    </th>
+    <th class="vista_id">
+      Vista
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=vista_id">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=vista_id">&darr;</a>
+</div>
+
+    </th>
+    <th class="certifying_physician">
+      Certifying Physician
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=certifying_physician">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=certifying_physician">&darr;</a>
+</div>
+
+    </th>
+    <th class="hhs">
+      HH Agency
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=hhs">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=hhs">&darr;</a>
+</div>
+
+    </th>
+    <th class="referred_at">
+      Referral Date
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=referred_at">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=referred_at">&darr;</a>
+</div>
+
+    </th>
+    <th class="auth_end_date">
+      Auth Expires
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=auth_end_date">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=auth_end_date">&darr;</a>
+</div>
+
+    </th>
+    <th class="status">
+      Status
+      <div class="order pull-left">
+  <a class="asc" href="/dashboard?care_plans_grid%5Bdescending%5D=false&amp;care_plans_grid%5Border%5D=status">&uarr;</a>
+  <a class="desc" href="/dashboard?care_plans_grid%5Bdescending%5D=true&amp;care_plans_grid%5Border%5D=status">&darr;</a>
+</div>
+
+    </th>
+    <th class="awaiting_action_by">
+      Awaiting action by
+      
+    </th>
+</tr>
+
+  </thead>
+  <tbody>
+    <tr class="">
+    <td class="patient"><a href="/reviewable/107/edit">Blick, Esperanza</a></td>
+    <td class="vista_id">B5173</td>
+    <td class="certifying_physician">Gibson, Nora</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-15</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Gibson, Nora</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/81/edit">Collier, Zora</a></td>
+    <td class="vista_id">C8747</td>
+    <td class="certifying_physician">Schmidt, Carlo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/87/edit">Connelly, Cyrus</a></td>
+    <td class="vista_id">C0970</td>
+    <td class="certifying_physician">Goodwin, Jesse</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/86/edit">Conroy, Hilbert</a></td>
+    <td class="vista_id">C8527</td>
+    <td class="certifying_physician">Sawayn, Trever</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/112/edit">Conroy, Josefa</a></td>
+    <td class="vista_id">C7486</td>
+    <td class="certifying_physician">Flatley, Casimir</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-04</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Flatley, Casimir</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/104/edit">Deckow, Briana</a></td>
+    <td class="vista_id">D1848</td>
+    <td class="certifying_physician">Baumbach, John</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Baumbach, John</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/96/edit">Dibbert, Rossie</a></td>
+    <td class="vista_id">D2915</td>
+    <td class="certifying_physician">Boyer, Domingo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/105/edit">Feeney, Adolphus</a></td>
+    <td class="vista_id">F5353</td>
+    <td class="certifying_physician">Stamm, Janice</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-06</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Stamm, Janice</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/91/edit">Gerhold, Gladyce</a></td>
+    <td class="vista_id">G2227</td>
+    <td class="certifying_physician">Kovacek, Pierre</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-09</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/90/edit">Gerhold, Kiley</a></td>
+    <td class="vista_id">G8473</td>
+    <td class="certifying_physician">Bergstrom, Oliver</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/84/edit">Grady, Leonora</a></td>
+    <td class="vista_id">G6662</td>
+    <td class="certifying_physician">Hoeger, Einar</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/83/edit">Greenfelder, Alvena</a></td>
+    <td class="vista_id">G5482</td>
+    <td class="certifying_physician">Goyette, Henriette</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/101/edit">Hagenes, Ayden</a></td>
+    <td class="vista_id">H8136</td>
+    <td class="certifying_physician">Bahringer, Moshe</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-01</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Bahringer, Moshe</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/99/edit">Hamill, Julius</a></td>
+    <td class="vista_id">H1494</td>
+    <td class="certifying_physician">Koelpin, Damaris</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-06</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/113/edit">Heathcote, Jakayla</a></td>
+    <td class="vista_id">H2609</td>
+    <td class="certifying_physician">Larson, Aniya</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-15</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Larson, Aniya</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/115/edit">Heller, Denis</a></td>
+    <td class="vista_id">H6698</td>
+    <td class="certifying_physician">Renner, Kelvin</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-02</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Renner, Kelvin</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/120/edit">Hettinger, Meda</a></td>
+    <td class="vista_id">H4591</td>
+    <td class="certifying_physician">Goldner, Alycia</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-01</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Goldner, Alycia</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/108/edit">Hintz, Kraig</a></td>
+    <td class="vista_id">H2254</td>
+    <td class="certifying_physician">Yost, Prudence</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-15</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Yost, Prudence</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/82/edit">Kautzer, Neal</a></td>
+    <td class="vista_id">K3132</td>
+    <td class="certifying_physician">Wilkinson, Jarred</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/106/edit">King, Kiara</a></td>
+    <td class="vista_id">K5137</td>
+    <td class="certifying_physician">Christiansen, Mollie</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Christiansen, Mollie</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/119/edit">Kling, Nick</a></td>
+    <td class="vista_id">K6088</td>
+    <td class="certifying_physician">Hauck, Abelardo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-07</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Hauck, Abelardo</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/100/edit">Leannon, Ellis</a></td>
+    <td class="vista_id">L2828</td>
+    <td class="certifying_physician">Greenfelder, Ralph</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/92/edit">Moore, Ulices</a></td>
+    <td class="vista_id">M1085</td>
+    <td class="certifying_physician">Halvorson, Ephraim</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-07</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/85/edit">Morar, Jessica</a></td>
+    <td class="vista_id">M8988</td>
+    <td class="certifying_physician">Goyette, Giovanna</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/94/edit">Murphy, Lowell</a></td>
+    <td class="vista_id">M4522</td>
+    <td class="certifying_physician">Stracke, Dangelo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/102/edit">Nitzsche, Alvina</a></td>
+    <td class="vista_id">N5340</td>
+    <td class="certifying_physician">Kilback, Mason</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-08</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Kilback, Mason</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/88/edit">Parisian, Ron</a></td>
+    <td class="vista_id">P9927</td>
+    <td class="certifying_physician">Tillman, Aditya</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-04</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/103/edit">Pfannerstill, Joelle</a></td>
+    <td class="vista_id">P6261</td>
+    <td class="certifying_physician">Bernhard, Ocie</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-10</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Bernhard, Ocie</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/97/edit">Prosacco, Chad</a></td>
+    <td class="vista_id">P4152</td>
+    <td class="certifying_physician">Durgan, Krystal</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-13</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/109/edit">Sanford, Cesar</a></td>
+    <td class="vista_id">S6798</td>
+    <td class="certifying_physician">Kuhlman, Thomas</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-04</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Kuhlman, Thomas</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/89/edit">Schneider, Ethelyn</a></td>
+    <td class="vista_id">S7139</td>
+    <td class="certifying_physician">Ernser, Lamar</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/95/edit">Simonis, Marianna</a></td>
+    <td class="vista_id">S2581</td>
+    <td class="certifying_physician">Farrell, Emilie</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-09</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/111/edit">Smith, Frank</a></td>
+    <td class="vista_id">S0647</td>
+    <td class="certifying_physician">Wyman, Francesca</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Wyman, Francesca</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/110/edit">Sporer, Lindsay</a></td>
+    <td class="vista_id">S7801</td>
+    <td class="certifying_physician">Block, Deonte</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-05</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Block, Deonte</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/93/edit">Stiedemann, America</a></td>
+    <td class="vista_id">S7383</td>
+    <td class="certifying_physician">Schroeder, Wilburn</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-14</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/118/edit">Ward, Marvin</a></td>
+    <td class="vista_id">W6242</td>
+    <td class="certifying_physician">Swift, Marisa</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-16</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Swift, Marisa</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/assigned/98/edit">Watsica, Edwina</a></td>
+    <td class="vista_id">W3237</td>
+    <td class="certifying_physician">Effertz, Elmo</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-01</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Home Health Nurse Assigned</td>
+    <td class="awaiting_action_by">Glover, Megane</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/116/edit">West, Timmy</a></td>
+    <td class="vista_id">W6841</td>
+    <td class="certifying_physician">Carroll, Deion</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Carroll, Deion</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/114/edit">Williamson, Khalil</a></td>
+    <td class="vista_id">W0776</td>
+    <td class="certifying_physician">Volkman, Lela</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-12</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Volkman, Lela</td>
+</tr>
+<tr class="">
+    <td class="patient"><a href="/reviewable/117/edit">Zemlak, Ena</a></td>
+    <td class="vista_id">Z4313</td>
+    <td class="certifying_physician">Connelly, Adrien</td>
+    <td class="hhs">Generic HHS</td>
+    <td class="referred_at">2015-06-11</td>
+    <td class="auth_end_date"></td>
+    <td class="status">Needs Physician Signature</td>
+    <td class="awaiting_action_by">Connelly, Adrien</td>
+</tr>
+
+  </tbody>
+</table></div>
+
+    </div>
