@@ -1,4 +1,13 @@
-
+{{#if controller.isBannerDisplayed}}
+            
+              <div class="alert alert-warning alert-icon">
+                    <button aria-hidden="true" {{action 'toggleViewVisibitity'}} class="close" type="button">×</button>
+                    <div class="icon"><i class="icon ion-ios-information-empty"></i></div>
+                    <strong>Attention!</strong> All persons in this scenario are fictitious and are not derived from any
+                    real person or medical situation. Any similarities to real people are coincidental.
+                  </div> 
+ {{/if}}
+                  
    <div class="col-sm-12">
       <div class="panel panel-default">
         <div class="panel-heading">
