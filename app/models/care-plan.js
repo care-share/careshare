@@ -6,7 +6,7 @@ export default DS.Model.extend({
 //  status: // FHIR: code 1..1 <<CarePlanStatus>>
 //  period: // FHIR: Period 0..1
   modified: DS.attr("date"),
-//  concern: DS.hasMany('condition') // condition model not yet implemented
+  concern: DS.hasMany('condition'),
   notes: DS.attr('string')
 
 });
