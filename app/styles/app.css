@@ -1,1 +1,49 @@
-body { padding-top: 60px; }
+.container{
+    position:absolute;
+}
+
+.navbar{
+    margin-left: 280px;
+    position:fixed;
+    width:100%;
+    background-color: #4bc2ca;
+}
+
+.brand {
+  display: block;
+  margin: 0;
+  padding: 5px;
+  line-height: 60px;
+  text-transform: uppercase;
+}
+
+.navbar-text {
+  position: absolute;
+  left: 65%;
+  top: 10%;
+
+  transform: translate(-50%, -50%);
+  
+  width: 50%;
+  height: 50%;
+}
+
+body{background-color: #FAF9F5;}
+
+.page-content { padding-top: 70px; }
+.sidebar-brand{
+  background-color: #34abb3;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+}
+
+@media (min-width: 250px) {
+  .navbar{
+      margin-left: 0px;
+      position:relative;
+      width:100%;
+  }
+}
+
+
