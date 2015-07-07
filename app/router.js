@@ -5,9 +5,7 @@ var Router = Ember.Router.extend({
   location: config.locationType
 });
 
-Router.map(function() {
+export default Router.map(function() {
   this.route('dashboard');
-  this.route('patients');
+  this.resource('patients');
 });
-
-export default Router;
