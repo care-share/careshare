@@ -15,4 +15,13 @@ App = Ember.Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
+var Handlebars;
+Handlebars = Ember.Handlebars;
+Handlebars.helper('header-format', function(value) {
+  var escaped = Handlebars.Utils.escapeExpression(value);
+  escaped = escaped.replace('/','');
+  escaped = escaped.charAt(0).toUpperCase() + escaped.slice(1);
+  return new Ember.Handlebars.SafeString(escaped);
+});
+
 export default App;
