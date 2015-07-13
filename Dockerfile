@@ -9,5 +9,8 @@ RUN npm -g install bower
 # git submodule in combination with docker and bower
 ENV GIT_DIR /usr/src/app
 
+# use HTTPS instead of GIT protocol (avoid firewall issues)
+RUN git config --global url."https://".insteadOf git://
+
 # use bower to install the webapp dependencies
 RUN bower install --allow-root
