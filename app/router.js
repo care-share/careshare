@@ -7,5 +7,5 @@ var Router = Ember.Router.extend({
 
 export default Router.map(function() {
   this.route('dashboard');
-  this.resource('patients');
+  this.resource('patients',{path:'/patients'});
 });
