@@ -28,6 +28,13 @@
                   <a class="desc">&darr;</a>
                 </div>
               </th>
+             <!-- <th class="provider">
+                Care Provider(s)
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th>-->
             </tr>
           </thead>
           
@@ -36,11 +43,22 @@
                 <tr class="">
                   <td class="fullName">{{patient.fullName}}</td>
                   <td class="birthDate">{{patient.birthDate}}</td>
+                 <!-- <td class="provider">
+                    {{#each ref in patient.careProvider}}
+                       (ref.reference,ref.display),
+                    {{else}} No care providers found.{{/each}}
+                  </td>-->
                 </tr>
                   {{else}}
             Didn't find any patients.
                {{/each}}
             </tbody>
           </table>
+          <!--
+          <h4>Create new patient:</h4>
+ <label>Given name:</label>
+ {{input type="text" value=givenName placeholder="Enter patient name" action="createPatient"}}
+ <label>Family name:</label>
+ {{input type="text" value=familyName placeholder="Enter patient name" action="createPatient"}}-->
         </div>
       </div>
