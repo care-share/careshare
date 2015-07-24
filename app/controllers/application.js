@@ -7,6 +7,9 @@ export default Ember.Controller.extend({
       toggleSideBarVisibility:function(){
         this.set('isSideBarDisplayed',false);
       },
+      validate:function(){
+        this.get('session').authenticate('authenticator:custom', {});
+      },
       patientsCount:function(){
         console.log('getPatientCount called!');
         return 5;
