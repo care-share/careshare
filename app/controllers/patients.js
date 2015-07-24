@@ -24,11 +24,9 @@ var PatientsController = Ember.ArrayController.extend({
       patient.save();
     }
   },
-
   patientCounter: 0,
   patientCount: function(){
     var patients = this.get('content');
-
     var counter = 0;
     patients.filter(function() {
       counter++;
