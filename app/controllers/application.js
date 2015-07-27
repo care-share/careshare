@@ -8,7 +8,10 @@ export default Ember.Controller.extend({
         this.set('isSideBarDisplayed',false);
       },
       validate:function(){
-        this.get('session').authenticate('authenticator:custom', {});
+        console.log("App controller: validate");
+        var credentials = this.getProperties('identification', 'password');
+        console.log("ID: "+credentials.identification+",PASS: "+credentials.password);
+        this.get('session').authenticate('authenticator:custom', credentials);
       },
       patientsCount:function(){
         console.log('getPatientCount called!');

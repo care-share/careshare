@@ -132,11 +132,13 @@
           <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post" style="" {{action 'validate' on='submit'}}><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="3M1D+Jmw7r7dNjEE8+U4IFH6SnPf6C8x4NEBAg2GZK8=" /></div>
               <h4 class="text-center">VA User Sign In</h4>
               <div class="form-group">
-                <input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email" value="" />
+              {{input value=identification placeholder='Enter Login' class='form-control'}}
+                <!--<input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email" value="" />-->
               </div>
 
               <div class="form-group">
-                <input autocomplete="off" class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password" />
+              {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
+                <!--<input autocomplete="off" class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password" />-->
               </div>
               <input class="btn btn-lg btn-block btn-default" name="commit" type="submit" value="Sign in" />
               

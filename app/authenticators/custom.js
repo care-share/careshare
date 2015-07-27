@@ -8,7 +8,10 @@ export default Base.extend({
   },
 
   authenticate(credentials) {
-    alert("AUTHENTICATE called! "+credentials.identification+","+credentials.password);
+  //DS.store.createRecord('post',{id: "tempID",pass: "tempPass"});
+  console.log("authenticator ID: "+credentials.identification+",authenticator PASS: "+credentials.password);
+  //var credentials = this.getProperties('identification', 'password');
+    alert("AUTHENTICATE called!");
     return Ember.RSVP.resolve();
   },
 
