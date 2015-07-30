@@ -6,7 +6,7 @@ export default Base.extend({
   restore(data) {
     console.log("restore(data): " + JSON.stringify(data));
     //alert("RESTORE called!");
-    return API.login(data.identification, data.password);
+    return Ember.RSVP.resolve(data);
   },
 
   authenticate(data) {
