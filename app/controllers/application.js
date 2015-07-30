@@ -13,6 +13,11 @@ export default Ember.Controller.extend({
         console.log("ID: "+credentials.identification+",PASS: "+credentials.password);
         return this.get('session').authenticate('authenticator:custom', credentials);
       },
+      invalidate:function(){
+        console.log("App controller: invalidate");
+        var credentials = this.getProperties('identification', 'password');
+        return this.get('session').invalidate(credentials);
+      },
       patientsCount:function(){
         console.log('getPatientCount called!');
         return 5;

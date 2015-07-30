@@ -94,13 +94,16 @@
         <div class="app-header">
           <h3 class="app-title pull-left hidden-xs"/>
           <ol class="breadcrumb bg-none pull-left hide-xs">
-            <li>Welcome, ????</li>
+            <li>Welcome, ????</li>      
           </ol>          
+            
           <div class="pull-right">
               <div class="pull-right">
               <a class="btn btn-sm btn-default btn-extend be-left" href="/consults/new">
                   Create ???????<i class="ion ion-clipboard"></i>
-              </a></div>
+              </a>
+              <button aria-hidden="true" {{action 'invalidate'}} class="btn btn-sm btn-default" type="submit">Sign Out</button>
+              </div>
           </div>
         </div>
 

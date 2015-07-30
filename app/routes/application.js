@@ -8,7 +8,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     },
     sessionAuthenticationFailed: function(error) {
       //this.controllerFor('application').set('loginErrorMessage', error.message);
-      console.log('Error: ' + error.status + ', ' + error.message);
+      alert('Error: ' + error.status + ', ' + error.message);
     }
   }
 });
