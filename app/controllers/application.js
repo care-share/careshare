@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
     isSideBarDisplayed: true,
+    lastLoginFailed: false,
     patientCounter: 0,
     actions:{
       toggleSideBarVisibility:function(){
