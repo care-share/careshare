@@ -3,6 +3,8 @@ import Resolver from 'ember/resolver';
 import loadInitializers from 'ember/load-initializers';
 import config from './config/environment';
 
+import './mock-server'; // API server for auth
+
 var App;
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
