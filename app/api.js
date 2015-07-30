@@ -5,7 +5,6 @@ import Ember from 'ember';
 var API = {
 
   token: null,
-
   login: function(username, password) {
     var self = this;
 

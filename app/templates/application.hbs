@@ -1,6 +1,5 @@
 
 {{#if session.isAuthenticated}}
-
 <!-- Sidebar -->
 <aside class="side-left ng-scope" ng-controller="SmartSearchCtrl">
   <!-- Sidebar Header-->
@@ -94,7 +93,7 @@
         <div class="app-header">
           <h3 class="app-title pull-left hidden-xs"/>
           <ol class="breadcrumb bg-none pull-left hide-xs">
-            <li>Welcome, ????</li>      
+            <li>Welcome, {{session.content.secure.user.name}}!</li>      
           </ol>          
             
           <div class="pull-right">

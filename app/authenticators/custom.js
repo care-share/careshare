@@ -6,15 +6,13 @@ export default Base.extend({
   restore(data) {
     console.log("restore(data): " + JSON.stringify(data));
     //alert("RESTORE called!");
-    return Ember.RSVP.resolve();
+    return API.login(data.identification, data.password);
   },
 
-  authenticate(credentials) {
-  //DS.store.createRecord('post',{id: "tempID",pass: "tempPass"});
-    console.log("authenticate(credentials): " + JSON.stringify(credentials));
-  //var credentials = this.getProperties('identification', 'password');
+  authenticate(data) {
+    console.log("authenticate(credentials): " + JSON.stringify(data));
    // alert("AUTHENTICATE called!");
-    return API.login(credentials.identification, credentials.password);
+    return API.login(data.identification, data.password);
   },
 
   invalidate(data) {
