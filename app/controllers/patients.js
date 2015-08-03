@@ -34,7 +34,10 @@ var PatientsController = Ember.ArrayController.extend({
     var patients = this.get('content');
 
     return patients.filter(function(patient) {
-      return patient.get('fullName').toString().match(rx);
+        if (typeof(patient.get('name.firstObject.family.firstObject')) !== 'undefined') {
+	    return patient.get('fullName').match(rx);
+	}
+	return false;
     });
 
   }.property('model', 'filterText')
