@@ -53,6 +53,12 @@ var server = new Pretender(function() {
     }
   });
 
+  // add wildcards for all other routes and pass them through
+  this.get('/*youvegottacatchemall', this.passthrough);
+  this.post('/*youvegottacatchemall', this.passthrough);
+  this.put('/*youvegottacatchemall', this.passthrough);
+  this.delete('/*youvegottacatchemall', this.passthrough);
+
 });
 
 export default server;
