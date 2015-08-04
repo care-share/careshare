@@ -7,12 +7,12 @@ var PatientsController = Ember.ArrayController.extend({
       var familyName = this.get('familyName');
       if (!givenName.trim() || !familyName.trim()) { return; }
 
-      var name = this.store.createRecord('patient', {
+      var name = this.store.createRecord('human-name', {
 	  given: givenName,
 	  family: familyName
       });
       var patient = this.store.createRecord('patient', {
-	  names: [name],
+	  name: [name],
 	  birthDate: new Date()
       });
 
