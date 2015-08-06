@@ -3,7 +3,11 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     isSideBarDisplayed: true,
     lastLoginFailed: false,
+    role: 'user',
     patientCounter: 0,
+    isAdmin: function() {
+        return this.get('session').content.secure.user.role === 'admin';
+    }.property('role'),
     actions:{
       toggleSideBarVisibility:function(){
         this.set('isSideBarDisplayed',false);

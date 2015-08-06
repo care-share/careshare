@@ -25,5 +25,9 @@ Handlebars.helper('header-format', function(value) {
   escaped = escaped.charAt(0).toUpperCase() + escaped.slice(1);
   return new Ember.Handlebars.SafeString(escaped);
 });
+Handlebars.registerHelper('is-admin', function(value) {
+console.log('is-admin: '+JSON.stringify(value)+";"+(value=='admin'));
+  return value == 'admin';
+});
 
 export default App;

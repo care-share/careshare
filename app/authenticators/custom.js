@@ -10,7 +10,7 @@ export default Base.extend({
   },
 
   authenticate(data) {
-    console.log("authenticate(credentials): " + JSON.stringify(data));
+    console.log("authenticate(data): " + JSON.stringify(data));
    // alert("AUTHENTICATE called!");
     return API.login(data.identification, data.password);
   },

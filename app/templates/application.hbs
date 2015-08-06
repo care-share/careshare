@@ -54,6 +54,13 @@
           <a href="/reviewable">
             <i class="nav-item-icon icon ion-checkmark-round"></i> Ready for Certification </a>
         </li>
+        
+     {{#if isAdmin}}
+            <li class="side-nav-item ">
+          <a href="/account">
+            <i class="nav-item-icon icon ion-settings"></i> Review Account Requests</a>
+        </li>
+     {{/if}}   
       </ul>
     </nav>
 
@@ -148,7 +155,8 @@
                 <!--<input autocomplete="off" class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password" />-->
               </div>
               <input class="btn btn-lg btn-block btn-default" name="commit" type="submit" value="Sign in" />
-              
+              <hr>
+              <a class="btn btn-lg btn-block btn-default" href="/account"> Submit Account Request</a>
                 <hr>
                 <h4 class="text-center">Home Health Agency Sign In</h4>
                 <a class="btn btn-primary btn-lg btn-block" href="/users/auth/openid_connect"> Generic HHS</a>
