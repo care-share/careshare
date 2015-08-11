@@ -143,7 +143,10 @@
     <strong>Invalid username or password!</strong> Please try again or contact your system administrator.
   </div>
             {{/if}}
-          <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post" style="" {{action 'validate' on='submit'}}><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="3M1D+Jmw7r7dNjEE8+U4IFH6SnPf6C8x4NEBAg2GZK8=" /></div>
+
+          <!--Switch between sign in and account request forms.-->
+          {{#if isShowingForm}}
+                    <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post" style="" {{action 'validate' on='submit'}}><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="3M1D+Jmw7r7dNjEE8+U4IFH6SnPf6C8x4NEBAg2GZK8=" /></div>
               <h4 class="text-center">VA User Sign In</h4>
               <div class="form-group">
               {{input value=identification placeholder='Enter Login' class='form-control'}}
@@ -156,11 +159,27 @@
               </div>
               <input class="btn btn-lg btn-block btn-default" name="commit" type="submit" value="Sign in" />
               <hr>
-              <a class="btn btn-lg btn-block btn-default" href="/account"> Submit Account Request</a>
+              <a class="btn btn-lg btn-block btn-default" {{action "toggleLoginForm"}}> Show Account Request Form</a>
                 <hr>
                 <h4 class="text-center">Home Health Agency Sign In</h4>
                 <a class="btn btn-primary btn-lg btn-block" href="/users/auth/openid_connect"> Generic HHS</a>
-              </form>
+               </form>
+{{else}}
+                    <form accept-charset="UTF-8" action="/users/account_request" class="new_user" id="new_user" method="post" style="" {{action 'accountRequest' on='submit'}}><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+              <h4 class="text-center">Account Request</h4>
+              <div class="form-group">
+              {{input value=fullName placeholder='Enter Full Name' class='form-control'}}
+              </div>
+
+              <div class="form-group">
+              {{input value=email placeholder='Enter Email' class='form-control' type='email'}}
+              </div>
+              <input class="btn btn-lg btn-block btn-default" name="commit" type="submit" value="Submit" />
+              <hr>
+              <a class="btn btn-lg btn-block btn-default" {{action "toggleLoginForm"}}> Show Login Page</a>
+               </form>
+{{/if}}
+
         </div>
         <!-- /sign-container -->
             </div>
