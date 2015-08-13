@@ -11,8 +11,19 @@ export default Ember.Controller.extend({
     }.property('role'),
     actions:{
       accountRequest:function(){
-      var info = this.getProperties('fullName','email');
-        alert('Account request sent: Full Name - '+info.fullName+',Email - '+info.email);
+      var info = this.getProperties('first','last','email','pass');
+      //  alert('Account request sent: Full Name - '+info.fullName+',Email - '+info.email);
+         Ember.$.ajax({
+        type: "POST",
+        url: "http://localhost:3000/auth/register",
+        data: { name_first: info.first, name_last: info.last, email: info.email, password: info.pass },
+        success : function(data) {
+                    console.log("Account request submission succeeded."+data);
+                },
+        error: function(){
+          console.log("Account request submission failed.");
+        }
+      });
       },
       toggleSideBarVisibility:function(){
         this.set('isSideBarDisplayed',false);
@@ -31,8 +42,7 @@ export default Ember.Controller.extend({
       patientsCount:function(){
         console.log('getPatientCount called!');
         return 5;
-      }.property('model', 'patientCounter')
-      ,
+      }.property('model', 'patientCounter'),
     toggleLoginForm: function(){
       this.toggleProperty('isShowingForm');
     }

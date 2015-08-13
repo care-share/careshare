@@ -6,12 +6,14 @@ export default Base.extend({
   restore(data) {
     console.log("restore(data): " + JSON.stringify(data));
     //alert("RESTORE called!");
-    return Ember.RSVP.resolve(data);
+    if(API.token != null){
+    return Ember.RSVP.resolve(data);}
+   //return /*Ember.RSVP.resolve(data)*/API.restore(data);
   },
 
   authenticate(data) {
     console.log("authenticate(data): " + JSON.stringify(data));
-   // alert("AUTHENTICATE called!");
+    //alert("AUTHENTICATE called!");
     return API.login(data.identification, data.password);
   },
 

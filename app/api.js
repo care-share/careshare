@@ -9,15 +9,15 @@ var API = {
     var self = this;
 
     var payload = {
-      username: username,
+      email: username,
       password: password
     };
 
-    var deferred = jQuery.post('/session', payload).then(
+    var deferred = jQuery.post('http://localhost:3000/auth/login', payload).then(
       function(data) {
-        self.token = data.token;
-        //return data.user;
-        return {user: data.user, token: data.token};
+        console.log("data: "+JSON.stringify(data));
+        self.token = data.data.token;
+        return {user: username, token: data.token};
       },
       function(error) {
         return { status: error.statusText, message: error.responseText };
@@ -30,9 +30,11 @@ var API = {
   logout: function() {
     var self = this;
 
-    var settings = { type: 'DELETE', headers: { 'Authorization': 'Token token=' + this.token } };
-
-    var deferred = jQuery.ajax('/session', settings).then(function() {
+    //var settings = {};
+   // if (this.token) {
+      var settings = {'token': this.token };
+   // } 
+    var deferred = jQuery.post('http://localhost:3000/auth/logout',settings).then(function() {
       self.token = null;
     });
 
@@ -41,7 +43,6 @@ var API = {
 
   get: function(resource) {
     var url = '/' + resource;
-
     var settings;
 
     if (this.token) {

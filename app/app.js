@@ -2,8 +2,9 @@ import Ember from 'ember';
 import Resolver from 'ember/resolver';
 import loadInitializers from 'ember/load-initializers';
 import config from './config/environment';
+import DS from 'ember-data';
 
-import './mock-server'; // API server for auth
+//import './mock-server'; // API server for auth
 
 var App;
 
@@ -14,6 +15,10 @@ App = Ember.Application.extend({
   podModulePrefix: config.podModulePrefix,
   Resolver: Resolver
 });
+
+/*App.ApplicationAdapter = DS.RESTAdapter.extend({
+  host: 'http://localhost:3000'
+});*/
 
 loadInitializers(App, config.modulePrefix);
 
@@ -26,8 +31,8 @@ Handlebars.helper('header-format', function(value) {
   return new Ember.Handlebars.SafeString(escaped);
 });
 Handlebars.registerHelper('is-admin', function(value) {
-console.log('is-admin: '+JSON.stringify(value)+";"+(value=='admin'));
-  return value == 'admin';
+console.log('is-admin: '+JSON.stringify(value)+";"+(value==='admin'));
+  return value === 'admin';
 });
 
 export default App;
