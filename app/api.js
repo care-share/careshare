@@ -5,6 +5,7 @@ import Ember from 'ember';
 var API = {
 
   token: null,
+  userData: null,
   login: function(username, password) {
     var self = this;
 
@@ -17,7 +18,8 @@ var API = {
       function(data) {
         console.log("data: "+JSON.stringify(data));
         self.token = data.data.token;
-        return {user: username, token: data.token};
+        console.log("token: "+data.data.token);
+        return {token: data.data.token,name_first:data.data.name_first};
       },
       function(error) {
         return { status: error.statusText, message: error.responseText };
@@ -27,20 +29,14 @@ var API = {
     return Ember.RSVP.resolve(deferred);
   },
 
-  logout: function() {
+  logout: function(data) {
     var self = this;
-
-    //var settings = {};
-   // if (this.token) {
-      var settings = {'token': this.token };
-   // } 
-    var deferred = jQuery.post('http://localhost:3000/auth/logout',settings).then(function() {
+    var deferred = jQuery.post('http://localhost:3000/auth/logout',{'token':data.token}).then(function() {
       self.token = null;
     });
 
     return Ember.RSVP.resolve(deferred);
   },
-
   get: function(resource) {
     var url = '/' + resource;
     var settings;

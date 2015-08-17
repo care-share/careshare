@@ -7,7 +7,8 @@ export default Ember.Controller.extend({
     role: 'user',
     patientCounter: 0,
     isAdmin: function() {
-        return this.get('session').content.secure.user.role === 'admin';
+    console.log("THIS session:"+JSON.stringify(this.get('session').get('content')));
+        return /*this.get('session').content.secure.user.role === 'admin'*/false;
     }.property('role'),
     actions:{
       accountRequest:function(){
@@ -35,7 +36,7 @@ export default Ember.Controller.extend({
         return this.get('session').authenticate('authenticator:custom', credentials);
       },
       invalidate:function(){
-        console.log("App controller: invalidate");
+        console.log("App controller: invalidate "+JSON.stringify(this.get('session')));
         var credentials = this.getProperties('identification', 'password');
         return this.get('session').invalidate(credentials);
       },
