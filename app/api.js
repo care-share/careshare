@@ -3,21 +3,16 @@
 import Ember from 'ember';
 
 var API = {
-
-  token: null,
-  userData: null,
+  host: "http://localhost:3000/",
   login: function(username, password) {
-    var self = this;
-
     var payload = {
       email: username,
       password: password
     };
 
-    var deferred = jQuery.post('http://localhost:3000/auth/login', payload).then(
+    var deferred = jQuery.post(this.host+'auth/login', payload).then(
       function(data) {
         console.log("data: "+JSON.stringify(data));
-        self.token = data.data.token;
         console.log("token: "+data.data.token);
         return {token: data.data.token,name_first:data.data.name_first,role:data.data.role};
       },
@@ -25,37 +20,23 @@ var API = {
         return { status: error.statusText, message: error.responseText };
       }
     );
-
     return Ember.RSVP.resolve(deferred);
   },
- unnapproved: function(){
-  //TODO: GET call for uapproved account requests
- },
-  logout: function(data) {
-    var self = this;
-    var deferred = jQuery.post('http://localhost:3000/auth/logout',{'token':data.token}).then(function() {
-      self.token = null;
-    });
-
-    return Ember.RSVP.resolve(deferred);
-  },
-  get: function(resource) {
-    var url = '/' + resource;
-    var settings;
-
-    if (this.token) {
-      settings = { headers: { 'Authorization': 'Token token=' + this.token } };
-    } else {
-      settings = {};
-    }
-
-    var deferred = jQuery.ajax(url, settings).then(null, function(error) {
+ unapproved: function(input){
+    console.log('ask for unapproved w/ role '+input.role+' and token: '+input.token);
+    jQuery.ajax(this.host+'users/unapproved',{headers:{'X-Auth-Token':input.token}}).then(
+    function(response){
+      console.log("UNAPPROVED: "+JSON.stringify(response.data));
+      return response.data;
+    }, function(error) {
       return { status: error.statusText, message: error.responseText };
     });
-
-    return Ember.RSVP.resolve(deferred);
+ },
+  logout: function(data) {
+    var deferred = jQuery.post(this.host+'auth/logout',{headers:{'X-Auth-Token':data.token}}).then(function() {
+    });
+    return Ember.RSVP.resolve({token:null});
   }
-
 };
 
 export default API;
