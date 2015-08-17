@@ -7,8 +7,7 @@ export default Ember.Controller.extend({
     role: 'user',
     patientCounter: 0,
     isAdmin: function() {
-    console.log("THIS session:"+JSON.stringify(this.get('session').get('content')));
-        return /*this.get('session').content.secure.user.role === 'admin'*/false;
+        return this.get('session').get('secure').role === 'admin';
     }.property('role'),
     actions:{
       accountRequest:function(){

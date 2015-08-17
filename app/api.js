@@ -19,7 +19,7 @@ var API = {
         console.log("data: "+JSON.stringify(data));
         self.token = data.data.token;
         console.log("token: "+data.data.token);
-        return {token: data.data.token,name_first:data.data.name_first};
+        return {token: data.data.token,name_first:data.data.name_first,role:data.data.role};
       },
       function(error) {
         return { status: error.statusText, message: error.responseText };
@@ -28,7 +28,9 @@ var API = {
 
     return Ember.RSVP.resolve(deferred);
   },
-
+ unnapproved: function(){
+  //TODO: GET call for uapproved account requests
+ },
   logout: function(data) {
     var self = this;
     var deferred = jQuery.post('http://localhost:3000/auth/logout',{'token':data.token}).then(function() {
