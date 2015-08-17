@@ -14,7 +14,7 @@ var API = {
       function(data) {
         console.log("data: "+JSON.stringify(data));
         console.log("token: "+data.data.token);
-        return {token: data.data.token,name_first:data.data.name_first,role:data.data.role};
+        return {token: data.data.token,name_first:data.data.name_first,role:data.data.role,email:data.data.email};
       },
       function(error) {
         return { status: error.statusText, message: error.responseText };
@@ -33,9 +33,19 @@ var API = {
     });
  },
   logout: function(data) {
-    var deferred = jQuery.post(this.host+'auth/logout',{headers:{'X-Auth-Token':data.token}}).then(function() {
+    jQuery.post(this.host+'auth/logout',{headers:{'X-Auth-Token':data.token}}).then(function() {
     });
     return Ember.RSVP.resolve({token:null});
+  },
+  approve: function(email,data) {
+    console.log("APPROVE: "+email);
+    jQuery.post(this.host+'users/'+email+'/approve',{headers:{'X-Auth-Token':data.token}}).then (function() {return true;},function(){return false;});
+    return false;
+  },
+  deny: function(email,data) {
+    console.log("DENY: "+email);
+    jQuery.destroy(this.host+'users/'+email,{headers:{'X-Auth-Token':data.token}}).then (function() {return true;},function(){return false;});
+    return false;
   }
 };
 

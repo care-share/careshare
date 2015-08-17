@@ -39,8 +39,8 @@
                 <td> {{user.email}} </td>
                 <td> {{user.role}} </td>
                 <td>
-                  <button>Approve</button>
-                  <button>Deny</button>
+                  <button {{action 'approve' user.email}}>Approve</button>
+                  <button {{action 'deny' user.email}}>Deny</button>
                  </td>
                 </tr>  
                   {{else}}

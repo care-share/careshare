@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import API from '../api';
 
 export default Ember.Controller.extend({
     role: 'user',
