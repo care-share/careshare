@@ -4,10 +4,12 @@ import API from '../api';
 export default Ember.Route.extend({
   setupController: function(controller) {
     API.unapproved(this.get('session').get('secure'),controller);
+    API.approved(this.get('session').get('secure'),controller);
   },
     actions: {
       reset: function(controller){
         API.unapproved(this.get('session').get('secure'),controller);
+        API.approved(this.get('session').get('secure'),controller);
       },
       approve: function(email,session,controller){
         console.log("approve(route) called");

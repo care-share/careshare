@@ -40,6 +40,17 @@ var API = {
         }
       });
   },
+  approved: function(input,controller){
+    console.log('ask for all approved users w/ token: '+input.token);
+    jQuery.ajax(this.host+'users/approved',{headers:{'X-Auth-Token':input.token}}).then(
+    function(response){
+      console.log("APPROVED: "+JSON.stringify(response.data));
+      controller.set('approved', response.data);
+      return response.data;
+    }, function(error) {
+      return { status: error.statusText, message: error.responseText };
+    });
+ },
  unapproved: function(input,controller){
     console.log('ask for unapproved w/ role '+input.role+' and token: '+input.token);
     jQuery.ajax(this.host+'users/unapproved',{headers:{'X-Auth-Token':input.token}}).then(

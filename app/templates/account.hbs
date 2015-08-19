@@ -50,6 +50,55 @@
             </tbody>
           </table>
           </div></div>
+          
+              <div class="col-sm-12">
+      <div class="panel panel-dlefault">
+        <div class="panel-heading">
+            <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+            <h3 class="panel-title">Approved Users ({{filteredContent.length}} found)</h3>
+        </div>
+     
+        <table class="table table-hover">
+          <thead>
+            <tr>  
+              <th class="fullName">
+                Full Name
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th> 
+              <th class="email">
+                Email
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th> 
+              <th class="role">
+                Role
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th> 
+              
+            </tr>
+          </thead>
+             <tbody>
+             {{#each approved as |user|}}
+                <tr> <td>{{user.name_last}}, {{user.name_first}} </td>
+                <td> {{user.email}} </td>
+                <td> {{user.role}} </td>
+  
+                </tr>  
+                  {{else}}
+            Didn't find any approved users.
+               {{/each}}
+
+            </tbody>
+          </table>
+          </div></div>
  {{else}}
  Sorry, this page is only accessible by administrators.  
  {{/if}}
