@@ -28,7 +28,7 @@ var API = {
         type: "POST",
         url: "http://localhost:3000/auth/register",
         data: { name_first: info.first, name_last: info.last, email: info.email, password: info.pass },
-        success : function(data) {
+        success : function() {
                     console.log("Account request submission succeeded.");
                     controller.set('accountRequestFailed',false);
                     controller.set('accountRequestSucceeded',true);
@@ -42,10 +42,22 @@ var API = {
   },
   approved: function(input,controller){
     console.log('ask for all approved users w/ token: '+input.token);
+    var email = input.email;
     jQuery.ajax(this.host+'users/approved',{headers:{'X-Auth-Token':input.token}}).then(
     function(response){
       console.log("APPROVED: "+JSON.stringify(response.data));
-      controller.set('approved', response.data);
+      var responseArray = response.data;
+      var removeIndex = -1;
+      Ember.$.each(responseArray, function(index, result) {
+        if(result.email === email) {
+            console.log("MATCHED!");
+            removeIndex = index;
+            //Remove from array
+            //responseArray.splice(index, 1);
+        }  
+      });
+      responseArray.splice(removeIndex,1);
+      controller.set('approved', responseArray);
       return response.data;
     }, function(error) {
       return { status: error.statusText, message: error.responseText };
