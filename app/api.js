@@ -22,11 +22,12 @@ var API = {
     );
     return Ember.RSVP.resolve(deferred);
   },
- unapproved: function(input){
+ unapproved: function(input,controller){
     console.log('ask for unapproved w/ role '+input.role+' and token: '+input.token);
     jQuery.ajax(this.host+'users/unapproved',{headers:{'X-Auth-Token':input.token}}).then(
     function(response){
       console.log("UNAPPROVED: "+JSON.stringify(response.data));
+      controller.set('model', response.data);
       return response.data;
     }, function(error) {
       return { status: error.statusText, message: error.responseText };
@@ -37,14 +38,38 @@ var API = {
     });
     return Ember.RSVP.resolve({token:null});
   },
-  approve: function(email,data) {
+  approve: function(email,data,controller) {
     console.log("APPROVE: "+email);
-    jQuery.post(this.host+'users/'+email+'/approve',{headers:{'X-Auth-Token':data.token}}).then (function() {return true;},function(){return false;});
+    Ember.$.ajax({
+      url: this.host+'users/'+email+'/approve',
+      type: 'post',
+      headers: {
+          'X-Auth-Token': data.token
+      },
+      dataType: 'json',
+      success: function (data) {
+          console.info(data);
+          controller.send('reset');
+      }
+    });
+
     return false;
   },
-  deny: function(email,data) {
+  deny: function(email,data,controller) {
     console.log("DENY: "+email);
-    jQuery.destroy(this.host+'users/'+email,{headers:{'X-Auth-Token':data.token}}).then (function() {return true;},function(){return false;});
+    Ember.$.ajax({
+      url: this.host+'users/'+email,
+      type: 'delete',
+      headers: {
+          'X-Auth-Token': data.token
+      },
+      dataType: 'json',
+      success: function (data) {
+          console.info(data);
+          controller.send('reset');
+      }
+    });
+    
     return false;
   }
 };
