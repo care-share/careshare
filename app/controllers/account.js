@@ -6,6 +6,9 @@ export default Ember.Controller.extend({
         return this.get('session').get('secure').role === 'admin';
     }.property('role'),
     actions: {
+      setLastEmail: function(email){
+        this.set('lastEmail',email);
+      },
       reset(){
         this.get('target').send('reset',this);
       },
@@ -16,6 +19,13 @@ export default Ember.Controller.extend({
       deny: function(email){
         console.log("deny(controller) called");
         this.get('target').send('deny',email,this.get('session').get('secure'),this);
+      },
+      changeRole: function(email,role){
+        console.log("change role(controller) called");
+        var oppositeRole = 'admin';
+        if(role === 'admin')
+          oppositeRole = 'user';
+        this.get('target').send('changeRole',email,oppositeRole,this.get('session').get('secure'),this);
       }
     }
 });

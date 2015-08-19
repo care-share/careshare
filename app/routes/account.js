@@ -18,6 +18,10 @@ export default Ember.Route.extend({
       deny: function(email,session,controller){
         console.log("deny(route) called");
         API.deny(email,session,controller);
+      },
+      changeRole: function(email,role,session,controller){
+        console.log("change role(route) called");
+        API.changeRole(email,role,session,controller);
       }
     }
 });

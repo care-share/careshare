@@ -100,7 +100,24 @@ var API = {
     });
     
     return false;
-  }
+  },
+  changeRole: function(email,role,data,controller) {
+    console.log("CHANGE ROLE: "+email+" to: "+role);
+    Ember.$.ajax({
+      url: this.host+'users/'+email+'/role/'+role,
+      type: 'post',
+      headers: {
+          'X-Auth-Token': data.token
+      },
+      dataType: 'json',
+      success: function (data) {
+          console.info(data);
+          controller.send('reset');
+      }
+    });
+
+    return false;
+  },
 };
 
 export default API;

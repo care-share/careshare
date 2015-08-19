@@ -3,7 +3,7 @@
       <div class="panel panel-dlefault">
         <div class="panel-heading">
             <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-            <h3 class="panel-title">Account Requests Awaiting Action ({{filteredContent.length}} found)</h3>
+            <h3 class="panel-title">Account Requests Awaiting Action</h3>
         </div>
      
         <table class="table table-hover">
@@ -55,7 +55,7 @@
       <div class="panel panel-dlefault">
         <div class="panel-heading">
             <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-            <h3 class="panel-title">Approved Users ({{filteredContent.length}} found)</h3>
+            <h3 class="panel-title">Approved Users</h3>
         </div>
      
         <table class="table table-hover">
@@ -82,7 +82,7 @@
                   <a class="desc">&darr;</a>
                 </div>
               </th> 
-              
+              <th class="change"></th>
             </tr>
           </thead>
              <tbody>
@@ -90,7 +90,9 @@
                 <tr> <td>{{user.name_last}}, {{user.name_first}} </td>
                 <td> {{user.email}} </td>
                 <td> {{user.role}} </td>
-  
+                  <td>
+                   <button {{action 'changeRole' user.email user.role}}>Change role</button>
+                 </td>
                 </tr>  
                   {{else}}
             Didn't find any approved users.

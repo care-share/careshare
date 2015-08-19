@@ -35,6 +35,7 @@ export default Ember.Controller.extend({
         return 5;
       }.property('model', 'patientCounter'),
     toggleLoginForm: function(){
+      this.set('lastLoginFailed',false);
       this.set('accountRequestSucceeded',false);
       this.set('accountRequestFailed',false);
       this.toggleProperty('isShowingForm');
