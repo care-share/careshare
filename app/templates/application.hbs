@@ -140,8 +140,8 @@
             <div class="alert alert-error alert-icon"> Your session expired. Please sign in again to continue. </div>
             {{#if lastLoginFailed}}
               <div class="alert alert-danger">
-    <strong>Invalid username or password!</strong> Please try again or contact your system administrator.
-  </div>
+              <strong>Invalid username or password!</strong> Please try again or contact your system administrator.
+              </div>
             {{/if}}
 
           <!--Switch between sign in and account request forms.-->
@@ -165,6 +165,16 @@
                 <a class="btn btn-primary btn-lg btn-block" href="/users/auth/openid_connect"> Generic HHS</a>
                </form>
 {{else}}
+            {{#if accountRequestSucceeded}}
+              <div class="alert alert-success">
+              <strong>Account request succeeded!</strong> You will be notified by email when your account has been approved.
+              </div>            
+            {{/if}}
+            {{#if accountRequestFailed}}
+              <div class="alert alert-danger">
+              <strong>Account request failed!</strong> Please try again or contact your system administrator.
+              </div>            
+            {{/if}}
                     <form accept-charset="UTF-8" action="/users/account_request" class="new_user" id="new_user" method="post" style="" {{action 'accountRequest' on='submit'}}><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
               <h4 class="text-center">Account Request</h4>
               <div class="form-group">

@@ -22,6 +22,24 @@ var API = {
     );
     return Ember.RSVP.resolve(deferred);
   },
+  submitRequest: function(info,controller){
+     console.log('Account request sent: Full Name - '+info.fullName+',Email - '+info.email);
+     Ember.$.ajax({
+        type: "POST",
+        url: "http://localhost:3000/auth/register",
+        data: { name_first: info.first, name_last: info.last, email: info.email, password: info.pass },
+        success : function(data) {
+                    console.log("Account request submission succeeded.");
+                    controller.set('accountRequestFailed',false);
+                    controller.set('accountRequestSucceeded',true);
+                },
+        error: function(){
+          console.log("Account request submission failed.");
+          controller.set('accountRequestSucceeded',false);
+          controller.set('accountRequestFailed',true);
+        }
+      });
+  },
  unapproved: function(input,controller){
     console.log('ask for unapproved w/ role '+input.role+' and token: '+input.token);
     jQuery.ajax(this.host+'users/unapproved',{headers:{'X-Auth-Token':input.token}}).then(

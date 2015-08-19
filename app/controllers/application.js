@@ -1,9 +1,12 @@
 import Ember from 'ember';
+import API from '../api';
 
 export default Ember.Controller.extend({
     isSideBarDisplayed: true,
     lastLoginFailed: false,
     isShowingForm: true,
+    accountRequestSucceeded: false,
+    accountRequestFailed: false,
     role: 'user',
     patientCounter: 0,
     isAdmin: function() {
@@ -11,19 +14,7 @@ export default Ember.Controller.extend({
     }.property('role'),
     actions:{
       accountRequest:function(){
-      var info = this.getProperties('first','last','email','pass');
-      //  alert('Account request sent: Full Name - '+info.fullName+',Email - '+info.email);
-         Ember.$.ajax({
-        type: "POST",
-        url: "http://localhost:3000/auth/register",
-        data: { name_first: info.first, name_last: info.last, email: info.email, password: info.pass },
-        success : function(data) {
-                    console.log("Account request submission succeeded."+data);
-                },
-        error: function(){
-          console.log("Account request submission failed.");
-        }
-      });
+        API.submitRequest(this.getProperties('first','last','email','pass'),this);
       },
       toggleSideBarVisibility:function(){
         this.set('isSideBarDisplayed',false);
@@ -44,6 +35,8 @@ export default Ember.Controller.extend({
         return 5;
       }.property('model', 'patientCounter'),
     toggleLoginForm: function(){
+      this.set('accountRequestSucceeded',false);
+      this.set('accountRequestFailed',false);
       this.toggleProperty('isShowingForm');
     }
     }
