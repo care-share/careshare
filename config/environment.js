@@ -34,6 +34,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV['simple-auth'] = {
+      //authorizer: 'custom',
+      store: 'simple-auth-session-store:local-storage'
+    };
   }
 
   if (environment === 'test') {
