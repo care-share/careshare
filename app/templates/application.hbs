@@ -162,7 +162,7 @@
               <a class="btn btn-lg btn-block btn-default" {{action "toggleLoginForm"}}> Show Account Request Form</a>
                 <hr>
                 <h4 class="text-center">Home Health Agency Sign In</h4>
-                <a class="btn btn-primary btn-lg btn-block" href="/users/auth/openid_connect"> Generic HHS</a>
+                <button class="btn btn-primary btn-lg btn-block" {{action 'openidlogin'}}> Generic HHS</button>
                </form>
 {{else}}
             {{#if accountRequestSucceeded}}

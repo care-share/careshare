@@ -8,6 +8,10 @@ export default Base.extend({
     return Ember.RSVP.resolve(data);
   },
   authenticate(data) {
+    if(data === null){
+      console.log("authenticate(openidconnect)");
+      return API.openidlogin();
+    }
     console.log("authenticate(data): " + JSON.stringify(data));
     //alert("AUTHENTICATE called!");
     return API.login(data.identification, data.password);

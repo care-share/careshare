@@ -4,6 +4,19 @@ import Ember from 'ember';
 
 var API = {
   host: "http://localhost:3000/",
+  openidlogin: function() {
+    var deferred = jQuery.post(this.host+'auth/openidlogin', null).then(
+      function(data) {
+        console.log("data: "+JSON.stringify(data));
+        console.log("token: "+data.data.token);
+        return {token: data.data.token,name_first:data.data.name_first,role:data.data.role,email:data.data.email};
+      },
+      function(error) {
+        return { status: error.statusText, message: error.responseText };
+      }
+    );
+    return Ember.RSVP.resolve(deferred);
+  },
   login: function(username, password) {
     var payload = {
       email: username,
