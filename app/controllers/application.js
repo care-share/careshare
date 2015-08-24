@@ -19,9 +19,9 @@ export default Ember.Controller.extend({
       toggleSideBarVisibility:function(){
         this.set('isSideBarDisplayed',false);
       },
-      openidlogin:function(){
-        console.log("App controller: openidlogin");
-        return this.get('session').authenticate('authenticator:custom', null);
+      openidlogin:function(data){
+        console.log("App controller: openidlogin("+data+")");
+        return this.get('session').authenticate('authenticator:custom', data);
       },
       validate:function(){
         console.log("App controller: validate");

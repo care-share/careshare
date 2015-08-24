@@ -7,10 +7,13 @@ export default Base.extend({
     console.log("restore(data): " + JSON.stringify(data));
     return Ember.RSVP.resolve(data);
   },
+  openidlogin(data){
+    console.log("openidconnect("+data+")");
+  },
   authenticate(data) {
-    if(data === null){
+    if(data != null && data['code'] != null){
       console.log("authenticate(openidconnect)");
-      return API.openidlogin();
+      return API.openidlogin(data['code']);
     }
     console.log("authenticate(data): " + JSON.stringify(data));
     //alert("AUTHENTICATE called!");

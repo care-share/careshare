@@ -4,8 +4,9 @@ import Ember from 'ember';
 
 var API = {
   host: "http://localhost:3000/",
-  openidlogin: function() {
-    var deferred = jQuery.post(this.host+'auth/openidlogin', null).then(
+  openidlogin: function(data) {
+    console.log("openidlogin sent with code: "+data);
+    var deferred = jQuery.post(this.host+'auth/openidlogin', {code:data}).then(
       function(data) {
         console.log("data: "+JSON.stringify(data));
         console.log("token: "+data.data.token);
