@@ -6,7 +6,7 @@ var API = {
   host: "http://localhost:3000/",
   openidlogin: function(data) {
     console.log("openidlogin sent with code: "+data);
-    var deferred = jQuery.post(this.host+'auth/openidlogin', {code:data}).then(
+    var deferred = jQuery.ajax(this.host+'auth/openid?code='+data, null).then(
       function(data) {
         console.log("data: "+JSON.stringify(data));
         console.log("token: "+data.data.token);
