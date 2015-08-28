@@ -108,6 +108,7 @@
                 <td> {{user.origin}} </td>
                   <td>
                    <button {{action 'changeRole' user.email user.role}}>Change role</button>
+                   <button {{action 'deny' user.email}}>Remove</button>
                  </td>
                 </tr>  
                   {{else}}
