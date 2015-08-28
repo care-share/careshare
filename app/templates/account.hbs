@@ -106,10 +106,14 @@
                 <td> {{user.email}} </td>
                 <td> {{user.role}} </td>
                 <td> {{user.origin}} </td>
-                  <td>
-                   <button {{action 'changeRole' user.email user.role}}>Change role</button>
-                   <button {{action 'deny' user.email}}>Remove</button>
-                 </td>
+                {{#if (not-eq user.email session.secure.email)}}
+                    <td>
+                     <button {{action 'changeRole' user.email user.role}}>Change role</button>
+                     <button {{action 'deny' user.email}}>Remove</button>
+                   </td>
+                   {{else}}
+                    <td>[Current User]</td>
+                 {{/if}}
                 </tr>  
                   {{else}}
             Didn't find any approved users.
