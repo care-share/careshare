@@ -82,6 +82,13 @@
                   <a class="desc">&darr;</a>
                 </div>
               </th> 
+              <th class="origin">
+                Origin
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th> 
               <th class="change"></th>
             </tr>
           </thead>
@@ -90,6 +97,7 @@
                 <tr> <td>{{user.name_last}}, {{user.name_first}} </td>
                 <td> {{user.email}} </td>
                 <td> {{user.role}} </td>
+                <td> {{user.origin}} </td>
                   <td>
                    <button {{action 'changeRole' user.email user.role}}>Change role</button>
                  </td>

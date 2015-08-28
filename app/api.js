@@ -3,7 +3,7 @@
 import Ember from 'ember';
 
 var API = {
-  host: "http://localhost:3000/",
+  host: "http://horseman.mitre.org:3000/",
   openidlogin: function(data) {
     console.log("openidlogin sent with code: "+data);
     var deferred = jQuery.ajax(this.host+'auth/openid?code='+data, null).then(
