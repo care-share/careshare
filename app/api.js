@@ -56,7 +56,7 @@ var API = {
   },
   approved: function(input,controller){
     console.log('ask for all approved users w/ token: '+input.token);
-    var email = input.email;
+    //var email = input.email;
     jQuery.ajax(this.host+'users/approved',{headers:{'X-Auth-Token':input.token}}).then(
     function(response){
       console.log("APPROVED: "+JSON.stringify(response.data));
