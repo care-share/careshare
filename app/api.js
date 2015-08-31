@@ -40,7 +40,7 @@ var API = {
      console.log('Account request sent: Full Name - '+info.fullName+',Email - '+info.email);
      Ember.$.ajax({
         type: "POST",
-        url: "http://localhost:3000/auth/register",
+        url: this.host+'auth/register',
         data: { name_first: info.first, name_last: info.last, email: info.email, password: info.pass },
         success : function() {
                     console.log("Account request submission succeeded.");
