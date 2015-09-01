@@ -21,11 +21,36 @@ module.exports = function(environment) {
         // e.g. 'with-controller': true
       }
     },
-
+    exportApplicationGlobal: true, // needed to instruct "ember-export-application-global" to export "APP"
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+  };
+
+  ENV.APP.apiUrl = 'http://localhost:3001';
+  if (process.env.domain) {
+    // compute the API URL from CareShare environment variables
+    // only "domain" is required, "use_tls" and "port" are optional (will default to "false" and "80", respectively)
+    var proto;
+    if (process.env.use_tls == 'true')
+      proto = 'https';
+    else
+      proto = 'http';
+
+    var port = process.env.port;
+    if ((port == '80' && proto === 'http') || (port == '443' && proto === 'https') || port == '' || port == undefined)
+        port = '';
+    else
+        port = ':' + port;
+
+    ENV.APP.apiUrl = proto + '://api.' + process.env.domain + port;
+  }
+
+  ENV['simple-auth'] = {
+    authorizer: 'authorizer:custom',
+    store: 'simple-auth-session-store:local-storage',
+    crossOriginWhitelist: [ENV.APP.apiUrl]
   };
 
   if (environment === 'development') {
@@ -34,10 +59,6 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV['simple-auth'] = {
-      //authorizer: 'custom',
-      store: 'simple-auth-session-store:local-storage'
-    };
   }
 
   if (environment === 'test') {

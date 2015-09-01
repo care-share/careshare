@@ -16,8 +16,15 @@ RUN npm -g install bower
 # install the ember-cli binary
 RUN npm -g install ember-cli@1.13.1 --unsafe-perm
 
-# install the phantomjs binary
-RUN npm -g install phantomjs
+# install the phantomjs binary manually, since the npm method fails on too many edge cases
+RUN \
+    mkdir -p /tmp/ &&\
+    wget --no-check-certificate -P /tmp/ https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2
+RUN \
+    tar -xjf /tmp/phantomjs-1.9.8-linux-x86_64.tar.bz2 -C /tmp/ &&\
+    mv /tmp/phantomjs-1.9.8-linux-x86_64/bin/phantomjs /usr/local/bin/ &&\
+    rm -rf /tmp/phantomjs-1.9.8-linux-x86_64*
+#RUN npm -g install phantomjs --phantomjs_cdnurl=http://cnpmjs.org/downloads
 
 # install watchman
 RUN \
@@ -47,5 +54,5 @@ RUN ember build
 ENTRYPOINT ["/usr/local/bin/ember"]
 
 # default command: start the server
-CMD ["serve", "--proxy", "http://fhirtest.uhn.ca/baseDstu2"]
+CMD ["serve", "--proxy", "http://fhir.vacareshare.org"]
 

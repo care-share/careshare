@@ -30,6 +30,13 @@
                   <a class="desc">&darr;</a>
                 </div>
               </th> 
+              <th class="origin">
+                Origin
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th> 
               <th class="approval"></th>
             </tr>
           </thead>
@@ -38,6 +45,7 @@
                 <tr> <td>{{user.name_last}}, {{user.name_first}} </td>
                 <td> {{user.email}} </td>
                 <td> {{user.role}} </td>
+                <td> {{user.origin}} </td>
                 <td>
                   <button {{action 'approve' user.email}}>Approve</button>
                   <button {{action 'deny' user.email}}>Deny</button>
@@ -82,6 +90,13 @@
                   <a class="desc">&darr;</a>
                 </div>
               </th> 
+              <th class="origin">
+                Origin
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th> 
               <th class="change"></th>
             </tr>
           </thead>
@@ -90,9 +105,15 @@
                 <tr> <td>{{user.name_last}}, {{user.name_first}} </td>
                 <td> {{user.email}} </td>
                 <td> {{user.role}} </td>
-                  <td>
-                   <button {{action 'changeRole' user.email user.role}}>Change role</button>
-                 </td>
+                <td> {{user.origin}} </td>
+                {{#if (not-eq user.email session.secure.email)}}
+                    <td>
+                     <button {{action 'changeRole' user.email user.role}}>Change role</button>
+                     <button {{action 'deny' user.email}}>Remove</button>
+                   </td>
+                   {{else}}
+                    <td>[Current User]</td>
+                 {{/if}}
                 </tr>  
                   {{else}}
             Didn't find any approved users.

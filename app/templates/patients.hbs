@@ -41,13 +41,10 @@
              <tbody>
                {{#each patient in filteredContent}}
                 <tr class="">
-                  <td class="fullName">{{patient.fullName}}</td>
-                  <td class="birthDate">{{patient.birthDate}}</td>
-                 <!-- <td class="provider">
-                    {{#each ref in patient.careProvider}}
-                       (ref.reference,ref.display),
-                    {{else}} No care providers found.{{/each}}
-                  </td>-->
+                  {{#each name in patient.name}}
+                    <td class="fullName">{{name.given}},{{name.family}}</td>
+                    <td class="birthDate">{{patient.birthDate}}</td>
+                  {{/each}}
                 </tr>
                   {{else}}
             Didn't find any patients.

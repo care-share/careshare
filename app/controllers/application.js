@@ -2,12 +2,15 @@ import Ember from 'ember';
 import API from '../api';
 
 export default Ember.Controller.extend({
+    apiUrl: window.Careshare.apiUrl,
     isSideBarDisplayed: true,
     lastLoginFailed: false,
     isShowingForm: true,
     accountRequestSucceeded: false,
     accountRequestFailed: false,
     role: 'user',
+    errorMessage: 'An unknown error occurred.',
+    errorType: 'alert-danger',
     patientCounter: 0,
     isAdmin: function() {
         return this.get('session').get('secure').role === 'admin';
@@ -18,6 +21,10 @@ export default Ember.Controller.extend({
       },
       toggleSideBarVisibility:function(){
         this.set('isSideBarDisplayed',false);
+      },
+      openidlogin:function(data){
+        console.log("App controller: openidlogin("+data+")");
+        return this.get('session').authenticate('authenticator:custom', data);
       },
       validate:function(){
         console.log("App controller: validate");

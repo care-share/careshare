@@ -139,8 +139,8 @@
             <div class="sign-container">
             <div class="alert alert-error alert-icon"> Your session expired. Please sign in again to continue. </div>
             {{#if lastLoginFailed}}
-              <div class="alert alert-danger">
-              <strong>Invalid username or password!</strong> Please try again or contact your system administrator.
+              <div class="alert {{errorType}}">
+              <strong>{{errorMessage}}</strong> Please try again or contact your system administrator.
               </div>
             {{/if}}
 
@@ -162,7 +162,7 @@
               <a class="btn btn-lg btn-block btn-default" {{action "toggleLoginForm"}}> Show Account Request Form</a>
                 <hr>
                 <h4 class="text-center">Home Health Agency Sign In</h4>
-                <a class="btn btn-primary btn-lg btn-block" href="/users/auth/openid_connect"> Generic HHS</a>
+                <a class="btn btn-primary btn-lg btn-block" href="{{apiUrl}}/auth/openid"> Generic HHS</a>
                </form>
 {{else}}
             {{#if accountRequestSucceeded}}
