@@ -47,5 +47,5 @@ RUN ember build
 ENTRYPOINT ["/usr/local/bin/ember"]
 
 # default command: start the server
-CMD ["serve", "--proxy", "http://fhirtest.uhn.ca/baseDstu2"]
+CMD ["serve", "--proxy", "http://fhir.vacareshare.org"]
 
