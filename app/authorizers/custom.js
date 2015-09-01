@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Base from 'simple-auth/authorizers/base';
-import API from '../api';
 
 export default Base.extend({
     /**
@@ -13,7 +12,7 @@ export default Base.extend({
      @param {jqXHR} jqXHR The XHR request to authorize (see http://api.jquery.com/jQuery.ajax/#jqXHR)
      @param {Object} requestOptions The options as provided to the `$.ajax` method (see http://api.jquery.com/jQuery.ajaxPrefilter/)
      */
-    authorize(jqXHR, requestOptions){
+    authorize(jqXHR){
         var accessToken = this.get('session.secure.token');
         if (this.get('session.isAuthenticated') && !Ember.isEmpty(accessToken)) {
             jqXHR.setRequestHeader('X-Auth-Token', accessToken);
