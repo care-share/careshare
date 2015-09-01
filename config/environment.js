@@ -32,15 +32,19 @@ module.exports = function(environment) {
   if (process.env.domain) {
     // compute the API URL from CareShare environment variables
     // only "domain" is required, "use_tls" and "port" are optional (will default to "false" and "80", respectively)
-    var protocol;
+    var proto;
     if (process.env.use_tls == 'true')
-      protocol = 'https';
+      proto = 'https';
     else
-      protocol = 'http';
-    var port = '';
-    if (process.env.port && process.env.port !== 80 && process.env.port !== 443)
-      port = ':' + process.env.port;
-    ENV.APP.apiUrl = protocol + '://api.' + process.env.domain + port;
+      proto = 'http';
+
+    var port = process.env.port;
+    if ((port == '80' && proto === 'http') || (port == '443' && proto === 'https') || port == '' || port == undefined)
+        port = '';
+    else
+        port = ':' + port;
+
+    ENV.APP.apiUrl = proto + '://api.' + process.env.domain + port;
   }
 
   ENV['simple-auth'] = {
