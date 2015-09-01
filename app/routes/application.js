@@ -3,6 +3,13 @@ import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
 
 // actions are defined at: http://ember-simple-auth.com/ember-simple-auth-api-docs.html#SimpleAuth-ApplicationRouteMixin
 export default Ember.Route.extend(ApplicationRouteMixin, {
+  setupController: function(controller){
+      console.log('isOpenID: '+window.Careshare.isOpenID);
+      if(window.Careshare.isOpenID)
+        controller.set('signInType','signin-openid');
+      else
+        controller.set('signInType','signin');
+  },
   actions: {
     queryParamsDidChange: function(params){
         if(params != null && params['code'] != null){

@@ -12743,6 +12743,18 @@ body {
   background-color: rgba(52, 171, 179, 0.9);
 }
 
+.signin-openid:before,
+.signup-openid:before,
+.recover-openid:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  content: '';
+  background-color: rgba(171, 171, 179, 0.9);
+}
+
 /* line 807, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/main.scss */
 .signup:before {
   background-color: rgba(42, 43, 38, 0.9);
