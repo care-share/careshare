@@ -37,18 +37,19 @@ var PatientsController = Ember.ArrayController.extend({
   filteredContent: function(){
     var filter = this.get('filterText');
     var rx = new RegExp(filter, 'gi');
-    var patients = this.get('content');
 
-    var returnedArr = patients.filter(function(patient) {
-      console.log('patient:'+patient.get('fullName'));
-      if(patient.get('fullName') != null){
-      return patient.get('fullName').toString().match(rx);
+    var returnedArr = this.get('content').filter(function(patient) {
+      if(patient.get('name') !== null){      
+        var thisPatient = patient.get('name').objectAt(0);
+        var fullName = thisPatient.get('given')+','+thisPatient.get('family');
+        console.log('patient:'+fullName);
+        return fullName.match(rx);
       }
     });
+    
     var sortedArr = returnedArr.sort(function(a,b){
-      console.log(a.get('name').get('firstObject').family+
-                  ","+b.get('name').get('firstObject').family);
-      return a.get('name').get('firstObject').family-b.get('name').get('firstObject').family;
+      console.log(a.get('name').objectAt(0).get('family')+";"+b.get('name').objectAt(0).get('family'));
+      return a.get('name').objectAt(0).get('family')-b.get('name').objectAt(0).get('family');
     });
     return sortedArr;
   }.property('model', 'filterText')
