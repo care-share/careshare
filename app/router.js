@@ -8,7 +8,6 @@ var Router = Ember.Router.extend({
 export default Router.map(function() {
   this.route('dashboard');
   this.route('login');
-  this.route('openid');
   this.resource('account',{path:'/account'});
   this.resource('patients',{path:'/patients'});
 });

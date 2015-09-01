@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
     accountRequestSucceeded: false,
     accountRequestFailed: false,
     role: 'user',
+    errorMessage: 'An unknown error occurred.',
+    errorType: 'alert-danger',
     patientCounter: 0,
     isAdmin: function() {
         return this.get('session').get('secure').role === 'admin';

@@ -139,8 +139,8 @@
             <div class="sign-container">
             <div class="alert alert-error alert-icon"> Your session expired. Please sign in again to continue. </div>
             {{#if lastLoginFailed}}
-              <div class="alert alert-danger">
-              <strong>Invalid username or password!</strong> Please try again or contact your system administrator.
+              <div class="alert {{errorType}}">
+              <strong>{{errorMessage}}</strong> Please try again or contact your system administrator.
               </div>
             {{/if}}
 
