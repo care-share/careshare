@@ -2,6 +2,7 @@ import Ember from 'ember';
 import API from '../api';
 
 export default Ember.Controller.extend({
+    apiUrl: window.Careshare.apiUrl,
     isSideBarDisplayed: true,
     lastLoginFailed: false,
     isShowingForm: true,
