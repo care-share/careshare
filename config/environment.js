@@ -33,7 +33,7 @@ module.exports = function(environment) {
     // compute the API URL from CareShare environment variables
     // only "domain" is required, "use_tls" and "port" are optional (will default to "false" and "80", respectively)
     var protocol;
-    if (process.env.use_tls)
+    if (process.env.use_tls == 'true')
       protocol = 'https';
     else
       protocol = 'http';
