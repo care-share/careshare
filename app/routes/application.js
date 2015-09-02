@@ -5,10 +5,14 @@ import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
 export default Ember.Route.extend(ApplicationRouteMixin, {
   setupController: function(controller){
       console.log('is_openid: '+window.Careshare.is_openid);
-      if(window.Careshare.is_openid)
+      if(window.Careshare.is_openid){
         controller.set('signInType','signin-openid');
-      else
+        controller.set('showOpenID',true);
+      }
+      else{
         controller.set('signInType','signin');
+        controller.set('showOpenID',false);
+      }
   },
   actions: {
     queryParamsDidChange: function(params){

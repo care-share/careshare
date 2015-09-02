@@ -14,6 +14,7 @@ export default Ember.Controller.extend({
     errorType: 'alert-danger',
     patientCounter: 0,
     signInType: 'signin',
+    showOpenID: false,
     isAdmin: function() {
         return this.get('session').get('secure').role === 'admin';
     }.property('role'),

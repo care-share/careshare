@@ -12730,6 +12730,16 @@ body {
   background-size: cover;
 }
 
+.signin-openid,
+.signup-openid,
+.recover-openid {
+  background: url(/assets/bg-signin.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 /* line 798, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/main.scss */
 .signin:before,
 .signup:before,
