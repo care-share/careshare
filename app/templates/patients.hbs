@@ -28,6 +28,9 @@
                   <a class="desc">&darr;</a>
                 </div>
               </th>
+              <th >
+                Link
+              </th>
              <!-- <th class="provider">
                 Care Provider(s)
                 <div class="order pull-left">
@@ -43,6 +46,7 @@
                 <tr class="">
                   <td class="fullName">{{patient.fullName}}</td>
                   <td class="birthDate">{{patient.birthDate}}</td>
+                  <td>{{#link-to 'patient.init' patient}}edit{{/link-to}}</td>
                  <!-- <td class="provider">
                     {{#each ref in patient.careProvider}}
                        (ref.reference,ref.display),
