@@ -20,3 +20,8 @@ testem.log
 *~
 [#]*[#]
 [.][#]*
+
+# Ignore IDEA files:
+.idea/
+*.iml
+

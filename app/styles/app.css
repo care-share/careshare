@@ -14,24 +14,7 @@
  * 	- danger: alizarin - #e74c3c;
  */
 /* Button icon */
-@import url("./skins/minimal/_all.css");
-@import url("./skins/square/_all.css");
-@import url("./skins/flat/_all.css");
-@import url("./skins/line/_all.css");
-@import url("./skins/polaris/polaris.css");
-@import url("./skins/futurico/futurico.css");
-@import url("http://fonts.googleapis.com/css?family=Raleway:400");
-@import url("main.css");
-@import url("main-large-desktop.css");
-@import url("main-desktop.css");
-@import url("main-tablet.css");
-@import url("main-phone.css");
-@import url("helper.css");
-@import url("typography.css");
-@import url("buttons.css");
-@import url("components.css");
-@import url("forms.css");
-@import url("rural-health-admin-theme-default.css");
+
 /* line 13, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/buttons.scss */
 .btn-icon,
 .btn-icon:focus {
@@ -15316,7 +15299,7 @@ a {
 @font-face {
   font-family: "Ionicons";
   src: url(/assets/ionicons.eot?v=2.0.0);
-  src: url(/assets/ionicons.eot?v=2.0.0#iefix) format("embedded-opentype"), url(/assets/ionicons.ttf?v=2.0.0) format("truetype"), url(/assets/ionicons.woff?v=2.0.0) format("woff"), url(/assets/ionicons.svg?v=2.0.0#Ionicons) format("svg");
+  src: url(/assets/ionicons.eot?v=2.0.0#iefix) format("embedded-opentype"), url(/assets/ionicons.svg?v=2.0.0#Ionicons) format("svg");
   font-weight: normal;
   font-style: normal;
 }

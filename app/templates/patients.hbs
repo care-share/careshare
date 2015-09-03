@@ -46,12 +46,11 @@
                 <tr class="">
                   <td class="fullName">{{patient.fullName}}</td>
                   <td class="birthDate">{{patient.birthDate}}</td>
+                  {{#each name in patient.name}}
+                    <td class="fullName">{{name.given}},{{name.family}}</td>
+                    <td class="birthDate">{{patient.birthDate}}</td>
+                  {{/each}}
                   <td>{{#link-to 'patient.init' patient}}edit{{/link-to}}</td>
-                 <!-- <td class="provider">
-                    {{#each ref in patient.careProvider}}
-                       (ref.reference,ref.display),
-                    {{else}} No care providers found.{{/each}}
-                  </td>-->
                 </tr>
                   {{else}}
             Didn't find any patients.
