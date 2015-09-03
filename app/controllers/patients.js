@@ -13,7 +13,8 @@ var PatientsController = Ember.ArrayController.extend({
       });
       var patient = this.store.createRecord('patient', {
 	  name: [name],
-	  birthDate: new Date()
+	  birthDate: new Date(),
+	  active: true
       });
 
       // Clear the text fields
