@@ -3,7 +3,13 @@ Identifiers:<br>
 <ul>
 {{#each identifier in goal.identifier}}
   <li>Use: {{identifier.use}}</li>
-  <li>Type: {{identifier.type}}</li>
+  <li>
+    Type:
+    <ul>
+      <li>Text: {{identifier.type.text}}</li>
+      <li>Coding:</li> {{show-coding coding=identifier.type.coding}}
+    </ul>
+  </li>
   <li>System: {{identifier.system}}</li>
   <li>Value: {{identifier.value}}</li>
   <li>Period: {{identifier.period}}</li>
