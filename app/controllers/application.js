@@ -3,6 +3,7 @@ import API from '../api';
 
 export default Ember.Controller.extend({
     apiUrl: window.Careshare.apiUrl,
+    isOpenID: window.Careshare.isOpenID,
     isSideBarDisplayed: true,
     lastLoginFailed: false,
     isShowingForm: true,
@@ -12,6 +13,8 @@ export default Ember.Controller.extend({
     errorMessage: 'An unknown error occurred.',
     errorType: 'alert-danger',
     patientCounter: 0,
+    signInType: 'signin',
+    showOpenID: false,
     isAdmin: function() {
         return this.get('session').get('secure').role === 'admin';
     }.property('role'),
