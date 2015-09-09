@@ -1,0 +1,23 @@
+
+Identifiers:<br>
+<ul>
+{{#each identifier in goal.identifier}}
+  <li>Use: {{identifier.use}}</li>
+  <li>Type: {{identifier.type}}</li>
+  <li>System: {{identifier.system}}</li>
+  <li>Value: {{identifier.value}}</li>
+  <li>Period: {{identifier.period}}</li>
+  <li>Assigner: {{identifier.assigner}}</li>
+{{/each}}
+</ul>
+Patient: {{goal.patient}}<br>
+Target Date: {{goal.targetDate}}<br>
+Description: {{goal.description}}<br>
+Status: {{goal.status}}<br>
+Status Date: {{goal.statusDate}}<br>
+Author:{{goal.author}}<br>
+Priority: {{goal.priority}}<br>
+Concern: {{goal.concern}}<br>
+Notes: {{goal.notes}}<br>
+Outcome: {{goal.outcome}}<br>
+<hr><br>
