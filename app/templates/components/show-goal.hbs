@@ -1,29 +1,14 @@
-
-Identifiers:<br>
-<ul>
-{{#each identifier in goal.identifier}}
-  <li>Use: {{identifier.use}}</li>
-  <li>
-    Type:
-    <ul>
-      <li>Text: {{identifier.type.text}}</li>
-      <li>Coding:</li> {{show-coding coding=identifier.type.coding}}
-    </ul>
-  </li>
-  <li>System: {{identifier.system}}</li>
-  <li>Value: {{identifier.value}}</li>
-  <li>Period: {{identifier.period}}</li>
-  <li>Assigner: {{identifier.assigner}}</li>
-{{/each}}
-</ul>
-Patient: {{goal.patient}}<br>
-Target Date: {{goal.targetDate}}<br>
-Description: {{goal.description}}<br>
-Status: {{goal.status}}<br>
-Status Date: {{goal.statusDate}}<br>
-Author:{{goal.author}}<br>
-Priority: {{goal.priority}}<br>
-Concern: {{goal.concern}}<br>
-Notes: {{goal.notes}}<br>
-Outcome: {{goal.outcome}}<br>
-<hr><br>
+<hr>
+<h3>Goal {{goal.id}}</h3>
+{{#if goal.identifier}} Identifiers:<br>{{show-identifier identifiers=goal.identifier}} {{/if}}
+{{#if goal.patient}} Patient: {{goal.patient}}<br> {{/if}}
+{{#if goal.targetDate}} Target Date: {{goal.targetDate}}<br> {{/if}}
+{{#if goal.description}} Description: {{goal.description}}<br> {{/if}}
+{{#if goal.status}} Status: {{goal.status}}<br> {{/if}}
+{{#if goal.statusDate}} Status Date: {{goal.statusDate}}<br> {{/if}}
+{{#if goal.author}} Author:{{goal.author}}<br> {{/if}}
+{{#if goal.priority}} Priority: {{show-codeable codeable=goal.priority}}<br> {{/if}}
+{{#if goal.concern}} Concern: {{goal.concern}}<br> {{/if}}
+{{#if goal.notes}} Notes: {{goal.notes}}<br> {{/if}}
+{{#if goal.outcome}} Outcome: {{goal.outcome}}<br> {{/if}}
+<hr>

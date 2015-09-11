@@ -1,0 +1,18 @@
+  <ul>
+  {{#each identifier in identifiers}}
+    <li>Use: {{identifier.use}}</li>
+    <li>
+      Type:
+      <ul>
+        {{#if identifier.type.text}}<li>Text: {{identifier.type.text}}</li>{{/if}}
+        {{#if identifier.type.coding}}{{show-coding coding=identifier.type.coding}}{{/if}}
+      </ul>
+    </li>
+    {{#if identifier.system}} <li>System: {{identifier.system}}</li> {{/if}}
+    {{#if identifier.value}} <li>Value: {{identifier.value}}</li> {{/if}}
+    {{#if identifier.period}} 
+      <li>Period: from {{identifier.period.start}} to {{identifier.period.end}}</li> 
+    {{/if}}
+    {{#if identifier.assigner}} <li>Assigner: {{identifier.assigner}}</li> {{/if}}
+  {{/each}}
+  </ul>
