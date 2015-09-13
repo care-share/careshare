@@ -4,11 +4,33 @@
 {{#if goal.patient}} Patient: {{goal.patient}}<br> {{/if}}
 {{#if goal.targetDate}} Target Date: {{goal.targetDate}}<br> {{/if}}
 {{#if goal.description}} Description: {{goal.description}}<br> {{/if}}
-{{#if goal.status}} Status: {{goal.status}}<br> {{/if}}
+{{#if goal.status}} 
+  Status:
+  {{#if isEditing}} 
+    {{input type='text' value=goal.status insert-newline='saveItem' autofocus="autofocus"}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem' goal.status}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+    <u {{action 'editItem' goal on='doubleClick'}}>{{goal.status}}</u> 
+    <button class='ion-edit' {{action 'editItem' goal}}/>
+  {{/if}} 
+  <br>
+{{else}}
+  {{#if isEditing}} 
+    Status: 
+    {{input type='text' value=goal.status insert-newline='saveItem' autofocus="autofocus"}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem' goal.status}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+    <button class='ion-plus' {{action 'editItem' goal}}> Add status</button> 
+  {{/if}}
+  <br>
+{{/if}}
 {{#if goal.statusDate}} Status Date: {{goal.statusDate}}<br> {{/if}}
 {{#if goal.author}} Author:{{goal.author}}<br> {{/if}}
 {{#if goal.priority}} Priority: {{show-codeable codeable=goal.priority}}<br> {{/if}}
 {{#if goal.concern}} Concern: {{goal.concern}}<br> {{/if}}
 {{#if goal.notes}} Notes: {{goal.notes}}<br> {{/if}}
-{{#if goal.outcome}} Outcome: {{goal.outcome}}<br> {{/if}}
 <hr>
