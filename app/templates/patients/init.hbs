@@ -4,6 +4,6 @@ Patient name:                   {{#each name in name}}
 
 <ul>Problems
 {{#each condition in conditions}}
-  <li> {{condition.code.coding.display}} </li>
+  <li> {{condition.displayName}} </li>
 {{/each}}
 </ul>
