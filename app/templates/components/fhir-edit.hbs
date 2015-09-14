@@ -1,22 +1,22 @@
 {{#if (not attribute)}}
   {{name}}:
   {{#if isEditing}} 
-    {{input type='text' value=attribute insert-newline='saveItem' autofocus="autofocus"}}
+    {{input value=attribute insert-newline='saveItem'}}
     <button class='ion-close' {{action 'cancel'}}/>
-    <button class='ion-checkmark' {{action 'saveItem' attribute}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
     <button class='ion-trash-b' {{action 'removeItem'}}/>
   {{else}}
-    <button class='ion-plus' {{action 'editItem' element attribute name}}> Add {{name}}</button> 
+    <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button> 
   {{/if}}
 {{else}}
   {{name}}:
   {{#if isEditing}} 
-    {{input type='text' value=attribute insert-newline='saveItem' autofocus="autofocus"}}
+    {{input value=attribute insert-newline='saveItem'}}
     <button class='ion-close' {{action 'cancel'}}/>
-    <button class='ion-checkmark' {{action 'saveItem' attribute}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
     <button class='ion-trash-b' {{action 'removeItem'}}/>
   {{else}}
-    <u {{action 'editItem' goal on='doubleClick'}}>{{attribute}}</u> 
-    <button class='ion-edit' {{action 'editItem' element attribute name}}/>
+    <u {{action 'editItem' element attribute name on='doubleClick'}}>{{attribute}}</u> 
+    <button class='ion-edit' {{action 'editItem'}}/>
   {{/if}} 
 {{/if}}
