@@ -1,0 +1,67 @@
+{{outlet}}
+
+<div>
+ <label>Name:</label>
+ {{input type="text" value=filterText placeholder="Enter patient name"}}
+ <!--TODO: use 'name' to search for patient info as an initial test-->
+</div>
+<br>
+    <div class="col-sm-12">
+      <div class="panel panel-dlefault">
+        <div class="panel-heading">
+            <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+            <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)</h3>
+        </div>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>  
+              <th class="fullName">
+                Full Name
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th> 
+              <th class="birthDate">
+                Birth Date
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th>
+              <th >
+                Link
+              </th>
+             <!-- <th class="provider">
+                Care Provider(s)
+                <div class="order pull-left">
+                  <a class="asc">&uarr;</a>
+                  <a class="desc">&darr;</a>
+                </div>
+              </th>-->
+            </tr>
+          </thead>
+          
+             <tbody>
+               {{#each patient in filteredContent}}
+                <tr class="">
+                  {{#each name in patient.name}}
+                    <td class="fullName">{{name.given}},{{name.family}}</td>
+                    <td class="birthDate">{{patient.birthDate}}</td>
+                  {{/each}}
+                  <td>{{#link-to 'patients.init' patient}}edit{{/link-to}}</td>
+                </tr>
+                  {{else}}
+            Didn't find any patients.
+               {{/each}}
+            </tbody>
+          </table>
+
+          <h4>Create new patient:</h4>
+ <label>Given name:</label>
+ {{input type="text" value=givenName placeholder="Enter patient name" action="createPatient"}}
+ <label>Family name:</label>
+ {{input type="text" value=familyName placeholder="Enter patient name" action="createPatient"}}
+        </div>
+      </div>

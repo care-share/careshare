@@ -9,7 +9,7 @@ export default Router.map(function() {
   this.route('dashboard');
   this.route('login');
   this.resource('account',{path:'/account'});
-  this.resource('patients',{path:'/patients'}, function() {
+  this.resource('patients', function() {
     this.route("init", { path: "/:patient_id/init" });
   });
 });

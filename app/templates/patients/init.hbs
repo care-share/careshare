@@ -1,2 +1,9 @@
-Problems:
-{{each condition 
+Patient name:                   {{#each name in name}}
+                    <span>{{name.given}},{{name.family}}</span>
+                  {{/each}}
+
+<ul>Problems
+{{#each condition in conditions}}
+  <li> {{condition.code.coding.display}} </li>
+{{/each}}
+</ul>
