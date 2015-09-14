@@ -36,18 +36,4 @@ Handlebars.helper('is-admin', function(value) {
   return value === 'admin';
 });
 
-/*App.ShowGoalComponent = Ember.Component.extend({
-  isEditing:false,
-  value:'Test',
-  actions:{
-    editItem: function() {
-      this.set('isEditing',true);
-    },
-    saveItem: function(key){
-      this.set('value',key);
-      this.set('isEditing',false);
-    }
-  }
-});*/
-
 export default App;
