@@ -29,6 +29,7 @@ module.exports = function(environment) {
   };
 
   ENV.APP.apiUrl = 'http://localhost:3001';
+
   if (process.env.domain) {
     // compute the API URL from CareShare environment variables
     // only "domain" is required, "use_tls" and "port" are optional (will default to "false" and "80", respectively)
@@ -46,6 +47,9 @@ module.exports = function(environment) {
 
     ENV.APP.apiUrl = proto + '://api.' + process.env.domain + port;
   }
+
+  if (process.env.is_openid == 'true')
+    ENV.APP.is_openid = true;
 
   ENV['simple-auth'] = {
     authorizer: 'authorizer:custom',
