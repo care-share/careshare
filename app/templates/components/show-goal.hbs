@@ -4,7 +4,9 @@
 {{#if goal.patient}} Patient: {{goal.patient}}<br> {{/if}}
 {{#if goal.targetDate}} Target Date: {{goal.targetDate}}<br> {{/if}}
 {{fhir-edit name='description' element=goal attribute=goal.description}}
-{{fhir-edit name='status' element=goal attribute=goal.status}}
+{{fhir-choice name='status' element=goal attribute=goal.status
+  choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
+}}
 {{#if goal.statusDate}} Status Date: {{goal.statusDate}}<br> {{/if}}
 {{#if goal.author}} Author:{{goal.author}}<br> {{/if}}
 {{#if goal.priority}} Priority: {{show-codeable codeable=goal.priority}}<br> {{/if}}
