@@ -1,9 +1,42 @@
+<div class="col-sm-12" >
+<h3>Creating a new care plan for:</h3>
+</div>
+<div class="col-sm-12" style="border-width:2px; border-style:dashed; border-color:#ccc">
+
+<h3>
+PLACEHOLDER FOR PATIENT INFO BANNER
+<br/>
 Patient name:                   {{#each name in name}}
                     <span>{{name.given}},{{name.family}}</span>
                   {{/each}}
+</h3>
+</div>
+
+<div class="col-sm-12">
 <br/>
-Problems:
-{{multiselect-checkboxes options=conditions selection=selectedConditions labelProperty='displayName'}}
+<br/>
+<h4>Which concerns are relevant to this care plan?</h4>
+{{multiselect-checkboxes options=conditions labelProperty='displayName'}}
+
+
+<h4>Functional limitations</h4>
+<ul>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}} Amputation</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationIncontinence" checked=limitationIncontinence}} Bowel/Bladder (Incontinence)</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationContracture" checked=limitationContracture}} Contracture</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationHearing" checked=limitationHearing}} Hearing</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationParalysis" checked=limitationParalysis}} Paralysis</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationEndurance" checked=limitationEndurance}} Endurance</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationAmbulation" checked=limitationAmbulation}} Ambulation</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationSpeech" checked=limitationSpeech}} Speech</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationLegallyBlind" checked=limitationLegallyBlind}} Legally Blind</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationDyspneaWithMinimalExertion" checked=limitationDyspneaWithMinimalExertion}} Dyspnea With Minimal Exertion</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}} Amputation</label></li>
+<li class="col-md-5"><label>Other: {{input type="text" name="limitationOther"}}</label></li>
+</ul>
+
+</div>
+
 
 <br/>
 <br/>
