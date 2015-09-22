@@ -7,10 +7,9 @@
 {{fhir-choice name='status' element=goal attribute=goal.status
   choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
 }}
-{{#if goal.statusDate}} Status Date: {{goal.statusDate}}<br> {{/if}}
+{{fhir-date name='statusDate' element=goal attribute=goal.statusDate}}
 {{#if goal.author}} Author:{{goal.author}}<br> {{/if}}
 {{#if goal.priority}} Priority: {{show-codeable codeable=goal.priority}}<br> {{/if}}
 {{#if goal.concern}} Concern: {{goal.concern}}<br> {{/if}}
 {{#if goal.notes}} Notes: {{goal.notes}}<br> {{/if}}
-{{bs-datetimepicker date=date2}}
 <hr>

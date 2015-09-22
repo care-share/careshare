@@ -1,0 +1,26 @@
+{{#if (not attribute)}}
+  {{name}}:
+  {{#if isEditing}} 
+    {{#bs-datetimepicker date=date1 pickTime=false showToday=false format="YYYY-MM-DD"}}
+      {{input class='ember-view ember-text-field form-control' value=attribute insert-newline='saveItem'}}
+    {{/bs-datetimepicker}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+    <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button> 
+  {{/if}}
+{{else}}
+  {{name}}:
+  {{#if isEditing}} 
+    {{#bs-datetimepicker date=date1 pickTime=false showToday=false format="YYYY-MM-DD"}}
+      {{input class='ember-view ember-text-field form-control' value=attribute insert-newline='saveItem'}}
+    {{/bs-datetimepicker}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+    <u {{action 'editItem' element attribute name on='doubleClick'}}>{{date1}}</u> 
+    <button class='ion-edit' {{action 'editItem'}}/>
+  {{/if}} 
+{{/if}}
