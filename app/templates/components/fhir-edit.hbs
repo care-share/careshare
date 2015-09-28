@@ -1,0 +1,22 @@
+{{#if (not attribute)}}
+  {{name}}:
+  {{#if isEditing}} 
+    {{input value=attribute insert-newline='saveItem'}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+    <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button> 
+  {{/if}}
+{{else}}
+  {{name}}:
+  {{#if isEditing}} 
+    {{input value=attribute insert-newline='saveItem'}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+    <u {{action 'editItem' element attribute name on='doubleClick'}}>{{attribute}}</u> 
+    <button class='ion-edit' {{action 'editItem'}}/>
+  {{/if}} 
+{{/if}}

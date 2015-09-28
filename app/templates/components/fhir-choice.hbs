@@ -1,0 +1,48 @@
+{{#if (not attribute)}}
+{{name}}:
+  {{#if isEditing}}  
+    {{#if isExpanded}}
+      <div class="btn-group open">
+      <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}} class="btn btn-default dropdown-toggle" aria-expanded="true">{{attribute}} &nbsp;<span class="caret"></span></button>
+        <div role="menu" class="dropdown-menu">
+        {{#each choice in finalChoices}}
+            <li><a data-switch-set="onColor" {{action 'setChoice' choice}} data-switch-value={{choice}}>{{choice}}</a></li>
+        {{/each}}
+        </div>
+      </div>
+    {{else}}
+      <div class="btn-group">
+      <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}} class="btn btn-default dropdown-toggle" aria-expanded="false">{{attribute}} &nbsp;<span class="caret"></span></button>
+      </div>
+    {{/if}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+    <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button> 
+  {{/if}}
+{{else}}
+  {{name}}:
+  {{#if isEditing}}  
+    {{#if isExpanded}}
+      <div class="btn-group open">
+      <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}} class="btn btn-default dropdown-toggle" aria-expanded="true">{{attribute}} &nbsp;<span class="caret"></span></button>
+        <div role="menu" class="dropdown-menu">
+        {{#each choice in finalChoices}}
+            <li><a data-switch-set="onColor" {{action 'setChoice' choice}} data-switch-value={{choice}}>{{choice}}</a></li>
+        {{/each}}
+        </div>
+      </div>
+    {{else}}
+      <div class="btn-group">
+      <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}} class="btn btn-default dropdown-toggle" aria-expanded="false">{{attribute}} &nbsp;<span class="caret"></span></button>
+      </div>
+    {{/if}}
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
+    <button class='ion-trash-b' {{action 'removeItem'}}/>
+  {{else}}
+      <u {{action 'editItem' element attribute name on='doubleClick'}}>{{attribute}}</u> 
+      <button class='ion-edit' {{action 'editItem'}}/>
+  {{/if}}
+{{/if}}
