@@ -1,6 +1,5 @@
 <hr>
 <h3>Goal {{goal.id}}</h3>
-{{#if goal.identifier}} Identifiers:<br>{{show-identifier identifiers=goal.identifier}} {{/if}}
 {{#if goal.patient}} Patient: {{goal.patient}}<br> {{/if}}
 {{#if goal.targetDate}} Target Date: {{goal.targetDate}}<br> {{/if}}
 {{fhir-edit name='description' element=goal attribute=goal.description}}
@@ -8,7 +7,6 @@
   choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
 }}
 {{fhir-date name='statusDate' element=goal attribute=goal.statusDate}}
-{{#if goal.author}} Author:{{goal.author}}<br> {{/if}}
 {{#if goal.priority}} Priority: {{show-codeable codeable=goal.priority}}<br> {{/if}}
 {{#if goal.concern}} Concern: {{goal.concern}}<br> {{/if}}
 {{#if goal.notes}} Notes: {{goal.notes}}<br> {{/if}}
