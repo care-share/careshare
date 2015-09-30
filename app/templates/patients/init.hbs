@@ -10,15 +10,18 @@ Patient name:                   {{#each name in name}}
                     <span>{{name.given}},{{name.family}}</span>
                   {{/each}}
 </h3>
+Age: {{age}} (born {{birthDate}})
+<br/>
+Gender: {{gender}}
 </div>
 
 <div class="col-sm-12">
 <br/>
-<br/>
 <h4>Which concerns are relevant to this care plan?</h4>
 {{multiselect-checkboxes options=conditions labelProperty='displayName'}}
+</div>
 
-
+<div class="col-sm-12">
 <h4>Functional limitations</h4>
 <ul>
 <li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}} Amputation</label></li>
@@ -34,9 +37,33 @@ Patient name:                   {{#each name in name}}
 <li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}} Amputation</label></li>
 <li class="col-md-5"><label>Other: {{input type="text" name="limitationOther"}}</label></li>
 </ul>
-
 </div>
 
+<div class="col-sm-12">
+<h4>Mental Status</h4>
+<ul>
+<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusOriented" checked=mentalStatusOriented}} Oriented</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusComatose" checked=mentalStatusComatose}} Comatose</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusForgetful" checked=mentalStatusForgetful}} Forgetful</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusDepressed" checked=mentalStatusDepressed}} Depressed</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusDisoriented" checked=mentalStatusDisoriented}} Disoriented</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusLethargic" checked=mentalStatusLethargic}} Lethargic</label></li>
+<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusAgitated" checked=mentalStatusAgitated}} Agitated</label></li>
+<li class="col-md-5"><label>Other: {{input type="text" name="mentalStatusOther"}}</label></li>
+</ul>
+</div>
+
+<div class="col-sm-12">
+<h4>Notes</h4>
+{{textarea value=comment cols="80" rows="6"}}
+</div>
+
+<div class="col-sm-12">
+<br/>
+<button>Submit</button>
+</div>
+
+<div class="col-sm-12">
 
 <br/>
 <br/>
@@ -84,3 +111,4 @@ Patient name:                   {{#each name in name}}
 <br/>
 <br/>
 <br/>
+</div>
