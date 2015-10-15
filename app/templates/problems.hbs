@@ -1,0 +1,9 @@
+<h2><b>Problems</b></h2>
+<div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
+	{{#each problem in model}}
+		{{show-problem problem=problem}}<br>		  
+	{{else}}
+		No Problems
+	{{/each}}
+	<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Problem</strong>
+</div>

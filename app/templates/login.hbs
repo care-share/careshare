@@ -1,0 +1,83 @@
+<section class="sign-wrapper {{signInType}} transition-layout active" style="background-image: url('/images/bg-signin.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="sign-brand">
+              <div class="sign-brand-logo">
+                <img alt="Brand md" src="/images/brand-md.png" />
+              </div>
+              {{#if showOpenID}}
+                <h2 class="sign-brand-name">Home Health Agency</h2>
+              {{else}}
+                <h1 class="sign-brand-name">Rural health</h1>
+              {{/if}}      
+            </div>
+            <!-- /sign-brand -->
+            <div class="sign-container">
+            {{#if showOpenID}}{{else}}
+              <div class="alert alert-error alert-icon"> Your session expired. Please sign in again to continue. </div>
+            {{/if}}
+            {{#if lastLoginFailed}}
+              <div class="alert {{errorType}}">
+              <strong>{{errorMessage}}</strong> Please try again or contact your system administrator.
+              </div>
+            {{/if}}
+
+          <!--Switch between sign in and account request forms.-->
+          {{#if isShowingForm}}
+              {{#if showOpenID}}
+                  <a class="btn btn-primary btn-lg btn-block" href="{{apiUrl}}/auth/openid"> Login with OpenID</a>
+              {{else}}
+                <form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post" style="" {{action 'validate' on='submit'}}><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="3M1D+Jmw7r7dNjEE8+U4IFH6SnPf6C8x4NEBAg2GZK8=" /></div>
+                <h4 class="text-center">VA User Sign In</h4>
+                <div class="form-group">
+                {{input value=identification placeholder='Enter Login' class='form-control'}}
+                  <!--<input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email" value="" />-->
+                </div>
+
+                <div class="form-group">
+                {{input value=password placeholder='Enter Password' class='form-control' type='password'}}
+                  <!--<input autocomplete="off" class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password" />-->
+                </div>
+                <input class="btn btn-lg btn-block btn-default" name="commit" type="submit" value="Sign in" />
+                <hr>
+                <a class="btn btn-lg btn-block btn-default" {{action "toggleLoginForm"}}> Show Account Request Form</a>
+                </form>
+              {{/if}}
+{{else}}
+            {{#if accountRequestSucceeded}}
+              <div class="alert alert-success">
+              <strong>Account request succeeded!</strong> You will be notified by email when your account has been approved.
+              </div>            
+            {{/if}}
+            {{#if accountRequestFailed}}
+              <div class="alert alert-danger">
+              <strong>Account request failed!</strong> Please try again or contact your system administrator.
+              </div>            
+            {{/if}}
+                    <form accept-charset="UTF-8" action="/users/account_request" class="new_user" id="new_user" method="post" style="" {{action 'accountRequest' on='submit'}}><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+              <h4 class="text-center">Account Request</h4>
+              <div class="form-group">
+              {{input value=first placeholder='Enter First Name' class='form-control'}}
+              </div>
+              <div class="form-group">
+              {{input value=last placeholder='Enter Last Name' class='form-control'}}
+              </div>
+              <div class="form-group">
+              {{input value=email placeholder='Enter Email' class='form-control' type='email'}}
+              </div>
+              <div class="form-group">
+              {{input value=pass placeholder='Enter Password' class='form-control' type='password'}}
+              </div>
+              <input class="btn btn-lg btn-block btn-default" name="commit" type="submit" value="Submit" />
+              <hr>
+              <a class="btn btn-lg btn-block btn-default" {{action "toggleLoginForm"}}> Show Login Page</a>
+               </form>
+{{/if}}
+
+        </div>
+        <!-- /sign-container -->
+            </div>
+        </div>
+    </div>
+ </section>  

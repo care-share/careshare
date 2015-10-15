@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions:{
     add:function(){
-		this.store.createRecord('Goal',{});
+		this.store.createRecord('Condition',{code:'(put code here)',clinicalStatus:'active'});
 	}
   }
 });

@@ -1,0 +1,8 @@
+<h2><b>Observations</b></h2>
+<div class="well" style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
+{{#each observation in model}}
+	{{show-observation observation=observation}}    
+{{else}}
+  No Observations
+{{/each}}
+</div>

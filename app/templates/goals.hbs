@@ -1,4 +1,9 @@
-<h1>Goals</h1>
-{{#each goal in model}}
-  {{show-goal goal=goal}}
-{{/each}}
+<h2><b>Goals</b></h2>
+<div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
+	{{#each goal in model}}
+		{{show-goal goal=goal}}<br>		  
+	{{else}}
+		No Goals
+	{{/each}}
+	<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Goal</strong>
+</div>

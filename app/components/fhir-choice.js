@@ -23,16 +23,10 @@ export default Ember.Component.extend({
       }
       this.set('isEditing',false);
     },
-    removeItem: function(){
-      console.log('removeItem');
-      this.set('element.'+this.get('name'),'');
-      this.get('element').save();
-      this.set('isEditing',false);
-    },
     toggleExpanded: function() {
       this.set('isExpanded',!this.get('isExpanded'));
     },
-    setChoice: function(choice){
+    setChoice: function(choice,element){
       this.set('attribute',choice);
       this.set('isExpanded',!this.get('isExpanded'));
     }

@@ -3,21 +3,6 @@ import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
 
 // actions are defined at: http://ember-simple-auth.com/ember-simple-auth-api-docs.html#SimpleAuth-ApplicationRouteMixin
 export default Ember.Route.extend(ApplicationRouteMixin, {
-	renderTemplate: function(){
-		var url = window.location.href;
-		console.log('application route: renderTemplate');
-		console.log('url: '+url);
-		if(this.get('session.isAuthenticated')){		
-			if(url.indexOf('/patient/') > -1){
-				this.render('patient');
-			}
-			else{
-				this.render('careshare');
-			}
-		}else{
-			this.render('login');
-		}
-	},
   setupController: function(controller){
       console.log('is_openid: '+window.Careshare.is_openid);
       if(window.Careshare.is_openid){
@@ -30,21 +15,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       }
   },
   actions: {
-  	checkTemplate: function(){
-		var url = window.location.href;
-		console.log('application route: checkTemplate');
-		console.log('url: '+url);
-		if(this.get('session.isAuthenticated')){		
-			if(url.indexOf('/patient/') > -1){
-				this.render('patient');
-			}
-			else{
-				this.render('careshare');
-			}
-		}else{
-			this.render('login');
-		}
-	},
     queryParamsDidChange: function(params){
         if(params != null){
           console.log("params changed...");
@@ -58,12 +28,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             this.controllerFor('application').set('errorType','alert-warning');
             this.controllerFor('application').set('lastLoginFailed',true);
           }
-		  this.send('checkTemplate');
         }
       },
     sessionAuthenticationSucceeded: function() {
       this.controllerFor('application').set('lastLoginFailed',false);
-	  this.send('checkTemplate');
     },
     sessionAuthenticationFailed: function(error) {
       this.controllerFor('application').set('lastLoginFailed',true);
@@ -81,8 +49,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       }
       this.controllerFor('application').set('errorMessage',errorMessage);
       this.controllerFor('application').set('errorType',errorType);
-	  this.send('checkTemplate');
     }
   }
 });
-

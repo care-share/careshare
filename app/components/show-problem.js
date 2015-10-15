@@ -3,8 +3,11 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   expanded: false,
   actions:{
+	altered: function(){
+		console.log("altered called!");
+	},
     removeItem: function(){
-      this.get('goal').destroyRecord();
+      this.get('problem').destroyRecord();
     },
     toggleExpanded:function(){
 	  this.toggleProperty('expanded');

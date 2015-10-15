@@ -47,7 +47,7 @@
                {{#each patient in filteredContent}}
                 <tr class="">
                   {{#each name in patient.name}}
-                    <td class="fullName">{{name.given}},{{name.family}}</td>
+                    <td class="fullName"><a href='/patient/{{patient.id}}'>{{name.given}},{{name.family}}</a></td>
                     <td class="birthDate">{{patient.birthDate}}</td>
                   {{/each}}
                   <td>{{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}</td>

@@ -17,14 +17,12 @@ export default Ember.Component.extend({
     saveItem: function(){
       console.log('saveItem');
       if(this.get('attribute').length > 0){
-        this.get('element').save();
+        if(this.get('element')){this.get('element').save();this.sendAction();}
+		else{
+			console.log('cancel');
+			this.set('element.'+this.get('name'),this.get('originalValue'));
+		}
       }
-      this.set('isEditing',false);
-    },
-    removeItem: function(){
-      console.log('removeItem');
-      this.set('element.'+this.get('name'),'');
-      this.get('element').save();
       this.set('isEditing',false);
     }
   }

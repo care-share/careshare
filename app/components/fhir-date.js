@@ -21,20 +21,14 @@ export default Ember.Component.extend({
     },
     saveItem: function(){
       console.log('saveItem');
-      if(this.get('attribute').length > 0){
+      if(this.get('attribute') && this.get('attribute').length > 0){
         var date = new Date(Ember.Date.parse(this.get('attribute')));
         this.set('attribute',date);
         var date = new Date(this.get('attribute'));
         this.set('date1',date.getUTCFullYear()+"-"+(date.getUTCMonth()+1<10?'0':'')+(date.getUTCMonth()+1)+"-"+date.getUTCDate());
         this.get('element').save();
-      }
-      this.set('isEditing',false);
-    },
-    removeItem: function(){
-      console.log('removeItem');
-      this.set('element.'+this.get('name'),'');
-      this.get('element').save();
-      this.set('isEditing',false);
+		this.set('isEditing',false);
+      }     
     }
   }
 });

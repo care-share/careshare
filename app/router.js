@@ -13,4 +13,5 @@ export default Router.map(function() {
   this.resource('patients', function() {
     this.route("init", { path: "/:patient_id/init" });
   });
+  this.route('patient',{path:'/patient/:patient_id'});
 });

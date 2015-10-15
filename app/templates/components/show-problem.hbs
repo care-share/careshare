@@ -1,0 +1,14 @@
+<div class="panel panel-default" style="background-color: rgb(201,222,242)">
+	{{#if expanded}}
+		<button class="glyphicon glyphicon-chevron-up" {{action 'toggleExpanded'}}/>
+		<button class="glyphicon glyphicon-trash" {{action 'removeItem'}}/><br>
+		Code: {{fhir-edit name='code' element=problem attribute=problem.code.text action='altered'}}
+		Clinical Status: {{fhir-choice name='clinicalStatus' element=problem attribute=problem.clinicalStatus
+		  choices='active,relapse,remission,resolved'
+		}}
+	{{else}}
+		<button class="glyphicon glyphicon-chevron-down" {{action 'toggleExpanded'}}/>
+		<button class="glyphicon glyphicon-trash" {{action 'removeItem'}}/><br>
+		{{fhir-edit name='code' element=problem attribute=problem.code.text action='altered'}}
+	{{/if}}
+</div>

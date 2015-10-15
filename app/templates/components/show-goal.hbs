@@ -1,13 +1,16 @@
-<hr>
-<h3>Goal {{goal.id}}</h3>
-{{#if goal.patient}} Patient: {{goal.patient}}<br> {{/if}}
-{{#if goal.targetDate}} Target Date: {{goal.targetDate}}<br> {{/if}}
-{{fhir-edit name='description' element=goal attribute=goal.description}}
-{{fhir-choice name='status' element=goal attribute=goal.status
-  choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
-}}
-{{fhir-date name='statusDate' element=goal attribute=goal.statusDate}}
-{{#if goal.priority}} Priority: {{show-codeable codeable=goal.priority}}<br> {{/if}}
-{{#if goal.concern}} Concern: {{goal.concern}}<br> {{/if}}
-{{#if goal.notes}} Notes: {{goal.notes}}<br> {{/if}}
-<hr>
+<div class="panel panel-default" style="background-color: rgb(201,222,242)">
+	{{#if expanded}}
+		<button class="glyphicon glyphicon-chevron-up" {{action 'toggleExpanded'}}/>
+		<button class="glyphicon glyphicon-trash" {{action 'removeItem'}}/><br>
+		Description: {{fhir-edit name='description' element=goal attribute=goal.description action='altered'}}
+		Status: {{fhir-choice name='status' element=goal attribute=goal.status
+		  choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
+		}}
+		Status Date: {{fhir-date name='statusDate' element=goal attribute=goal.statusDate}}
+	{{else}}
+		<button class="glyphicon glyphicon-chevron-down" {{action 'toggleExpanded'}}/>
+		<button class="glyphicon glyphicon-trash" {{action 'removeItem'}}/><br>
+		{{fhir-edit name='description' element=goal attribute=goal.description}}
+	{{/if}}
+</div>
+
