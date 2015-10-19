@@ -3,6 +3,8 @@ import API from '../api';
 
 export default Ember.Controller.extend({
     apiUrl: window.Careshare.apiUrl,
+	patient: null,
+	firstName: 'Unknown',lastName: 'Unknown',gender: 'Unknown',birthDate: 'Unknown',
     isOpenID: window.Careshare.isOpenID,
     isSideBarDisplayed: true,
     lastLoginFailed: false,

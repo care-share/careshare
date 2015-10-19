@@ -8,7 +8,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 		console.log('application route: renderTemplate');
 		console.log('url: '+url);
 		if(this.get('session.isAuthenticated')){		
-			if(url.indexOf('/patient/') > -1){
+			if(url.indexOf('/patient/') > -1 || url.indexOf('careplan.') > -1){
 				this.render('patient');
 			}
 			else{
