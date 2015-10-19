@@ -1,2 +1,13 @@
-{{fhir-choice name='status' element=observation attribute=observation.status
+<div class="panel panel-default" style="background-color: rgb(201,222,242)">
+	{{#if expanded}}
+		<button class="glyphicon glyphicon-chevron-up" {{action 'toggleExpanded'}}/>
+		<button class="glyphicon glyphicon-trash" {{action 'removeItem'}}/><br>
+		Status: {{fhir-choice name='status' element=observation attribute=observation.status
 	choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+	{{else}}
+		<button class="glyphicon glyphicon-chevron-down" {{action 'toggleExpanded'}}/>
+		<button class="glyphicon glyphicon-trash" {{action 'removeItem'}}/><br>
+		{{fhir-choice name='status' element=observation attribute=observation.status
+	choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+	{{/if}}
+</div>

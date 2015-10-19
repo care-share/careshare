@@ -1,8 +1,9 @@
 <h2><b>Interventions</b></h2>
 <div class="well" style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
-{{#each intervention in model}}
-	{{show-intervention intervention=intervention}}  
-{{else}}
-  No Interventions
-{{/each}}
+	{{#each intervention in model}}
+		{{show-intervention intervention=intervention}}<br>
+	{{else}}
+	  No Interventions<br>
+	{{/each}}
+	<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Intervention</strong>
 </div>
