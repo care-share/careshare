@@ -1,7 +1,20 @@
 <h2><b>Problems</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each problem in model}}
-		{{show-problem problem=problem}}<br>		  
+        {{#fhir-element element=problem as |section|}}
+			{{#if (eq section "expanded")}}
+			    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
+				  choices='active,relapse,remission,resolved'
+				}}<br>
+				<div class="well well-sm">
+					Code: {{show-codeable codeable=problem.code}}
+				</div>
+			{{else}}
+				{{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
+				  choices='active,relapse,remission,resolved'
+				}}
+			{{/if}}
+		{{/fhir-element}}<br>
 	{{else}}
 		No Problems<br>
 	{{/each}}

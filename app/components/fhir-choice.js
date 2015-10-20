@@ -13,14 +13,11 @@ export default Ember.Component.extend({
     },
     cancel: function(){
       console.log('cancel');
-      this.set('element.'+this.get('name'),this.get('originalValue'));
+      this.set('attribute',this.get('originalValue'));
       this.set('isEditing',false);
     },
     saveItem: function(){
       console.log('saveItem');
-      if(this.get('attribute').length > 0){
-        this.get('element').save();
-      }
       this.set('isEditing',false);
     },
     toggleExpanded: function() {

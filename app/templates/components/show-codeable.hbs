@@ -1,4 +1,4 @@
 <ul>
-{{#if codeable.coding}}{{show-coding codeable.coding}}{{/if}}
-{{#if codeable.text}}<li>Text: {{codeable.text}}</li> {{/if}}
+<!--<li>Coding: {{show-coding codeable.coding}}</li>-->
+<li>{{fhir-edit name='text' attribute=codeable.text}}</li>
 </ul>

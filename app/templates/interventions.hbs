@@ -1,7 +1,16 @@
 <h2><b>Interventions</b></h2>
-<div class="well" style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
+<div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each intervention in model}}
-		{{show-intervention intervention=intervention}}<br>
+        {{#fhir-element element=intervention as |section|}}
+			{{#if (eq section "expanded")}}
+				Status: {{fhir-choice name='status' attribute=intervention.status
+					choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+				Ordered On: {{fhir-date name='orderedOn' attribute=intervention.orderedOn}}
+			{{else}}
+				{{fhir-choice name='status' attribute=intervention.status
+	choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+			{{/if}}
+		{{/fhir-element}}<br>
 	{{else}}
 	  No Interventions<br>
 	{{/each}}

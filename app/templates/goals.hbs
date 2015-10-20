@@ -1,7 +1,17 @@
 <h2><b>Goals</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each goal in model}}
-		{{show-goal goal=goal}}<br>		  
+	    {{#fhir-element element=goal as |section|}}
+			{{#if (eq section "expanded")}}
+				Description: {{fhir-edit name='description' element=goal attribute=goal.description action='altered'}}
+				Status: {{fhir-choice name='status' element=goal attribute=goal.status
+				  choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
+				}}
+				Status Date: {{fhir-date name='statusDate' element=goal attribute=goal.statusDate}}
+			{{else}}
+				{{fhir-edit name='description' element=goal attribute=goal.description}}
+			{{/if}}
+		{{/fhir-element}}<br>		  
 	{{else}}
 		No Goals<br>
 	{{/each}}

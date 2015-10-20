@@ -16,7 +16,7 @@ export default Ember.Component.extend({
     },
     cancel: function(){
       console.log('cancel');
-      this.set('element.'+this.get('name'),this.get('originalValue'));
+      this.set('attribute',this.get('originalValue'));
       this.set('isEditing',false);
     },
     saveItem: function(){
@@ -25,8 +25,8 @@ export default Ember.Component.extend({
         var date = new Date(Ember.Date.parse(this.get('attribute')));
         this.set('attribute',date);
         var date = new Date(this.get('attribute'));
-        this.set('date1',date.getUTCFullYear()+"-"+(date.getUTCMonth()+1<10?'0':'')+(date.getUTCMonth()+1)+"-"+date.getUTCDate());
-        this.get('element').save();
+        this.set('date1',
+			date.getUTCFullYear()+"-"+(date.getUTCMonth()+1<10?'0':'')+(date.getUTCMonth()+1)+"-"+date.getUTCDate());
 		this.set('isEditing',false);
       }     
     }
