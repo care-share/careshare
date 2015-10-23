@@ -9,15 +9,15 @@ export default Ember.Controller.extend({
     isShowingForm: true,
     accountRequestSucceeded: false,
     accountRequestFailed: false,
-    role: 'user',
+    roles: ['user'],
     errorMessage: 'An unknown error occurred.',
     errorType: 'alert-danger',
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
     isAdmin: function() {
-        return this.get('session').get('secure').role === 'admin';
-    }.property('role'),
+        return this.get('session').get('secure').roles.indexOf('admin') > -1;
+    }.property('roles'),
     actions:{
       accountRequest:function(){
         API.submitRequest(this.getProperties('first','last','email','pass'),this);

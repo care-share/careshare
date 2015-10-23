@@ -11,7 +11,7 @@ var API = {
       function(data) {
         console.log("data: "+JSON.stringify(data));
         console.log("token: "+data.data.token);
-        return {token: data.data.token,name_first:data.data.name_first,role:data.data.role,email:data.data.email};
+        return {token: data.data.token,name_first:data.data.name_first,roles:data.data.roles,email:data.data.email};
       },
       function(error) {
         return { status: error.statusText, message: error.responseText };
@@ -29,7 +29,7 @@ var API = {
       function(data) {
         console.log("data: "+JSON.stringify(data));
         console.log("token: "+data.data.token);
-        return {token: data.data.token,name_first:data.data.name_first,role:data.data.role,email:data.data.email};
+        return {token: data.data.token,name_first:data.data.name_first,roles:data.data.roles,email:data.data.email};
       },
       function(error) {
         return { status: error.statusText, message: error.responseText };
@@ -55,6 +55,18 @@ var API = {
         }
       });
   },
+  roles: function(input, controller) {
+    console.log('ask for all roles w/ token: '+input.token);
+    //var email = input.email;
+    jQuery.ajax(this.host+'/users/roles',{headers:{'X-Auth-Token':input.token}}).then(
+      function(response){
+        console.log("ROLES: "+JSON.stringify(response.data));
+        controller.set('roles', response.data);
+        return response.data;
+      }, function(error) {
+        return { status: error.statusText, message: error.responseText };
+    });
+  },
   approved: function(input,controller){
     console.log('ask for all approved users w/ token: '+input.token);
     //var email = input.email;
@@ -68,7 +80,7 @@ var API = {
     });
  },
  unapproved: function(input,controller){
-    console.log('ask for unapproved w/ role '+input.role+' and token: '+input.token);
+    console.log('ask for unapproved w/ token: '+input.token);
     jQuery.ajax(this.host+'/users/unapproved',{headers:{'X-Auth-Token':input.token}}).then(
     function(response){
       console.log("UNAPPROVED: "+JSON.stringify(response.data));
@@ -117,24 +129,32 @@ var API = {
     
     return false;
   },
-  changeRole: function(email,role,data,controller) {
-    console.log("CHANGE ROLE: "+email+" to: "+role);
-    Ember.$.ajax({
-      url: this.host+'/users/'+email+'/role/'+role,
-      type: 'post',
-      headers: {
-          'X-Auth-Token': data.token
-      },
-      dataType: 'json',
-      success: function (data) {
-          console.info(data);
-          controller.send('reset');
-      }
-    });
-
-    return false;
+  addRole: function(email,role,data,controller) {
+    console.log("ADD ROLE: "+role+" FOR USER "+email);
+    return changeRole(this.host, email, role, data, controller, true);
+  },
+  removeRole: function(email,role,data,controller) {
+    console.log("REMOVE ROLE: "+role+" FOR USER "+email);
+    return changeRole(this.host, email, role, data, controller, false);
   }
 };
 
+function changeRole(host, email, role, data, controller, toggle) {
+    var action = toggle ? 'put' : 'delete';
+    Ember.$.ajax({
+        url: host+'/users/'+email+'/roles/'+role,
+        type: action,
+        headers: {
+            'X-Auth-Token': data.token
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.info(data);
+            controller.send('reset');
+        }
+    });
+
+    return false;
+}
 export default API;
 
