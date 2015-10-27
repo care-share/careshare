@@ -44,9 +44,9 @@
           </thead>
           
              <tbody>
-               {{#each patient in filteredContent}}
+               {{#each filteredContent as |patient|}}
                 <tr class="">
-                  {{#each name in patient.name}}
+                  {{#each patient.name as |name|}}
                     <td class="fullName"><a href='/patient/{{patient.id}}'>{{name.given}},{{name.family}}</a></td>
                     <td class="birthDate">{{patient.birthDate}}</td>
                   {{/each}}
@@ -60,8 +60,8 @@
 
           <h4>Create new patient:</h4>
  <label>Given name:</label>
- {{input type="text" value=givenName placeholder="Enter patient name" action="createPatient"}}
+ {{input type="text" value=givenName placeholder="Enter patient name" enter="createPatient"}}
  <label>Family name:</label>
- {{input type="text" value=familyName placeholder="Enter patient name" action="createPatient"}}
+ {{input type="text" value=familyName placeholder="Enter patient name" enter="createPatient"}}
         </div>
       </div>

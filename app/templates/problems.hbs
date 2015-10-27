@@ -1,6 +1,6 @@
 <h2><b>Problems</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each problem in model}}
+	{{#each model as |problem|}}
         {{#fhir-element element=problem as |section|}}
 			{{#if (eq section "expanded")}}
 			    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus

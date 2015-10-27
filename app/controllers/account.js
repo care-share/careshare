@@ -15,10 +15,11 @@ export default Ember.Controller.extend({
       },
       toggleRole: function(email, role, isHeld){
         console.log("toggleRole(controller) called");
-        if (!isHeld)
+        if (!isHeld) {
           this.get('target').send('addRole',email,role,this.get('session').get('secure'),this);
-        else
+        } else {
           this.get('target').send('removeRole',email,role,this.get('session').get('secure'),this);
+        }
       }
     }
 });

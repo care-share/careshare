@@ -23,7 +23,7 @@ export default Ember.Component.extend({
     toggleExpanded: function() {
       this.set('isExpanded',!this.get('isExpanded'));
     },
-    setChoice: function(choice,element){
+    setChoice: function(choice){
       this.set('attribute',choice);
       this.set('isExpanded',!this.get('isExpanded'));
     }

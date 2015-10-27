@@ -1,6 +1,6 @@
 <h2><b>Medications</b></h2>
 <div class="well" style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
-	{{#each medication in model}}
+	{{#each model as |medication|}}
 	 <!--{{show-medication medication=medication}}<br>-->
 	{{else}}
 	  No Medications<br>

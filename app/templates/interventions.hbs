@@ -1,6 +1,6 @@
 <h2><b>Interventions</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each intervention in model}}
+	{{#each model as |intevention|}}
         {{#fhir-element element=intervention as |section|}}
 			{{#if (eq section "expanded")}}
 				Status: {{fhir-choice name='status' attribute=intervention.status
