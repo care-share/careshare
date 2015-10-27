@@ -29,7 +29,13 @@ var API = {
       function(data) {
         console.log("data: "+JSON.stringify(data));
         console.log("token: "+data.data.token);
-        return {token: data.data.token,name_first:data.data.name_first,roles:data.data.roles,email:data.data.email};
+        return {
+          token: data.data.token,
+          name_first:data.data.name_first,
+          roles:data.data.roles,
+          email:data.data.email,
+          isAdmin: data.data.roles.indexOf('admin') > -1
+        };
       },
       function(error) {
         return { status: error.statusText, message: error.responseText };
@@ -61,7 +67,7 @@ var API = {
     jQuery.ajax(this.host+'/users/roles',{headers:{'X-Auth-Token':input.token}}).then(
       function(response){
         console.log("ROLES: "+JSON.stringify(response.data));
-        controller.set('roles', response.data);
+        controller.set('allRoles', response.data);
         return response.data;
       }, function(error) {
         return { status: error.statusText, message: error.responseText };

@@ -1,10 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    roles: ['user'],
-    isAdmin: function() {
-        return this.get('session').get('secure').roles.indexOf('admin') > -1;
-    }.property('role'),
     actions: {
       reset(){
         this.get('target').send('reset',this);
