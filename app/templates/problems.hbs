@@ -6,27 +6,9 @@
 			    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
 				  choices='active,relapse,remission,resolved'
 				}}<br>
-				Code: {{#fhir-element isSubElement=true parent=problem name='code' type='CodeableConcept' as |section|}}
-					{{#if (eq section "expanded")}}
-					<ul>
-						<li>{{fhir-edit name='text' attribute=problem.code.text}}</li>
-					</ul>
-					{{else}}{{fhir-edit name='text' attribute=problem.code.text}} {{/if}}
-				{{/fhir-element}}<br>
-				Category: {{#fhir-element isSubElement=true parent=problem name='category' type='CodeableConcept' as |section|}}
-					{{#if (eq section "expanded")}}
-					<ul>
-						<li>{{fhir-edit name='text' attribute=problem.category.text}}</li>
-					</ul>
-					{{else}}{{fhir-edit name='text' attribute=problem.category.text}} {{/if}}
-				{{/fhir-element}}<br>
-				Severity: {{#fhir-element isSubElement=true parent=problem name='severity' type='CodeableConcept' as |section|}}
-					{{#if (eq section "expanded")}}
-					<ul>
-						<li>{{fhir-edit name='text' attribute=problem.severity.text}}</li>
-					</ul>
-					{{else}}{{fhir-edit name='text' attribute=problem.severity.text}} {{/if}}
-				{{/fhir-element}}<br>
+				Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
+				Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
+				Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>
 			{{else}}
 				{{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
 				  choices='active,relapse,remission,resolved'
