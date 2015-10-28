@@ -57,7 +57,7 @@
             <i class="nav-item-icon icon ion-checkmark-round"></i> Ready for Certification </a>
         </li>
         
-     {{#if isAdmin}}
+     {{#if session.secure.isAdmin}}
             <li class="side-nav-item ">
           <a href="/account">
             <i class="nav-item-icon icon ion-settings"></i> Review Account Requests</a>

@@ -2,7 +2,7 @@
   <li>
     <ul>
     Coding: <br> 
-    {{#each code in coding}}
+    {{#each coding as |code|}}
        {{#if code.system}}<li>System: {{code.system}}</li>{{/if}}
        {{#if code.version}}<li>Version: {{code.version}}</li>{{/if}}
        {{#if code.code}}<li>Code: {{code.code}}</li>{{/if}}

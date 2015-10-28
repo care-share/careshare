@@ -1,6 +1,6 @@
 <h2><b>Goals</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each goal in model}}
+	{{#each model as |goal|}}
 	    {{#fhir-element element=goal as |section|}}
 			{{#if (eq section "expanded")}}
 				Description: {{fhir-edit name='description' element=goal attribute=goal.description action='altered'}}

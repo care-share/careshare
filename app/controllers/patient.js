@@ -11,7 +11,6 @@ export default Ember.Controller.extend({
     isShowingForm: true,
     accountRequestSucceeded: false,
     accountRequestFailed: false,
-    role: 'user',
     errorMessage: 'An unknown error occurred.',
     errorType: 'alert-danger',
     patientCounter: 0,
@@ -19,9 +18,6 @@ export default Ember.Controller.extend({
     showOpenID: false,
 	goals: null,problems: null,observations: null,interventions: null,medications: null,
     showGoals: false,showProblems: false,showObservations: false,showInterventions: false,showMedications:false,
-    isAdmin: function() {
-        return this.get('session').get('secure').role === 'admin';
-    }.property('role'),
     actions:{
       accountRequest:function(){
         API.submitRequest(this.getProperties('first','last','email','pass'),this);
