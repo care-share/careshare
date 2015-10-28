@@ -1,17 +1,35 @@
-<div class="panel panel-info" 
-	style="background-color: rgb(201,222,242);border-color: black;padding-left:1em;padding-right:1em">
-	{{#if expanded}}
-		<button class="glyphicon glyphicon-chevron-up" {{action 'toggleExpanded'}}/>
-	{{else}}
-		<button class="glyphicon glyphicon-chevron-down" {{action 'toggleExpanded'}}/>
-	{{/if}}
-	
-	<button class="glyphicon glyphicon-floppy-save" {{action 'saveItem' element}}/>
-	<button class="glyphicon glyphicon-trash" {{action 'removeItem' element}}/><br>	
-	
-	{{#if expanded}}
-		{{yield "expanded"}}
-	{{else}}
-		{{yield "contracted"}}
-	{{/if}}
-</div>
+{{#if isSubElement}}
+	<div class='well well-sm'>
+		{{#if expanded}}
+			<button class="glyphicon glyphicon-chevron-up" {{action 'toggleExpanded'}}/>
+		{{else}}
+			<button class="glyphicon glyphicon-chevron-down" {{action 'toggleExpanded'}}/>
+		{{/if}}
+		
+		{{#if expanded}}
+			{{yield "expanded"}}
+		{{else}}
+			{{yield "contracted"}}
+		{{/if}}
+	</div>
+{{else}}
+	<div class="panel panel-info" 
+		style="background-color: rgb(201,222,242);border-color: black;padding-left:1em;padding-right:1em">
+		{{#if expanded}}
+			<button class="glyphicon glyphicon-chevron-up" {{action 'toggleExpanded'}}/>
+		{{else}}
+			<button class="glyphicon glyphicon-chevron-down" {{action 'toggleExpanded'}}/>
+		{{/if}}
+		
+		{{#if isSubElement}}{{else}}
+			<button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
+			<button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/><br>	
+		{{/if}}
+		
+		{{#if expanded}}
+			{{yield "expanded"}}
+		{{else}}
+			{{yield "contracted"}}
+		{{/if}}
+	</div>
+{{/if}}

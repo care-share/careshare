@@ -3,6 +3,9 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   isEditing:false,
   originalValue: '',
+  setup: function(){
+	console.log('INIT: FHIR-EDIT- name: '+this.get('name')+',attribute: '+this.get('attribute'));
+  }.on('init'),
   actions:{
     editItem: function() {
       console.log('editItem');

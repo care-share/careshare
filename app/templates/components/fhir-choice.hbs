@@ -5,7 +5,7 @@
 		aria-expanded="true">{{attribute}} &nbsp;<span class="caret"></span></button>
         <div role="menu" class="dropdown-menu">
         {{#each choice in finalChoices}}
-            <li><a data-switch-set="onColor" {{action 'setChoice' choice element}} 
+            <li><a data-switch-set="onColor" {{action 'setChoice' choice}} 
 				data-switch-value={{choice}}>{{choice}}</a></li>
         {{/each}}
         </div>

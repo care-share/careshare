@@ -1,14 +1,32 @@
 <h2><b>Problems</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each problem in model}}
-        {{#fhir-element element=problem as |section|}}
+        {{#fhir-element root=problem type='Condition' as |section|}}
 			{{#if (eq section "expanded")}}
 			    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
 				  choices='active,relapse,remission,resolved'
 				}}<br>
-				<div class="well well-sm">
-					Code: {{show-codeable codeable=problem.code}}
-				</div>
+				Code: {{#fhir-element isSubElement=true parent=problem name='code' type='CodeableConcept' as |section|}}
+					{{#if (eq section "expanded")}}
+					<ul>
+						<li>{{fhir-edit name='text' attribute=problem.code.text}}</li>
+					</ul>
+					{{else}}{{fhir-edit name='text' attribute=problem.code.text}} {{/if}}
+				{{/fhir-element}}<br>
+				Category: {{#fhir-element isSubElement=true parent=problem name='category' type='CodeableConcept' as |section|}}
+					{{#if (eq section "expanded")}}
+					<ul>
+						<li>{{fhir-edit name='text' attribute=problem.category.text}}</li>
+					</ul>
+					{{else}}{{fhir-edit name='text' attribute=problem.category.text}} {{/if}}
+				{{/fhir-element}}<br>
+				Severity: {{#fhir-element isSubElement=true parent=problem name='severity' type='CodeableConcept' as |section|}}
+					{{#if (eq section "expanded")}}
+					<ul>
+						<li>{{fhir-edit name='text' attribute=problem.severity.text}}</li>
+					</ul>
+					{{else}}{{fhir-edit name='text' attribute=problem.severity.text}} {{/if}}
+				{{/fhir-element}}<br>
 			{{else}}
 				{{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
 				  choices='active,relapse,remission,resolved'
@@ -18,5 +36,5 @@
 	{{else}}
 		No Problems<br>
 	{{/each}}
-	<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Problem</strong>
+	<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Condition'}}/> <strong>Add Problem</strong>
 </div>
