@@ -1,4 +1,4 @@
-{{#fhir-element isSubElement=true parent=parent name=name type='CodeableConcept' as |section|}}
+{{#fhir-element parent=parent name=name type='CodeableConcept' as |section|}}
 	{{#if (eq section "expanded")}}
 	<ul>
 		<li>{{fhir-edit name='text' attribute=attribute.text}}</li>
