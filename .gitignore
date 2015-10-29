@@ -25,3 +25,6 @@ testem.log
 .idea/
 *.iml
 
+# Ignore templates
+*.env
+

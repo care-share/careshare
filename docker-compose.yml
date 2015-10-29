@@ -1,6 +1,7 @@
 careshare:
+  env_file: ./common.env
   build: .
   ports:
     - "4200:4200"
-    - "35729:35729"
+    - "49152:49152"
 
