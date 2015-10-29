@@ -7,10 +7,10 @@ var PatientsController = Ember.ArrayController.extend({
     toggleExpanded: function(){this.set('currentId',null);},
 	setChoice: function(patient,careplan){
 		console.log('Patient ID: '+patient+',CarePlan ID: '+careplan);
-		if(careplan == -9999){this.set('currentId',null);}
+		if(careplan === -9999){this.set('currentId',null);}
 		else{
-		window.location.href = '/patients/'+patient+'/careplan/'+careplan;
-		//TODO: navigate to /patients/PATIENT_ID/careplan/CAREPLAN_ID
+			//this.transitionTo('patients.care-plans',patient,careplan);
+			window.location.href = '/patients/'+patient+'/care-plans/'+careplan;
 		}
 	},
     getCarePlans: function(id){
