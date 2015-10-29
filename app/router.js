@@ -11,7 +11,13 @@ export default Router.map(function() {
   this.route('goals');
   this.resource('account',{path:'/account'});
   this.resource('patients', function() {
-    this.route("init", { path: "/:patient_id/init" });
+      this.route("init", { path: "/:patient_id/init" });
+
+      this.resource('patient', { path: ":patient_id" }, function() {
+	  this.resource('care-plans', function() {
+	      this.route("new");
+	  });
+      });
   });
   this.route('patient',{path:'/patient/:patient_id'});
 });
