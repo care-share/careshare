@@ -1,7 +1,7 @@
 <h2><b>Interventions</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each intervention in model}}
-        {{#fhir-element element=intervention as |section|}}
+	{{#each model as |intervention|}}
+        {{#fhir-element root=intervention type='ProcedureRequest' as |section|}}
 			{{#if (eq section "expanded")}}
 				Status: {{fhir-choice name='status' attribute=intervention.status
 					choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
@@ -14,5 +14,5 @@
 	{{else}}
 	  No Interventions<br>
 	{{/each}}
-	<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Intervention</strong>
+	<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'ProcedureRequest'}}/> <strong>Add Intervention</strong>
 </div>

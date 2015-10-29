@@ -1,10 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    role: 'user',
-    isAdmin: function() {
-        return this.get('session').get('secure').role === 'admin';
-    }.property('role'),
     actions: {
       reset(){
         this.get('target').send('reset',this);
@@ -17,13 +13,13 @@ export default Ember.Controller.extend({
         console.log("deny(controller) called");
         this.get('target').send('deny',email,this.get('session').get('secure'),this);
       },
-      changeRole: function(email,role){
-        console.log("change role(controller) called");
-        var oppositeRole = 'admin';
-        if(role === 'admin'){
-          oppositeRole = 'user';
+      toggleRole: function(email, role, isHeld){
+        console.log("toggleRole(controller) called");
+        if (!isHeld) {
+          this.get('target').send('addRole',email,role,this.get('session').get('secure'),this);
+        } else {
+          this.get('target').send('removeRole',email,role,this.get('session').get('secure'),this);
         }
-        this.get('target').send('changeRole',email,oppositeRole,this.get('session').get('secure'),this);
       }
     }
 });

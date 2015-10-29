@@ -1,16 +1,16 @@
+
 <h3>Problems</h3>
-<div class="panel-group dashboardColumn">
-	{{#each problem in model}}
-        {{#fhir-element element=problem as |section|}}
+
+<div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
+	{{#each model as |problem|}}
+        {{#fhir-element root=problem type='Condition' as |section|}}
 			{{#if (eq section "expanded")}}
-				{{fhir-edit name='text' attribute=problem.code.text}}
-			    <div>
-				    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
-					  choices='active,relapse,remission,resolved'
-					}}	
-				</div>	
-					
-				
+			    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
+				  choices='active,relapse,remission,resolved'
+				}}<br>
+				Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
+				Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
+				Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>
 			{{else}}
 				{{problem.code.text}} - ({{problem.clinicalStatus}})
 			{{/if}}
@@ -18,5 +18,6 @@
 	{{else}}
 		No Problems<br>
 	{{/each}}
-	<div {{action 'add'}} style="float:right;"> Add Problem... </div>
+	<div {{action 'createRecord' 'Condition'}} style="float:right;"> Add Problem... </div>
 </div>
+

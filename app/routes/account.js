@@ -3,6 +3,7 @@ import API from '../api';
 
 export default Ember.Route.extend({
   setupController: function(controller) {
+    API.roles(this.get('session').get('secure'),controller);
     API.unapproved(this.get('session').get('secure'),controller);
     API.approved(this.get('session').get('secure'),controller);
   },
@@ -19,9 +20,13 @@ export default Ember.Route.extend({
         console.log("deny(route) called");
         API.deny(email,session,controller);
       },
-      changeRole: function(email,role,session,controller){
-        console.log("change role(route) called");
-        API.changeRole(email,role,session,controller);
+      addRole: function(email,role,session,controller){
+        console.log("add role(route) called");
+        API.addRole(email,role,session,controller);
+      },
+      removeRole: function(email,role,session,controller){
+        console.log("remove role(route) called");
+        API.removeRole(email,role,session,controller);
       }
     }
 });

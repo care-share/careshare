@@ -6,7 +6,7 @@
 <h3>
 PLACEHOLDER FOR PATIENT INFO BANNER
 <br/>
-Patient name:                   {{#each name in name}}
+Patient name:                   {{#each name as |name|}}
                     <span>{{name.given}},{{name.family}}</span>
                   {{/each}}
 </h3>

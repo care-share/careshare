@@ -1,0 +1,127 @@
+<!-- Sidebar -->
+<aside class="side-left ng-scope" ng-controller="SmartSearchCtrl">
+  <!-- Sidebar Header-->
+  <div class="side-header">
+    <h1 id="brand" class="brand">
+      <a href="/">
+        <img alt="Brand" src="/images/brand.png"> 
+        <strong>rural</strong>health
+      </a>
+    </h1>
+    <form id="smart-search" class="side-form hide ng-pristine ng-valid" role="form">
+      <input type="text" ng-model="search" class="form-control ng-pristine ng-valid" data-target=".side-wrapper" placeholder="Smart Finder">
+    </form>
+  </div>
+
+  <!-- Sidebar Body-->
+  <div class="side-body">
+    <nav class="side-nav">
+      <ul>
+        <li class="side-nav-item active">
+          <a href="/dashboard"><i class="nav-item-icon icon ion-social-rss-outline"></i>Dashboard</a>
+        </li>
+        <li class="side-nav-item ">
+          <a href="/patients">
+              <span class="badge">(patient count)</span>
+              <i class="nav-item-icon icon ion-ios-person-outline"></i> Patients </a>
+              </li>
+                <li class="side-nav-item ">
+                  <a href="/consults">
+                    <i class="nav-item-icon icon ion-compose"></i> Drafts </a>
+                </li>
+                <!--<li class="side-nav-item ">
+                  <a href="/goals">
+                    <i class="nav-item-icon icon ion-star"></i> Goals </a>
+                </li>-->
+                <li class="side-nav-item ">
+                  <a href="/reviewed">
+                    <i class="nav-item-icon icon ion-clipboard"></i> Consults </a>
+                </li>
+                <li class="side-nav-item">
+                  <a href="/referrals">
+                    <i class="nav-item-icon icon ion-paper-airplane"></i> Referrals </a>
+                </li>
+                <!-- /tables -->
+            <li class="side-nav-item ">
+              <a href="/approved">
+                <i class="nav-item-icon icon ion-map"></i> Ready for Assignment </a>
+            </li>
+            <!-- /tables -->
+        <li class="side-nav-item ">
+          <a href="/assigned">
+            <i class="nav-item-icon icon ion-medkit"></i> Patients Receiving Care </a>
+        </li>
+        <!-- /tables -->
+        <li class="side-nav-item ">
+          <a href="/reviewable">
+            <i class="nav-item-icon icon ion-checkmark-round"></i> Ready for Certification </a>
+        </li>
+        
+     {{#if session.secure.isAdmin}}
+            <li class="side-nav-item ">
+          <a href="/account">
+            <i class="nav-item-icon icon ion-settings"></i> Review Account Requests</a>
+        </li>
+     {{/if}}   
+      </ul>
+    </nav>
+
+  </div>
+</aside>
+
+<section id="content" class="content">
+  <header class="content-header">
+    <!-- Navbar Right Content -->
+    <div class="header-actions pull-right">
+      <div class="btn-group">
+        <a id="notif-alerts" class="btn btn-icon hide-sm dropdown-toggle" data-toggle="dropdown" role="button">
+           <i class="icon ion-alert-circled"></i>
+        </a>
+      </div>
+      <div class="btn-group">
+        <a id="users-setting" class="btn btn-icon data-toggle" data-toggle="dropdown" role="button">
+          <i class="icon ion-gear-b"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Navbar Left/Center Content -->
+    <div class="header-actions pull-left">
+      <button id="toggle-content" class="btn btn-icon" type="button"><i class="icon ion-navicon-round"></i></button>
+      <button id="toggle-search" class="btn btn-icon" type="button"><i class="icon ion-search"></i></button>
+    </div>
+    <h1 class="content-title">{{header-format target.url}}</h1>
+  </header>
+
+  <!-- Main Application Window -->
+  <div class="content-spliter">
+    <section id="content-main" class="content-main">
+      <div class="content-app fixed-header">
+      
+        <!-- Application Header -->
+        <div class="app-header">
+          <h3 class="app-title pull-left hidden-xs"/>
+          <ol class="breadcrumb bg-none pull-left hide-xs">
+            <li>Welcome, {{session.secure.name_first}}!</li>      
+          </ol>          
+            
+          <div class="pull-right">
+              <div class="pull-right">
+              <a class="btn btn-sm btn-default btn-extend be-left" href="/consults/new">
+                  Create ???????<i class="ion ion-clipboard"></i>
+              </a>
+              <button aria-hidden="true" {{action 'invalidate'}} class="btn btn-sm btn-default" type="submit">Sign Out</button>
+              </div>
+          </div>
+        </div>
+
+        <!-- Application Body -->
+        <div class="app-body">
+          <div class="col-sm-12">
+            {{outlet}}
+          </div>
+        </div>       
+      </div>
+    </section>
+  </div>
+</section>

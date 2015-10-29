@@ -1,19 +1,19 @@
 <h2><b>Goals</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each goal in model}}
-	    {{#fhir-element element=goal as |section|}}
+	{{#each model as |goal|}}
+        {{#fhir-element root=goal type='Goal' as |section|}}
 			{{#if (eq section "expanded")}}
-				Description: {{fhir-edit name='description' element=goal attribute=goal.description action='altered'}}
-				Status: {{fhir-choice name='status' element=goal attribute=goal.status
+				Description: {{fhir-edit name='description' attribute=goal.description action='altered'}}
+				Status: {{fhir-choice name='status' attribute=goal.status
 				  choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
 				}}
-				Status Date: {{fhir-date name='statusDate' element=goal attribute=goal.statusDate}}
+				Status Date: {{fhir-date name='statusDate' attribute=goal.statusDate}}
 			{{else}}
-				{{fhir-edit name='description' element=goal attribute=goal.description}}
+				{{fhir-edit name='description' attribute=goal.description}}
 			{{/if}}
 		{{/fhir-element}}<br>		  
 	{{else}}
 		No Goals<br>
 	{{/each}}
-	<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Goal</strong>
+	<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Goal'}}/> <strong>Add Goal</strong>
 </div>
