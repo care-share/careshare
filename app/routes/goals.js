@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function() {
-    return this.store.findAll('Goal').then(
+    return this.store.query('Goal', {}).then(
       function(response) {
         console.log("PROMISE OK!: "+response);
         return response;
