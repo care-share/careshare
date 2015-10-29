@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
     signInType: 'signin',
     showOpenID: false,
 	goals: null,problems: null,observations: null,interventions: null,medications: null,
-    showGoals: false,showProblems: false,showObservations: false,showInterventions: false,showMedications:false,
+    showGoals: true,showProblems: true,showObservations: true,showInterventions: true,showMedications:true,
     actions:{
       accountRequest:function(){
         API.submitRequest(this.getProperties('first','last','email','pass'),this);

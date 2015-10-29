@@ -48,7 +48,7 @@
                <tr class="">
                  <td class="fullName">
                  {{#each patient.name as |name index|}}
-                   <a href='/patient/{{patient.id}}'>{{name.family}}, {{name.given}}</a>
+                   <a href='/patient/{{patient.id}}/filters'>{{name.family}}, {{name.given}}</a>
                    {{#if (gt index 1)}}
                    <br />
                    {{/if}}

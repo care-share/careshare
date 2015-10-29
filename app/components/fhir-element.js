@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   expanded: false,
+  currentHover: false,
   updateRecord: 'updateRecord',
   deleteRecord: 'deleteRecord',
   saveRecord: 'saveRecord',
@@ -14,16 +15,21 @@ export default Ember.Component.extend({
   }.on('init'),
   actions:{
     deleteRecord: function(){
-	  console.log('(FHIR ELEMENT) DELETE RECORD - record: '+this.get('root'));
-	  this.get('root').destroyRecord();
+      console.log('(FHIR ELEMENT) DELETE RECORD - record: '+this.get('root'));
+      this.get('root').destroyRecord();
     },
-	saveRecord: function(){
-	  console.log('(FHIR ELEMENT) SAVE RECORD - record: '+this.get('root'));
-	  this.get('root').save();
-	  this.set('expanded',false);
-	},
+      toggleHover:function(){
+        this.toggleProperty('currentHover');
+         
+    },
+
+    saveRecord: function(){
+      console.log('(FHIR ELEMENT) SAVE RECORD - record: '+this.get('root'));
+      this.get('root').save();
+      this.set('expanded',false);
+    },
     toggleExpanded:function(){
-	  this.toggleProperty('expanded');	  
-	}
+      this.toggleProperty('expanded');	  
+    }
   }
 });

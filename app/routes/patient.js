@@ -4,8 +4,8 @@ import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
 // actions are defined at: http://ember-simple-auth.com/ember-simple-auth-api-docs.html#SimpleAuth-ApplicationRouteMixin
 export default Ember.Route.extend(ApplicationRouteMixin, {
   setupController: function(controller){
-	console.log('patient setupController: '+window.location.href.split('/').pop());
-	this.store.find('patient',window.location.href.split('/').pop()).then(function(response){
+	console.log('patient setupController: '+window.location.href.split('/')[4]);
+	this.store.find('patient',window.location.href.split('/')[4]).then(function(response){
 		console.log('patient info: '+JSON.stringify(response));
 		controller.set('gender',response.get('gender').charAt(0).toUpperCase()+
 			response.get('gender').substr(1));
@@ -16,12 +16,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 		});
 		controller.set('birthDate',response.get('birthDate'));
 	});
-  },
-  renderTemplate: function(){
-    //Render into main outlet.
-	this.render();	
-	//Render into sidebar outlet.
-	this.render("filters",{into:"application",outlet:"filters"});
   },
   actions: {
   	toggleShowProblems:function(){
