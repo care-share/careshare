@@ -1,7 +1,31 @@
 import Ember from 'ember';
 
 var PatientsController = Ember.ArrayController.extend({
+  currentId: null,
+  careplans: null,
   actions:  {
+    toggleExpanded: function(){this.set('currentId',null);},
+	setChoice: function(patient,careplan){
+		console.log('Patient ID: '+patient+',CarePlan ID: '+careplan);
+		if(careplan == -9999){this.set('currentId',null);}
+		else{
+		window.location.href = '/patients/'+patient+'/careplan/'+careplan;
+		//TODO: navigate to /patients/PATIENT_ID/careplan/CAREPLAN_ID
+		}
+	},
+    getCarePlans: function(id){
+	  console.log('GET CarePlans for id: '+id);
+	  var parent = this;
+	  this.store.find('CarePlan',{subject:id}).then(function(response){
+	    console.log('Response: '+response.toArray().length+' items!');
+		if(response != null){
+			parent.set('currentId',id);
+			if(response.toArray().length > 0){
+				parent.set('careplans',response);
+			}else{parent.set('careplans',[{description:"(NONE)",id:-9999}]);}
+		}
+	  });
+	},
     createPatient: function() {
       var givenName = this.get('givenName');
       var familyName = this.get('familyName');
