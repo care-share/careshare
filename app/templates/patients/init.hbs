@@ -18,7 +18,7 @@ Gender: {{gender}}
 <div class="col-sm-12">
 <br/>
 <h4>Which concerns are relevant to this care plan?</h4>
-{{multiselect-checkboxes options=conditions labelProperty='displayName'}}
+{{multiselect-checkboxes options=conditions labelProperty='displayName' selection=selectedConditions}}
 </div>
 
 <div class="col-sm-12">
@@ -60,7 +60,7 @@ Gender: {{gender}}
 
 <div class="col-sm-12">
 <br/>
-<button>Submit</button>
+<button {{action 'initializeCarePlan'}}>Submit</button>
 </div>
 
 <div class="col-sm-12">
