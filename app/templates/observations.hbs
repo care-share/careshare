@@ -1,6 +1,6 @@
 <h2><b>Observations</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each observation in model}}
+	{{#each model as |observation|}}
         {{#fhir-element root=observation type='DiagnosticOrder' as |section|}}
 			{{#if (eq section "expanded")}}
 				Status: {{fhir-choice name='status' attribute=observation.status
