@@ -7,7 +7,7 @@
 </div>
 <br>
     <div class="col-sm-12">
-      <div class="panel panel-dlefault">
+      <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
             <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)</h3>
@@ -44,17 +44,22 @@
           </thead>
           
              <tbody>
-               {{#each filteredContent as |patient|}}
-                <tr class="">
-                  {{#each patient.name as |name|}}
-                    <td class="fullName"><a href='/patient/{{patient.id}}'>{{name.given}},{{name.family}}</a></td>
-                    <td class="birthDate">{{patient.birthDate}}</td>
-                  {{/each}}
-                  <td>{{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}</td>
-                </tr>
-                  {{else}}
-            Didn't find any patients.
-               {{/each}}
+             {{#each filteredContent as |patient|}}
+               <tr class="">
+                 <td class="fullName">
+                 {{#each patient.name as |name index|}}
+                   <a href='/patient/{{patient.id}}'>{{name.family}}, {{name.given}}</a>
+                   {{#if (gt index 1)}}
+                   <br />
+                   {{/if}}
+                 {{/each}}
+                 </td>
+                 <td class="birthDate">{{patient.birthDate}}</td>
+                 <td>{{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}</td>
+               </tr>
+             {{else}}
+               Didn't find any patients.
+             {{/each}}
             </tbody>
           </table>
 
