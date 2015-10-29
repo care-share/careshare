@@ -18,10 +18,10 @@ export default Router.map(function() {
 
    this.resource("patient", {path:'/patient/:patient_id'}, function() {
     this.route("filters");
-    this.route("info");
+    this.route("patientInfo");
     this.route("notes");
     this.route("history");
-    this.route("request");
+    this.route("requests");
   });
 
 });
