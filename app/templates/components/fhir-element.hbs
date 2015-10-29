@@ -1,17 +1,22 @@
-<div class="panel panel-info" 
-	style="background-color: rgb(201,222,242);border-color: black;padding-left:1em;padding-right:1em">
-	{{#if expanded}}
-		<button class="glyphicon glyphicon-chevron-up" {{action 'toggleExpanded'}}/>
-	{{else}}
-		<button class="glyphicon glyphicon-chevron-down" {{action 'toggleExpanded'}}/>
-	{{/if}}
-	
-	<button class="glyphicon glyphicon-floppy-save" {{action 'saveItem' element}}/>
-	<button class="glyphicon glyphicon-trash" {{action 'removeItem' element}}/><br>	
-	
-	{{#if expanded}}
-		{{yield "expanded"}}
-	{{else}}
-		{{yield "contracted"}}
-	{{/if}}
+<div class="panel panel-info" {{action "toggleHover" on="mouseEnter"}}  >
+    <div {{action "toggleHover" on="mouseLeave"}}>
+
+       	
+
+		{{#if expanded}}
+			{{yield "expanded"}}
+			<div class="glyphicon glyphicon-trash" {{action 'removeItem' element}}></div>
+			<div style="float:right;" {{action 'toggleExpanded'}}> Less </div>
+		{{else}}
+			{{yield "contracted"}}
+		{{/if}}
+
+		{{#if currentHover}}
+			{{#if expanded}}
+				
+			{{else}}
+				<div style="float:right;" {{action 'toggleExpanded'}}> ... </div>
+			{{/if}}			
+		{{/if}}
+	</div>
 </div>

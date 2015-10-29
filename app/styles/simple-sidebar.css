@@ -96,6 +96,17 @@
     background: none;
 }
 
+.patientSidebar {
+        padding: 0px;
+
+    }
+
+.patient-filter {
+    padding: 5px;
+
+
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
@@ -122,4 +133,6 @@
         position: relative;
         margin-right: 0;
     }
+
+    
 }

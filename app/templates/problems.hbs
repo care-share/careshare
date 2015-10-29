@@ -1,22 +1,22 @@
-<h2><b>Problems</b></h2>
-<div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
+<h3>Problems</h3>
+<div class="panel-group dashboardColumn">
 	{{#each problem in model}}
         {{#fhir-element element=problem as |section|}}
 			{{#if (eq section "expanded")}}
-			    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
-				  choices='active,relapse,remission,resolved'
-				}}<br>
-				<div class="well well-sm">
-					Code: {{show-codeable codeable=problem.code}}
-				</div>
+				{{fhir-edit name='text' attribute=problem.code.text}}
+			    <div>
+				    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
+					  choices='active,relapse,remission,resolved'
+					}}	
+				</div>	
+					
+				
 			{{else}}
-				{{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
-				  choices='active,relapse,remission,resolved'
-				}}
+				{{problem.code.text}} - ({{problem.clinicalStatus}})
 			{{/if}}
 		{{/fhir-element}}<br>
 	{{else}}
 		No Problems<br>
 	{{/each}}
-	<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Problem</strong>
+	<div {{action 'add'}} style="float:right;"> Add Problem... </div>
 </div>

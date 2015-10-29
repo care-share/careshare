@@ -4,11 +4,12 @@
     <button class='ion-checkmark' {{action 'saveItem'}}/>
 {{else}}
 	{{#if (not attribute)}}
-		<button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button> 
+		<div class="panel panel-default" {{action 'editItem' on='doubleClick'}}>
+			Add {{name}}...
+		</div> 
 	{{else}}
-		<div class="panel panel-default" style="outline: 1px solid black" 
-			{{action 'editItem' on='doubleClick'}}>
-		{{attribute}}
+		<div class="panel panel-default" {{action 'editItem' on='doubleClick'}}>
+			{{attribute}}
 		</div> 
 	{{/if}}
 {{/if}}
