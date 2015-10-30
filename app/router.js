@@ -10,6 +10,7 @@ export default Router.map(function() {
   this.route('login');
   this.route('goals');
   this.resource('account',{path:'/account'});
+  this.resource('workInProgress');
   this.resource('patients', function() {
     this.route("init", { path: "/:patient_id/init" });
   });

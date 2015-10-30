@@ -3,12 +3,12 @@
   <!-- Sidebar Header-->
   <div class="side-header">
     <h1 id="brand" class="brand">
-      <a href="/">
+      {{#link-to 'dashboard'}}
         <img alt="Brand" src="/images/brand.png"> 
         <strong>rural</strong>health
-      </a>
+      {{/link-to}}
       <div class="header-actions pull-right">
-      <span id="toggle-content" ><i class="icon ion-navicon-round"></i></span>
+        <span id="toggle-content" ><i class="icon ion-navicon-round"></i></span>
       </div>
     </h1>
     
@@ -25,46 +25,54 @@
           <a href="/dashboard"><i class="nav-item-icon icon ion-social-rss-outline"></i>Dashboard</a>
         </li>
         <li class="side-nav-item ">
-          <a href="/patients">
-              <span class="badge">(patient count)</span>
-              <i class="nav-item-icon icon ion-ios-person-outline"></i> Patients </a>
-              </li>
+          {{#link-to 'patients'}}<span class="badge">(patient count)</span>
+              <i class="nav-item-icon icon ion-ios-person-outline"></i> Patients 
+          {{/link-to}}
+              
+        </li>
                 <li class="side-nav-item ">
-                  <a href="/consults">
-                    <i class="nav-item-icon icon ion-compose"></i> Drafts </a>
+                  {{#link-to 'workInProgress'}}
+                    <i class="nav-item-icon icon ion-compose"></i> Drafts 
+                   {{/link-to}}
                 </li>
                 <!--<li class="side-nav-item ">
                   <a href="/goals">
                     <i class="nav-item-icon icon ion-star"></i> Goals </a>
                 </li>-->
                 <li class="side-nav-item ">
-                  <a href="/reviewed">
-                    <i class="nav-item-icon icon ion-clipboard"></i> Consults </a>
+                  {{#link-to 'workInProgress'}}
+                    <i class="nav-item-icon icon ion-clipboard"></i> Consults 
+                     {{/link-to}}
                 </li>
                 <li class="side-nav-item">
-                  <a href="/referrals">
-                    <i class="nav-item-icon icon ion-paper-airplane"></i> Referrals </a>
+                  {{#link-to 'workInProgress'}}
+                    <i class="nav-item-icon icon ion-paper-airplane"></i> Referrals 
+                     {{/link-to}}
                 </li>
                 <!-- /tables -->
             <li class="side-nav-item ">
-              <a href="/approved">
-                <i class="nav-item-icon icon ion-map"></i> Ready for Assignment </a>
+              {{#link-to 'workInProgress'}}
+                <i class="nav-item-icon icon ion-map"></i> Ready for Assignment 
+                 {{/link-to}}
             </li>
             <!-- /tables -->
         <li class="side-nav-item ">
-          <a href="/assigned">
-            <i class="nav-item-icon icon ion-medkit"></i> Patients Receiving Care </a>
+          {{#link-to 'workInProgress'}}
+            <i class="nav-item-icon icon ion-medkit"></i> Patients Receiving Care 
+             {{/link-to}}
         </li>
         <!-- /tables -->
         <li class="side-nav-item ">
-          <a href="/reviewable">
-            <i class="nav-item-icon icon ion-checkmark-round"></i> Ready for Certification </a>
+          {{#link-to 'workInProgress'}}
+            <i class="nav-item-icon icon ion-checkmark-round"></i> Ready for Certification 
+             {{/link-to}}
         </li>
         
      {{#if isAdmin}}
             <li class="side-nav-item ">
-          <a href="/account">
-            <i class="nav-item-icon icon ion-settings"></i> Review Account Requests</a>
+          {{#link-to 'account'}}
+            <i class="nav-item-icon icon ion-settings"></i> Review Account Requests
+             {{/link-to}}
         </li>
      {{/if}}   
       </ul>
