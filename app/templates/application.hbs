@@ -7,7 +7,11 @@
         <img alt="Brand" src="/images/brand.png"> 
         <strong>rural</strong>health
       </a>
+      <div class="header-actions pull-right">
+      <span id="toggle-content" ><i class="icon ion-navicon-round"></i></span>
+      </div>
     </h1>
+    
     <form id="smart-search" class="side-form hide ng-pristine ng-valid" role="form">
       <input type="text" ng-model="search" class="form-control ng-pristine ng-valid" data-target=".side-wrapper" placeholder="Smart Finder">
     </form>
@@ -83,13 +87,15 @@
           <i class="icon ion-gear-b"></i>
         </a>
       </div>
+      Welcome, {{session.secure.name_first}}!
+      <button aria-hidden="true" {{action 'invalidate'}} class="btn btn-sm btn-default" type="submit">Sign Out</button>
     </div>
 
     <!-- Navbar Left/Center Content -->
-    <div class="header-actions pull-left">
+    <!--div class="header-actions pull-left">
       <button id="toggle-content" class="btn btn-icon" type="button"><i class="icon ion-navicon-round"></i></button>
       <button id="toggle-search" class="btn btn-icon" type="button"><i class="icon ion-search"></i></button>
-    </div>
+    </div-->
     <h1 class="content-title">{{header-format target.url}}</h1>
   </header>
 

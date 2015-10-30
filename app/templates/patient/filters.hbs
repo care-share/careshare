@@ -2,35 +2,65 @@
           <ul class="nav nav-pills nav-stacked">
             <li class="patient-filter" >
               
-                <span class="glyphicon glyphicon-heart-empty"></span>
-                Participants 
-                <span class="glyphicon glyphicon-chevron-down"></span>
+                <span class="glyphicon glyphicon-heart-empty"></span>                  
+                  Participants
+                  <span {{action 'toggleExpandParticipants'}} class="filters-expander {{if expandParticipants 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
+                  {{#if expandParticipants}}
+                    <div>
+                        List of Participants here
+                    </div>
+                  {{/if}}
               
             </li>
-            <li class="patient-filter {{if patient.showProblems 'active'}}" {{action 'toggleShowProblems'}} style="color: black">
+            <li class="patient-filter {{if patient.showProblems 'active'}}">
                   <span class="glyphicon glyphicon-heart-empty"></span>                  
-                  Problems 
-                  <span class={{if patient.showProblems 'glyphicon glyphicon-chevron-right' 'glyphicon glyphicon-chevron-down'}}></span>
+                  <span {{action 'toggleShowProblems'}} class="column-toggler"> Problems </span>
+                  <span {{action 'toggleExpandProblems'}} class="filters-expander {{if expandProblems 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
+                  {{#if expandProblems}}
+                    <div>
+                        List of Problems here
+                    </div>
+                  {{/if}}
             </li>
-            <li class="patient-filter {{if patient.showGoals 'active'}}" {{action 'toggleShowGoals'}} style="color: black">
+           <li class="patient-filter {{if patient.showGoals 'active'}}">
                   <span class="glyphicon glyphicon-heart-empty"></span>                  
-                  Goals 
-                  <span class={{if patient.showGoals 'glyphicon glyphicon-chevron-right' 'glyphicon glyphicon-chevron-down'}}></span>
+                  <span {{action 'toggleShowGoals'}} class="column-toggler"> Goals </span>
+                  <span {{action 'toggleExpandGoals'}} class="filters-expander {{if expandGoals 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
+                  {{#if expandGoals}}
+                    <div>
+                        List of Goals here
+                    </div>
+                  {{/if}}
             </li>
-            <li class="patient-filter {{if patient.showInterventions 'active'}}" {{action 'toggleShowInterventions'}} style="color: black">
+            <li class="patient-filter {{if patient.showInterventions 'active'}}">
                   <span class="glyphicon glyphicon-heart-empty"></span>                  
-                  Interventions 
-                  <span class={{if patient.showInterventions 'glyphicon glyphicon-chevron-right' 'glyphicon glyphicon-chevron-down'}}></span>
+                  <span {{action 'toggleShowInterventions'}} class="column-toggler"> Interventions </span>
+                  <span {{action 'toggleExpandInterventions'}} class="filters-expander {{if expandInterventions 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
+                  {{#if expandInterventions}}
+                    <div>
+                        List of Interventions here
+                    </div>
+                  {{/if}}
             </li>
-            <li class="patient-filter {{if patient.showObservations 'active'}}" {{action 'toggleShowObservations'}} style="color: black">
+            <li class="patient-filter {{if patient.showObservations 'active'}}">
                   <span class="glyphicon glyphicon-heart-empty"></span>                  
-                  Observations 
-                  <span class={{if patient.showObservations 'glyphicon glyphicon-chevron-right' 'glyphicon glyphicon-chevron-down'}}></span>
+                  <span {{action 'toggleShowObservations'}} class="column-toggler"> Observations </span>
+                  <span {{action 'toggleExpandObservations'}} class="filters-expander {{if expandObservations 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
+                  {{#if expandObservations}}
+                    <div>
+                        List of Observations here
+                    </div>
+                  {{/if}}
             </li>
-             <li class="patient-filter {{if patient.showMedications 'active'}}" {{action 'toggleShowMedications'}} style="color: black">
+            <li class="patient-filter {{if patient.showMedications 'active'}}">
                   <span class="glyphicon glyphicon-heart-empty"></span>                  
-                  Medications 
-                  <span class={{if patient.showMedications 'glyphicon glyphicon-chevron-right' 'glyphicon glyphicon-chevron-down'}}></span>
+                  <span {{action 'toggleShowMedications'}} class="column-toggler"> Medications </span>
+                  <span  {{action 'toggleExpandMedications'}} class="filters-expander {{if expandMedications 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
+                  {{#if expandMedications}}
+                    <div>
+                        List of Medications here
+                    </div>
+                  {{/if}}
             </li>
           </ul>
         </div>

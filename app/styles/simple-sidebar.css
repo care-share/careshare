@@ -104,8 +104,32 @@
 
 .patient-filter {
     padding: 5px;
+    list-style-position:inside;
+    border: 1px solid black;
+    color: black;
+    margin: 0px !important;
+    font-size:20px;
+}
 
+.patient-filter.active {
+    background-color: #c9def2;
+}
 
+.filters-expander {
+    float:right;
+    padding-right: 10px;
+    cursor:pointer;
+
+}
+
+.column-toggler{
+    padding-left:10px;
+    cursor:pointer;
+
+}
+
+.column-toggler:hover {
+    text-decoration: underline;
 }
 
 @media(min-width:768px) {
