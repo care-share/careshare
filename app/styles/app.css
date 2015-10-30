@@ -19819,3 +19819,9 @@ a {
   width: 25px;
 }
 
+.clearFix:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+

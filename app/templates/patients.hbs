@@ -1,72 +1,79 @@
 {{outlet}}
 
-<div>
- <label>Name:</label>
- {{input type="text" value=filterText placeholder="Enter patient name"}}
- <!--TODO: use 'name' to search for patient info as an initial test-->
-</div>
 <br>
     <div class="col-sm-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" >
             <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-            <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)</h3>
+            <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)  {{input type="text" value=filterText placeholder="Patient name search"}}</h3>
         </div>
 
-        <table class="table table-hover">
-          <thead>
-            <tr>  
-              <th class="fullName">
-                Full Name
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th> 
-              <th class="birthDate">
-                Birth Date
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th >
-                Link
-              </th>
-             <!-- <th class="provider">
-                Care Provider(s)
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>-->
-            </tr>
-          </thead>
-          
-             <tbody>
-             {{#each filteredContent as |patient|}}
-               <tr class="">
-                 <td class="fullName">
-                 {{#each patient.name as |name index|}}
-                   <a href='/patient/{{patient.id}}/filters'>{{name.family}}, {{name.given}}</a>
-                   {{#if (gt index 1)}}
-                   <br />
-                   {{/if}}
-                 {{/each}}
-                 </td>
-                 <td class="birthDate">{{patient.birthDate}}</td>
-                 <td>{{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}</td>
-               </tr>
-             {{else}}
-               Didn't find any patients.
-             {{/each}}
-            </tbody>
-          </table>
 
-          <h4>Create new patient:</h4>
- <label>Given name:</label>
- {{input type="text" value=givenName placeholder="Enter patient name" enter="createPatient"}}
- <label>Family name:</label>
- {{input type="text" value=familyName placeholder="Enter patient name" enter="createPatient"}}
+
+        <table class="table table-hover" style="table-layout:fixed">
+              <thead>
+                <tr>  
+                  <th class="fullName">
+                    Full Name
+                    <div class="order pull-left">
+                      <a class="asc">&uarr;</a>
+                      <a class="desc">&darr;</a>
+                    </div>
+                  </th> 
+                  <th class="birthDate">
+                    Birth Date
+                    <div class="order pull-left">
+                      <a class="asc">&uarr;</a>
+                      <a class="desc">&darr;</a>
+                    </div>
+                  </th>
+                  <th >
+                    Link
+                  </th>
+                 <!-- <th class="provider">
+                    Care Provider(s)
+                    <div class="order pull-left">
+                      <a class="asc">&uarr;</a>
+                      <a class="desc">&darr;</a>
+                    </div>
+                  </th>-->
+                </tr>
+              </thead>
+        </table>
+        <div style="overflow-y:auto; height:70vh" >
+          <table class="table table-hover">
+            
+            
+               <tbody>
+               {{#each filteredContent as |patient|}}
+                 <tr class="">
+                   <td class="fullName">
+                   {{#each patient.name as |name index|}}
+                     <a href='/patient/{{patient.id}}/filters'>{{name.family}}, {{name.given}}</a>
+                     {{#if (gt index 1)}}
+                     <br />
+                     {{/if}}
+                   {{/each}}
+                   </td>
+                   <td class="birthDate">{{patient.birthDate}}</td>
+                   <td>{{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}</td>
+                 </tr>
+               {{else}}
+                 Didn't find any patients.
+               {{/each}}
+              </tbody>
+              </table>
+
+              
+          </div>
+          <table class="table table-hover" style="table-layout:fixed">
+               <thead>
+              <tr>
+                <Label>Create new patient:</Label>
+                 {{input type="text" value=givenName placeholder="Enter patient given name" enter="createPatient"}}
+                 {{input type="text" value=familyName placeholder="Enter patient family name" enter="createPatient"}}
+              </tr>
+            </thead>
+            </table>
         </div>
       </div>
