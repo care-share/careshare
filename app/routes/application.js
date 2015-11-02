@@ -3,7 +3,8 @@ import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
 
 // actions are defined at: http://ember-simple-auth.com/ember-simple-auth-api-docs.html#SimpleAuth-ApplicationRouteMixin
 export default Ember.Route.extend(ApplicationRouteMixin, {
-	renderTemplate: function(){
+	
+  renderTemplate: function(){
 		var url = window.location.href;
 		console.log('application route: renderTemplate');
 		console.log('url: '+url);
@@ -39,7 +40,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 				this.render('patient');
 			}
 			else{
-				this.render('careshare');
+				this.render('application');
 			}
 		}else{
 			this.render('login');

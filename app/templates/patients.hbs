@@ -1,93 +1,94 @@
 {{outlet}}
-
 <br>
-    <div class="col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-heading" >
-            <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-            <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)  {{input type="text" value=filterText placeholder="Patient name search"}}</h3>
-        </div>
-
-
-
-        <table class="table table-hover">
-          <thead>
-            <tr>  
-              <th class="fullName">
-                Full Name
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th> 
-              <th class="birthDate">
-                Birth Date
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-			  <th class="carePlan">
-                View CarePlan
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th >
-                Link
-              </th>
-             <!-- <th class="provider">
-                Care Provider(s)
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>-->
-            </tr>
-          </thead>
-          
-             <tbody>
-               {{#each filteredContent as |patient|}}
-                <tr class="">
-                  {{#each patient.name as |name|}}
-                    <td class="fullName"><a href='/patient/{{patient.id}}'>{{name.given}},{{name.family}}</a></td>
-                    <td class="birthDate">{{patient.birthDate}}</td>
-					<td class="carePlan">
-						{{#if (eq currentId patient.id)}}
-							<div class="btn-group open">
-							<button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}} class="btn btn-default dropdown-toggle" 
-								aria-expanded="true">{{careplan}} &nbsp;<span class="caret"></span></button>
-								<div role="menu" class="dropdown-menu">
-									{{#each careplan in careplans}}
-										<li><a data-switch-set="onColor" {{action 'setChoice' patient.id careplan.id}} 
-											data-switch-value={{careplan.description}}>{{careplan.description}}</a></li>
-									{{/each}}
-								</div>
-							</div>
-						{{else}}
-							<div class="btn-group">
-								<button type="button" data-toggle="dropdown" {{action 'getCarePlans' patient.id}} class="btn btn-default dropdown-toggle" 
-									aria-expanded="false">(Choose a careplan) &nbsp;<span class="caret"></span></button>
-							</div>
-						{{/if}}
-					</td>
+<div class="col-sm-12">
+  <div class="panel panel-default">
+    <div class="panel-heading" >
+      <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+      <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)  {{input type="text" value=filterText placeholder="Patient name search"}}</h3>
+    </div>
+    <table class="table table-hover" >
+      <thead>
+        <tr>
+          <th class="fullName col-xs-3" >
+            Full Name
+            <div class="order pull-left">
+              <a class="asc">&uarr;</a>
+              <a class="desc">&darr;</a>
+            </div>
+          </th>
+          <th class="birthDate col-xs-3">
+            Birth Date
+            <div class="order pull-left">
+              <a class="asc">&uarr;</a>
+              <a class="desc">&darr;</a>
+            </div>
+          </th>
+          <th class="carePlan col-xs-3">
+            View CarePlan
+            <div class="order pull-left">
+              <a class="asc">&uarr;</a>
+              <a class="desc">&darr;</a>
+            </div>
+          </th>
+          <th class="col-xs-3">
+            Link
+          </th>
+          <!-- <th class="provider">
+            Care Provider(s)
+            <div class="order pull-left">
+              <a class="asc">&uarr;</a>
+              <a class="desc">&darr;</a>
+            </div>
+          </th>-->
+        </tr>
+      </thead>
+    </table>
+    <div style="overflow-y:auto; height:70vh" >
+      <table style="width:100%">
+        <tbody>
+          {{#each filteredContent as |patient|}}
+          <tr class="">
+            {{#each patient.name as |name|}}
+            <td class="fullName col-xs-3" {{action "renderPatient" patient.id}} ><a href="#"> {{name.given}},{{name.family}}</a> </td>
+            <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
+            <td class="carePlan col-xs-3">
+              {{#if (eq currentId patient.id)}}
+              <div class="btn-group open">
+                <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}} class="btn btn-default dropdown-toggle"
+                aria-expanded="true">{{careplan}} &nbsp;<span class="caret"></span></button>
+                <div role="menu" class="dropdown-menu">
+                  {{#each careplan in careplans}}
+                  <li><a data-switch-set="onColor" {{action 'setChoice' patient.id careplan.id}}
+                  data-switch-value={{careplan.description}}>{{careplan.description}}</a></li>
                   {{/each}}
-                  <td>{{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}</td>
-                </tr>
-                  {{else}}
-            Didn't find any patients.
-               {{/each}}
-            </tbody>
-          </table>
-          </div>
-          <table class="table table-hover" style="table-layout:fixed">
-               <thead>
-              <tr>
-                <Label>Create new patient:</Label>
-                 {{input type="text" value=givenName placeholder="Enter patient given name" enter="createPatient"}}
-                 {{input type="text" value=familyName placeholder="Enter patient family name" enter="createPatient"}}
-              </tr>
-            </thead>
-            </table>
-        </div>
+                </div>
+              </div>
+              {{else}}
+              <div class="btn-group">
+                <button type="button" data-toggle="dropdown" {{action 'getCarePlans' patient.id}} class="btn btn-default dropdown-toggle"
+                aria-expanded="false">(Choose a careplan) &nbsp;<span class="caret"></span></button>
+              </div>
+              {{/if}}
+            </td>
+            {{/each}}
+            <td class="col-xs-3">
+              {{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}
+            </td>
+          </tr>
+          {{else}}
+          Didn't find any patients.
+          {{/each}}
+        </tbody>
+       </table> 
+    </div>
+  </div>
+  <table class="table table-hover" style="table-layout:fixed">
+    <thead>
+      <tr>
+        <Label>Create new patient:</Label>
+        {{input type="text" value=givenName placeholder="Enter patient given name" enter="createPatient"}}
+        {{input type="text" value=familyName placeholder="Enter patient family name" enter="createPatient"}}
+      </tr>
+    </thead>
+  </table>
+</div>

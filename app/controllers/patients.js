@@ -1,9 +1,15 @@
 import Ember from 'ember';
 
 var PatientsController = Ember.ArrayController.extend({
+  needs: "application",
+  application: Ember.computed.alias("controllers.application"),
+  appController: Ember.inject.controller('application'),
   currentId: null,
   careplans: null,
   actions:  {
+    renderPatient: function(id){
+      this.transitionToRoute('patient.filters', id);
+    },
     toggleExpanded: function(){this.set('currentId',null);},
 	setChoice: function(patient,careplan){
 		console.log('Patient ID: '+patient+',CarePlan ID: '+careplan);

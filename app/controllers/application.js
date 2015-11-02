@@ -14,6 +14,8 @@ export default Ember.Controller.extend({
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
+    hidden: false,
+    noDisplay: false,
     actions:{
       accountRequest:function(){
         API.submitRequest(this.getProperties('first','last','email','pass'),this);
@@ -45,6 +47,14 @@ export default Ember.Controller.extend({
       this.set('accountRequestSucceeded',false);
       this.set('accountRequestFailed',false);
       this.toggleProperty('isShowingForm');
+    },
+     toggleHidden:function(){
+    this.toggleProperty("hidden");
+    },
+    toggleNoDisplay:function(){
+    this.toggleProperty("noDisplay");
     }
+
+
     }
 });
