@@ -1,17 +1,14 @@
 {{outlet}}
 
-<div>
- <label>Name:</label>
- {{input type="text" value=filterText placeholder="Enter patient name"}}
- <!--TODO: use 'name' to search for patient info as an initial test-->
-</div>
 <br>
     <div class="col-sm-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" >
             <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-            <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)</h3>
+            <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)  {{input type="text" value=filterText placeholder="Patient name search"}}</h3>
         </div>
+
+
 
         <table class="table table-hover">
           <thead>
@@ -83,11 +80,15 @@
                {{/each}}
             </tbody>
           </table>
-
-          <h4>Create new patient:</h4>
- <label>Given name:</label>
- {{input type="text" value=givenName placeholder="Enter patient name" enter="createPatient"}}
- <label>Family name:</label>
- {{input type="text" value=familyName placeholder="Enter patient name" enter="createPatient"}}
+          </div>
+          <table class="table table-hover" style="table-layout:fixed">
+               <thead>
+              <tr>
+                <Label>Create new patient:</Label>
+                 {{input type="text" value=givenName placeholder="Enter patient given name" enter="createPatient"}}
+                 {{input type="text" value=familyName placeholder="Enter patient family name" enter="createPatient"}}
+              </tr>
+            </thead>
+            </table>
         </div>
       </div>

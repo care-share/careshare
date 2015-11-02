@@ -12,9 +12,6 @@ var InitController = Ember.ObjectController.extend({
 	    var subjectReference = this.store.createRecord('reference', {
 		reference: `Patient/${this.model.id}`
 	    });
-	    var tmpConditionReference = this.store.createRecord('reference', {  
-		reference: `Condition/x2506`
-	    });
 	    var addressesConditions = [];
 	    for (var i = 0; i < this.selectedConditions.length; i++) {
 		var condition = this.selectedConditions[i];
