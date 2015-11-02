@@ -15,7 +15,13 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 			controller.set('lastName',name.get('family'));
 		});
 		controller.set('birthDate',response.get('birthDate'));
+
 	});
+    //Load all information as the default has it showing
+    this.store.query('Condition', {}).then(function(response){controller.set('problems',response);});
+    this.store.query('Goal', {}).then(function(response){controller.set('goals',response);});
+    this.store.query('ProcedureRequest', {}).then(function(response){controller.set('interventions',response);});
+    this.store.query('DiagnosticOrder', {}).then(function(response){controller.set('observations',response);});
   },
   actions: {
   	toggleShowProblems:function(){
