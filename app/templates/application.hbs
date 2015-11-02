@@ -68,7 +68,7 @@
              {{/link-to}}
         </li>
         
-     {{#if isAdmin}}
+     {{#if session.secure.isAdmin}}
             <li class="side-nav-item ">
           {{#link-to 'account'}}
             <i class="nav-item-icon icon ion-settings"></i> Review Account Requests
