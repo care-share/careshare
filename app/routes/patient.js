@@ -6,14 +6,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   model: function(params) {
   	 var controller = this.controllerFor('patient');
     	this.store.find('patient',params.patient_id).then(function(response){
-		console.log('patient info: '+JSON.stringify(response));
-		controller.set('gender',response.get('gender').charAt(0).toUpperCase()+
+			controller.set('gender',response.get('gender').charAt(0).toUpperCase()+
 			response.get('gender').substr(1));
-		console.log('name: '+response.get('name'));
-		response.get('name').forEach(function(name) {
-			controller.set('firstName',name.get('given'));
-			controller.set('lastName',name.get('family'));
-		});
+			response.get('name').forEach(function(name) {
+				controller.set('firstName',name.get('given'));
+				controller.set('lastName',name.get('family'));
+			});
 		controller.set('birthDate',response.get('birthDate'));
 
 	});
