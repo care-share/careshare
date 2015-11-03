@@ -2,8 +2,6 @@
     <div {{action "toggleHover" on="mouseLeave"}}>
         {{#if expanded}}
             {{yield "expanded"}}
-            <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
-            <div class="glyphicon glyphicon-trash" {{action 'removeItem' element}}></div>
             <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
         {{else}}
             {{yield "contracted"}}
@@ -13,6 +11,7 @@
                 <div style="float:right;" {{action 'toggleExpanded'}}> ...</div>
             {{/if}}
         {{/if}}
+        <button class='ion-ios-plus' {{action 'updateArray'}}> New item</button>
+
     </div>
 </div>
-

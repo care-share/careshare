@@ -1,7 +1,24 @@
 {{#fhir-element parent=parent name=name type='CodeableConcept' as |section|}}
-	{{#if (eq section "expanded")}}
-	<ul>
-		<li>{{fhir-edit name='text' attribute=attribute.text}}</li>
-	</ul>
-	{{else}}{{fhir-edit name='text' attribute=attribute.text}} {{/if}}
+    {{#if (eq section "expanded")}}
+        <ul>
+            Coding(s):
+        <li>{{#fhir-array parent=attribute.coding name='coding' type='Coding' as |inner_section|}}
+            {{#if (eq inner_section "expanded")}}
+                {{#each attribute.coding as |item index|}}
+                    <li>Display: {{fhir-edit name='display' attribute=item.display}}</li>
+                    <li>Version: {{fhir-edit name='version' attribute=item.version}}
+                        <button class="ion-trash-a" {{action 'removeItem' attribute.coding index}}/>
+                    </li>
+                {{/each}}
+            {{else}}
+                {{#each attribute.coding as |item index|}}
+                    <li>{{fhir-edit name='display' attribute=item.display}}
+                        <button class="ion-trash-a" {{action 'removeItem' attribute.coding index}}/>
+                    </li>
+                {{/each}}
+            {{/if}}
+        {{/fhir-array}}</li>
+            <li>Text: {{fhir-edit name='text' attribute=attribute.text}}</li>
+        </ul>
+    {{else}}{{fhir-edit name='text' attribute=attribute.text}} {{/if}}
 {{/fhir-element}}

@@ -14,19 +14,30 @@ export default Ember.Component.extend({
 	}
   }.on('init'),
   actions:{
+    updateRecord: function(parent,name,type){
+	 console.log('(FHIR ELEMENT [yet another]) UPDATE RECORD - record: '+
+			parent+',name: '+name+',type: '+type);
+	  this.sendAction('updateRecord',parent,name,type);
+    },
     deleteRecord: function(){
       console.log('(FHIR ELEMENT) DELETE RECORD - record: '+this.get('root'));
       this.get('root').destroyRecord();
     },
-      toggleHover:function(){
-        this.toggleProperty('currentHover');
-         
+    removeItem: function(index){
+	  console.log('(FHIR_ELEMENT) REMOVE ARRAY ITEM - parent: '+this.get('parent')+',index: '+index);
+	  this.sendAction('removeItem',this.get('parent'),index);
     },
-
     saveRecord: function(){
-      console.log('(FHIR ELEMENT) SAVE RECORD - record: '+this.get('root'));
-      this.get('root').save();
-      this.set('expanded',false);
+	  console.log('(FHIR ELEMENT) SAVE RECORD');
+	  if(!this.get('root')){
+		this.get('parent').save();
+	  }else{
+		this.get('root').save();
+		//this.set('expanded',false);
+	  }
+    },
+    toggleHover:function(){
+      this.toggleProperty('currentHover');     
     },
     toggleExpanded:function(){
       this.toggleProperty('expanded');	  
