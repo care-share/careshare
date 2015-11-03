@@ -33,10 +33,10 @@ export default Ember.Controller.extend({
     actions:{
       createRelation: function(draggedObject, options) {
 	  console.log( "createRelation called");
-	  var draggedModel = draggedObject._internalModel.modelName;
-	  var ontoModel = options.target.ontoType; console.log(ontoModel);
-	  var ontoID = options.target.ontoObject.id;
 	  var ontoObject = options.target.ontoObject;
+	  var ontoModel = ontoObject._internalModel.modelName;
+	  var draggedModel = draggedObject._internalModel.modelName;
+	  var ontoID = options.target.ontoObject.id;
 
 	  // Architectural logic for how we create the link:
 	  // (we need to know which type should be the referrer, and what attribute the reference list lives in)

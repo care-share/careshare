@@ -3,7 +3,7 @@
 
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each model as |problem|}}
-	  {{#draggable-object-target action="createRelation" ontoObject=problem ontoType="condition"}}
+	  {{#draggable-object-target action="createRelation" ontoObject=problem}}
 	    {{#draggable-object content=problem}}
 		    {{#fhir-element root=problem type='Condition' as |section|}}
 			{{#if (eq section "expanded")}}
