@@ -13,6 +13,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 				controller.set('lastName',name.get('family'));
 			});
 		controller.set('birthDate',response.get('birthDate'));
+    controller.set('id', params.patient_id)
 
 	});
     //Load all information as the default has it showing

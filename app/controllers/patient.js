@@ -4,7 +4,7 @@ import API from '../api';
 export default Ember.Controller.extend({
     apiUrl: window.Careshare.apiUrl,
 	patient: null,
-	firstName: 'Unknown',lastName: 'Unknown',gender: 'Unknown',birthDate: 'Unknown',
+	firstName: 'Unknown',lastName: 'Unknown',gender: 'Unknown',birthDate: 'Unknown', id: 'Unknown',
     isOpenID: window.Careshare.isOpenID,
     isSideBarDisplayed: true,
     lastLoginFailed: false,
@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
-	goals: null,problems: null,observations: null,interventions: null,medications: null,
+	  goals: null,problems: null,observations: null,interventions: null,medications: null,
     showGoals: true,showProblems: true,showObservations: true,showInterventions: true,showMedications:true,
     actions:{
       accountRequest:function(){

@@ -9,12 +9,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 		console.log('application route: renderTemplate');
 		console.log('url: '+url);
 		if(this.get('session.isAuthenticated')){		
-			//if(url.indexOf('/patient/') > -1 || url.indexOf('careplan.') > -1){
-			//	this.render('patient');
-			//}
-			//else{
 				this.render('application');
-			//}
 		}else{
 			this.render('login');
 		}
@@ -32,20 +27,30 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   },
   actions: {
   	checkTemplate: function(){
-		var url = window.location.href;
-		console.log('application route: checkTemplate');
-		console.log('url: '+url);
-		if(this.get('session.isAuthenticated')){		
-			if(url.indexOf('/patient/') > -1){
-				this.render('patient');
-			}
-			else{
-				this.render('application');
-			}
-		}else{
-			this.render('login');
-		}
-	},
+  		var url = window.location.href;
+  		console.log('application route: checkTemplate');
+  		console.log('url: '+url);
+  		if(this.get('session.isAuthenticated')){		
+  				this.render('application');
+  			
+  		}else{
+  			this.render('login');
+  		} 
+    },
+    renderPatient: function(id){
+      
+      console.log("Rendering patient from Application")
+      this.transitionTo('patient.filters', id);
+    },
+    renderCarePlan: function(patientID){
+      var e = document.getElementById("dropdown"+patientID);
+      var careplanID = e.options[e.selectedIndex].value;
+      console.log("patientID")
+      console.log(patientID)
+     
+     // this.get('controller').transitionToRoute('careplan', testing);
+      this.transitionTo('careplan', {'a': patientID, 'b': careplanID});
+    },
     queryParamsDidChange: function(params){
         if(params != null){
           console.log("params changed...");

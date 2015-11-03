@@ -49,37 +49,34 @@
           {{#each filteredContent as |patient|}}
           <tr class="">
             {{#each patient.name as |name|}}
-            <td class="fullName col-xs-3" {{action "renderPatient" patient.id}} ><a href="#"> {{name.given}},{{name.family}}</a> </td>
+            <td class="fullName col-xs-3"> {{name.given}},{{name.family}} </td>
             <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
             <td class="carePlan col-xs-3">
-              {{#if (eq currentId patient.id)}}
-              <div class="btn-group open">
-                <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}} class="btn btn-default dropdown-toggle"
-                aria-expanded="true">{{careplan}} &nbsp;<span class="caret"></span></button>
-                <div role="menu" class="dropdown-menu">
-                  {{#each careplan in careplans}}
-                  <li><a data-switch-set="onColor" {{action 'setChoice' patient.id careplan.id}}
-                  data-switch-value={{careplan.description}}>{{careplan.description}}</a></li>
-                  {{/each}}
-                </div>
-              </div>
+              {{#if patient.hasCarePlans}}
+              <select id="dropdown{{patient.id}}"class="form-control" {{action 'renderCarePlan' patient.id on='change'}}>
+                <option disabled selected> -- Select a Careplan to View -- </option>
+                {{#each careplan in patient.careplans}}
+                <option value={{careplan.id}}>
+                  <div  >
+                    {{careplan.id}}
+                  </div>
+                </option>
+                {{/each}}
+              </select>
               {{else}}
-              <div class="btn-group">
-                <button type="button" data-toggle="dropdown" {{action 'getCarePlans' patient.id}} class="btn btn-default dropdown-toggle"
-                aria-expanded="false">(Choose a careplan) &nbsp;<span class="caret"></span></button>
-              </div>
+              No Careplan associated with Patient
               {{/if}}
             </td>
             {{/each}}
             <td class="col-xs-3">
-              {{#link-to 'patients.init' patient}}Initiate Care Plan{{/link-to}}
+              {{#link-to 'patient.init' patient}}Initiate Care Plan{{/link-to}}
             </td>
           </tr>
           {{else}}
           Didn't find any patients.
           {{/each}}
         </tbody>
-       </table> 
+      </table>
     </div>
   </div>
   <table class="table table-hover" style="table-layout:fixed">

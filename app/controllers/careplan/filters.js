@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  needs: "patient",
-  patient: Ember.computed.alias("controllers.patient"),
+  needs: "careplan",
+  patient: Ember.computed.alias("controllers.careplan"),
   expandGoals: false,expandProblems: false,expandObservations: false,expandInterventions: false,expandMedications:false, expandParticipants: false,
   actions: {
   	toggleExpandProblems:function(){

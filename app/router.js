@@ -11,24 +11,26 @@ export default Router.map(function() {
   this.route('goals');
   this.resource('account',{path:'/account'});
   this.resource('workInProgress');
-  this.resource('patients', function() {
-      this.route("init", { path: "/:patient_id/init" });
-
-      this.resource('patient', { path: ":patient_id" }, function() {
-	  this.resource('care-plans', function() {
+  this.resource('patients', function() {    
+    this.resource('patient', { path: '/:patient_id'}, function() {
+      this.route("init");
+      this.route("filters");
+      this.route("patientInfo");
+      this.route("notes");
+      this.route("history");
+      this.route("requests");
+	    this.resource('careplans', function() {
 	      this.route("new");
-	  });
+        this.resource('careplan', { path: '/:careplan_id'}, function() {
+          this.route("init");
+          this.route("filters");
+          this.route("patientInfo");
+          this.route("notes");
+          this.route("history");
+          this.route("requests");
+    	  });
       });
-  });
-  //this.route('patient',{path:'/patient/:patient_id'});
-
-
-   this.resource("patient", {path:'/patient/:patient_id'}, function() {
-    this.route("filters");
-    this.route("patientInfo");
-    this.route("notes");
-    this.route("history");
-    this.route("requests");
+    });
   });
 
 });
