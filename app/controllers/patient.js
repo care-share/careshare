@@ -38,26 +38,26 @@ export default Ember.Controller.extend({
 	  var ontoID = options.target.ontoObject.id;
 	  var ontoObject = options.target.ontoObject;
 
-	  // for proof of concept: for now assume we're dragging a goal to a condition
-	  this.addReference(draggedObject, ontoObject, "addresses");
-	  
 	  // Architectural logic for how we create the link:
+	  // (we need to know which type should be the referrer, and what attribute the reference list lives in)
 	  switch(ontoModel) {
 	  case "goal":
-	      console.log("switched to goal");
 	      switch(draggedModel) {
 	      case "condition":
-		  console.log("switched condition onto goal");
-		  var conditionReference = this.store.createRecord('reference', {
-		      reference: `Condition/${draggedID}`
-		  });
+		  this.addReference(ontoObject, draggedObject, "addresses");
 		  break;
 	      default:
 		  console.log("no link logic found");
 	      }
 	      break;
 	  case "condition":
-	      console.log("switched to condition");
+	      switch(draggedModel) {
+	      case "goal":
+		  this.addReference(draggedObject, ontoObject, "addresses");
+		  break;
+	      default:
+		  console.log("no link logic found");
+	      }
 	      break;
 	  default:
 	      console.log("no link logic found");
