@@ -18,6 +18,17 @@ export default Ember.Controller.extend({
     showOpenID: false,
 	goals: null,problems: null,observations: null,interventions: null,medications: null,
     showGoals: true,showProblems: true,showObservations: true,showInterventions: true,showMedications:true,
+    addReference: function(referringObject, referredObject) {
+	var addressesReferences = referringObject.get('addresses').toArray();
+	// TODO: should add logic to check if the reference already exists
+	// We end up adding duplicates, but that won't break anything for now
+	var reference = this.store.createRecord('reference', {
+	    reference: `Condition/${referredObject.id}`
+	});
+	addressesReferences.addObject(reference);
+	referringObject.set('addresses', addressesReferences);
+	referringObject.save();
+    },
     actions:{
       createRelation: function(draggedObject, options) {
 	  console.log( "createRelation called");
@@ -27,16 +38,29 @@ export default Ember.Controller.extend({
 	  var ontoObject = options.target.ontoObject;
 
 	  // for proof of concept: for now assume we're dragging a goal to a condition
-	  var addressesReferences = draggedObject.get('addresses').toArray();
-	  // TODO: should add logic to check if the reference already exists
-	  // We end up adding duplicates, but that won't break anything for now
-	  var conditionReference = this.store.createRecord('reference', {
-	      reference: `Condition/${ontoID}`
-	  });
-	  addressesReferences.addObject(conditionReference);
-	  draggedObject.set('addresses', addressesReferences);
-	  draggedObject.save();
+	  this.addReference(draggedObject, ontoObject);
 	  
+	  // Architectural logic for how we create the link:
+	  switch(ontoModel) {
+	  case "goal":
+	      console.log("switched to goal");
+	      switch(draggedModel) {
+	      case "condition":
+		  console.log("switched condition onto goal");
+		  var conditionReference = this.store.createRecord('reference', {
+		      reference: `Condition/${draggedID}`
+		  });
+		  break;
+	      default:
+		  console.log("no link logic found");
+	      }
+	      break;
+	  case "condition":
+	      console.log("switched to condition");
+	      break;
+	  default:
+	      console.log("no link logic found");
+	  }
       },
 
       accountRequest:function(){
