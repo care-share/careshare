@@ -35,6 +35,34 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     this.store.query('DiagnosticOrder', {}).then(function(response) {
       controller.set('observations', response);
     });
+    {
+      var patientId = window.location.href.split('/')[4];
+      var mystore = this.store;
+      this.store.query('MedicationOrder', {"patient": patientId}).then(function(response){
+        var promises = [];
+        var mrholder = [];
+        response.forEach(function(mo) {
+          var momr = mo.get("medicationReference");
+          if(momr == null) {
+            console.debug("No Medication Reference for " + mo.get("id"));
+            return;
+          }
+          mrholder[mrholder.length] = momr;
+          var ref = momr.get("reference");
+          var rid = ref.split("/")[1];
+          var med = mystore.findRecord('medication', rid);
+          promises[promises.length] = med;
+        });
+
+        Ember.RSVP.all(promises).then(function(res) {
+          res.forEach(function(med) {
+            var mr = mrholder.shift();
+            mr.set("medication", med);
+          });
+          controller.set('medications',response);
+        });
+      });
+    }
 
   },
   actions: {
@@ -74,9 +102,40 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         });
       }
     },
-    toggleShowMedications: function() {
-      this.controllerFor('careplan').toggleProperty('showMedications');
-      //TODO: make a JSON adapter call for whatever FHIR element should be rendered in Medications tab.
+    toggleShowMedications:function(){
+      var controller = this.controllerFor('careplan');
+      controller.toggleProperty('showMedications');
+      if(controller.get('showMedications')){
+        // duplicate. figure out where ember wants helper code to live
+        // or where this information should really be populated
+
+        var patientId = window.location.href.split('/')[4];
+        var mystore = this.store;
+        this.store.query('MedicationOrder', {"patient": patientId}).then(function(response){
+          var promises = [];
+          var mrholder = [];
+          response.forEach(function(mo) {
+            var momr = mo.get("medicationReference");
+            if(momr == null) {
+              console.debug("No Medication Reference for " + mo.get("id"));
+              return;
+            }
+            mrholder[mrholder.length] = momr;
+            var ref = momr.get("reference");
+            var rid = ref.split("/")[1];
+            var med = mystore.findRecord('medication', rid);
+            promises[promises.length] = med;
+          });
+
+          Ember.RSVP.all(promises).then(function(res) {
+            res.forEach(function(med) {
+              var mr = mrholder.shift();
+              mr.set("medication", med);
+            });
+            controller.set('medications',response);
+          });
+        });
+      }
     }
   }
 });

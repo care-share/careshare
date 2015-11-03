@@ -1,9 +1,44 @@
 <h2><b>Medications</b></h2>
-<div class="well" style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
-	{{#each model as |medication|}}
-	 <!--{{show-medication medication=medication}}<br>-->
-	{{else}}
-	  No Medications<br>
-	{{/each}}
-	<!--<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Medication</strong>-->
+<div class="well"
+     style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
+    {{#each order in model}}
+        {{#draggable-object-target action="createRelation" ontoObject=order}}
+            {{#draggable-object content=order}}
+                <div>
+                    {{#if order.medicationReference}}
+                        {{#if order.medicationReference.medication}}
+                            {{#if order.medicationReference.medication.code.text}}
+                                {{order.medicationReference.medication.code.text}}
+                            {{else}}
+                                {{order.medicationReference.medication.code.coding.firstObject.display}}
+                            {{/if}}
+                        {{else}}
+                            {{order.medicationReference.display}}
+                        {{/if}}
+                    {{else}}
+                        NO MEDICATION
+                    {{/if}},
+                    {{#if order.dosageInstruction}}
+                        {{#each di in order.dosageInstruction}}
+                            {{#if di.text}}
+                                {{di.text}}
+                            {{else}}
+                                {{#if di.doseSimpleQuantity}}
+                                    {{di.doseSimpleQuantity.value}} {{di.doseSimpleQuantity.unit}}
+                                {{else}}
+                                    NO DOSAGE
+                                {{/if}}
+                            {{/if}}
+                        {{/each}}
+                    {{else}}
+                        NO DOSAGE
+                    {{/if}}
+                </div>
+            {{/draggable-object}}
+        {{/draggable-object-target}}
+
+    {{else}}
+        No Medications<br>
+    {{/each}}
+    <!--<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Medication</strong>-->
 </div>
