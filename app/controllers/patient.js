@@ -18,15 +18,16 @@ export default Ember.Controller.extend({
     showOpenID: false,
 	goals: null,problems: null,observations: null,interventions: null,medications: null,
     showGoals: true,showProblems: true,showObservations: true,showInterventions: true,showMedications:true,
-    addReference: function(referringObject, referredObject) {
-	var addressesReferences = referringObject.get('addresses').toArray();
+    addReference: function(referringObject, referredObject, listName) {
+	// creates a FHIR reference to referredObject and adds it to the attribute named in listName
+	var references = referringObject.get(listName).toArray();
 	// TODO: should add logic to check if the reference already exists
 	// We end up adding duplicates, but that won't break anything for now
 	var reference = this.store.createRecord('reference', {
 	    reference: `Condition/${referredObject.id}`
 	});
-	addressesReferences.addObject(reference);
-	referringObject.set('addresses', addressesReferences);
+	references.addObject(reference);
+	referringObject.set(listName, references);
 	referringObject.save();
     },
     actions:{
@@ -38,7 +39,7 @@ export default Ember.Controller.extend({
 	  var ontoObject = options.target.ontoObject;
 
 	  // for proof of concept: for now assume we're dragging a goal to a condition
-	  this.addReference(draggedObject, ontoObject);
+	  this.addReference(draggedObject, ontoObject, "addresses");
 	  
 	  // Architectural logic for how we create the link:
 	  switch(ontoModel) {
