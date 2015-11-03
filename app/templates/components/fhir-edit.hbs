@@ -1,15 +1,13 @@
-{{#if isEditing}} 
-	{{input value=attribute insert-newline='saveItem' autofocus="autofocus"}}
-	<button class='ion-close' {{action 'cancel'}}/>
+{{#if isEditing}}
+    {{input value=attribute insert-newline='saveItem' autofocus="autofocus"}}
+    <button class='ion-close' {{action 'cancel'}}/>
     <button class='ion-checkmark' {{action 'saveItem'}}/>
 {{else}}
-	{{#if (not attribute)}}
-		<div class="panel panel-default" {{action 'editItem' on='doubleClick'}}>
-			Add {{name}}...
-		</div> 
-	{{else}}
-		<div class="panel panel-default" {{action 'editItem' on='doubleClick'}}>
-			{{attribute}}
-		</div> 
-	{{/if}}
+    <div class="panel panel-default" style="opacity:0.7" {{action 'editItem' on='doubleClick'}}>
+        {{#if (not attribute)}}
+            Add {{name}}...
+        {{else}}
+            {{attribute}}
+        {{/if}}
+    </div>
 {{/if}}

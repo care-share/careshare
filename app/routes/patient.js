@@ -16,44 +16,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     controller.set('id', params.patient_id)
 
 	});
-    //Load all information as the default has it showing
-    this.store.query('Condition', {}).then(function(response){controller.set('problems',response);});
-    this.store.query('Goal', {}).then(function(response){controller.set('goals',response);});
-    this.store.query('ProcedureRequest', {}).then(function(response){controller.set('interventions',response);});
-    this.store.query('DiagnosticOrder', {}).then(function(response){controller.set('observations',response);});
   },
   actions: {
-  	toggleShowProblems:function(){
-	  var controller = this.controllerFor('patient');
-      controller.toggleProperty('showProblems');
-	  if(controller.get('showProblems')){
-		this.store.query('Condition', {}).then(function(response){controller.set('problems',response);});
-	  }
-    },
-    toggleShowGoals:function(){
-	  var controller = this.controllerFor('patient');
-      controller.toggleProperty('showGoals');
-	  if(controller.get('showGoals')){
-		this.store.query('Goal', {}).then(function(response){controller.set('goals',response);});
-	  }
-    },
-    toggleShowInterventions:function(){
-      var controller = this.controllerFor('patient');
-      controller.toggleProperty('showInterventions');
-	  if(controller.get('showInterventions')){
-		this.store.query('ProcedureRequest', {}).then(function(response){controller.set('interventions',response);});
-	  }
-    },
-    toggleShowObservations:function(){
-      var controller = this.controllerFor('patient');
-      controller.toggleProperty('showObservations');
-	  if(controller.get('showObservations')){
-		this.store.query('DiagnosticOrder', {}).then(function(response){controller.set('observations',response);});
-	  }
-    },
-	toggleShowMedications:function(){
-      this.controllerFor('patient').toggleProperty('showMedications');
-	  //TODO: make a JSON adapter call for whatever FHIR element should be rendered in Medications tab.
-    }
   }
 });

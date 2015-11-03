@@ -1,23 +1,29 @@
-<h2><b>Goals</b></h2>
+<h3>Goals</h3>
+
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each model as |goal|}}
-	  {{#draggable-object-target action="createRelation" ontoObject=goal}}
-	    {{#draggable-object content=goal}}
-        	    {{#fhir-element root=goal type='Goal' as |section|}}
-			{{#if (eq section "expanded")}}
-				Description: {{fhir-edit name='description' attribute=goal.description action='altered'}}
-				Status: {{fhir-choice name='status' attribute=goal.status
-				  choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'
-				}}
-				Status Date: {{fhir-date name='statusDate' attribute=goal.statusDate}}
-			{{else}}
-				{{fhir-edit name='description' attribute=goal.description}}
-			{{/if}}
-		{{/fhir-element}}<br>		 
-	    {{/draggable-object}}
-	  {{/draggable-object-target}}
-	{{else}}
-		No Goals<br>
-	{{/each}}
-	<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Goal'}}/> <strong>Add Goal</strong>
+    {{#each model as |goal|}}
+        {{#draggable-object-target action="createRelation" ontoObject=goal}}
+            {{#draggable-object content=goal}}
+                <div {{action "hoverOn" goal on="mouseEnter"}} {{action "hoverOff" goal on="mouseLeave"}}>
+                    {{#fhir-element root=goal type='Goal' as |section|}}
+                        {{#if (eq section "expanded")}}
+                            Description: {{fhir-edit name='description' attribute=goal.description action='altered'}}
+                            Status: {{fhir-choice name='status' attribute=goal.status choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}
+                            Status Date: {{fhir-date name='statusDate' attribute=goal.statusDate}}
+                        {{else}}
+                            {{goal.description}}
+                            {{#unless goal.description}}
+                                Add description...
+                            {{/unless}}
+                        {{/if}}
+                    {{/fhir-element}}
+                </div>
+                <br>
+            {{/draggable-object}}
+        {{/draggable-object-target}}
+    {{else}}
+        No Goals<br>
+    {{/each}}
+    <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Goal'}}/>
+    <strong>Add Goal</strong>
 </div>

@@ -6,12 +6,12 @@ export default Ember.Component.extend({
   updateRecord: 'updateRecord',
   deleteRecord: 'deleteRecord',
   saveRecord: 'saveRecord',
-  setup: function(){
-	if(this.get('parent')){
-		console.log('(FHIR ELEMENT) UPDATE RECORD - record: '+
-			this.get('parent')+',name: '+this.get('name')+',type: '+this.get('type'));
-		this.sendAction('updateRecord',this.get('parent'),this.get('name'),this.get('type'));
-	}
+  setup: function () {
+    if (this.get('parent')) {
+      console.log('(FHIR ELEMENT) UPDATE RECORD - record: ' +
+          this.get('parent') + ',name: ' + this.get('name') + ',type: ' + this.get('type'));
+      this.sendAction('updateRecord', this.get('parent'), this.get('name'), this.get('type'));
+    }
   }.on('init'),
   actions:{
     updateRecord: function(parent,name,type){
@@ -36,11 +36,14 @@ export default Ember.Component.extend({
 		//this.set('expanded',false);
 	  }
     },
-    toggleHover:function(){
-      this.toggleProperty('currentHover');     
+    hoverOn: function() {
+      this.set('currentHover', true);
     },
-    toggleExpanded:function(){
-      this.toggleProperty('expanded');	  
+    hoverOff: function() {
+      this.set('currentHover', false);
+    },
+    toggleExpanded: function () {
+      this.toggleProperty('expanded');
     }
   }
 });

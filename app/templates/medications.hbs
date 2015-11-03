@@ -1,7 +1,8 @@
-<h2><b>Medications</b></h2>
+<h3>Medications</h3>
+
 <div class="well"
      style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
-    {{#each order in model}}
+    {{#each model as |medication|}}
         {{#draggable-object-target action="createRelation" ontoObject=order}}
             {{#draggable-object content=order}}
                 <div>

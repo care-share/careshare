@@ -1,21 +1,24 @@
-<h2><b>Observations</b></h2>
+<h3>Observations</h3>
+
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each model as |observation|}}
-	  {{#draggable-object-target action="createRelation" ontoObject=goal}}
-	    {{#draggable-object content=goal}}
-	            {{#fhir-element root=observation type='DiagnosticOrder' as |section|}}
-			{{#if (eq section "expanded")}}
-				Status: {{fhir-choice name='status' attribute=observation.status
-					choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
-			{{else}}
-				{{fhir-choice name='status' attribute=observation.status
-					choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
-			{{/if}}
-		{{/fhir-element}}<br>
-	    {{/draggable-object}}
-	  {{/draggable-object-target}}
-	{{else}}
-	  No Observations<br>
-	{{/each}}
-	<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'DiagnosticOrder'}}/> <strong>Add Observation</strong>
+    {{#each model as |observation|}}
+        {{#draggable-object-target action="createRelation" ontoObject=goal}}
+            {{#draggable-object content=goal}}
+                <div {{action "hoverOn" observation on="mouseEnter"}} {{action "hoverOff" observation on="mouseLeave"}}>
+                    {{#fhir-element root=observation type='DiagnosticOrder' as |section|}}
+                        {{#if (eq section "expanded")}}
+                            Status: {{fhir-choice name='status' attribute=observation.status choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+                        {{else}}
+                            {{fhir-choice name='status' attribute=observation.status choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+                        {{/if}}
+                    {{/fhir-element}}
+                </div>
+                <br>
+            {{/draggable-object}}
+        {{/draggable-object-target}}
+    {{else}}
+        No Observations<br>
+    {{/each}}
+    <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'DiagnosticOrder'}}/>
+    <strong>Add Observation</strong>
 </div>

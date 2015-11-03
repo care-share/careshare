@@ -1,31 +1,28 @@
-
 <h3>Problems</h3>
 
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each model as |problem|}}
-	  {{#draggable-object-target action="createRelation" ontoObject=problem}}
-	    {{#draggable-object content=problem}}
-		    {{#fhir-element root=problem type='Condition' as |section|}}
-			{{#if (eq section "expanded")}}
+    {{#each model as |problem|}}
+        {{#draggable-object-target action="createRelation" ontoObject=problem}}
+            {{#draggable-object content=problem}}
+                <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
+                    {{#fhir-element root=problem type='Condition' as |section|}}
+                        {{#if (eq section "expanded")}}
+                            Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}<br>
+                            Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
+                            Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
+                            Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>
+                        {{else}}
+                            {{problem.code.text}} - ({{problem.clinicalStatus}})
+                        {{/if}}
 
-			    Clinical Status: 
-
-{{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
-				  choices='active,relapse,remission,resolved'
-				}}<br>
-				Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
-				Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
-				Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>
-			{{else}}
-				{{problem.code.text}} - ({{problem.clinicalStatus}})
-			{{/if}}
-
-		{{/fhir-element}}<br>
-	    {{/draggable-object}}
-	  {{/draggable-object-target}} 
-	{{else}}
-		No Problems<br>
-	{{/each}}
-	<div {{action 'createRecord' 'Condition'}} style="float:right;"> Add Problem... </div>
+                    {{/fhir-element}}
+                </div>
+                <br>
+            {{/draggable-object}}
+        {{/draggable-object-target}}
+    {{else}}
+        No Problems<br>
+    {{/each}}
+    <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Condition'}}/>
+    <strong>Add Problem</strong>
 </div>
-

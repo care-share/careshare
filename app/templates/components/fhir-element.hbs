@@ -1,18 +1,18 @@
-<div class="panel panel-info" {{action "toggleHover" on="mouseEnter"}}  >
-    <div {{action "toggleHover" on="mouseLeave"}}>
-        {{#if expanded}}
-            {{yield "expanded"}}
-            <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
-            <div class="glyphicon glyphicon-trash" {{action 'removeItem' element}}></div>
-            <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
-        {{else}}
-            {{yield "contracted"}}
-        {{/if}}
-        {{#if currentHover}}
-            {{#if expanded}}{{else}}
-                <div style="float:right;" {{action 'toggleExpanded'}}> ...</div>
-            {{/if}}
-        {{/if}}
-    </div>
+<div class="panel panel-info"
+    {{action "hoverOn" on="mouseEnter"}}
+    {{action "hoverOff" on="mouseLeave"}}
+     style="{{if currentHover 'background-color:yellow'}}{{if root.highlight 'background-color:#2b78e4'}}">
+    {{#if expanded}}
+        {{yield "expanded"}}
+        <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
+        <div class="glyphicon glyphicon-trash" {{action 'removeItem' element}}></div>
+        <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
+    {{else}}
+        {{yield "contracted"}}
+    {{/if}}
+    {{#if currentHover}}
+        {{#unless expanded}}
+            <div style="float:right;" {{action 'toggleExpanded'}}> ...</div>
+        {{/unless}}
+    {{/if}}
 </div>
-

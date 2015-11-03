@@ -1,22 +1,28 @@
-<h2><b>Interventions</b></h2>
+<h3>Interventions</h3>
+
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
-	{{#each model as |intervention|}}
-	  {{#draggable-object-target action="createRelation" ontoObject=problem}}
-	    {{#draggable-object content=intervention}}
-	        {{#fhir-element root=intervention type='ProcedureRequest' as |section|}}
-			{{#if (eq section "expanded")}}
-				Status: {{fhir-choice name='status' attribute=intervention.status
-					choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
-				Ordered On: {{fhir-date name='orderedOn' attribute=intervention.orderedOn}}
-			{{else}}
-				{{fhir-choice name='status' attribute=intervention.status
-	choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
-			{{/if}}
-		{{/fhir-element}}<br>
-	    {{/draggable-object}}
-	  {{/draggable-object-target}} 
-	{{else}}
-	  No Interventions<br>
-	{{/each}}
-	<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'ProcedureRequest'}}/> <strong>Add Intervention</strong>
+    {{#each model as |intervention|}}
+        {{#draggable-object-target action="createRelation" ontoObject=problem}}
+            {{#draggable-object content=intervention}}
+                <div {{action "hoverOn" intervention on="mouseEnter"}} {{action "hoverOff" intervention on="mouseLeave"}}>
+                    {{#fhir-element root=intervention type='ProcedureRequest' as |section|}}
+                        {{#if (eq section "expanded")}}
+                            Status: {{fhir-choice name='status' attribute=intervention.status choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+                            Ordered On: {{fhir-date name='orderedOn' attribute=intervention.orderedOn}}
+                        {{else}}
+                            {{intervention.status}}
+                            {{#unless intervention.status}}
+                                Add status...
+                            {{/unless}}
+                        {{/if}}
+                    {{/fhir-element}}
+                </div>
+                <br>
+            {{/draggable-object}}
+        {{/draggable-object-target}}
+    {{else}}
+        No Interventions<br>
+    {{/each}}
+    <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'ProcedureRequest'}}/>
+    <strong>Add Intervention</strong>
 </div>
