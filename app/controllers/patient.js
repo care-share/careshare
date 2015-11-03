@@ -18,16 +18,20 @@ export default Ember.Controller.extend({
     showOpenID: false,
 	goals: null,problems: null,observations: null,interventions: null,medications: null,
     showGoals: true,showProblems: true,showObservations: true,showInterventions: true,showMedications:true,
-    addReference: function(referringObject, referredObject, listName) {
+    addReference: function(referringObject, referredObject, attributeName, isListAttribute) {
 	// creates a FHIR reference to referredObject and adds it to the attribute named in listName
-	var references = referringObject.get(listName).toArray();
-	// TODO: should add logic to check if the reference already exists
-	// We end up adding duplicates, but that won't break anything for now
 	var reference = this.store.createRecord('reference', {
-	    reference: `Condition/${referredObject.id}`
+	    reference: `${referredObject._internalModel.modelName}/${referredObject.id}`
 	});
-	references.addObject(reference);
-	referringObject.set(listName, references);
+	if(isListAttribute) { // for reference attributes with any allowed length
+	    var references = referringObject.get(attributeName).toArray();
+	    // TODO: should add logic to check if the reference already exists
+	    // We end up adding duplicates, but that won't break anything for now
+	    references.addObject(reference);
+	    referringObject.set(attributeName, references);
+	} else { // for reference attributes that allow only one value
+	    referringObject.set(attributeName, [reference]);
+	}
 	referringObject.save();
     },
     actions:{
@@ -44,7 +48,9 @@ export default Ember.Controller.extend({
 	  case "goal":
 	      switch(draggedModel) {
 	      case "condition":
-		  this.addReference(ontoObject, draggedObject, "addresses");
+	      case "procedure-request":
+	      case "nutrition-order":
+		  this.addReference(ontoObject, draggedObject, "addresses", true);
 		  break;
 	      default:
 		  console.log("no link logic found");
@@ -53,12 +59,33 @@ export default Ember.Controller.extend({
 	  case "condition":
 	      switch(draggedModel) {
 	      case "goal":
-		  this.addReference(draggedObject, ontoObject, "addresses");
+		  this.addReference(draggedObject, ontoObject, "addresses", true);
+		  break;
+	      case "medication-order":
+		  this.addReference(draggedObject, ontoObject, "reason", false);
 		  break;
 	      default:
 		  console.log("no link logic found");
 	      }
 	      break;
+	  case "procedure-request":
+	  case "nutrition-order":
+	      switch(draggedModel) {
+	      case "goal":
+		  this.addReference(draggedObject, ontoObject, "addresses", true);
+		  break;
+	      default:
+		  console.log("no link logic found");
+	      }
+	      break;
+	  case "medication-order":
+	      switch(draggedModel) {
+	      case "goal":
+		  this.addReference(ontoObject, draggedObject, "reason", false);
+		  break;
+	      default:
+		  console.log("no link logic found");
+	      }
 	  default:
 	      console.log("no link logic found");
 	  }
