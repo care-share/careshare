@@ -3,9 +3,14 @@
 
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each model as |problem|}}
-        {{#fhir-element root=problem type='Condition' as |section|}}
+	  {{#draggable-object-target action="createRelation" ontoObject=problem}}
+	    {{#draggable-object content=problem}}
+		    {{#fhir-element root=problem type='Condition' as |section|}}
 			{{#if (eq section "expanded")}}
-			    Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
+
+			    Clinical Status: 
+
+{{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus
 				  choices='active,relapse,remission,resolved'
 				}}<br>
 				Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
@@ -14,7 +19,10 @@
 			{{else}}
 				{{problem.code.text}} - ({{problem.clinicalStatus}})
 			{{/if}}
+
 		{{/fhir-element}}<br>
+	    {{/draggable-object}}
+	  {{/draggable-object-target}} 
 	{{else}}
 		No Problems<br>
 	{{/each}}

@@ -1,7 +1,9 @@
 <h2><b>Observations</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each model as |observation|}}
-        {{#fhir-element root=observation type='DiagnosticOrder' as |section|}}
+	  {{#draggable-object-target action="createRelation" ontoObject=goal}}
+	    {{#draggable-object content=goal}}
+	            {{#fhir-element root=observation type='DiagnosticOrder' as |section|}}
 			{{#if (eq section "expanded")}}
 				Status: {{fhir-choice name='status' attribute=observation.status
 					choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
@@ -10,6 +12,8 @@
 					choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
 			{{/if}}
 		{{/fhir-element}}<br>
+	    {{/draggable-object}}
+	  {{/draggable-object-target}}
 	{{else}}
 	  No Observations<br>
 	{{/each}}
