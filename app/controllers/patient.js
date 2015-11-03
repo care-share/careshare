@@ -43,49 +43,24 @@ export default Ember.Controller.extend({
 	  var ontoID = options.target.ontoObject.id;
 
 	  // Architectural logic for how we create the link:
-	  // (we need to know which type should be the referrer, and what attribute the reference list lives in)
-	  switch(ontoModel) {
-	  case "goal":
-	      switch(draggedModel) {
-	      case "condition":
-	      case "procedure-request":
-	      case "nutrition-order":
-		  this.addReference(ontoObject, draggedObject, "addresses", true);
-		  break;
-	      default:
-		  console.log("no link logic found");
-	      }
+	  // (we need to know which type should be the referrer, and what attribute the reference list lives in, and whether that attribute allows multiple values)
+	  switch(ontoModel, draggedModel) {
+	  case ("goal","condition"):
+	  case ("goal","procedure-request"):
+	  case ("goal","nutrition-order"):
+	      this.addReference(ontoObject, draggedObject, "addresses", true);
 	      break;
-	  case "condition":
-	      switch(draggedModel) {
-	      case "goal":
-		  this.addReference(draggedObject, ontoObject, "addresses", true);
-		  break;
-	      case "medication-order":
-		  this.addReference(draggedObject, ontoObject, "reason", false);
-		  break;
-	      default:
-		  console.log("no link logic found");
-	      }
+	  case ("condition","goal"):
+	  case ("procedure-request","goal"):
+	  case ("nutrition-order","goal"):
+	      this.addReference(draggedObject, ontoObject, "addresses", true);
 	      break;
-	  case "procedure-request":
-	  case "nutrition-order":
-	      switch(draggedModel) {
-	      case "goal":
-		  this.addReference(draggedObject, ontoObject, "addresses", true);
-		  break;
-	      default:
-		  console.log("no link logic found");
-	      }
+	  case ("condition","medication-order"):
+	      this.addReference(draggedObject, ontoObject, "reason", false);
 	      break;
-	  case "medication-order":
-	      switch(draggedModel) {
-	      case "goal":
-		  this.addReference(ontoObject, draggedObject, "reason", false);
-		  break;
-	      default:
-		  console.log("no link logic found");
-	      }
+	  case ("medication-order","condition"):
+	      this.addReference(ontoObject, draggedObject, "reason", false);
+	      break;
 	  default:
 	      console.log("no link logic found");
 	  }
