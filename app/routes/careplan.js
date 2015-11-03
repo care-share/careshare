@@ -23,16 +23,16 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
     });
     //Load all information as the default has it showing
-    this.store.query('Condition', {}).then(function(response) {
+    this.store.findAll('Condition', {}).then(function(response) {
       controller.set('problems', response);
     });
-    this.store.query('Goal', {}).then(function(response) {
+    this.store.findAll('Goal', {}).then(function(response) {
       controller.set('goals', response);
     });
-    this.store.query('ProcedureRequest', {}).then(function(response) {
+    this.store.findAll('ProcedureRequest', {}).then(function(response) {
       controller.set('interventions', response);
     });
-    this.store.query('DiagnosticOrder', {}).then(function(response) {
+    this.store.findAll('DiagnosticOrder', {}).then(function(response) {
       controller.set('observations', response);
     });
     {
@@ -70,7 +70,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showProblems');
       if (controller.get('showProblems')) {
-        this.store.query('Condition', {}).then(function(response) {
+        this.store.findAll('Condition', {}).then(function(response) {
           controller.set('problems', response);
         });
       }
@@ -79,7 +79,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showGoals');
       if (controller.get('showGoals')) {
-        this.store.query('Goal', {}).then(function(response) {
+        this.store.findAll('Goal', {}).then(function(response) {
           controller.set('goals', response);
         });
       }
@@ -88,7 +88,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showInterventions');
       if (controller.get('showInterventions')) {
-        this.store.query('ProcedureRequest', {}).then(function(response) {
+        this.store.findAll('ProcedureRequest', {}).then(function(response) {
           controller.set('interventions', response);
         });
       }
@@ -97,7 +97,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showObservations');
       if (controller.get('showObservations')) {
-        this.store.query('DiagnosticOrder', {}).then(function(response) {
+        this.store.findAll('DiagnosticOrder', {}).then(function(response) {
           controller.set('observations', response);
         });
       }
