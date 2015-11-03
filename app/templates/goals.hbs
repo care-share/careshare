@@ -1,7 +1,10 @@
 <h2><b>Goals</b></h2>
 <div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
 	{{#each model as |goal|}}
-        {{#fhir-element root=goal type='Goal' as |section|}}
+	  {{#draggable-object-target action="createRelation" ontoObject=goal ontoType="goal"}}
+	    {{#draggable-object content=goal}}
+
+        	    {{#fhir-element root=goal type='Goal' as |section|}}
 			{{#if (eq section "expanded")}}
 				Description: {{fhir-edit name='description' attribute=goal.description action='altered'}}
 				Status: {{fhir-choice name='status' attribute=goal.status
@@ -11,7 +14,9 @@
 			{{else}}
 				{{fhir-edit name='description' attribute=goal.description}}
 			{{/if}}
-		{{/fhir-element}}<br>		  
+		{{/fhir-element}}<br>		 
+	    {{/draggable-object}}
+	  {{/draggable-object-target}}
 	{{else}}
 		No Goals<br>
 	{{/each}}

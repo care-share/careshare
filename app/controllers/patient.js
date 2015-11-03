@@ -19,6 +19,26 @@ export default Ember.Controller.extend({
 	goals: null,problems: null,observations: null,interventions: null,medications: null,
     showGoals: true,showProblems: true,showObservations: true,showInterventions: true,showMedications:true,
     actions:{
+      createRelation: function(draggedObject, options) {
+	  console.log( "createRelation called");
+	  var draggedModel = draggedObject._internalModel.modelName;
+	  var ontoModel = options.target.ontoType; console.log(ontoModel);
+	  var ontoID = options.target.ontoObject.id;
+	  var ontoObject = options.target.ontoObject;
+
+	  // for proof of concept: for now assume we're dragging a goal to a condition
+	  var addressesReferences = draggedObject.get('addresses').toArray();
+	  // TODO: should add logic to check if the reference already exists
+	  // We end up adding duplicates, but that won't break anything for now
+	  var conditionReference = this.store.createRecord('reference', {
+	      reference: `Condition/${ontoID}`
+	  });
+	  addressesReferences.addObject(conditionReference);
+	  draggedObject.set('addresses', addressesReferences);
+	  draggedObject.save();
+	  
+      },
+
       accountRequest:function(){
         API.submitRequest(this.getProperties('first','last','email','pass'),this);
       },

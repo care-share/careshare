@@ -37,7 +37,8 @@
     "ember-export-application-global": "1.0.4",
     "ember-fhir-adapter": "0.0.12",
     "ember-multiselect-checkboxes": "0.4.3",
-    "ember-truth-helpers": "1.1.0"
+    "ember-truth-helpers": "1.1.0",
+    "ember-drag-drop": "~0.2.1"
   },
   "dependencies": {
     "ember-ionicons": "^0.1.1"
