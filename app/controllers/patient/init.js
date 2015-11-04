@@ -26,7 +26,22 @@ var InitController = Ember.ObjectController.extend({
 		addresses: addressesConditions 
 	    });
 	    
-	    carePlan.save();
+	    // save the care plan, and after we save it, redirect to a plan that belongs to the patient
+	    // this is not quite correct -- we're not guaranteed that we're getting the right care plan if the patient has more than one
+	    // unfortunately, the adapter is not handling the id provided by the POST response
+	    var that = this
+	    carePlan.save().then(function(savedCarePlan){
+		that.store.find('CarePlan', {
+                    subject: that.model.id
+		}).then(function(response) {
+                    if (response != null) {
+			var careplans = response.toArray();
+			if (careplans.length > 0) {
+			    that.transitionToRoute('careplan', careplans[0]);
+			} 
+                    }
+		});
+	    });
 	}
     }
 });
