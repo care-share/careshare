@@ -1,6 +1,6 @@
 <h3>Interventions</h3>
 
-<div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
+<div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
     {{#each model as |intervention|}}
         {{#draggable-object-target action="createRelation" ontoObject=intervention}}
             {{#draggable-object content=intervention}}
