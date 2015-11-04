@@ -1,6 +1,6 @@
 <h3>Problems</h3>
 
-<div class="panel-group" style="height:700px;overflow-y:auto;background-color: rgb(201,222,242)">
+<div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
     {{#each model as |problem|}}
         {{#draggable-object-target action="createRelation" ontoObject=problem}}
             {{#draggable-object content=problem}}

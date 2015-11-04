@@ -1,11 +1,11 @@
 <h3>Medications</h3>
 
-<div class="well"
-     style="max-height:600px;overflow-x:hidden;overflow-y:auto;background-color: rgb(201,222,242);padding: 2;border: 0px">
-    {{#each model as |medication|}}
+<div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
+    {{#each model as |order|}}
         {{#draggable-object-target action="createRelation" ontoObject=order}}
             {{#draggable-object content=order}}
-                <div>
+                <div {{action "hoverOn" order on="mouseEnter"}} {{action "hoverOff" order on="mouseLeave"}}>
+                    {{#fhir-element root=order type='ProcedureRequest' as |section|}}
                     {{#if order.medicationReference}}
                         {{#if order.medicationReference.medication}}
                             {{#if order.medicationReference.medication.code.text}}
@@ -34,7 +34,9 @@
                     {{else}}
                         NO DOSAGE
                     {{/if}}
+                    {{/fhir-element}}
                 </div>
+                <br>
             {{/draggable-object}}
         {{/draggable-object-target}}
 
