@@ -71,6 +71,18 @@ export default Ember.Controller.extend({
     });
     return models;
   },
+  highlightGoalRefs: function(newHighlights, model, ignoreReference) {
+    // ignoreReference is optional
+    var addresses = model.get('addresses').currentState;
+    for (var i = 0; i < addresses.length; i++) {
+      var data = addresses[i]._data;
+      if (!data || !data.reference)
+        data = addresses[i]._attributes;
+      var reference = data.reference.split('/');
+      if (reference[0].toLowerCase() != ignoreReference && reference[1] != model.id)
+        newHighlights.add(reference[1]);
+    }
+  },
   actions: {
     accountRequest: function() {
       API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);
@@ -139,15 +151,7 @@ export default Ember.Controller.extend({
       switch (modelName) {
         // TODO: is there a better/cleaner way to do this?
         case "goal":
-          var addresses = model.get('addresses').currentState;
-          for (var i = 0; i < addresses.length; i++) {
-            var data = addresses[i]._data;
-            if (!data || !data.reference)
-              data = addresses[i]._attributes;
-            var reference = data.reference.split('/');
-            if (reference[1] != model.id)
-              newHighlights.add(reference[1]);
-          }
+          this.highlightGoalRefs(newHighlights, model);
           break;
         case "condition":
         case "procedure-request":
@@ -163,6 +167,8 @@ export default Ember.Controller.extend({
               var reference = data.reference.split('/');
               if (reference[1] == model.id) {
                 newHighlights.add(goal.id);
+                // highlight other relations to this goal, ignoring the current model type
+                this.highlightGoalRefs(newHighlights, goal, modelName);
                 break;
               }
             }
@@ -171,7 +177,6 @@ export default Ember.Controller.extend({
         default:
           break;
       }
-      console.log("  toHighlight: " + JSON.stringify(newHighlights.toArray()));
       this.set('toHighlight', newHighlights);
     },
     hoverOff: function (model) {
