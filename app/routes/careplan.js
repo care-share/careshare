@@ -70,36 +70,68 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showProblems');
       if (controller.get('showProblems')) {
-        this.store.findAll('Condition', {}).then(function(response) {
-          controller.set('problems', response);
-        });
+	    this.store.query('Condition',{}).then(
+			function(response){
+				response.forEach(function(item){
+					controller.get('problems').push(item);
+				});
+			}
+		);
+		this.store.peekAll('Condition',{}).forEach(
+			function(item){
+				controller.get('problems').push(item);
+		});
       }
     },
     toggleShowGoals: function() {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showGoals');
       if (controller.get('showGoals')) {
-        this.store.findAll('Goal', {}).then(function(response) {
-          controller.set('goals', response);
-        });
+	    this.store.query('Goal',{}).then(
+			function(response){
+				response.forEach(function(item){
+					controller.get('goals').push(item);
+				});
+			}
+		);
+		this.store.peekAll('Goal',{}).forEach(
+			function(item){
+				controller.get('goals').push(item);
+		});
       }
     },
     toggleShowInterventions: function() {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showInterventions');
       if (controller.get('showInterventions')) {
-        this.store.findAll('ProcedureRequest', {}).then(function(response) {
-          controller.set('interventions', response);
-        });
+	  	this.store.query('ProcedureRequest',{}).then(
+			function(response){
+				response.forEach(function(item){
+					controller.get('interventions').push(item);
+				});
+			}
+		);
+		this.store.peekAll('ProcedureRequest',{}).forEach(
+			function(item){
+				controller.get('interventions').push(item);
+		});
       }
     },
     toggleShowObservations: function() {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showObservations');
       if (controller.get('showObservations')) {
-        this.store.findAll('DiagnosticOrder', {}).then(function(response) {
-          controller.set('observations', response);
-        });
+	  	this.store.query('DiagnosticOrder',{}).then(
+			function(response){
+				response.forEach(function(item){
+					controller.get('observations').push(item);
+				});
+			}
+		);
+		this.store.peekAll('DiagnosticOrder',{}).forEach(
+			function(item){
+				controller.get('observations').push(item);
+		});
       }
     },
     toggleShowMedications:function(){
