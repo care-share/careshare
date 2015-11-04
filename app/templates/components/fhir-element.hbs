@@ -1,7 +1,7 @@
 <div class="panel panel-info"
     {{action "hoverOn" on="mouseEnter"}}
     {{action "hoverOff" on="mouseLeave"}}
-     style="{{if currentHover 'background-color:yellow'}}{{if root.highlight 'background-color:#2b78e4'}}">
+     style="{{if currentHover 'background-color:#6CE058'}}{{if root.highlight 'background-color:#C9FCC0'}}">
     {{#if expanded}}
         {{yield "expanded"}}
         <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
