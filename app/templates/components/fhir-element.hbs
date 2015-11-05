@@ -4,8 +4,10 @@
      style="{{if currentHover 'background-color:#6CE058'}}{{if root.highlight 'background-color:#C9FCC0'}}">
     {{#if expanded}}
         {{yield "expanded"}}
-        <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
-        <div class="glyphicon glyphicon-trash" {{action 'removeItem' element}}></div>
+		{{#if root}}
+			<button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
+			<div class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}></div>
+		{{/if}}
         <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
     {{else}}
         {{yield "contracted"}}

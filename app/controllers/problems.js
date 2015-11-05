@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions:{
 	createRecord: function(type){
-		console.log('CREATE RECORD - type: '+type);
+		console.log('(CONTROLLER) CREATE RECORD - type: '+type);
 		var id = this.controllerFor('patient').id;
 		var reference = this.store.createRecord('reference', {
 			reference: `Patient/${id}`
@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
 	},
 	updateArray: function(record,name,type){
 	  console.log('(CONTROLLER) UPDATE ARRAY - parent: '+record+',name: '+name+',type: '+type);
-	  var newRecord = this.store.createRecord(name,{});
+	  var newRecord = this.store.createRecord(type,{});
 	  if(record){
 		console.log('Array exists - adding to array.');
 		record.pushObject(newRecord);
@@ -21,6 +21,14 @@ export default Ember.Controller.extend({
 		record = [newRecord];
 	  }
     },
+	deleteRecord: function(record){
+		console.log('(CONTROLLER) REMOVE RECORD- record: '+record);
+		record.destroyRecord();
+	},
+	saveRecord: function(record){
+	    console.log('(CONTROLLER) SAVE RECORD- record: '+record);
+		record.save();
+	},
     removeItem: function(record,index){
 	  console.log('(CONTROLLER) REMOVE ARRAY ITEM - parent: '+record+',index: '+index);
 	  if(record){
@@ -31,7 +39,7 @@ export default Ember.Controller.extend({
 	updateRecord: function(record,name,type){
 		console.log('(CONTROLLER) UPDATE RECORD - parent: '+record+',name: '+name+',type: '+type);
 		if(record && !record.get(name)){
-			var newRecord = null;
+			var newRecord = this.store.createRecord(type,{});
 			console.log('MODEL NAME: '+record.toString());
 			console.log('++NEW RECORD: '+newRecord+'++');
 			record.set(name,newRecord);
