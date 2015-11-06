@@ -9,6 +9,10 @@ export default Ember.Controller.extend({
 			reference: `Patient/${id}`
 		});
 		this.store.createRecord(type,{id:new Date().getTime() / 1000, patient: reference});
+		
+		//TODO: this is a crappy fix. Somebody please fix this fix :)
+		this.controllerFor('careplan').send('toggleShowObservations');
+		this.controllerFor('careplan').send('toggleShowObservations');
 	},
 	updateArray: function(record,name,type){
 	  console.log('(CONTROLLER) UPDATE ARRAY - parent: '+record+',name: '+name+',type: '+type);

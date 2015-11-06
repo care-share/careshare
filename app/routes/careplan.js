@@ -6,12 +6,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   model: function(params) {
     var controller = this.controllerFor('careplan');
     console.log("Loading Careplan ROUTE")
-    console.log(params)
-    
+    console.log(params)    
     params.patient_id = this.controllerFor("patient").id;
-
-
-    
+   
     this.store.find('patient', params.patient_id).then(function(response) {
       controller.set('gender', response.get('gender').charAt(0).toUpperCase() +
         response.get('gender').substr(1));
@@ -22,19 +19,55 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       controller.set('birthDate', response.get('birthDate'));
 
     });
-    //Load all information as the default has it showing
-    this.store.findAll('Condition', {}).then(function(response) {
-      controller.set('problems', response);
-    });
-    this.store.findAll('Goal', {}).then(function(response) {
-      controller.set('goals', response);
-    });
-    this.store.findAll('ProcedureRequest', {}).then(function(response) {
-      controller.set('interventions', response);
-    });
-    this.store.findAll('DiagnosticOrder', {}).then(function(response) {
-      controller.set('observations', response);
-    });
+    //Load all information as the default has it showing    
+	this.store.query('Condition',{}).then(
+		function(response){
+			controller.set('problems',[]);
+			response.forEach(function(item){
+				controller.get('problems').push(item);
+			});
+			this.store.peekAll('Condition',{}).forEach(
+			function(item){
+				controller.get('problems').push(item);
+			});
+		}
+    );
+	this.store.query('Goal',{}).then(
+		function(response){
+			controller.set('goals',[]);
+			response.forEach(function(item){
+				controller.get('goals').push(item);
+			});
+			this.store.peekAll('Goal',{}).forEach(
+			function(item){
+				controller.get('goals').push(item);
+			});
+		}
+    );
+	this.store.query('ProcedureRequest',{}).then(
+		function(response){
+			controller.set('interventions',[]);
+			response.forEach(function(item){
+				controller.get('interventions').push(item);
+			});
+			this.store.peekAll('ProcedureRequest',{}).forEach(
+			function(item){
+				controller.get('interventions').push(item);
+			});
+		}
+    );
+	this.store.query('DiagnosticOrder',{}).then(
+		function(response){
+			controller.set('observations',[]);
+			response.forEach(function(item){
+				controller.get('observations').push(item);
+			});
+			this.store.peekAll('DiagnosticOrder',{}).forEach(
+			function(item){
+				controller.get('observations').push(item);
+			});
+		}
+    );
     {
       var patientId = window.location.href.split('/')[4];
       var mystore = this.store;
@@ -70,6 +103,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showProblems');
       if (controller.get('showProblems')) {
+	    controller.set('problems',[]);
 	    this.store.query('Condition',{}).then(
 			function(response){
 				response.forEach(function(item){
@@ -87,6 +121,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showGoals');
       if (controller.get('showGoals')) {
+		controller.set('goals',[]);
 	    this.store.query('Goal',{}).then(
 			function(response){
 				response.forEach(function(item){
@@ -104,6 +139,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showInterventions');
       if (controller.get('showInterventions')) {
+		controller.set('interventions',[]);
 	  	this.store.query('ProcedureRequest',{}).then(
 			function(response){
 				response.forEach(function(item){
@@ -121,6 +157,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       var controller = this.controllerFor('careplan');
       controller.toggleProperty('showObservations');
       if (controller.get('showObservations')) {
+	  	controller.set('observations',[]);
 	  	this.store.query('DiagnosticOrder',{}).then(
 			function(response){
 				response.forEach(function(item){
