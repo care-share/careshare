@@ -1,10 +1,15 @@
 import Ember from 'ember';
 import Base from 'simple-auth/authenticators/base';
 import API from '../api';
+import JWT from 'npm:jsonwebtoken';
 
 export default Base.extend({
   restore(data) {
     console.log("restore(data): " + JSON.stringify(data));
+    var decoded = JWT.decode(data.token);
+    if (decoded.exp < (new Date().getTime() / 1000)) {
+      return Ember.RSVP.reject(data);
+    }
     return Ember.RSVP.resolve(data);
   },
   openidlogin(data){

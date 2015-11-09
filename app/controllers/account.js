@@ -15,7 +15,6 @@ export default Ember.Controller.extend({
             this.set('mFhirId', user.fhir_id);
             this.set('mSearch', user.name_last);
             this.set('mPractitioners', []);
-            //this.set('mSearch', 'fred'); // TODO: remove this stub code
             this.findPractitioners();
         },
         modalSearch: function () {
