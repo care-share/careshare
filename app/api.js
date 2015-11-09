@@ -142,6 +142,22 @@ var API = {
   removeRole: function(email,role,data,controller) {
     console.log("REMOVE ROLE: "+role+" FOR USER "+email);
     return changeRole(this.host, email, role, data, controller, false);
+  },
+  changeFhirId: function(email,fhir_id,data,controller) {
+    console.log("SET FHIR ID: "+fhir_id+" FOR USER "+email);
+    Ember.$.ajax({
+      url: this.host+'/users/'+email+'/fhir_id/'+(fhir_id ? fhir_id : ''),
+      type: 'put',
+      headers: {
+        'X-Auth-Token': data.token
+      },
+      dataType: 'json',
+      success: function (data) {
+        console.info(data);
+        controller.send('reset');
+      }
+      // TODO: handle error case
+    });
   }
 };
 

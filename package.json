@@ -41,6 +41,7 @@
     "ember-drag-drop": "~0.2.1"
   },
   "dependencies": {
+    "ember-idx-modal": "git+https://github.com/jportner/ember-idx-modal",
     "ember-ionicons": "^0.1.1"
   }
 }
