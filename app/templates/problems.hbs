@@ -10,28 +10,28 @@
                             Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
                             Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
                             Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>
-							Onset: 
-							{{#fhir-union root=problem
-								choices='[{"name":"onsetDateTime","type":"dateTime"},{"name":"onsetQuantity","type":"Age"},
+                            Onset:
+                            {{#fhir-union root=problem
+                            choices='[{"name":"onsetDateTime","type":"dateTime"},{"name":"onsetQuantity","type":"Age"},
 											{"name":"onsetString","type":"Text"}]' as |selected|}}
-								{{#if (eq selected 'onsetDateTime')}}
-									{{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
-								{{else if (eq selected 'onsetQuantity')}}
-									{{fhir-edit name='onsetQuantity' attribute=problem.onsetQuantity}}
-								{{else if (eq selected 'onsetString')}}
-									{{fhir-edit name='onsetString' attribute=problem.onsetString}}
-								{{/if}}
-							{{/fhir-union}}
+                                {{#if (eq selected 'onsetDateTime')}}
+                                    {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
+                                {{else if (eq selected 'onsetQuantity')}}
+                                    {{fhir-edit name='onsetQuantity' attribute=problem.onsetQuantity}}
+                                {{else if (eq selected 'onsetString')}}
+                                    {{fhir-edit name='onsetString' attribute=problem.onsetString}}
+                                {{/if}}
+                            {{/fhir-union}}
                         {{else}}
                             {{problem.code.text}} - ({{problem.clinicalStatus}})
                         {{/if}}
                     {{/fhir-element}}
                 </div>
-                <br />
+                <br/>
             {{/draggable-object}}
         {{/draggable-object-target}}
     {{else}}
-        No Problems<br />
+        No Problems<br/>
     {{/each}}
     <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Condition'}}/>
     <strong>Add Problem</strong>
