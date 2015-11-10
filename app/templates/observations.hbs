@@ -1,5 +1,4 @@
 <h3>Observations</h3>
-
 <div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
     {{#each model as |observation|}}
         {{#draggable-object-target action="createRelation" ontoObject=goal}}
@@ -16,11 +15,11 @@
                         {{/if}}
                     {{/fhir-element}}
                 </div>
-                <br>
+                <br />
             {{/draggable-object}}
         {{/draggable-object-target}}
     {{else}}
-        No Observations<br>
+        No Observations<br />
     {{/each}}
     <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'DiagnosticOrder'}}/>
     <strong>Add Observation</strong>

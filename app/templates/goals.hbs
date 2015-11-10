@@ -1,5 +1,4 @@
 <h3>Goals</h3>
-
 <div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
     {{#each model as |goal|}}
         {{#draggable-object-target action="createRelation" ontoObject=goal}}
@@ -18,11 +17,11 @@
                         {{/if}}
                     {{/fhir-element}}
                 </div>
-                <br>
+                <br />
             {{/draggable-object}}
         {{/draggable-object-target}}
     {{else}}
-        No Goals<br>
+        No Goals<br />
     {{/each}}
     <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Goal'}}/>
     <strong>Add Goal</strong>

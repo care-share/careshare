@@ -1,91 +1,93 @@
 {{outlet}}
-<br>
+<br />
 <div class="col-sm-12">
-  <div class="panel panel-default">
-    <div class="panel-heading" >
-      <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-      <h3 class="panel-title">Patient Search ({{filteredContent.length}} found)  {{input type="text" value=filterText placeholder="Patient name search"}}</h3>
-    </div>
-    <table class="table table-hover" >
-      <thead>
-        <tr>
-          <th class="fullName col-xs-3" >
-            Full Name
-            <div class="order pull-left">
-              <a class="asc">&uarr;</a>
-              <a class="desc">&darr;</a>
-            </div>
-          </th>
-          <th class="birthDate col-xs-3">
-            Birth Date
-            <div class="order pull-left">
-              <a class="asc">&uarr;</a>
-              <a class="desc">&darr;</a>
-            </div>
-          </th>
-          <th class="carePlan col-xs-3">
-            View CarePlan
-            <div class="order pull-left">
-              <a class="asc">&uarr;</a>
-              <a class="desc">&darr;</a>
-            </div>
-          </th>
-          <th class="col-xs-3">
-            Link
-          </th>
-          <!-- <th class="provider">
-            Care Provider(s)
-            <div class="order pull-left">
-              <a class="asc">&uarr;</a>
-              <a class="desc">&darr;</a>
-            </div>
-          </th>-->
-        </tr>
-      </thead>
-    </table>
-    <div style="overflow-y:auto; height:70vh" >
-      <table class="table table-striped table-hover "  style="width:100%">
-        <tbody>
-          {{#each filteredContent as |patient|}}
-          <tr class="">
-            {{#each patient.name as |name|}}
-            <td class="fullName col-xs-3"> {{name.given}},{{name.family}} </td>
-            <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
-            <td class="carePlan col-xs-3">
-              {{#if patient.hasCarePlans}}
-              <select id="dropdown{{patient.id}}"class="form-control" {{action 'renderCarePlan' patient.id on='change'}}>
-                <option disabled selected> -- Select a Careplan to View -- </option>
-                {{#each careplan in patient.careplans}}
-                <option value={{careplan.id}}>
-                  <div  >
-                    {{careplan.id}}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+            <h3 class="panel-title">Patient Search ({{filteredContent.length}}
+                found)  {{input type="text" value=filterText placeholder="Patient name search"}}</h3>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="fullName col-xs-3">
+                    Full Name
+                    <div class="order pull-left">
+                        <a class="asc">&uarr;</a>
+                        <a class="desc">&darr;</a>
+                    </div>
+                </th>
+                <th class="birthDate col-xs-3">
+                    Birth Date
+                    <div class="order pull-left">
+                        <a class="asc">&uarr;</a>
+                        <a class="desc">&darr;</a>
+                    </div>
+                </th>
+                <th class="carePlan col-xs-3">
+                    View CarePlan
+                    <div class="order pull-left">
+                        <a class="asc">&uarr;</a>
+                        <a class="desc">&darr;</a>
+                    </div>
+                </th>
+                <th class="col-xs-3">
+                    Link
+                </th>
+                <!-- <th class="provider">
+                  Care Provider(s)
+                  <div class="order pull-left">
+                    <a class="asc">&uarr;</a>
+                    <a class="desc">&darr;</a>
                   </div>
-                </option>
+                </th>-->
+            </tr>
+            </thead>
+        </table>
+        <div style="overflow-y:auto; height:70vh">
+            <table class="table table-striped table-hover " style="width:100%">
+                <tbody>
+                {{#each filteredContent as |patient|}}
+                    <tr class="">
+                        {{#each patient.name as |name|}}
+                            <td class="fullName col-xs-3"> {{name.given}},{{name.family}} </td>
+                            <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
+                            <td class="carePlan col-xs-3">
+                                {{#if patient.hasCarePlans}}
+                                    <select id="dropdown{{patient.id}}"
+                                            class="form-control" {{action 'renderCarePlan' patient.id on='change'}}>
+                                        <option disabled selected> -- Select a Careplan to View --</option>
+                                        {{#each careplan in patient.careplans}}
+                                            <option value={{careplan.id}}>
+                                                <div>
+                                                    {{careplan.id}}
+                                                </div>
+                                            </option>
+                                        {{/each}}
+                                    </select>
+                                {{else}}
+                                    No Careplan associated with Patient
+                                {{/if}}
+                            </td>
+                        {{/each}}
+                        <td class="col-xs-3">
+                            {{#link-to 'patient.init' patient}}Initiate Care Plan{{/link-to}}
+                        </td>
+                    </tr>
+                {{else}}
+                    Didn't find any patients.
                 {{/each}}
-              </select>
-              {{else}}
-              No Careplan associated with Patient
-              {{/if}}
-            </td>
-            {{/each}}
-            <td class="col-xs-3">
-              {{#link-to 'patient.init' patient}}Initiate Care Plan{{/link-to}}
-            </td>
-          </tr>
-          {{else}}
-          Didn't find any patients.
-          {{/each}}
-        </tbody>
-      </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
-  <table class="table table-hover" style="table-layout:fixed">
-    <thead>
-      <tr>
-        <Label>Create new patient:</Label>
-        {{input type="text" value=givenName placeholder="Enter patient given name" enter="createPatient"}}
-        {{input type="text" value=familyName placeholder="Enter patient family name" enter="createPatient"}}
-      </tr>
-    </thead>
-  </table>
+    <table class="table table-hover" style="table-layout:fixed">
+        <thead>
+        <tr>
+            <Label>Create new patient:</Label>
+            {{input type="text" value=givenName placeholder="Enter patient given name" enter="createPatient"}}
+            {{input type="text" value=familyName placeholder="Enter patient family name" enter="createPatient"}}
+        </tr>
+        </thead>
+    </table>
 </div>

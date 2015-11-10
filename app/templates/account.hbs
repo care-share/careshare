@@ -1,262 +1,268 @@
-  {{#if session.secure.isAdmin}}
+{{#if session.secure.isAdmin}}
     <div class="col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-          <h3 class="panel-title">Account Requests Awaiting Action</h3>
-        </div>
-     
-        <table class="table table-hover">
-          <thead>
-            <tr>  
-              <th class="fullName">
-                Full Name
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th> 
-              <th class="email">
-                Email
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th> 
-              <th class="role">
-                Roles
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th class="origin">
-                Origin
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th class="fhir_id">
-                FHIR ID
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th class="approval">
-                Approve
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-          {{#each model as |user|}}
-            <tr> <td>{{user.name_last}}, {{user.name_first}} </td>
-              <td> {{user.email}} </td>
-              <td>
-                <div class="btn-group btn-group-xs">
-                {{#each user.allRoles as |role|}}
-                  <button {{action 'toggleRole' user.email role.key role.value}} class="btn {{if role.value 'btn-success' 'btn-danger'}}">
-                    {{role.key}}
-                  </button>
-                {{/each}}
-                </div>
-              </td>
-              <td>{{user.origin}}</td>
-              <td>
-                {{#em-modal-toggler modal-id="modal1" class="btn btn-primary btn-xs" on-toggle="modalToggle" user=user}}
-                  {{#if user.fhir_id}}
-                    {{user.fhir_id}}
-                  {{else}}
-                    None
-                  {{/if}}
-                {{/em-modal-toggler}}
-              </td>
-              <td style="padding:0">
-                <span {{action 'approve' user.email}} class="icon btn-icon ion-checkmark"></span>
-                <span {{action 'deny' user.email}} class="icon btn-icon ion-close"></span>
-              </td>
-            </tr>
-          {{else}}
-            <tr><td colspan="6">
-              No accounts awaiting approval.
-            </td></tr>
-          {{/each}}
-          </tbody>
-        </table>
-    </div></div>
-          
-    <div class="col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
-          <h3 class="panel-title">Approved Users</h3>
-        </div>
-     
-        <table class="table table-hover">
-          <thead>
-            <tr>  
-              <th class="fullName">
-                Full Name
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th> 
-              <th class="email">
-                Email
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th> 
-              <th class="role">
-                Roles
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th class="origin">
-                Origin
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th class="fhir_id">
-                FHIR ID
-                <div class="order pull-left">
-                  <a class="asc">&uarr;</a>
-                  <a class="desc">&darr;</a>
-                </div>
-              </th>
-              <th class="change">
-                Remove
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-          {{#each approved as |user|}}
-            <tr>
-              <td>{{user.name_last}}, {{user.name_first}} </td>
-              <td> {{user.email}} </td>
-              <td>
-                <div class="btn-group btn-group-xs">
-                {{#each user.allRoles as |role|}}
-                  <button {{action 'toggleRole' user.email role.key role.value}} class="btn {{if role.value 'btn-success' 'btn-danger'}}">
-                    {{role.key}}
-                  </button>
-                {{/each}}
-                </div>
-              </td>
-              <td> {{user.origin}} </td>
-              <td>
-                {{#em-modal-toggler modal-id="modal1" class="btn btn-primary btn-xs" on-toggle="modalToggle" user=user}}
-                {{#if user.fhir_id}}
-                  {{user.fhir_id}}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+                <h3 class="panel-title">Account Requests Awaiting Action</h3>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="fullName">
+                        Full Name
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="email">
+                        Email
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="role">
+                        Roles
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="origin">
+                        Origin
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="fhir_id">
+                        FHIR ID
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="approval">
+                        Approve
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each model as |user|}}
+                    <tr>
+                        <td>{{user.name_last}}, {{user.name_first}} </td>
+                        <td> {{user.email}} </td>
+                        <td>
+                            <div class="btn-group btn-group-xs">
+                                {{#each user.allRoles as |role|}}
+                                    <button {{action 'toggleRole' user.email role.key role.value}}
+                                            class="btn {{if role.value 'btn-success' 'btn-danger'}}">
+                                        {{role.key}}
+                                    </button>
+                                {{/each}}
+                            </div>
+                        </td>
+                        <td>{{user.origin}}</td>
+                        <td>
+                            {{#em-modal-toggler modal-id="modal1" class="btn btn-primary btn-xs" on-toggle="modalToggle" user=user}}
+                                {{#if user.fhir_id}}
+                                    {{user.fhir_id}}
+                                {{else}}
+                                    None
+                                {{/if}}
+                            {{/em-modal-toggler}}
+                        </td>
+                        <td style="padding:0">
+                            <span {{action 'approve' user.email}} class="icon btn-icon ion-checkmark"></span>
+                            <span {{action 'deny' user.email}} class="icon btn-icon ion-close"></span>
+                        </td>
+                    </tr>
                 {{else}}
-                  None
-                {{/if}}
-                {{/em-modal-toggler}}
-              </td>
-              {{#if (not-eq user.email session.secure.email)}}
-              <td style="padding:0">
-                <span {{action 'deny' user.email}} class="icon btn-icon ion-close"></span>
-              </td>
-              {{else}}
-              <td>
-                Self
-              </td>
-              {{/if}}
-            </tr>
-          {{/each}}
-          </tbody>
-        </table>
-    </div></div>
-  {{else}}
+                    <tr>
+                        <td colspan="6">
+                            No accounts awaiting approval.
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-icon"><i class="icon ion-navicon-round"></i></div>
+                <h3 class="panel-title">Approved Users</h3>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="fullName">
+                        Full Name
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="email">
+                        Email
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="role">
+                        Roles
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="origin">
+                        Origin
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="fhir_id">
+                        FHIR ID
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="change">
+                        Remove
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each approved as |user|}}
+                    <tr>
+                        <td>{{user.name_last}}, {{user.name_first}} </td>
+                        <td> {{user.email}} </td>
+                        <td>
+                            <div class="btn-group btn-group-xs">
+                                {{#each user.allRoles as |role|}}
+                                    <button {{action 'toggleRole' user.email role.key role.value}}
+                                            class="btn {{if role.value 'btn-success' 'btn-danger'}}">
+                                        {{role.key}}
+                                    </button>
+                                {{/each}}
+                            </div>
+                        </td>
+                        <td> {{user.origin}} </td>
+                        <td>
+                            {{#em-modal-toggler modal-id="modal1" class="btn btn-primary btn-xs" on-toggle="modalToggle" user=user}}
+                                {{#if user.fhir_id}}
+                                    {{user.fhir_id}}
+                                {{else}}
+                                    None
+                                {{/if}}
+                            {{/em-modal-toggler}}
+                        </td>
+                        {{#if (not-eq user.email session.secure.email)}}
+                            <td style="padding:0">
+                                <span {{action 'deny' user.email}} class="icon btn-icon ion-close"></span>
+                            </td>
+                        {{else}}
+                            <td>
+                                Self
+                            </td>
+                        {{/if}}
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{else}}
     Sorry, this page is only accessible by administrators.
-  {{/if}}
+{{/if}}
 
-  <!--id is important, so we can reference it on the toggler component-->
-  {{#em-modal configName="bs" id="modal1" close-if=mClose}}
-      {{#em-modal-title}}
-          <h4 class="modal-title">Set User FHIR ID</h4>
-      {{/em-modal-title}}
-      <!--the content of the modal...-->
-      {{#em-modal-body}}
-          <h4>
-              <strong>CareShare User:</strong>
-              {{mUser.name_first}} {{mUser.name_last}} ({{mUser.email}})
-              <br />
-              <strong>Associated FHIR ID:</strong>
-              {{#if mFhirId}}
-                  <span style="color: blue">{{mFhirId}}</span>
-                  <span {{action "modalSetFhirId"}} class="btn btn-warning icon btn-icon ion-trash-a btn-icon-small" style="font-size:large; padding-top:0; padding-bottom:0"></span>
-              {{else}}
-                  <span style="color: blue">None</span>
-              {{/if}}
-          </h4>
-          <hr />
-          <p>
-              Find Practitioners in FHIR database by name:
-              {{input type="text" value=mSearch enter="modalSearch" placeholder="Practitioner name search"}}
-              <span {{action "modalSearch"}} class="btn btn-primary icon btn-icon ion-search btn-icon-small" style="font-size:large; padding-top:0; padding-bottom:0"></span>
-          </p>
-          {{#if mIsSearching}}
-              <div style="text-align:center">
-                  <div class="heartbeat-loader center"></div>
-                  <h4>
-                      <strong>Searching</strong>
-                  </h4>
-              </div>
-          {{else}}
-              <table class="table table-hover">
-                  <thead>
-                  <tr>
-                      <th class="fullName">
-                          Full Name
-                          <div class="order pull-left">
-                              <a class="asc">&uarr;</a>
-                              <a class="desc">&darr;</a>
-                          </div>
-                      </th>
-                      <th class="fhir_id">
-                          FHIR ID
-                          <div class="order pull-left">
-                              <a class="asc">&uarr;</a>
-                              <a class="desc">&darr;</a>
-                          </div>
-                      </th>
-                  </tr>
-                  </thead>
-              </table>
-              <div style="overflow-y:auto; height:20vh">
-                  <table class="table table-hover">
-                      <tbody>
-                      {{#each mPractitioners as |practitioner|}}
-                          <tr {{action "modalSetFhirId" practitioner.id}}
-                                  style="cursor: pointer; {{if (eq practitioner.id mFhirId) "color:blue"}}">
-                              <td class="fullName">
-                                  {{practitioner.name.family}}, {{practitioner.name.given}}
-                              </td>
-                              <td class="fhir_id">
-                                  {{practitioner.id}}
-                              </td>
-                          </tr>
-                      {{else}}
-                          <tr>
-                              <td>No practitioners found</td>
-                          </tr>
-                      {{/each}}
-                      </tbody>
-                  </table>
-              </div>
-          {{/if}}
-      {{/em-modal-body}}
-      <!--optional footer section of the modal, usually contains buttons-->
-      {{#em-modal-footer}}
-          {{#em-modal-toggler class="btn btn-default"}}Cancel{{/em-modal-toggler}}
-          <button {{action "modalSubmit"}} class="btn btn-primary">Submit</button>
-      {{/em-modal-footer}}
-  {{/em-modal}}
+<!--id is important, so we can reference it on the toggler component-->
+{{#em-modal configName="bs" id="modal1" close-if=mClose}}
+    {{#em-modal-title}}
+        <h4 class="modal-title">Set User FHIR ID</h4>
+    {{/em-modal-title}}
+    <!--the content of the modal...-->
+    {{#em-modal-body}}
+        <h4>
+            <strong>CareShare User:</strong>
+            {{mUser.name_first}} {{mUser.name_last}} ({{mUser.email}})
+            <br/>
+            <strong>Associated FHIR ID:</strong>
+            {{#if mFhirId}}
+                <span style="color: blue">{{mFhirId}}</span>
+                <span {{action "modalSetFhirId"}} class="btn btn-warning icon btn-icon ion-trash-a btn-icon-small"
+                                                  style="font-size:large; padding-top:0; padding-bottom:0"></span>
+            {{else}}
+                <span style="color: blue">None</span>
+            {{/if}}
+        </h4>
+        <hr/>
+        <p>
+            Find Practitioners in FHIR database by name:
+            {{input type="text" value=mSearch enter="modalSearch" placeholder="Practitioner name search"}}
+            <span {{action "modalSearch"}} class="btn btn-primary icon btn-icon ion-search btn-icon-small"
+                                           style="font-size:large; padding-top:0; padding-bottom:0"></span>
+        </p>
+        {{#if mIsSearching}}
+            <div style="text-align:center">
+                <div class="heartbeat-loader center"></div>
+                <h4>
+                    <strong>Searching</strong>
+                </h4>
+            </div>
+        {{else}}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="fullName">
+                        Full Name
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="fhir_id">
+                        FHIR ID
+                        <div class="order pull-left">
+                            <a class="asc">&uarr;</a>
+                            <a class="desc">&darr;</a>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+            </table>
+            <div style="overflow-y:auto; height:20vh">
+                <table class="table table-hover">
+                    <tbody>
+                    {{#each mPractitioners as |practitioner|}}
+                        <tr {{action "modalSetFhirId" practitioner.id}}
+                                style="cursor: pointer; {{if (eq practitioner.id mFhirId) "color:blue"}}">
+                            <td class="fullName">
+                                {{practitioner.name.family}}, {{practitioner.name.given}}
+                            </td>
+                            <td class="fhir_id">
+                                {{practitioner.id}}
+                            </td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <td>No practitioners found</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        {{/if}}
+    {{/em-modal-body}}
+    <!--optional footer section of the modal, usually contains buttons-->
+    {{#em-modal-footer}}
+        {{#em-modal-toggler class="btn btn-default"}}Cancel{{/em-modal-toggler}}
+        <button {{action "modalSubmit"}} class="btn btn-primary">Submit</button>
+    {{/em-modal-footer}}
+{{/em-modal}}

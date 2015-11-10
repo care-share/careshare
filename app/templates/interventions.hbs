@@ -1,5 +1,4 @@
 <h3>Interventions</h3>
-
 <div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
     {{#each model as |intervention|}}
         {{#draggable-object-target action="createRelation" ontoObject=intervention}}
@@ -17,11 +16,11 @@
                         {{/if}}
                     {{/fhir-element}}
                 </div>
-                <br>
+                <br />
             {{/draggable-object}}
         {{/draggable-object-target}}
     {{else}}
-        No Interventions<br>
+        No Interventions<br />
     {{/each}}
     <button class="glyphicon glyphicon-plus" {{action 'createRecord' 'ProcedureRequest'}}/>
     <strong>Add Intervention</strong>

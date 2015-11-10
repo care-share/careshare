@@ -1,119 +1,114 @@
 <!-- Sidebar -->
 <aside class="side-left ng-scope" ng-controller="SmartSearchCtrl">
-  <!-- Sidebar Header-->
-  <div class="side-header">
-    <h1 id="brand" class="brand">
-      {{#link-to 'dashboard'}}
-        <img alt="Brand" src="/images/brand.png"> 
-        <strong>rural</strong>health
-      {{/link-to}}
-      <div class="header-actions pull-right">
-        <span id="toggle-content" ><i class="icon ion-navicon-round"></i></span>
-      </div>
-    </h1>
-    
-    <form id="smart-search" class="side-form hide ng-pristine ng-valid" role="form">
-      <input type="text" ng-model="search" class="form-control ng-pristine ng-valid" data-target=".side-wrapper" placeholder="Smart Finder">
-    </form>
-  </div>
-
-  <!-- Sidebar Body-->
-  <div class="side-body">
-    <nav class="side-nav">
-      <ul>
-        <li class="side-nav-item active">
-          <a href="/dashboard"><i class="nav-item-icon icon ion-social-rss-outline"></i>Dashboard</a>
-        </li>
-        <li class="side-nav-item ">
-          {{#link-to 'patients'}}<span class="badge">(patient count)</span>
-              <i class="nav-item-icon icon ion-ios-person-outline"></i> Patients 
-          {{/link-to}}
-              
-        </li>
+    <!-- Sidebar Header-->
+    <div class="side-header">
+        <h1 id="brand" class="brand">
+            {{#link-to 'dashboard'}}
+                <img alt="Brand" src="/images/brand.png">
+                <strong>rural</strong>health
+            {{/link-to}}
+            <div class="header-actions pull-right">
+                <span id="toggle-content"><i class="icon ion-navicon-round"></i></span>
+            </div>
+        </h1>
+        <form id="smart-search" class="side-form hide ng-pristine ng-valid" role="form">
+            <input type="text" ng-model="search" class="form-control ng-pristine ng-valid" data-target=".side-wrapper"
+                   placeholder="Smart Finder">
+        </form>
+    </div>
+    <!-- Sidebar Body-->
+    <div class="side-body">
+        <nav class="side-nav">
+            <ul>
+                <li class="side-nav-item active">
+                    <a href="/dashboard"><i class="nav-item-icon icon ion-social-rss-outline"></i>Dashboard</a>
+                </li>
                 <li class="side-nav-item ">
-                  {{#link-to 'workInProgress'}}
-                    <i class="nav-item-icon icon ion-compose"></i> Drafts 
-                   {{/link-to}}
+                    {{#link-to 'patients'}}<span class="badge">(patient count)</span>
+                        <i class="nav-item-icon icon ion-ios-person-outline"></i> Patients
+                    {{/link-to}}
+
+                </li>
+                <li class="side-nav-item ">
+                    {{#link-to 'workInProgress'}}
+                        <i class="nav-item-icon icon ion-compose"></i> Drafts
+                    {{/link-to}}
                 </li>
                 <!--<li class="side-nav-item ">
                   <a href="/goals">
                     <i class="nav-item-icon icon ion-star"></i> Goals </a>
                 </li>-->
                 <li class="side-nav-item ">
-                  {{#link-to 'workInProgress'}}
-                    <i class="nav-item-icon icon ion-clipboard"></i> Consults 
-                     {{/link-to}}
+                    {{#link-to 'workInProgress'}}
+                        <i class="nav-item-icon icon ion-clipboard"></i> Consults
+                    {{/link-to}}
                 </li>
                 <li class="side-nav-item">
-                  {{#link-to 'workInProgress'}}
-                    <i class="nav-item-icon icon ion-paper-airplane"></i> Referrals 
-                     {{/link-to}}
+                    {{#link-to 'workInProgress'}}
+                        <i class="nav-item-icon icon ion-paper-airplane"></i> Referrals
+                    {{/link-to}}
                 </li>
                 <!-- /tables -->
-            <li class="side-nav-item ">
-              {{#link-to 'workInProgress'}}
-                <i class="nav-item-icon icon ion-map"></i> Ready for Assignment 
-                 {{/link-to}}
-            </li>
-            <!-- /tables -->
-        <li class="side-nav-item ">
-          {{#link-to 'workInProgress'}}
-            <i class="nav-item-icon icon ion-medkit"></i> Patients Receiving Care 
-             {{/link-to}}
-        </li>
-        <!-- /tables -->
-        <li class="side-nav-item ">
-          {{#link-to 'workInProgress'}}
-            <i class="nav-item-icon icon ion-checkmark-round"></i> Ready for Certification 
-             {{/link-to}}
-        </li>
-        
-     {{#if session.secure.isAdmin}}
-            <li class="side-nav-item ">
-          {{#link-to 'account'}}
-            <i class="nav-item-icon icon ion-settings"></i> Review Account Requests
-             {{/link-to}}
-        </li>
-     {{/if}}   
-      </ul>
-    </nav>
+                <li class="side-nav-item ">
+                    {{#link-to 'workInProgress'}}
+                        <i class="nav-item-icon icon ion-map"></i> Ready for Assignment
+                    {{/link-to}}
+                </li>
+                <!-- /tables -->
+                <li class="side-nav-item ">
+                    {{#link-to 'workInProgress'}}
+                        <i class="nav-item-icon icon ion-medkit"></i> Patients Receiving Care
+                    {{/link-to}}
+                </li>
+                <!-- /tables -->
+                <li class="side-nav-item ">
+                    {{#link-to 'workInProgress'}}
+                        <i class="nav-item-icon icon ion-checkmark-round"></i> Ready for Certification
+                    {{/link-to}}
+                </li>
 
-  </div>
-</aside>
-
-<section id="content" class="content">
-  <header class="content-header">
-    <!-- Navbar Right Content -->
-    <div class="header-actions pull-right">
-      <div class="btn-group">
-        <a id="notif-alerts" class="btn btn-icon hide-sm dropdown-toggle" data-toggle="dropdown" role="button">
-           <i class="icon ion-alert-circled"></i>
-        </a>
-      </div>
-      <div class="btn-group">
-        <a id="users-setting" class="btn btn-icon data-toggle" data-toggle="dropdown" role="button">
-          <i class="icon ion-gear-b"></i>
-        </a>
-      </div>
-      Welcome, {{session.secure.name_first}}!
-      <button aria-hidden="true" {{action 'invalidate'}} class="btn btn-sm btn-default" type="submit">Sign Out</button>
+                {{#if session.secure.isAdmin}}
+                    <li class="side-nav-item ">
+                        {{#link-to 'account'}}
+                            <i class="nav-item-icon icon ion-settings"></i> Review Account Requests
+                        {{/link-to}}
+                    </li>
+                {{/if}}
+            </ul>
+        </nav>
     </div>
-
-    <!-- Navbar Left/Center Content -->
-    <!--div class="header-actions pull-left">
-      <button id="toggle-content" class="btn btn-icon" type="button"><i class="icon ion-navicon-round"></i></button>
-      <button id="toggle-search" class="btn btn-icon" type="button"><i class="icon ion-search"></i></button>
-    </div-->
-    <h1 class="content-title">{{header-format target.url}}</h1>
-  </header>
-
-  <!-- Main Application Window -->
-  <div >
-    <section id="content-main" >
-      <div >
-      
-        <!-- Application Header -->
-        <!--div class="app-header">
+</aside>
+<section id="content" class="content">
+    <header class="content-header">
+        <!-- Navbar Right Content -->
+        <div class="header-actions pull-right">
+            <div class="btn-group">
+                <a id="notif-alerts" class="btn btn-icon hide-sm dropdown-toggle" data-toggle="dropdown" role="button">
+                    <i class="icon ion-alert-circled"></i>
+                </a>
+            </div>
+            <div class="btn-group">
+                <a id="users-setting" class="btn btn-icon data-toggle" data-toggle="dropdown" role="button">
+                    <i class="icon ion-gear-b"></i>
+                </a>
+            </div>
+            Welcome, {{session.secure.name_first}}!
+            <button aria-hidden="true" {{action 'invalidate'}} class="btn btn-sm btn-default" type="submit">Sign Out
+            </button>
+        </div>
+        <!-- Navbar Left/Center Content -->
+        <!--div class="header-actions pull-left">
+          <button id="toggle-content" class="btn btn-icon" type="button"><i class="icon ion-navicon-round"></i></button>
+          <button id="toggle-search" class="btn btn-icon" type="button"><i class="icon ion-search"></i></button>
+        </div-->
+        <h1 class="content-title">{{header-format target.url}}</h1>
+    </header>
+    <!-- Main Application Window -->
+    <div>
+        <section id="content-main">
+            <div>
+                <!-- Application Header -->
+                <!--div class="app-header">
           <h3 class="app-title pull-left hidden-xs"/>
           <ol class="breadcrumb bg-none pull-left hide-xs">
             <li>Welcome, {{session.secure.name_first}}!</li>      
@@ -128,14 +123,13 @@
               </div>
           </div>
         </div-->
-
-        <!-- Application Body -->
-        <div >
-          <div class="col-sm-12 clearFix" >
-            {{outlet }}
-          </div>
-        </div>       
-      </div>
-    </section>
-  </div>
+                <!-- Application Body -->
+                <div>
+                    <div class="col-sm-12 clearFix">
+                        {{outlet }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </section>

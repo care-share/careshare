@@ -1,78 +1,78 @@
 {{#if session.isAuthenticated}}
-	<!-- Sidebar -->
-	<!--div id="wrapper" class>
-	  <div id="sidebar-wrapper"-->
-	<div class="row">
-  		<div class="col-md-3 patientSidebar">
-  			<div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">       
-				<div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
-	  				<div style="background-color: rgb(197,234,142);text-align: center">
-						{{firstName}},{{lastName}} (Active) 
-	  				</div>
-	  				<span class="glyphicon glyphicon-user" style="font-size: 5em;"/>
-	  				<div class="panel" style="padding: 0">{{gender}}<br>{{birthDate}}</div> 
-				</div>  
-				<div class="panel-body" style="padding: 0;height:100%;" >
-					<!-- Tab Content -->
-					<div class="tab-content" style="padding: 0">
-						<ul class="nav nav-tabs" style="background-color: rgb(242,247,252)">
-							{{#link-to 'patient.filters'  tagName='li' href=false }}
-							  {{#link-to 'patient.filters'}}Filter{{/link-to}}
-							{{/link-to}}
-							{{#link-to 'patient.patientInfo'  tagName='li' href=false }}
-							  {{#link-to 'patient.patientInfo'}}Patient{{/link-to}}
-							{{/link-to}}
-							{{#link-to 'patient.notes'  tagName='li' href=false }}
-							  {{#link-to 'patient.notes'}}Notes{{/link-to}}
-							{{/link-to}}
-							{{#link-to 'patient.history'  tagName='li' href=false }}
-							  {{#link-to 'patient.history'}}History{{/link-to}}
-							{{/link-to}}
-							{{#link-to 'patient.requests'  tagName='li' href=false }}
-							  {{#link-to 'patient.requests'}}Requests{{/link-to}}
-							{{/link-to}}                    
-						</ul>  		
-						{{outlet}}
-					</div>
-				</div>
-	  		</div>
-  		</div>
-  
-		<!-- Page Content -->
-		<!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
-		<div  style="background-color: rgb(242,247,252); height:100vh;" class="col-md-9">
-		<!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
-		Other practitioners have requested changes to this plan's...
-		<button>Accept All</button>
-		<button>Reject All</button>
-		</div>-->
-			<div class="row">
-				{{#if showProblems}}
-					<div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
-						{{render "problems" problems}}
-					</div>
-				{{/if}}
-				{{#if showGoals}}
-					<div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
-						{{render "goals" goals}}
-					</div>
-				{{/if}}
-				{{#if showInterventions}}
-					<div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
-						{{render "interventions" interventions}}
-					</div>
-				{{/if}}
-				{{#if showObservations}}
-					<div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
-						{{render "observations" observations}}
-					</div>
-				{{/if}}
-				{{#if showMedications}}
-					<div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
-						{{render "medications" medications}}
-					</div>
-				{{/if}}
-			</div>
-		</div>
-	</div>
+    <!-- Sidebar -->
+    <!--div id="wrapper" class>
+      <div id="sidebar-wrapper"-->
+    <div class="row">
+        <div class="col-md-3 patientSidebar">
+            <div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">
+                <div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
+                    <div style="background-color: rgb(197,234,142);text-align: center">
+                        {{firstName}},{{lastName}} (Active)
+                    </div>
+                    <span class="glyphicon glyphicon-user" style="font-size: 5em;"/>
+
+                    <div class="panel" style="padding: 0">{{gender}}<br />{{birthDate}}</div>
+                </div>
+                <div class="panel-body" style="padding: 0;height:100%;">
+                    <!-- Tab Content -->
+                    <div class="tab-content" style="padding: 0">
+                        <ul class="nav nav-tabs" style="background-color: rgb(242,247,252)">
+                            {{#link-to 'patient.filters'  tagName='li' href=false }}
+                                {{#link-to 'patient.filters'}}Filter{{/link-to}}
+                            {{/link-to}}
+                            {{#link-to 'patient.patientInfo'  tagName='li' href=false }}
+                                {{#link-to 'patient.patientInfo'}}Patient{{/link-to}}
+                            {{/link-to}}
+                            {{#link-to 'patient.notes'  tagName='li' href=false }}
+                                {{#link-to 'patient.notes'}}Notes{{/link-to}}
+                            {{/link-to}}
+                            {{#link-to 'patient.history'  tagName='li' href=false }}
+                                {{#link-to 'patient.history'}}History{{/link-to}}
+                            {{/link-to}}
+                            {{#link-to 'patient.requests'  tagName='li' href=false }}
+                                {{#link-to 'patient.requests'}}Requests{{/link-to}}
+                            {{/link-to}}
+                        </ul>
+                        {{outlet}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Content -->
+        <!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
+        <div style="background-color: rgb(242,247,252); height:100vh;" class="col-md-9">
+            <!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
+            Other practitioners have requested changes to this plan's...
+            <button>Accept All</button>
+            <button>Reject All</button>
+            </div>-->
+            <div class="row">
+                {{#if showProblems}}
+                    <div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
+                        {{render "problems" problems}}
+                    </div>
+                {{/if}}
+                {{#if showGoals}}
+                    <div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
+                        {{render "goals" goals}}
+                    </div>
+                {{/if}}
+                {{#if showInterventions}}
+                    <div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
+                        {{render "interventions" interventions}}
+                    </div>
+                {{/if}}
+                {{#if showObservations}}
+                    <div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
+                        {{render "observations" observations}}
+                    </div>
+                {{/if}}
+                {{#if showMedications}}
+                    <div class="col-xs-5ths well" style="background-color: rgb(201,222,242)">
+                        {{render "medications" medications}}
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
 {{/if}}

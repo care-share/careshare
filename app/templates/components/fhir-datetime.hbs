@@ -1,17 +1,17 @@
-{{#if isEditing}} 
-	{{#bs-datetimepicker date=date1 showToday=false format="YYYY-MM-DDThh:mm:ss"}}
-		{{input class='ember-view ember-text-field form-control' 
-			value=attribute focus-out='saveItem' autofocus="autofocus"}}
+{{#if isEditing}}
+    {{#bs-datetimepicker date=date1 showToday=false format="YYYY-MM-DDThh:mm:ss"}}
+        {{input class='ember-view ember-text-field form-control'
+        value=attribute focus-out='saveItem' autofocus="autofocus"}}
     {{/bs-datetimepicker}}
-	<button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-close' {{action 'cancel'}}/>
     <button class='ion-checkmark' {{action 'saveItem'}}/>
 {{else}}
-	{{#if (not attribute)}}
-		<button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button> 
-	{{else}}
-		<div class="panel panel-default" style="outline: 1px solid black" 
-			{{action 'editItem' on='doubleClick'}}>
-		{{date1}}
-		</div> 
-	{{/if}}
+    {{#if (not attribute)}}
+        <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button>
+    {{else}}
+        <div class="panel panel-default" style="outline: 1px solid black"
+            {{action 'editItem' on='doubleClick'}}>
+            {{date1}}
+        </div>
+    {{/if}}
 {{/if}}

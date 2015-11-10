@@ -1,114 +1,128 @@
-<div class="col-sm-12" >
-<h3>Creating a new care plan for:</h3>
+<div class="col-sm-12">
+    <h3>Creating a new care plan for:</h3>
 </div>
 <div class="col-sm-12" style="border-width:2px; border-style:dashed; border-color:#ccc">
-
-<h3>
-PLACEHOLDER FOR PATIENT INFO BANNER
-<br/>
-Patient name:                   {{#each name as |name|}}
-                    <span>{{name.given}},{{name.family}}</span>
-                  {{/each}}
-</h3>
-Age: {{age}} (born {{birthDate}})
-<br/>
-Gender: {{gender}}
+    <h3>
+        PLACEHOLDER FOR PATIENT INFO BANNER
+        <br/>
+        Patient name:                   {{#each name as |name|}}
+        <span>{{name.given}},{{name.family}}</span>
+    {{/each}}
+    </h3>
+    Age: {{age}} (born {{birthDate}})
+    <br/>
+    Gender: {{gender}}
 </div>
-
 <div class="col-sm-12">
-<br/>
-<h4>Which concerns are relevant to this care plan?</h4>
-{{multiselect-checkboxes options=conditions labelProperty='displayName' selection=selectedConditions}}
+    <br/>
+    <h4>Which concerns are relevant to this care plan?</h4>
+    {{multiselect-checkboxes options=conditions labelProperty='displayName' selection=selectedConditions}}
 </div>
-
 <div class="col-sm-12">
-<h4>Functional limitations</h4>
-<ul>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}} Amputation</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationIncontinence" checked=limitationIncontinence}} Bowel/Bladder (Incontinence)</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationContracture" checked=limitationContracture}} Contracture</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationHearing" checked=limitationHearing}} Hearing</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationParalysis" checked=limitationParalysis}} Paralysis</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationEndurance" checked=limitationEndurance}} Endurance</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationAmbulation" checked=limitationAmbulation}} Ambulation</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationSpeech" checked=limitationSpeech}} Speech</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationLegallyBlind" checked=limitationLegallyBlind}} Legally Blind</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationDyspneaWithMinimalExertion" checked=limitationDyspneaWithMinimalExertion}} Dyspnea With Minimal Exertion</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}} Amputation</label></li>
-<li class="col-md-5"><label>Other: {{input type="text" name="limitationOther"}}</label></li>
-</ul>
+    <h4>Functional limitations</h4>
+    <ul>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}}
+            Amputation</label></li>
+        <li class="col-md-4">
+            <label>{{input type="checkbox" name="limitationIncontinence" checked=limitationIncontinence}} Bowel/Bladder
+                (Incontinence)</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationContracture" checked=limitationContracture}}
+            Contracture</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationHearing" checked=limitationHearing}}
+            Hearing</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationParalysis" checked=limitationParalysis}}
+            Paralysis</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationEndurance" checked=limitationEndurance}}
+            Endurance</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationAmbulation" checked=limitationAmbulation}}
+            Ambulation</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationSpeech" checked=limitationSpeech}}
+            Speech</label></li>
+        <li class="col-md-4">
+            <label>{{input type="checkbox" name="limitationLegallyBlind" checked=limitationLegallyBlind}} Legally
+                Blind</label></li>
+        <li class="col-md-4">
+            <label>{{input type="checkbox" name="limitationDyspneaWithMinimalExertion" checked=limitationDyspneaWithMinimalExertion}}
+                Dyspnea With Minimal Exertion</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}}
+            Amputation</label></li>
+        <li class="col-md-5"><label>Other: {{input type="text" name="limitationOther"}}</label></li>
+    </ul>
 </div>
-
 <div class="col-sm-12">
-<h4>Mental Status</h4>
-<ul>
-<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusOriented" checked=mentalStatusOriented}} Oriented</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusComatose" checked=mentalStatusComatose}} Comatose</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusForgetful" checked=mentalStatusForgetful}} Forgetful</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusDepressed" checked=mentalStatusDepressed}} Depressed</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusDisoriented" checked=mentalStatusDisoriented}} Disoriented</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusLethargic" checked=mentalStatusLethargic}} Lethargic</label></li>
-<li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusAgitated" checked=mentalStatusAgitated}} Agitated</label></li>
-<li class="col-md-5"><label>Other: {{input type="text" name="mentalStatusOther"}}</label></li>
-</ul>
+    <h4>Mental Status</h4>
+    <ul>
+        <li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusOriented" checked=mentalStatusOriented}}
+            Oriented</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusComatose" checked=mentalStatusComatose}}
+            Comatose</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusForgetful" checked=mentalStatusForgetful}}
+            Forgetful</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusDepressed" checked=mentalStatusDepressed}}
+            Depressed</label></li>
+        <li class="col-md-4">
+            <label>{{input type="checkbox" name="mentalStatusDisoriented" checked=mentalStatusDisoriented}}
+                Disoriented</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusLethargic" checked=mentalStatusLethargic}}
+            Lethargic</label></li>
+        <li class="col-md-4"><label>{{input type="checkbox" name="mentalStatusAgitated" checked=mentalStatusAgitated}}
+            Agitated</label></li>
+        <li class="col-md-5"><label>Other: {{input type="text" name="mentalStatusOther"}}</label></li>
+    </ul>
 </div>
-
 <div class="col-sm-12">
-<h4>Notes</h4>
-{{textarea value=comment cols="80" rows="6"}}
+    <h4>Notes</h4>
+    {{textarea value=comment cols="80" rows="6"}}
 </div>
-
 <div class="col-sm-12">
-<br/>
-<button {{action 'initializeCarePlan'}}>Submit</button>
+    <br/>
+    <button {{action 'initializeCarePlan'}}>Submit</button>
 </div>
-
 <div class="col-sm-12">
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 </div>

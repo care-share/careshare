@@ -1,5 +1,3 @@
 import Ember from 'ember';
 
-export default Ember.View.extend({
-
-});
+export default Ember.View.extend({});

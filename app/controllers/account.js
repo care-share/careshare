@@ -4,7 +4,7 @@ import API from '../api';
 export default Ember.Controller.extend({
     mUser: undefined,
     mFhirId: undefined,
-    mSearch: "",
+    mSearch: '',
     mPractitioners: [],
     mClose: false,
     mSubmitting: false,
@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
             var fhir_id = this.get('mFhirId');
             this.set('mUser.fhir_id', fhir_id);
             // change user's FHIR ID in the database
-            API.changeFhirId(this.get('mUser.email'), fhir_id, this.get('session').get('secure'), this);
+            API.changeFhirId(this.get('mUser.email'), fhir_id, this.get('session.secure'), this);
             // clear props
             this.set('mUser', undefined);
             this.set('mFhirId', undefined);
@@ -37,22 +37,27 @@ export default Ember.Controller.extend({
             this.set('mClose', true);
         },
         reset: function () {
-            this.get('target').send('reset', this);
+            this.get('target')
+                .send('reset', this);
         },
         approve: function (email) {
-            console.log("approve(controller) called");
-            this.get('target').send('approve', email, this.get('session').get('secure'), this);
+            console.log('approve(controller) called');
+            this.get('target')
+                .send('approve', email, this.get('session.secure'), this);
         },
         deny: function (email) {
-            console.log("deny(controller) called");
-            this.get('target').send('deny', email, this.get('session').get('secure'), this);
+            console.log('deny(controller) called');
+            this.get('target')
+                .send('deny', email, this.get('session.secure'), this);
         },
         toggleRole: function (email, role, isHeld) {
-            console.log("toggleRole(controller) called");
+            console.log('toggleRole(controller) called');
             if (!isHeld) {
-                this.get('target').send('addRole', email, role, this.get('session').get('secure'), this);
+                this.get('target')
+                    .send('addRole', email, role, this.get('session.secure'), this);
             } else {
-                this.get('target').send('removeRole', email, role, this.get('session').get('secure'), this);
+                this.get('target')
+                    .send('removeRole', email, role, this.get('session.secure'), this);
             }
         }
     },
@@ -64,8 +69,9 @@ export default Ember.Controller.extend({
             .then(function (response) {
                 that.set('mPractitioners', response);
             }, function (error) {
-                console.log("Error retrieving practitioners: " + error);
-            }).finally(function() {
+                console.log('Error retrieving practitioners: ' + error);
+            })
+            .finally(function () {
                 that.set('mIsSearching', false);
             });
     }

@@ -1,47 +1,46 @@
 <h3>Medications</h3>
-
 <div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
     {{#each model as |order|}}
         {{#draggable-object-target action="createRelation" ontoObject=order}}
             {{#draggable-object content=order}}
                 <div {{action "hoverOn" order on="mouseEnter"}} {{action "hoverOff" order on="mouseLeave"}}>
                     {{#fhir-element root=order type='ProcedureRequest' as |section|}}
-                    {{#if order.medicationReference}}
-                        {{#if order.medicationReference.medication}}
-                            {{#if order.medicationReference.medication.code.text}}
-                                {{order.medicationReference.medication.code.text}}
+                        {{#if order.medicationReference}}
+                            {{#if order.medicationReference.medication}}
+                                {{#if order.medicationReference.medication.code.text}}
+                                    {{order.medicationReference.medication.code.text}}
+                                {{else}}
+                                    {{order.medicationReference.medication.code.coding.firstObject.display}}
+                                {{/if}}
                             {{else}}
-                                {{order.medicationReference.medication.code.coding.firstObject.display}}
+                                {{order.medicationReference.display}}
                             {{/if}}
                         {{else}}
-                            {{order.medicationReference.display}}
-                        {{/if}}
-                    {{else}}
-                        NO MEDICATION
-                    {{/if}},
-                    {{#if order.dosageInstruction}}
-                        {{#each di in order.dosageInstruction}}
-                            {{#if di.text}}
-                                {{di.text}}
-                            {{else}}
-                                {{#if di.doseSimpleQuantity}}
-                                    {{di.doseSimpleQuantity.value}} {{di.doseSimpleQuantity.unit}}
+                            NO MEDICATION
+                        {{/if}},
+                        {{#if order.dosageInstruction}}
+                            {{#each di in order.dosageInstruction}}
+                                {{#if di.text}}
+                                    {{di.text}}
                                 {{else}}
-                                    NO DOSAGE
+                                    {{#if di.doseSimpleQuantity}}
+                                        {{di.doseSimpleQuantity.value}} {{di.doseSimpleQuantity.unit}}
+                                    {{else}}
+                                        NO DOSAGE
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
-                        {{/each}}
-                    {{else}}
-                        NO DOSAGE
-                    {{/if}}
+                            {{/each}}
+                        {{else}}
+                            NO DOSAGE
+                        {{/if}}
                     {{/fhir-element}}
                 </div>
-                <br>
+                <br />
             {{/draggable-object}}
         {{/draggable-object-target}}
 
     {{else}}
-        No Medications<br>
+        No Medications<br />
     {{/each}}
     <!--<button class="glyphicon glyphicon-plus" {{action 'add'}}/> <strong>Add Medication</strong>-->
 </div>
