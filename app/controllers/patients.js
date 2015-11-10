@@ -7,6 +7,10 @@ export default Ember.ArrayController.extend({
     currentId: null,
     careplans: null,
     actions: {
+        doLazyLoad: function(patient) {
+            // triggers queries for attributes that are lazy-loaded (e.g. Care Plans)
+            patient.set('doLazyLoad', true);
+        },
         renderPatient: function (id) {
             console.log('Rendering patient from patients');
             //this.transitionToRoute('patient.filters', id);
@@ -86,29 +90,12 @@ export default Ember.ArrayController.extend({
     filteredContent: function () {
         var filter = this.get('filterText');
         var rx = new RegExp(filter, 'gi');
-        var parent = this;
         var returnedArr = this.get('content')
             .filter(function (patient) {
                 if (patient.get('name') !== null) {
                     var thisPatient = patient.get('name')
                         .objectAt(0);
                     var fullName = thisPatient.get('given') + ',' + thisPatient.get('family');
-                    //TODO: This a slow approach. Can we get all of the careplans ahead of time and associate them hear rather than make a call for each one
-                    parent.store.find('CarePlan', {
-                            subject: patient.get('id')
-                        })
-                        .then(function (response) {
-                            if (response != null) {
-                                patient.set('currentId', patient.get('id'));
-                                if (response.toArray().length > 0) {
-                                    patient.set('careplans', response);
-                                    patient.set('hasCarePlans', true);
-                                } else {
-                                    patient.set('careplans', []);
-                                    patient.set('hasCarePlans', false);
-                                }
-                            }
-                        });
                     return fullName.match(rx);
                 }
             });

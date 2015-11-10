@@ -1,5 +1,4 @@
 import ApplicationSerializer from './application';
-// FIXME: the above serializer doesn't appear to exist?
 
 export default ApplicationSerializer.extend({
     attrs: {
@@ -8,6 +7,7 @@ export default ApplicationSerializer.extend({
     normalize: function (type, hash, prop) {
         let queryParam = `?patient:Patient=${hash.id}`;
         (hash.content || hash)['links'] = {
+            carePlans: `/CarePlan${queryParam}`,
             conditions: `/Condition${queryParam}`,
             observations: `/Observation${queryParam}`,
             encounters: `/Encounter${queryParam}`,
