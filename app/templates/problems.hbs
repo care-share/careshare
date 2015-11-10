@@ -14,13 +14,13 @@
 							Onset: 
 							{{#fhir-union root=problem
 								choices='[{"name":"onsetDateTime","type":"dateTime"},{"name":"onsetQuantity","type":"Age"},
-											{"name":"onsetPeriod","type":"Period"}]' as |selected|}}
+											{"name":"onsetString","type":"Text"}]' as |selected|}}
 								{{#if (eq selected 'onsetDateTime')}}
 									{{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
 								{{else if (eq selected 'onsetQuantity')}}
 									{{fhir-edit name='onsetQuantity' attribute=problem.onsetQuantity}}
-								{{else if (eq selected 'onsetPeriod')}}
-									{{fhir-edit name='onsetPeriod' attribute=problem.onsetPeriod}}
+								{{else if (eq selected 'onsetString')}}
+									{{fhir-edit name='onsetString' attribute=problem.onsetString}}
 								{{/if}}
 							{{/fhir-union}}
                         {{else}}

@@ -7,17 +7,20 @@ export default Ember.Component.extend({
   myChoice: {name: 'none',type: 'None selected'},
   setup: function(){
 	this.set('allChoices',JSON.parse(this.get('choices')));
-	console.log('fhir-union setup: '+this.get('allChoices'));
-	for(var item in JSON.parse(this.get('choices'))){
-		console.log(item.toString());
-	}
-    //this.get('allChoices').forEach(function(item){
-		//console.log('root: '+this.get('root'));
-		/*if(this.get('root').get(item.name)){
-			this.set('myChoice',item);
-			this.set('isTypeChosen',true);
-		}*/
-	//});
+	console.log('root: '+this.get('root'));
+	var parent = this.get('root');
+	var me = this;
+	var chosen = false;
+	this.get('allChoices').forEach(function(item){
+		console.log('Parent is: '+parent+' and choice is: '+item.name);
+		console.log('Field in parent is: '+parent.get(item.name));
+		if(!chosen && parent.get(item.name)){
+			console.log('+++Match');
+			me.set('myChoice',item);
+			me.set('isTypeChosen',true);
+			chosen = true;
+		}else if(!chosen){console.log('---No match');}
+	});
   }.on("init"),
   actions:{
     setChoice: function(choice){
