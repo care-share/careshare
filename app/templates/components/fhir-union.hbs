@@ -8,7 +8,6 @@
                     aria-expanded="true">{{myChoice.type}} &nbsp;<span class="caret"></span>
             </button>
             <div role="menu" class="dropdown-menu">
-
                 {{#each allChoices key="name" as |choice|}}
                     <li><a data-switch-set="onColor" {{action 'setChoice' choice}}
                            data-switch-value={{choice.name}}>{{choice.type}}</a></li>

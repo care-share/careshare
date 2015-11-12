@@ -6,22 +6,58 @@
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem type='Condition' as |section|}}
                         {{#if (eq section "expanded")}}
-                            Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}<br>
+							Identifier: (TODO - Identifier)<br>
+							Patient: (TODO - Reference)<br>
+							Encounter: (TODO - Reference)<br>
+							Asserter: (TODO - Reference)<br>
+						    Date Recorded: {{fhir-date name='dateRecorded' attribute=problem.dateRecorded}}<br>
                             Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
                             Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
-                            Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>
-                            Onset:
+							Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus 
+								choices='active,relapse,remission,resolved'}}<br>
+							Verification Status: {{fhir-choice name='verificationStatus' attribute=problem.verificationStatus 
+								choices='provisional,differential,confirmed,refuted,entered-in-error,unknown'}}<br>
+                            Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>             
+							Onset:
                             {{#fhir-union root=problem
-                            choices='[{"name":"onsetDateTime","type":"dateTime"},{"name":"onsetQuantity","type":"Age"},
-											{"name":"onsetString","type":"Text"}]' as |selected|}}
+                            choices='[{"name":"onsetDateTime","type":"DateTime"},{"name":"onsetQuantity","type":"Age"},
+								    {"name":"onsetPeriod","type":"Period"},{"name":"onsetRange","type":"Range"},
+									{"name":"onsetString","type":"Text"}]' as |selected|}}
                                 {{#if (eq selected 'onsetDateTime')}}
                                     {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
                                 {{else if (eq selected 'onsetQuantity')}}
-                                    {{fhir-edit name='onsetQuantity' attribute=problem.onsetQuantity}}
+                                    (TODO - Age)
+								{{else if (eq selected 'onsetPeriod')}}
+									{{period parent=onsetPeriod}}
+								{{else if (eq selected 'onsetRange')}}
+									(TODO - Range)
                                 {{else if (eq selected 'onsetString')}}
                                     {{fhir-edit name='onsetString' attribute=problem.onsetString}}
                                 {{/if}}
-                            {{/fhir-union}}
+                            {{/fhir-union}}<br>
+							Abatement:
+                            {{#fhir-union root=problem
+                            choices='[{"name":"abatementDateTime","type":"DateTime"},{"name":"abatementQuantity","type":"Age"},{"name":"abatementBoolean","type":"True or False"},
+								    {"name":"abatementPeriod","type":"Period"},{"name":"abatementRange","type":"Range"},
+									{"name":"abatementString","type":"Text"}]' as |selected|}}
+                                {{#if (eq selected 'abatementDateTime')}}
+                                    {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
+                                {{else if (eq selected 'abatementQuantity')}}
+                                    (TODO - Age)
+								{{else if (eq selected 'abatementBoolean')}}
+                                    (TODO - Boolean)
+								{{else if (eq selected 'abatementPeriod')}}
+									{{period parent=abatementPeriod}}
+								{{else if (eq selected 'abatementRange')}}
+									(TODO - Range)
+                                {{else if (eq selected 'abatementString')}}
+                                    {{fhir-edit name='abatementString' attribute=problem.abatementString}}
+                                {{/if}}
+                            {{/fhir-union}}<br>
+							Stage: (TODO - BackboneElement)<br>
+							Evidence: (TODO - BackboneElement)<br>
+							Body Site: {{codeable-concept parent=problem attribute=problem.bodySite name='bodySite'}}<br>
+							Notes: {{fhir-edit name='notes' attribute=problem.notes}}
                         {{else}}
                             {{problem.code.text}} - ({{problem.clinicalStatus}})
                         {{/if}}

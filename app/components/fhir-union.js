@@ -8,6 +8,7 @@ export default Ember.Component.extend({
     setup: function () {
         this.set('allChoices', JSON.parse(this.get('choices')));
         console.log('root: ' + this.get('root'));
+		console.log('allChoices: '+this.get('allChoices'));
         var parent = this.get('root');
         var me = this;
         var chosen = false;
@@ -35,6 +36,7 @@ export default Ember.Component.extend({
         toggleExpanded: function () {
             console.log('Toggle expanded');
             this.set('isExpanded', !this.get('isExpanded'));
+			console.log('Expanded = '+this.get('isExpanded'));
         }
     }
 });
