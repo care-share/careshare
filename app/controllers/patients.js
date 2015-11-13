@@ -11,7 +11,7 @@ export default Ember.ArrayController.extend({
             // triggers queries for attributes that are lazy-loaded (e.g. Care Plans)
             patient.set('doLazyLoad', true);
         },
-        renderPatient: function (id) {
+        renderPatient: function (/*id*/) {
             console.log('Rendering patient from patients');
             //this.transitionToRoute('patient.filters', id);
             return true;

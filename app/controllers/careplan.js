@@ -82,7 +82,7 @@ export default Ember.Controller.extend({
                 data = addresses[i]._attributes;
             }
             var reference = data.reference.split('/');
-            if (reference[0].toLowerCase() != ignoreReference && reference[1] != model.id) {
+            if (reference[0].toLowerCase() !== ignoreReference && reference[1] !== model.id) {
                 newHighlights.add(reference[1]);
             }
         }
@@ -174,7 +174,7 @@ export default Ember.Controller.extend({
                                 data = addresses[i]._attributes;
                             }
                             var reference = data.reference.split('/');
-                            if (reference[1] == model.id) {
+                            if (reference[1] === model.id) {
                                 newHighlights.add(goal.id);
                                 // highlight other relations to this goal, ignoring the current model type
                                 this.highlightGoalRefs(newHighlights, goal, modelName);
