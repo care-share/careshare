@@ -32,7 +32,7 @@
 								{{else if (eq selected 'onsetRange')}}
 									{{fhir-range parent=problem attribute=problem.onsetRange name='onsetRange'}}
                                 {{else if (eq selected 'onsetString')}}
-                                    {{fhir-edit name='onsetString' attribute=problem.onsetString}}
+                                    {{fhir-quantity parent=problem attribute=problem.onsetString name='onsetString'}}
                                 {{/if}}
                             {{/fhir-union}}<br>
 							Abatement:
