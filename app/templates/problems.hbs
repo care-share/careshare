@@ -28,9 +28,9 @@
                                 {{else if (eq selected 'onsetQuantity')}}
                                     {{fhir-edit name='onsetQuantity' attribute=problem.onsetQuantity}}
 								{{else if (eq selected 'onsetPeriod')}}
-									From: {{fhir-datetime name='start' attribute=problem.onsetPeriod.start}} To: {{fhir-datetime name='end' attribute=problem.onsetPeriod.end}}
+								    {{fhir-period parent=problem attribute=problem.onsetPeriod name='onsetPeriod'}}
 								{{else if (eq selected 'onsetRange')}}
-									From: {{fhir-edit name='low' attribute=problem.onsetRange.low}} To: {{fhir-edit name='low' attribute=problem.onsetRange.low}}
+									{{fhir-range parent=problem attribute=problem.onsetRange name='onsetRange'}}
                                 {{else if (eq selected 'onsetString')}}
                                     {{fhir-edit name='onsetString' attribute=problem.onsetString}}
                                 {{/if}}
@@ -47,9 +47,9 @@
 								{{else if (eq selected 'abatementBoolean')}}
                                     {{fhir-boolean name='abatementBoolean' attribute=problem.abatementBoolean}}
 								{{else if (eq selected 'abatementPeriod')}}
-									From: {{fhir-datetime name='start' attribute=problem.abatementPeriod.start}} To: {{fhir-datetime name='end' attribute=problem.abatementPeriod.end}}
+									{{fhir-period parent=problem attribute=problem.abatementPeriod name='abatementPeriod'}}
 								{{else if (eq selected 'abatementRange')}}
-									From: {{fhir-edit name='low' attribute=problem.abatementRange.low}} To: {{fhir-edit name='low' attribute=problem.abatementRange.low}}
+									{{fhir-range parent=problem attribute=problem.abatementRange name='abatementRange'}}
                                 {{else if (eq selected 'abatementString')}}
                                     {{fhir-edit name='abatementString' attribute=problem.abatementString}}
                                 {{/if}}

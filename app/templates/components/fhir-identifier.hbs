@@ -7,8 +7,7 @@
 					<li>Type: {{codeable-concept parent=item attribute=item.type name='type'}}</li>
 					<li>System: {{fhir-edit name='system' attribute=item.system}}</li>
 					<li>Value: {{fhir-edit name='value' attribute=item.value}}</li>
-					<li>Period: From: {{fhir-datetime name='start' attribute=item.period.start}} 
-						To: {{fhir-datetime name='end' attribute=item.period.end}}</li>
+					<li>Period: {{fhir-period parent=item attribute=item.period name='period'}}</li>
 					<li>Assigner: {{fhir-reference parent=item.assigner}}
                         <button class="ion-trash-a" {{action 'removeItem' parent.identifier index}}/>
                     </li>
