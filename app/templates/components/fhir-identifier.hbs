@@ -1,0 +1,24 @@
+<ul>
+    <li>{{#fhir-array parent=parent.identifier name='identifier' type='Identifier' as |inner_section|}}
+        {{#if (eq inner_section "expanded")}}
+            {{#each parent.identifier as |item index|}}
+					<li>Use: {{fhir-choice name='use' attribute=item.use 
+										choices='usual,official,temp,secondary'}}</li>
+					<li>Type: {{codeable-concept parent=item attribute=item.type name='type'}}</li>
+					<li>System: {{fhir-edit name='system' attribute=item.system}}</li>
+					<li>Value: {{fhir-edit name='value' attribute=item.value}}</li>
+					<li>Period: From: {{fhir-datetime name='start' attribute=item.period.start}} 
+						To: {{fhir-datetime name='end' attribute=item.period.end}}</li>
+					<li>Assigner: {{fhir-reference parent=item.assigner}}
+                        <button class="ion-trash-a" {{action 'removeItem' parent.identifier index}}/>
+                    </li>
+            {{/each}}
+        {{else}}
+            {{#each parent.identifier as |item index|}}
+                <li>{{fhir-edit name='value' attribute=item.value}}
+                    <button class="ion-trash-a" {{action 'removeItem' parent.identifier index}}/>
+                </li>
+            {{/each}}
+        {{/if}}
+    {{/fhir-array}}</li>
+</ul>

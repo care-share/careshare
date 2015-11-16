@@ -6,7 +6,7 @@
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem type='Condition' as |section|}}
                         {{#if (eq section "expanded")}}
-							Identifier: (NONE)<br>
+							Identifier(s): {{fhir-identifier parent=problem attribute=problem.identifier name='identifier'}}<br>
 							Patient: {{fhir-reference parent=problem.patient}}<br>
 							Encounter: {{fhir-reference parent=problem.encounter}}<br>
 							Asserter: {{fhir-reference parent=problem.asserter}}<br>
