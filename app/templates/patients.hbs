@@ -53,21 +53,21 @@
                             <td class="fullName col-xs-3"> {{name.given}},{{name.family}} </td>
                             <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
                             <td class="carePlan col-xs-3">
-                                {{#if patient.hasCarePlans}}
-                                    <select id="dropdown{{patient.id}}"
-                                            class="form-control" {{action 'renderCarePlan' patient.id on='change'}}>
-                                        <option disabled selected> -- Select a Careplan to View --</option>
-                                        {{#each careplan in patient.careplans}}
-                                            <option value={{careplan.id}}>
-                                                <div>
-                                                    {{careplan.id}}
-                                                </div>
-                                            </option>
-                                        {{/each}}
-                                    </select>
-                                {{else}}
-                                    No Careplan associated with Patient
-                                {{/if}}
+                                <select id="dropdown{{patient.id}}" class="form-control"
+                                    {{action 'doLazyLoad' patient on='click'}}
+                                    {{action 'doLazyLoad' patient on='mouseEnter'}}
+                                    {{action 'renderCarePlan' patient.id on='change'}}>
+                                    <option disabled selected> -- Select a Careplan to View --</option>
+                                    {{#each careplan in patient.lazyCarePlans}}
+                                        <option value={{careplan.id}}>
+                                            <div>
+                                                {{careplan.id}}
+                                            </div>
+                                        </option>
+                                    {{else}}
+                                    <option disabled>(none found)</option>
+                                    {{/each}}
+                                </select>
                             </td>
                         {{/each}}
                         <td class="col-xs-3">

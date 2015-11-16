@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     isEditing: false,
-    isExpanded: false,
     originalValue: '',
     finalChoices: [],
     actions: {
@@ -20,12 +19,8 @@ export default Ember.Component.extend({
             console.log('saveItem');
             this.set('isEditing', false);
         },
-        toggleExpanded: function () {
-            this.set('isExpanded', !this.get('isExpanded'));
-        },
         setChoice: function (choice) {
             this.set('attribute', choice);
-            this.set('isExpanded', !this.get('isExpanded'));
         }
     },
     onInitialization: function () {

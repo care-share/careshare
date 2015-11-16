@@ -1,25 +1,16 @@
 {{#if isTypeChosen}}
     {{yield myChoice.name}}
 {{else}}
-    {{#if isExpanded}}
-        <div class="btn-group open">
-            <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}}
-                    class="btn btn-default dropdown-toggle"
-                    aria-expanded="true">{{myChoice.type}} &nbsp;<span class="caret"></span>
-            </button>
-            <div role="menu" class="dropdown-menu">
-                {{#each allChoices key="name" as |choice|}}
-                    <li><a data-switch-set="onColor" {{action 'setChoice' choice}}
-                           data-switch-value={{choice.name}}>{{choice.type}}</a></li>
-                {{/each}}
-            </div>
+    <div class="btn-group">
+        <button type="button" data-toggle="dropdown"
+                class="btn btn-default dropdown-toggle"
+                aria-expanded="true">{{myChoice.type}} &nbsp;<span class="caret"></span>
+        </button>
+        <div role="menu" class="dropdown-menu">
+            {{#each allChoices key="name" as |choice|}}
+                <li><a data-switch-set="onColor" {{action 'setChoice' choice}}
+                       data-switch-value={{choice.name}}>{{choice.type}}</a></li>
+            {{/each}}
         </div>
-    {{else}}
-        <div class="btn-group">
-            <button type="button" data-toggle="dropdown" {{action 'toggleExpanded'}}
-                    class="btn btn-default dropdown-toggle"
-                    aria-expanded="false">{{myChoice.type}} &nbsp;<span class="caret"></span>
-            </button>
-        </div>
-    {{/if}}
+    </div>
 {{/if}}

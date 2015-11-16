@@ -29,9 +29,9 @@ export default Ember.ObjectController.extend({
             // save the care plan, and after we save it, redirect to a plan that belongs to the patient
             // this is not quite correct -- we're not guaranteed that we're getting the right care plan if the patient has more than one
             // unfortunately, the adapter is not handling the id provided by the POST response
-            var that = this
+            var that = this;
             carePlan.save()
-                .then(function (savedCarePlan) {
+                .then(function (/*savedCarePlan*/) {
                     that.store.find('CarePlan', {
                             subject: that.model.id
                         })

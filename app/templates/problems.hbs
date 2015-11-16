@@ -6,10 +6,10 @@
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem type='Condition' as |section|}}
                         {{#if (eq section "expanded")}}
-							Identifier: (TODO - Identifier)<br>
-							Patient: (TODO - Reference)<br>
-							Encounter: (TODO - Reference)<br>
-							Asserter: (TODO - Reference)<br>
+							Identifier: (NONE)<br>
+							Patient: {{fhir-reference parent=problem.patient}}<br>
+							Encounter: {{fhir-reference parent=problem.encounter}}<br>
+							Asserter: {{fhir-reference parent=problem.asserter}}<br>
 						    Date Recorded: {{fhir-date name='dateRecorded' attribute=problem.dateRecorded}}<br>
                             Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
                             Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
@@ -26,11 +26,11 @@
                                 {{#if (eq selected 'onsetDateTime')}}
                                     {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
                                 {{else if (eq selected 'onsetQuantity')}}
-                                    (TODO - Age)
+                                    {{fhir-edit name='onsetQuantity' attribute=problem.onsetQuantity}}
 								{{else if (eq selected 'onsetPeriod')}}
-									{{period parent=onsetPeriod}}
+									From: {{fhir-datetime name='start' attribute=problem.onsetPeriod.start}} To: {{fhir-datetime name='end' attribute=problem.onsetPeriod.end}}
 								{{else if (eq selected 'onsetRange')}}
-									(TODO - Range)
+									From: {{fhir-edit name='low' attribute=problem.onsetRange.low}} To: {{fhir-edit name='low' attribute=problem.onsetRange.low}}
                                 {{else if (eq selected 'onsetString')}}
                                     {{fhir-edit name='onsetString' attribute=problem.onsetString}}
                                 {{/if}}
@@ -43,19 +43,19 @@
                                 {{#if (eq selected 'abatementDateTime')}}
                                     {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
                                 {{else if (eq selected 'abatementQuantity')}}
-                                    (TODO - Age)
+                                    {{fhir-edit name='abatementQuantity' attribute=problem.abatementQuantity}}
 								{{else if (eq selected 'abatementBoolean')}}
-                                    (TODO - Boolean)
+                                    (NONE)
 								{{else if (eq selected 'abatementPeriod')}}
-									{{period parent=abatementPeriod}}
+									From: {{fhir-datetime name='start' attribute=problem.abatementPeriod.start}} To: {{fhir-datetime name='end' attribute=problem.abatementPeriod.end}}
 								{{else if (eq selected 'abatementRange')}}
-									(TODO - Range)
+									From: {{fhir-edit name='low' attribute=problem.abatementRange.low}} To: {{fhir-edit name='low' attribute=problem.abatementRange.low}}
                                 {{else if (eq selected 'abatementString')}}
                                     {{fhir-edit name='abatementString' attribute=problem.abatementString}}
                                 {{/if}}
                             {{/fhir-union}}<br>
-							Stage: (TODO - BackboneElement)<br>
-							Evidence: (TODO - BackboneElement)<br>
+							Stage: (NONE)<br>
+							Evidence: (NONE)<br>
 							Body Site: {{codeable-concept parent=problem attribute=problem.bodySite name='bodySite'}}<br>
 							Notes: {{fhir-edit name='notes' attribute=problem.notes}}
                         {{else}}
