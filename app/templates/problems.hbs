@@ -45,7 +45,7 @@
                                 {{else if (eq selected 'abatementQuantity')}}
                                     {{fhir-edit name='abatementQuantity' attribute=problem.abatementQuantity}}
 								{{else if (eq selected 'abatementBoolean')}}
-                                    (NONE)
+                                    {{fhir-boolean name='abatementBoolean' attribute=problem.abatementBoolean}}
 								{{else if (eq selected 'abatementPeriod')}}
 									From: {{fhir-datetime name='start' attribute=problem.abatementPeriod.start}} To: {{fhir-datetime name='end' attribute=problem.abatementPeriod.end}}
 								{{else if (eq selected 'abatementRange')}}

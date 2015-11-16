@@ -1,0 +1,11 @@
+{{#if isEditing}}
+	<div class="btn-group" data-toggle="buttons">
+	     {{input type='checkbox' checked=attribute}} {{attribute}}
+	</div>
+    <button class='ion-close' {{action 'cancel'}}/>
+    <button class='ion-checkmark' {{action 'saveItem'}}/>
+{{else}}
+    <div class="panel panel-default" style="opacity:0.7" {{action 'editItem' on='doubleClick'}}>
+        {{attribute}}
+    </div>
+{{/if}}

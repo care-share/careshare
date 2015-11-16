@@ -15,7 +15,7 @@ export default Ember.Component.extend({
             .forEach(function (item) {
                 console.log('Parent is: ' + parent + ' and choice is: ' + item.name);
                 console.log('Field in parent is: ' + parent.get(item.name));
-                if (!chosen && parent.get(item.name)) {
+                if (!chosen && parent.get(item.name) !== null && parent.get(item.name) !== undefined) {
                     console.log('+++Match');
                     me.set('myChoice', item);
                     me.set('isTypeChosen', true);
