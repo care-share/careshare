@@ -1,7 +1,8 @@
 <div class="panel panel-info"
     {{action "hoverOn" on="mouseEnter"}}
     {{action "hoverOff" on="mouseLeave"}}
-     style="{{if currentHover 'background-color:#6CE058'}}{{if root.highlight 'background-color:#C9FCC0'}}">
+     style="{{if currentHover 'border-color:#009e0f;border-width: 2px;'}}
+     {{if root.highlight 'border-color:#2b78e4;border-style: dashed;border-width: 2px;'}} ">
     {{#if expanded}}
         {{yield "expanded"}}
         {{#if root}}

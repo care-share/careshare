@@ -14,6 +14,14 @@ export default Ember.Component.extend({
             this.sendAction('updateRecord', this.get('parent'), this.get('name'), this.get('type'));
         }
     }.on('init'),
+    isTopLevel: function () {
+            console.log("Root");
+            console.log(this.get('root'));
+            if (this.get('root')){
+                return true;
+            }
+    }
+    ,
     actions: {
         updateArray: function (parent, name, type) {
             console.log('(' + this.get('me') + ') UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
@@ -44,5 +52,6 @@ export default Ember.Component.extend({
         toggleExpanded: function () {
             this.toggleProperty('expanded');
         }
+
     }
 });
