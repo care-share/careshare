@@ -3,8 +3,6 @@
         {{input class='ember-view ember-text-field form-control'
         value=attribute focus-out='saveItem' autofocus="autofocus"}}
     {{/bs-datetimepicker}}
-    <button class='ion-close' {{action 'cancel'}}/>
-    <button class='ion-checkmark' {{action 'saveItem'}}/>
 {{else}}
     {{#if (not attribute)}}
         <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button>

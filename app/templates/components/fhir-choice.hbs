@@ -11,9 +11,6 @@
             {{/each}}
         </div>
     </div>
-
-    <button class='ion-close' {{action 'cancel'}}/>
-    <button class='ion-checkmark' {{action 'saveItem'}}/>
 {{else}}
     {{#if (not attribute)}}
         <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button>

@@ -21,6 +21,7 @@ export default Ember.Component.extend({
         },
         setChoice: function (choice) {
             this.set('attribute', choice);
+			this.set('isEditing', false);
         }
     },
     onInitialization: function () {
