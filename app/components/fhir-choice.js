@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     isEditing: false,
+    tagName: 'span',    
+    classNames: ['fhir-choice'],
     originalValue: '',
     finalChoices: [],
     actions: {
@@ -25,5 +27,6 @@ export default Ember.Component.extend({
     },
     onInitialization: function () {
         this.set('finalChoices', this.get('choices').split(','));
+        //$('.selectpicker').selectpicker();
     }.on('init')
 });

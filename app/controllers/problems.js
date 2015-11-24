@@ -1,6 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+    //These are stubs and serve as a placeholder until a query is put in place
+    getAllMedications: ["Med Stub One", "Medication Stub Two", "Med Stub 3", "4"],
+    getAllGoals: ["Goal Stub One", "Goal Stub Two", "Goal Stub Three"],
+    goals: [],
+
     actions: {
         createRecord: function (type) {
             console.log('(CONTROLLER) CREATE RECORD - type: ' + type);

@@ -1,0 +1,29 @@
+<div> {{label}}: </div>
+<div>
+    <ul class="relatedList">
+        {{#each selections as |selection|}}
+            <!--li class="">
+                <div class="">
+                <div class="col-sm-10">
+                    {{selection}}
+                </div>
+                <div class="col-sm-2">
+                    <button class ="glyphicon glyphicon-remove" {{action 'removeItem' parent name type}}></button> 
+                </div>
+                </div>
+            </li-->
+            <li >
+                <div>
+                    {{selection}}
+                    <button class ="glyphicon glyphicon-remove" {{action 'removeItem' parent name type}}></button> 
+                </div>
+            </li>
+        {{else}}
+           No {{label}}
+        {{/each}}
+        <li>
+            <button style="color:green" class='glyphicon glyphicon-plus' {{action 'updateArray' parent name type}}></button>
+        </li>
+    </ul>
+    <div style="clear:left;"> </div>
+</div>

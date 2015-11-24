@@ -6,11 +6,25 @@
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem type='Condition' as |section|}}
                         {{#if (eq section "expanded")}}
-                            Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}<br>
-                            Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
-                            Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
-                            Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>
-                            Onset:
+                            
+                            {{!--codeable-concept parent=problem attribute=problem.code name='code' --}}
+                            <!-- TODO Fix this to codable concept, but why is codable concept reliant on fhir element it seems overloaded -->
+                             <div class="input-group input-group-lg">
+                            {{fhir-edit parent=problem attribute=problem.code.text name='code' }}
+                            {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}
+                            <select id="dropdown{{patient.id}}" >
+                                    <option disabled selected> Related Body Parts </option>
+                            </select>
+
+                            {{fhir-choice parent=problem attribute=problem.severity name='severity' choices='Good,Bad,Ugly'}}
+                            {{fhir-choice parent=problem attribute=problem.category name='category' choices='Complaint,Symptom,Diagnosis'}}
+                            <div>
+                                Onset:
+                                    {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
+                                Abatement:
+                                    {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
+                            </div>
+                            {{!--
                             {{#fhir-union root=problem
                             choices='[{"name":"onsetDateTime","type":"dateTime"},{"name":"onsetQuantity","type":"Age"},
 											{"name":"onsetString","type":"Text"}]' as |selected|}}
@@ -22,6 +36,13 @@
                                     {{fhir-edit name='onsetString' attribute=problem.onsetString}}
                                 {{/if}}
                             {{/fhir-union}}
+                            --}}
+                            </div>
+                            {{related-list parent=problem attribute=goals choices=getAllGoals label="Goals"}}
+                            {{related-list parent=problem attribute=medications choices=getAllMedications label="Medications"}}
+                            <div style="clear:left;">
+                                Notes:
+                            </div>
                         {{else}}
                             {{problem.code.text}} - ({{problem.clinicalStatus}})
                         {{/if}}

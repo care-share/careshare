@@ -1,13 +1,15 @@
 <div class="panel panel-info"
     {{action "hoverOn" on="mouseEnter"}}
     {{action "hoverOff" on="mouseLeave"}}
-     style="{{if currentHover 'border-color:#009e0f;border-width: 2px;'}}
-     {{if root.highlight 'border-color:#2b78e4;border-style: dashed;border-width: 2px;'}} ">
+     style="{{if currentHover 'border-color:#009e0f;border-width: 1px;'}}
+     {{if root.highlight 'border-color:#2b78e4;border-style: dashed;border-width: 1px;'}} overflow:auto;">
     {{#if expanded}}
         {{yield "expanded"}}
         {{#if root}}
+            <div style="float:left;" >
             <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
-            <div class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}></div>
+            <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
+            </div>
         {{/if}}
         <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
     {{else}}

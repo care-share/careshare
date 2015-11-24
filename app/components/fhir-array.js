@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    me: 'FHIR-ARRAY',
+    me: 'FHIR-ARRAY',    
+    classNames: ['fhir-array'],
     expanded: false,
     currentHover: false,
     updateArray: 'updateArray',

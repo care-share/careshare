@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+
+    classNames: ['fhir-union'],
     isTypeChosen: false,
     allChoices: [],
     myChoice: {name: 'none', type: 'None selected'},

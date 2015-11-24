@@ -19958,3 +19958,61 @@ a {
   width: 24px;
   height: 12px;
 }
+
+.relatedList{
+    margin: 0; 
+    padding: 0; 
+    list-style-type: none; 
+    list-style-image: none;
+}
+
+.relatedList li{
+   background-color:#6fa8dc;
+   border-color: black;
+   border-width: 2px;
+   margin: 2px 2px;
+   padding: 2px 4px;
+   float:left;
+
+    color:#eee;
+    font-size:12px;
+    font-weight: bold;
+    
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+}
+
+.relatedList .glyphicon-remove {
+  color: red;
+
+
+}
+
+.relatedList  div {
+  padding: 0px;
+
+
+}
+
+.fhir-element {
+  overflow:auto;
+}
+
+
+
+.fhir-choice {
+
+  
+}
+
+
+button.glyphicon
+{
+-webkit-appearance: none;
+outline: none;
+border: 0;
+background: transparent;
+padding: 0px;
+}

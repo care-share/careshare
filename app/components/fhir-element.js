@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    me: 'FHIR-ELEMENT',
+    me: 'FHIR-ELEMENT',    
+    classNames: ['fhir-element'],
     expanded: false,
     currentHover: false,
     updateRecord: 'updateRecord',
@@ -20,8 +21,7 @@ export default Ember.Component.extend({
             if (this.get('root')){
                 return true;
             }
-    }
-    ,
+    },
     actions: {
         updateArray: function (parent, name, type) {
             console.log('(' + this.get('me') + ') UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);

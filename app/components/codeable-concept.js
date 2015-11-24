@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    me: 'CODEABLE-CONCEPT',
+    me: 'CODEABLE-CONCEPT',    
+    classNames: ['codable-concept'],
     updateRecord: 'updateRecord',
     updateArray: 'updateArray',
     removeItem: 'removeItem',

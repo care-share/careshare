@@ -2,8 +2,8 @@
     {{#if (eq section "expanded")}}
         <ul>
             Coding(s):
-        <li>{{#fhir-array parent=attribute.coding name='coding' type='Coding' as |inner_section|}}
-            {{#if (eq inner_section "expanded")}}
+            <li>{{#fhir-array parent=attribute.coding name='coding' type='Coding' as |inner_section|}}
+                {{#if (eq inner_section "expanded")}}
                 {{#each attribute.coding as |item index|}}
                     <li>Display: {{fhir-edit name='display' attribute=item.display}}</li>
                     <li>Version: {{fhir-edit name='version' attribute=item.version}}
@@ -20,5 +20,7 @@
         {{/fhir-array}}</li>
             <li>Text: {{fhir-edit name='text' attribute=attribute.text}}</li>
         </ul>
-    {{else}}{{fhir-edit name='text' attribute=attribute.text}} {{/if}}
+    {{else}}
+        {{fhir-edit name='text' attribute=attribute.text}} 
+    {{/if}}
 {{/fhir-element}}
