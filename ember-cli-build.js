@@ -21,6 +21,8 @@ module.exports = function(defaults) {
 
   app.import('bower_components/bootstrap/dist/js/bootstrap.js');
   app.import('bower_components/bootstrap/dist/css/bootstrap.min.css');
+  app.import('bower_components/bootstrap-select/dist/js/bootstrap-select.min.js');
+  app.import('bower_components/bootstrap-select/dist/css/bootstrap-select.min.css');
   //app.import('bower_components/ionicons/css/ionicons.css');
   //app.import('bower_components/ionicons/css/ionicons.min.css');
 
