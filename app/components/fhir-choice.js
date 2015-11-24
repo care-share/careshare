@@ -28,5 +28,8 @@ export default Ember.Component.extend({
     onInitialization: function () {
         this.set('finalChoices', this.get('choices').split(','));
         //$('.selectpicker').selectpicker();
-    }.on('init')
+    }.on('init'),
+    didInsertElement: function(){
+        $(".selectpicker").selectpicker()
+    }
 });

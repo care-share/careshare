@@ -9,22 +9,29 @@
                             
                             {{!--codeable-concept parent=problem attribute=problem.code name='code' --}}
                             <!-- TODO Fix this to codable concept, but why is codable concept reliant on fhir element it seems overloaded -->
-                             <div class="input-group input-group-lg">
-                            {{fhir-edit parent=problem attribute=problem.code.text name='code' }}
-                            {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}
-                            <select id="dropdown{{patient.id}}" >
-                                    <option disabled selected> Related Body Parts </option>
-                            </select>
-
-                            {{fhir-choice parent=problem attribute=problem.severity name='severity' choices='Good,Bad,Ugly'}}
-                            {{fhir-choice parent=problem attribute=problem.category name='category' choices='Complaint,Symptom,Diagnosis'}}
-                            <div>
-                                Onset:
-                                    {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
-                                Abatement:
-                                    {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
-                            </div>
-                            {{!--
+                           
+                                 <div class="form-inline">
+                                    <div class="form-group col-lg-12" style="padding:2px">
+                                    {{fhir-edit parent=problem attribute=problem.code.text name='code' }}
+                                    {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}
+                                    </div>
+                                </div>
+                                <select id="dropdown{{patient.id}}" class="form-control">
+                                        <option disabled selected> Related Body Parts </option>
+                                </select>
+                                <div class="form-inline">
+                                    <div class="form-group col-lg-12" style="padding:2px">
+                                        {{fhir-choice parent=problem attribute=problem.severity name='severity' choices='Good,Bad,Ugly'}}
+                                        {{fhir-choice parent=problem attribute=problem.category name='category' choices='Complaint,Symptom,Diagnosis'}}
+                                    </div>
+                                </div>
+                                <div>
+                                    Onset:
+                                        {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
+                                    Abatement:
+                                        {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
+                                </div>
+                        {{!--
                             {{#fhir-union root=problem
                             choices='[{"name":"onsetDateTime","type":"dateTime"},{"name":"onsetQuantity","type":"Age"},
 											{"name":"onsetString","type":"Text"}]' as |selected|}}
@@ -37,7 +44,6 @@
                                 {{/if}}
                             {{/fhir-union}}
                             --}}
-                            </div>
                             {{related-list parent=problem attribute=goals choices=getAllGoals label="Goals"}}
                             {{related-list parent=problem attribute=medications choices=getAllMedications label="Medications"}}
                             <div style="clear:left;">

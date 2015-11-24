@@ -20007,7 +20007,10 @@ a {
   
 }
 
+.form-control {
+  padding: 6px 2px !important;
 
+}
 button.glyphicon
 {
 -webkit-appearance: none;
