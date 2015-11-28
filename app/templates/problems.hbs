@@ -60,7 +60,8 @@
 								{{#fhir-array parent=problem.stage.assessment name='assessment' type='Reference' as |inner_section|}}
 								<ul>
 								    {{#each problem.stage.assessment as |item index|}}
-										<li>{{fhir-reference parent=item}}</li>
+										<li>{{fhir-reference parent=item}}
+										<span class="ion-trash-a" {{action 'removeItem' problem.stage.assessment index}}/></li>
 									{{/each}}
 								</ul>
 								{{/fhir-array}}
@@ -69,15 +70,14 @@
 								<ul>
 								    {{#each problem.evidence as |item index|}}
 										<li>Summary: {{codeable-concept parent=item attribute=item.code name='code'}}</li>
-										<li>
 											{{#fhir-array parent=item.detail name='detail' type='Reference' as |inner_section|}}
 											<ul>
 												{{#each item.detail as |detailItem index|}}
-													<li>{{fhir-reference parent=detailItem}}</li>
+													<li>{{fhir-reference parent=detailItem}}
+													<span class="ion-trash-a" {{action 'removeItem' item.detail index}}/></li>
 												{{/each}}
 											</ul>
 											{{/fhir-array}}
-										</li>
 									{{/each}}
 								</ul>
 								{{/fhir-array}}<br>

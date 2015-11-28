@@ -15,7 +15,7 @@
         {{else}}
             {{#each parent.identifier as |item index|}}
                 <li>{{fhir-edit name='value' attribute=item.value}}
-                    <button class="ion-trash-a" {{action 'removeItem' parent.identifier index}}/>
+                    <span class="ion-trash-a" {{action 'removeItem' parent.identifier index}}/>
                 </li>
             {{/each}}
         {{/if}}

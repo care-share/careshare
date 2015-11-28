@@ -1,15 +1,3 @@
-{{#if isEditing}}
-    {{#bs-datetimepicker date=date1 showToday=false format="YYYY-MM-DDThh:mm:ss"}}
-        {{input class='ember-view ember-text-field form-control'
-        value=attribute focus-out='saveItem' autofocus="autofocus"}}
-    {{/bs-datetimepicker}}
-{{else}}
-    {{#if (not attribute)}}
-        <button class='ion-plus' {{action 'editItem'}}> Add {{name}}</button>
-    {{else}}
-        <div class="panel panel-default" style="outline: 1px solid black"
-            {{action 'editItem' on='doubleClick'}}>
-            {{date1}}
-        </div>
-    {{/if}}
-{{/if}}
+{{#bs-datetimepicker date=displayDate showToday=false format="YYYY-MM-DDTHH:mm:ss" forceDateOutput=true}}
+    {{input class='ember-view ember-text-field form-control' value=displayDate focus-out='cancel' autofocus="autofocus"}}
+{{/bs-datetimepicker}}
