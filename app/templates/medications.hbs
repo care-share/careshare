@@ -1,5 +1,5 @@
-<h3>Medications</h3>
-<div class="panel-group" style="height:600px;overflow-y:auto;background-color: rgb(201,222,242)">
+<h3 class="fhir-column-header">Medications</h3>
+<div class="panel-group fhir-column">
     {{#each model as |order|}}
         {{#draggable-object-target action="createRelation" ontoObject=order}}
             {{#draggable-object content=order}}
@@ -35,7 +35,6 @@
                         {{/if}}
                     {{/fhir-element}}
                 </div>
-                <br />
             {{/draggable-object}}
         {{/draggable-object-target}}
 
