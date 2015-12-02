@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    isEditing: false,
     tagName: 'span',    
     classNames: ['fhir-choice'],
     originalValue: '',
@@ -10,16 +9,10 @@ export default Ember.Component.extend({
         editItem: function () {
             console.log('editItem');
             this.set('originalValue', this.get('attribute'));
-            this.set('isEditing', true);
         },
         cancel: function () {
             console.log('cancel');
             this.set('attribute', this.get('originalValue'));
-            this.set('isEditing', false);
-        },
-        saveItem: function () {
-            console.log('saveItem');
-            this.set('isEditing', false);
         },
         setChoice: function (choice) {
             this.set('attribute', choice);
@@ -27,7 +20,6 @@ export default Ember.Component.extend({
     },
     onInitialization: function () {
         this.set('finalChoices', this.get('choices').split(','));
-        //$('.selectpicker').selectpicker();
     }.on('init'),
     didInsertElement: function(){
         $(".selectpicker").selectpicker()

@@ -9,6 +9,7 @@ export default Ember.Component.extend({
     setup: function () {
         this.set('allChoices', JSON.parse(this.get('choices')));
         console.log('root: ' + this.get('root'));
+		console.log('allChoices: '+this.get('allChoices'));
         var parent = this.get('root');
         var me = this;
         var chosen = false;
@@ -16,7 +17,7 @@ export default Ember.Component.extend({
             .forEach(function (item) {
                 console.log('Parent is: ' + parent + ' and choice is: ' + item.name);
                 console.log('Field in parent is: ' + parent.get(item.name));
-                if (!chosen && parent.get(item.name)) {
+                if (!chosen && parent.get(item.name) !== null && parent.get(item.name) !== undefined) {
                     console.log('+++Match');
                     me.set('myChoice', item);
                     me.set('isTypeChosen', true);

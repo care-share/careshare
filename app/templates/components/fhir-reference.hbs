@@ -1,0 +1,7 @@
+<div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
+    {{#if hover}}
+        <i>{{fhir-edit name='reference' attribute=parent.reference}}</i>
+    {{else}}
+        {{fhir-edit name='display' attribute=parent.display}}
+    {{/if}}
+</div> 

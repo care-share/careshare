@@ -5,8 +5,7 @@
             {{#draggable-object content=problem}}
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem type='Condition' as |section|}}
-                        {{#if (eq section "expanded")}}
-                            
+                        {{#if (eq section "expanded")}}                           
                             {{!--codeable-concept parent=problem attribute=problem.code name='code' --}}
                             <!-- TODO Fix this to codable concept, but why is codable concept reliant on fhir element it seems overloaded -->
                            
@@ -32,17 +31,83 @@
                                         {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
                                 </div>
                         {{!--
+							Identifier(s): {{fhir-identifier parent=problem attribute=problem.identifier name='identifier'}}<br>
+							Patient: {{fhir-reference parent=problem.patient}}<br>
+							Encounter: {{fhir-reference parent=problem.encounter}}<br>
+							Asserter: {{fhir-reference parent=problem.asserter}}<br>
+						    Date Recorded: {{fhir-date name='dateRecorded' attribute=problem.dateRecorded}}<br>
+                            Code: {{codeable-concept parent=problem attribute=problem.code name='code'}}<br>
+                            Category: {{codeable-concept parent=problem attribute=problem.category name='category'}}<br>
+							Clinical Status: {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus 
+								choices='active,relapse,remission,resolved'}}<br>
+							Verification Status: {{fhir-choice name='verificationStatus' attribute=problem.verificationStatus 
+								choices='provisional,differential,confirmed,refuted,entered-in-error,unknown'}}<br>
+                            Severity: {{codeable-concept parent=problem attribute=problem.severity name='severity'}}<br>             
+							Onset:
                             {{#fhir-union root=problem
-                            choices='[{"name":"onsetDateTime","type":"dateTime"},{"name":"onsetQuantity","type":"Age"},
-											{"name":"onsetString","type":"Text"}]' as |selected|}}
+                            choices='[{"name":"onsetDateTime","type":"DateTime"},{"name":"onsetQuantity","type":"Age"},
+								    {"name":"onsetPeriod","type":"Period"},{"name":"onsetRange","type":"Range"},
+									{"name":"onsetString","type":"Text"}]' as |selected|}}
                                 {{#if (eq selected 'onsetDateTime')}}
                                     {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
                                 {{else if (eq selected 'onsetQuantity')}}
                                     {{fhir-edit name='onsetQuantity' attribute=problem.onsetQuantity}}
+								{{else if (eq selected 'onsetPeriod')}}
+								    {{fhir-period parent=problem attribute=problem.onsetPeriod name='onsetPeriod'}}
+								{{else if (eq selected 'onsetRange')}}
+									{{fhir-range parent=problem attribute=problem.onsetRange name='onsetRange'}}
                                 {{else if (eq selected 'onsetString')}}
-                                    {{fhir-edit name='onsetString' attribute=problem.onsetString}}
+                                    {{fhir-quantity parent=problem attribute=problem.onsetString name='onsetString'}}
                                 {{/if}}
                             {{/fhir-union}}
+							Abatement:
+                            {{#fhir-union root=problem
+                            choices='[{"name":"abatementDateTime","type":"DateTime"},{"name":"abatementQuantity","type":"Age"},{"name":"abatementBoolean","type":"True or False"},
+								    {"name":"abatementPeriod","type":"Period"},{"name":"abatementRange","type":"Range"},
+									{"name":"abatementString","type":"Text"}]' as |selected|}}
+                                {{#if (eq selected 'abatementDateTime')}}
+                                    {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
+                                {{else if (eq selected 'abatementQuantity')}}
+                                    {{fhir-edit name='abatementQuantity' attribute=problem.abatementQuantity}}
+								{{else if (eq selected 'abatementBoolean')}}
+                                    {{fhir-boolean name='abatementBoolean' attribute=problem.abatementBoolean}}
+								{{else if (eq selected 'abatementPeriod')}}
+									{{fhir-period parent=problem attribute=problem.abatementPeriod name='abatementPeriod'}}
+								{{else if (eq selected 'abatementRange')}}
+									{{fhir-range parent=problem attribute=problem.abatementRange name='abatementRange'}}
+                                {{else if (eq selected 'abatementString')}}
+                                    {{fhir-edit name='abatementString' attribute=problem.abatementString}}
+                                {{/if}}
+                            {{/fhir-union}}<br>
+							Stage: {{#fhir-element parent=problem name='stage' type='ConditionStageComponent' as |section|}}
+								Summary: {{codeable-concept parent=problem.stage attribute=problem.stage.summary name='summary'}}<br>
+								Assessment(s): 
+								{{#fhir-array parent=problem.stage.assessment name='assessment' type='Reference' as |inner_section|}}
+								<ul>
+								    {{#each problem.stage.assessment as |item index|}}
+										<li>{{fhir-reference parent=item}}
+										<span class="ion-trash-a" {{action 'removeItem' problem.stage.assessment index}}/></li>
+									{{/each}}
+								</ul>
+								{{/fhir-array}}
+							{{/fhir-element}}<br>
+							Evidence: {{#fhir-array parent=problem.evidence name='evidence' type='ConditionEvidenceComponent' as |inner_section|}}
+								<ul>
+								    {{#each problem.evidence as |item index|}}
+										<li>Summary: {{codeable-concept parent=item attribute=item.code name='code'}}</li>
+											{{#fhir-array parent=item.detail name='detail' type='Reference' as |inner_section|}}
+											<ul>
+												{{#each item.detail as |detailItem index|}}
+													<li>{{fhir-reference parent=detailItem}}
+													<span class="ion-trash-a" {{action 'removeItem' item.detail index}}/></li>
+												{{/each}}
+											</ul>
+											{{/fhir-array}}
+									{{/each}}
+								</ul>
+								{{/fhir-array}}<br>
+							Body Site: {{codeable-concept parent=problem attribute=problem.bodySite name='bodySite'}}<br>
+							Notes: {{fhir-edit name='notes' attribute=problem.notes}}
                             --}}
                             {{related-list parent=problem attribute=goals choices=getAllGoals label="Goals"}}
                             {{related-list parent=problem attribute=medications choices=getAllMedications label="Medications"}}

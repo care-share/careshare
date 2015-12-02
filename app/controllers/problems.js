@@ -8,12 +8,12 @@ export default Ember.Controller.extend({
 
     actions: {
         createRecord: function (type) {
-            console.log('(CONTROLLER) CREATE RECORD - type: ' + type);
             var id = this.controllerFor('patient').id;
+			console.log('(CONTROLLER) CREATE RECORD - type: ' + type+',id: '+id);
             var reference = this.store.createRecord('reference', {
                 reference: `Patient/${id}`
             });
-            this.store.createRecord(type, {id: new Date().getTime() / 1000, patient: reference});
+            this.store.createRecord(type, {id: Math.round(new Date().getTime() / 1000)/*, patient: reference*/});
 
             //TODO: this is a crappy fix. Somebody please fix this fix :)
             this.controllerFor('careplan')

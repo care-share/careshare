@@ -12,7 +12,6 @@ export default Ember.Component.extend({
         if (this.get('parent')) {
             console.log('[INIT] (' + this.get('me') + ') {record: ' +
                 this.get('parent') + ',name: ' + this.get('name') + ',type: ' + this.get('type'));
-            this.sendAction('updateArray', this.get('parent'), this.get('name'), this.get('type'));
         }
     }.on('init'),
     actions: {
