@@ -1,9 +1,17 @@
-<select {{action 'setChoice' patient on='change'}} class="form-control">
+<select onchange={{action 'saveItem' value=target}} class="form-control">
     {{#each finalChoices as |choice|}}
+        {{#if (eq choice attribute)}}
+        <option value={{choice}} selected>
+            <div>
+                {{choice}}
+            </div>
+        </option>
+        {{else}}
         <option value={{choice}}>
             <div>
                 {{choice}}
             </div>
         </option>
+        {{/if}}
     {{/each}}
 </select>

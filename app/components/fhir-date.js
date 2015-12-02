@@ -29,9 +29,13 @@ export default Ember.Component.extend({
 		    console.log('FHIR-DATE: format attribute ('+this.get('attribute')+')');
 			if(this.get('attribute')){
 	            var date = new Date(Ember.Date.parse(this.get('attribute')));
-                this.set('displayDate', date.getUTCFullYear() + '-' + 
-		        (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate());
-			    console.log('FHIR-DATE: displayDate is now ('+this.get('displayDate')+')');
+				if(Number.isNaN(date.getUTCFullYear())){
+				    this.set('displayDate','');
+				}else{
+                    this.set('displayDate', date.getUTCFullYear() + '-' + 
+		             (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate());
+			         console.log('FHIR-DATE: displayDate is now ('+this.get('displayDate')+')');
+				}
 			}
 			else
 				this.set('displayDate', '(None)');
