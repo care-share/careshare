@@ -1982,7 +1982,7 @@ a.list-group-item.active:focus {
 /* line 811, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
 .panel {
   position: relative;
-  border-width: 1px 1px 2px;
+  border-width: 2px;
   border-radius: 4px;
   -webkit-box-shadow: none;
   box-shadow: none;

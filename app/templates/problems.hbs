@@ -20,8 +20,8 @@
                                 </select>
                                 <div class="form-inline">
                                     <div class="form-group col-lg-12" style="padding:2px">
-                                        {{fhir-choice parent=problem attribute=problem.severity name='severity' choices='Good,Bad,Ugly'}}
-                                        {{fhir-choice parent=problem attribute=problem.category name='category' choices='Complaint,Symptom,Diagnosis'}}
+                                        {{fhir-choice parent=problem attribute=problem.severity name='severity' choices='Unspecified,Low,Moderate,Important,Critical'}}
+                                        {{fhir-choice parent=problem attribute=problem.category name='category' choices='Complaint,Symptom,Finding,Diagnosis'}}
                                     </div>
                                 </div>
                                 <div>

@@ -28,10 +28,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         this.store.query('Condition', {})
             .then(function (response) {
                 controller.set('problems', []);
-                response.forEach(function (item) {
-                    controller.get('problems')
-                        .push(item);
-                });
                 that.store.peekAll('Condition', {})
                     .forEach(function (item) {
                         controller.get('problems')
@@ -41,10 +37,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         this.store.query('Goal', {})
             .then(function (response) {
                 controller.set('goals', []);
-                response.forEach(function (item) {
-                    controller.get('goals')
-                        .push(item);
-                });
                 that.store.peekAll('Goal', {})
                     .forEach(
                         function (item) {
@@ -56,10 +48,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             .then(
                 function (response) {
                     controller.set('interventions', []);
-                    response.forEach(function (item) {
-                        controller.get('interventions')
-                            .push(item);
-                    });
                     that.store.peekAll('ProcedureRequest', {})
                         .forEach(
                             function (item) {
@@ -71,10 +59,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             .then(
                 function (response) {
                     controller.set('observations', []);
-                    response.forEach(function (item) {
-                        controller.get('observations')
-                            .push(item);
-                    });
                     that.store.peekAll('DiagnosticOrder', {})
                         .forEach(
                             function (item) {
@@ -117,18 +101,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             var controller = this.controllerFor('careplan');
             controller.toggleProperty('showProblems');
             if (controller.get('showProblems')) {
-                controller.set('problems', []);
+                var that = this;
                 this.store.query('Condition', {})
                     .then(function (response) {
-                        response.forEach(function (item) {
-                            controller.get('problems')
-                                .push(item);
-                        });
-                    });
-                this.store.peekAll('Condition', {})
-                    .forEach(function (item) {
-                        controller.get('problems')
-                            .push(item);
+                        controller.set('problems', []);
+                        that.store.peekAll('Condition', {})
+                            .forEach(function (item) {
+                                controller.get('problems')
+                                    .push(item);
+                            });
                     });
             }
         },
@@ -136,18 +117,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             var controller = this.controllerFor('careplan');
             controller.toggleProperty('showGoals');
             if (controller.get('showGoals')) {
-                controller.set('goals', []);
+                var that = this;
                 this.store.query('Goal', {})
                     .then(function (response) {
-                        response.forEach(function (item) {
-                            controller.get('goals')
-                                .push(item);
-                        });
-                    });
-                this.store.peekAll('Goal', {})
-                    .forEach(function (item) {
-                        controller.get('goals')
-                            .push(item);
+                        controller.set('goals', []);
+                        that.store.peekAll('Goal', {})
+                            .forEach(function (item) {
+                                controller.get('goals')
+                                    .push(item);
+                            });
                     });
             }
         },
@@ -155,18 +133,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             var controller = this.controllerFor('careplan');
             controller.toggleProperty('showInterventions');
             if (controller.get('showInterventions')) {
-                controller.set('interventions', []);
+                var that = this;
                 this.store.query('ProcedureRequest', {})
                     .then(function (response) {
-                        response.forEach(function (item) {
-                            controller.get('interventions')
-                                .push(item);
-                        });
-                    });
-                this.store.peekAll('ProcedureRequest', {})
-                    .forEach(function (item) {
-                        controller.get('interventions')
-                            .push(item);
+                        controller.set('interventions', []);
+                        that.store.peekAll('ProcedureRequest', {})
+                            .forEach(function (item) {
+                                controller.get('interventions')
+                                    .push(item);
+                            });
                     });
             }
         },
@@ -174,18 +149,15 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             var controller = this.controllerFor('careplan');
             controller.toggleProperty('showObservations');
             if (controller.get('showObservations')) {
-                controller.set('observations', []);
+                var that = this;
                 this.store.query('DiagnosticOrder', {})
                     .then(function (response) {
-                        response.forEach(function (item) {
-                            controller.get('observations')
-                                .push(item);
-                        });
-                    });
-                this.store.peekAll('DiagnosticOrder', {})
-                    .forEach(function (item) {
-                        controller.get('observations')
-                            .push(item);
+                        controller.set('observations', []);
+                        that.store.peekAll('DiagnosticOrder', {})
+                            .forEach(function (item) {
+                                controller.get('observations')
+                                    .push(item);
+                            });
                     });
             }
         },
