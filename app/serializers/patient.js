@@ -1,6 +1,6 @@
-import ApplicationSerializer from './application';
+import Patient from 'ember-fhir-adapter/serializers/patient';
 
-export default ApplicationSerializer.extend({
+let PatientSerializer = Patient.extend({
     attrs: {
         name: {embedded: 'always'}
     },
@@ -18,3 +18,5 @@ export default ApplicationSerializer.extend({
         return this._super(type, hash, prop);
     }
 });
+
+export default PatientSerializer;
