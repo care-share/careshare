@@ -71,17 +71,13 @@ export default Ember.Controller.extend({
         models.forEach(function (model) {
             model.set('highlight', toHighlight.contains(model.id));
         });
-        return models;
+        return models.sortBy('id');
     },
     highlightGoalRefs: function (newHighlights, model, ignoreReference) {
         // ignoreReference is optional
-        var addresses = model.get('addresses').currentState;
+        var addresses = model.get('addresses').toArray();
         for (var i = 0; i < addresses.length; i++) {
-            var data = addresses[i]._data;
-            if (!data || !data.reference) {
-                data = addresses[i]._attributes;
-            }
-            var reference = data.reference.split('/');
+            var reference = addresses[i].get('reference').split('/');
             if (reference[0].toLowerCase() !== ignoreReference && reference[1] !== model.id) {
                 newHighlights.add(reference[1]);
             }
@@ -135,6 +131,10 @@ export default Ember.Controller.extend({
                 case ('goal', 'procedure-request'):
                 case ('goal', 'nutrition-order'):
                     this.addReference(ontoObject, draggedObject, 'addresses', true);
+                    // add a relation directly to the model
+                    if (draggedObject.get('goals')) {
+                        draggedObject.get('goals').push(ontoObject);
+                    }
                     break;
                 case ('condition', 'goal'):
                 case ('procedure-request', 'goal'):
@@ -163,19 +163,21 @@ export default Ember.Controller.extend({
                 case 'condition':
                 case 'procedure-request':
                 case 'nutrition-order':
+                    if (!model.get('goals')) {
+                        model.set('goals', Ember.Set.create());
+                    }
                     var goals = this.get('goals')
                         .toArray();
                     for (var c = 0; c < goals.length; c++) {
                         var goal = goals[c];
-                        var addresses = goal.get('addresses').currentState;
+                        var addresses = goal.get('addresses').toArray();
                         for (var i = 0; i < addresses.length; i++) {
-                            var data = addresses[i]._data;
-                            if (!data || !data.reference) {
-                                data = addresses[i]._attributes;
-                            }
-                            var reference = data.reference.split('/');
+                            var reference = addresses[i].get('reference').split('/');
                             if (reference[1] === model.id) {
                                 newHighlights.add(goal.id);
+                                // first, store a temporary descriptive reference to the goal in this resource
+                                // we need this to be able to show references in the expanded "edit" view of the resource
+                                model.get('goals').add(goal);
                                 // highlight other relations to this goal, ignoring the current model type
                                 this.highlightGoalRefs(newHighlights, goal, modelName);
                                 break;

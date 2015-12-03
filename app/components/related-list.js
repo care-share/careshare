@@ -3,10 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     me: 'related-list',    
     classNames: ['related-list'],
-    updateArray: 'updateArray',
-    deleteArray: 'deleteArray',
-    saveArray: 'saveArray',
-    selections: [],
     setup: function () {
         if (this.get('parent')) {
             //console.log('[INIT] (' + this.get('me') + ') {record: ' +
@@ -15,16 +11,57 @@ export default Ember.Component.extend({
         }
     }.on('init'),
     onInitialization: function () {
-        this.set('selections', this.get('choices'));
+        var display = this.get('display'); // which attribute we display for each resource
+        // observe the [] property of the relation Set, so we get alerted when the content changes
+        var observe = 'parent.' + this.get('relation') + '.[]';
+        Ember.defineProperty(this, 'selections', Ember.computed(function() {
+            var selections = [];
+            var observed = this.get(observe) // get the Set that we are observing
+                .toArray() // convert the Set to an Array
+                .sortBy('id'); // sort the Array by ID (so the order matches up with what is in the resource column)
+            for (var i = 0; i < observed.length; i++) {
+                // create an array of objects of type {model, display}
+                // reason is that each object will have some display property, but different model types will have
+                // different fields for this
+                selections.push({
+                    model: observed[i],
+                    display: observed[i].get(display)
+                });
+            }
+            return selections;
+        }).property(observe));
     }.on('init'),
     actions: {
-        updateArray: function (parent, name, type) {
-            //console.log('(' + this.get('me') + ') UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
-            //this.sendAction('updateArray', parent, name, type);
-        },
-        removeItem: function (index) {
-            //console.log('(' + this.get('me') + ') REMOVE ARRAY ITEM - parent: ' + this.get('parent') + ',index: ' + index);
-            //this.sendAction('removeItem', this.get('parent'), index);
+        deleteReference: function (from, to) {
+            var fromType = from._internalModel.modelName;
+            var toType = to._internalModel.modelName;
+            console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.id}`);
+            switch (fromType, toType) {
+                case ('condition', 'goal'):
+                case ('procedure-request', 'goal'):
+                    this.removeGoalRef(to, from);
+                    break;
+                case ('goal', 'condition'):
+                case ('goal', 'procedure-request'):
+                    this.removeGoalRef(from, to);
+                    break;
+                // TODO: add more cases
+            }
         }
+    },
+    removeGoalRef: function (goal, other) {
+        // first remove the temporary descriptive reference we are storing in the resource
+        other.get('goals').removeObject(goal);
+
+        // now, remove the actual reference in the goal's Ember model and save that on the server
+        var addresses = goal.get('addresses').toArray();
+        for (var i = 0; i < addresses.length; i++) {
+            var reference = addresses[i].get('reference').split('/');
+            if (other.id === reference[1]) {
+                goal.get('addresses').removeObject(addresses[i]);
+            }
+        }
+        // save goal after loop is finished, in case there were multiple references to the same resource for some reason
+        goal.save();
     }
 });
