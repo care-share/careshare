@@ -15,9 +15,7 @@
                                     {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}
                                     </div>
                                 </div>
-                                <select id="dropdown{{patient.id}}" class="form-control">
-                                        <option disabled selected> Related Body Parts </option>
-                                </select>
+                                
                                 <div class="form-inline">
                                     <div class="form-group col-lg-12" style="padding:2px">
                                         {{fhir-choice parent=problem attribute=problem.severity name='severity' choices='Unspecified,Low,Moderate,Important,Critical'}}
@@ -30,6 +28,9 @@
                                     Abatement:
                                         {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
                                 </div>
+                                <select id="dropdown{{patient.id}}" class="form-control">
+                                        <option disabled selected> Locations </option>
+                                </select>
                         {{!--
 							Identifier(s): {{fhir-identifier parent=problem attribute=problem.identifier name='identifier'}}<br>
 							Patient: {{fhir-reference parent=problem.patient}}<br>
