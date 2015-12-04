@@ -1,5 +1,5 @@
 <h3 class="fhir-column-header">Observations</h3>
-<div class="panel-group fhir-column">
+<div id="observations-column" class="panel-group fhir-column">
     {{#each model as |observation|}}
         {{#draggable-object-target action="createRelation" ontoObject=goal}}
             {{#draggable-object content=goal}}
@@ -22,5 +22,6 @@
     {{/each}}
     
 </div>
-<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'DiagnosticOrder'}}/>
-<strong>Add Observation</strong>
+<button  class="nobackground" {{action 'createRecord' 'DiagnosticOrder'}}>
+    <span class="glyphicon glyphicon-plus"></span> <strong>Add Observation</strong> 
+</button>

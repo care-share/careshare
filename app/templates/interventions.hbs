@@ -1,5 +1,5 @@
 <h3 class="fhir-column-header">Interventions</h3>
-<div class="panel-group fhir-column">
+<div id="interventions-column" class="panel-group fhir-column">
     {{#each model as |intervention|}}
         {{#draggable-object-target action="createRelation" ontoObject=intervention}}
             {{#draggable-object content=intervention}}
@@ -23,5 +23,6 @@
     {{/each}}
     
 </div>
-<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'ProcedureRequest'}}/>
-<strong>Add Intervention</strong>
+<button  class="nobackground" {{action 'createRecord' 'ProcedureRequest'}}>
+    <span class="glyphicon glyphicon-plus"></span> <strong>Add Intervention</strong> 
+</button>

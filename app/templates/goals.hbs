@@ -1,5 +1,5 @@
 <h3 class="fhir-column-header">Goals</h3>
-<div class="panel-group fhir-column">
+<div id="goals-column" class="panel-group fhir-column">
     {{#each model as |goal|}}
         {{#draggable-object-target action="createRelation" ontoObject=goal}}
             {{#draggable-object content=goal}}
@@ -23,6 +23,7 @@
         No Goals<br />
     {{/each}}
     
-</div>
-<button class="glyphicon glyphicon-plus" {{action 'createRecord' 'Goal'}}/>
-<strong>Add Goal</strong>   
+</div> 
+<button  class="nobackground" {{action 'createRecord' 'Goal'}}>
+    <span class="glyphicon glyphicon-plus"></span> <strong>Add Goal</strong> 
+</button>

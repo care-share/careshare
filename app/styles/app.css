@@ -20080,3 +20080,12 @@ button.glyphicon{
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
   background-color: #555;
 }
+
+button.nobackground{
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+  }

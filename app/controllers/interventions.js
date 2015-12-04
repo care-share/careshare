@@ -15,6 +15,8 @@ export default Ember.Controller.extend({
                 .send('toggleShowInterventions');
             this.controllerFor('careplan')
                 .send('toggleShowInterventions');
+            //This won't stutter when crappy fix is removed/Should be able to get rid of the "1000" buffer
+            $("#interventions-column").animate({ scrollTop: $("#interventions-column").height() + 1000} , "slow");
         },
         updateArray: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE ARRAY - parent: ' + record + ',name: ' + name + ',type: ' + type);
