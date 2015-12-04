@@ -48,27 +48,27 @@
             </div>-->
             <div class="row" style="height:100%">
                 {{#if showProblems}}
-                    <div class="col-xs-5ths well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "problems" mProblems}}
                     </div>
                 {{/if}}
                 {{#if showGoals}}
-                    <div class="col-xs-5ths well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "goals" mGoals}}
                     </div>
                 {{/if}}
                 {{#if showInterventions}}
-                    <div class="col-xs-5ths well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "interventions" mInterventions}}
                     </div>
                 {{/if}}
                 {{#if showObservations}}
-                    <div class="col-xs-5ths well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "observations" mObservations}}
                     </div>
                 {{/if}}
                 {{#if showMedications}}
-                    <div class="col-xs-5ths well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "medications" mMedications}}
                     </div>
                 {{/if}}

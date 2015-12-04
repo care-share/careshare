@@ -54,6 +54,9 @@ export default Ember.Component.extend({
             if (this.get('expanded') === false){
                 this.set('currentHover', false);
             } 
+        },
+        expand: function () {
+            this.set('expanded', true);
         }
 
     }

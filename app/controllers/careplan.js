@@ -29,6 +29,12 @@ export default Ember.Controller.extend({
     showObservations: true,
     showInterventions: true,
     showMedications: true,
+    colClass: Ember.computed('showGoals', 'showProblems','showObservations','showInterventions','showMedications', function() {
+        var numCol =  this.get('showGoals') + this.get('showProblems') + this.get('showObservations') + this.get('showInterventions') + this.get('showMedications');
+        //                                Use Bootstrap class  : custom class  
+        var colClass = 12%numCol === 0 ? "col-md-" + 12/numCol : "col-xs-5ths";
+        return colClass
+    }),
     addReference: function (referringObject, referredObject, attributeName, isListAttribute) {
         // creates a FHIR reference to referredObject and adds it to the attribute named in listName
         var reference = this.store.createRecord('reference', {

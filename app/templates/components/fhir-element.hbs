@@ -1,7 +1,7 @@
 <div class="panel panel-info"
     {{action "hoverOn" on="mouseEnter"}}
     {{action "hoverOff" on="mouseLeave"}}
-	{{action 'toggleExpanded' on="doubleClick"}}
+	{{action 'expand' on="doubleClick"}}
      style="{{if currentHover 'border-color:#009e0f;'}}
      {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} overflow:auto;">
     {{#if expanded}}
