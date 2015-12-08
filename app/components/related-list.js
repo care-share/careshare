@@ -34,6 +34,10 @@ export default Ember.Component.extend({
         }).property(observe));
     }.on('init'),
     actions: {
+	    selected: function(selection){
+		    console.log('SELECTED: '+selection.display);
+			//this.controllerFor('goals').send('expand',selection.model);
+		},
         deleteReference: function (from, to) {
             var fromType = from._internalModel.modelName;
             var toType = to._internalModel.modelName;

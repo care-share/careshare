@@ -10,6 +10,7 @@
             <div style="float:left;" >
             <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
             <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
+			<button class="glyphicon glyphicon-floppy-remove" {{action 'undoRecord'}}/>
             </div>
         {{/if}}
         <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>

@@ -10,16 +10,22 @@
                             <!-- TODO Fix this to codable concept, but why is codable concept reliant on fhir element it seems overloaded -->
                            
                                  <div class="form-inline">
-                                    <div class="form-group col-lg-12" style="padding:2px">
-                                    {{fhir-edit parent=problem attribute=problem.code.text name='code' }}
+                                    <div class="form-group col-lg-12" style="padding:2px">                                   
+									{{#codeable-concept parent=problem name='code'}}
+									    {{fhir-edit parent=problem attribute=problem.code.text name='text' }}
+									{{/codeable-concept}}
                                     {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}
                                     </div>
                                 </div>
                                 
                                 <div class="form-inline">
                                     <div class="form-group col-lg-12" style="padding:2px">
-                                        {{codeable-concept parent=problem attribute=problem.severity name='severity' choices='Unspecified,Low,Moderate,Important,Critical'}}
-                                        {{codeable-concept parent=problem attribute=problem.category name='category' choices='Complaint,Symptom,Finding,Diagnosis'}}
+                                        {{#codeable-concept parent=problem name='severity'}}
+										    {{fhir-choice parent=parent attribute=problem.severity.text name='text' choices='Unspecified,Low,Moderate,Important,Critical'}}
+										{{/codeable-concept}}
+										{{#codeable-concept parent=problem name='category'}}
+										    {{fhir-choice parent=parent attribute=problem.category.text name='text' choices='Complaint,Symptom,Finding,Diagnosis'}}
+										{{/codeable-concept}}
                                     </div>
                                 </div>
                                 <div>

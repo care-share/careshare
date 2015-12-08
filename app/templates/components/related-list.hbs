@@ -2,7 +2,7 @@
 <div>
     <ul class="relatedList">
         {{#each selections as |selection|}}
-            <li >
+            <li {{action 'selected' selection on='doubleClick'}}>
                 <div>
                     {{selection.display}}
                     <button class ="glyphicon glyphicon-remove" {{action 'deleteReference' parent selection.model}}></button>

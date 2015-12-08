@@ -6,6 +6,7 @@ export default Ember.Component.extend({
     expanded: false,
     currentHover: false,
     updateRecord: 'updateRecord',
+	undoRecord: 'undoRecord',
     deleteRecord: 'deleteRecord',
     saveRecord: 'saveRecord',
     setup: function () {
@@ -31,6 +32,10 @@ export default Ember.Component.extend({
             console.log('(' + this.get('me') + ') UPDATE RECORD - record: ' + parent + ',name: ' + name + ',type: ' + type);
             this.sendAction('updateRecord', parent, name, type);
         },
+		undoRecord: function(){
+		    console.log('(' + this.get('me') + ') UNDO RECORD - record: ' + this.get('root'));
+            this.sendAction('undoRecord', this.get('root'));
+		},
         deleteRecord: function () {
             console.log('(' + this.get('me') + ') DELETE RECORD - record: ' + this.get('root'));
             this.sendAction('deleteRecord', this.get('root'));
