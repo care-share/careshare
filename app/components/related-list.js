@@ -3,11 +3,14 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     me: 'related-list',
     classNames: ['related-list'],
+	originalSelections: null,
     setup: function () {
         if (this.get('parent')) {
-            //console.log('[INIT] (' + this.get('me') + ') {record: ' +
-            //    this.get('parent') + ',name: ' + this.get('name') + ',type: ' + this.get('type'));
-            //this.sendAction('updateArray', this.get('parent'), this.get('name'), this.get('type'));
+			this.set('originalSelections',this.get('selections'));
+			this.get('originalSelections').forEach(function(item){
+			    console.log('selection: '+item.display);
+			});
+            console.log('[INIT] (' + this.get('me') + ') '+this.get('originalSelections'));
         }
     }.on('init'),
     onInitialization: function () {
@@ -34,6 +37,10 @@ export default Ember.Component.extend({
         }).property(observe));
     }.on('init'),
     actions: {
+	    selected: function(selection){
+		    console.log('SELECTED: '+selection.display);
+			//this.controllerFor('goals').send('expand',selection.model);
+		},
         deleteReference: function (from, to) {
             var fromType = from._internalModel.modelName;
             var toType = to._internalModel.modelName;

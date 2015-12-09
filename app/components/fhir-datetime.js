@@ -1,5 +1,4 @@
 import Ember from 'ember';
-
 export default Ember.Component.extend({
     classNames: ['fhir-datetime'],
     originalValue: '',
@@ -11,14 +10,14 @@ export default Ember.Component.extend({
 		this.send('dateFormat');
 	}.on('init'),
 	change: function () {
-		console.log('FHIR-DATETIME: changed');
+		console.log('FHIR-DATETIME: changed to '+this.get('attribute'));
 		if(this.get('isObserving') === true){
 			this.set('isObserving',false);
-			this.set('originalValue',new Date(Ember.Date.parse(this.get('displayDate'))));	
+			this.set('originalValue',new Date(Ember.Date.parse(this.get('attribute'))));	
 			this.send('dateFormat');
 			this.set('isObserving',true);
 		}
-	}.observes('displayDate'),
+	}.observes('attribute'),
     actions: {
         cancel: function () {
             console.log('FHIR-DATETIME: cancel');
@@ -26,20 +25,20 @@ export default Ember.Component.extend({
 			this.send('dateFormat');
         },
 		dateFormat: function(){
-		    console.log('FHIR-DATETIME: format attribute ('+this.get('attribute')+')');
-			if(this.get('attribute')){
-	            var date = new Date(Ember.Date.parse(this.get('attribute')));
+		    console.log('FHIR-DATETIME: format attribute ('+this.get('originalValue')+')');
+			if(this.get('originalValue')){
+	            var date = new Date(Ember.Date.parse(this.get('originalValue')));
 				if(Number.isNaN(date.getUTCFullYear())){
 				    this.set('displayDate','');
 				}else{
 				    this.set('displayDate', date.getUTCFullYear() + '-' + 
-			         (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() 
-				     + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
+			         (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
 				}
 			    console.log('FHIR-DATETIME: displayDate is now ('+this.get('displayDate')+')');
 			}
-			else
+			else{
 				this.set('displayDate', '(None)');
+			}
 	    }
     }
 });
