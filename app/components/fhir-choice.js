@@ -4,12 +4,8 @@ export default Ember.Component.extend({
 	tagName: 'span',
     classNames: ['fhir-choice'],
     finalChoices: [],
-    actions: {
-        saveItem: function (choice) {
-            this.set('attribute', choice.target.selectedOptions[0].value);
-        }
-    },
-    onInitialization: function () {
+    setup: function () {
         this.set('finalChoices', this.get('choices').split(','));
+		console.log('INIT: FHIR-CHOICE- attribute: ' + this.get('attribute'));	
     }.on('init')
 });

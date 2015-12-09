@@ -1,5 +1,4 @@
 import Ember from 'ember';
-
 export default Ember.Component.extend({
     classNames: ['fhir-date'],
     originalValue: '',
@@ -11,14 +10,14 @@ export default Ember.Component.extend({
 		this.send('dateFormat');
 	}.on('init'),
 	change: function () {
-		console.log('FHIR-DATE: changed');
+		console.log('FHIR-DATE: changed to '+this.get('attribute'));
 		if(this.get('isObserving') === true){
 			this.set('isObserving',false);
-			this.set('originalValue',new Date(Ember.Date.parse(this.get('displayDate'))));	
+			this.set('originalValue',new Date(Ember.Date.parse(this.get('attribute'))));	
 			this.send('dateFormat');
 			this.set('isObserving',true);
 		}
-	}.observes('displayDate'),
+	}.observes('attribute'),
     actions: {
         cancel: function () {
             console.log('FHIR-DATE: cancel');
@@ -26,9 +25,9 @@ export default Ember.Component.extend({
 			this.send('dateFormat');
         },
 		dateFormat: function(){
-		    console.log('FHIR-DATE: format attribute ('+this.get('attribute')+')');
-			if(this.get('attribute')){
-	            var date = new Date(Ember.Date.parse(this.get('attribute')));
+		    console.log('FHIR-DATE: format attribute ('+this.get('originalValue')+')');
+			if(this.get('originalValue')){
+	            var date = new Date(Ember.Date.parse(this.get('originalValue')));
 				if(Number.isNaN(date.getUTCFullYear())){
 				    this.set('displayDate','');
 				}else{
