@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import uuid from "ember-uuid/utils/uuid-generator";
 
 export default Ember.ObjectController.extend({
 //  needs: 'patients',
@@ -21,7 +22,11 @@ export default Ember.ObjectController.extend({
                 addressesConditions.pushObject(conditionReference);
             }
 
+            // create a time-based ID so records can be sorted in chronological order by ID
+            var dateTime = new Date().getTime();
+            var newId = `${dateTime}-${uuid.v4()}`;
             var carePlan = this.store.createRecord('care-plan', {
+                id: newId,
                 subject: subjectReference,
                 addresses: addressesConditions
             });
@@ -43,7 +48,7 @@ export default Ember.ObjectController.extend({
                                 }
                             }
                         });
-                });
+                }); // TODO: add catch for errors
         }
     }
 });

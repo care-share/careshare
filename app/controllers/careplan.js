@@ -2,12 +2,11 @@ import Ember from 'ember';
 import API from '../api';
 
 export default Ember.Controller.extend({
+    // controller dependencies
+    needs: "patient",
+    patient: Ember.computed.alias("controllers.patient"),
+    // local vars
     apiUrl: window.Careshare.apiUrl,
-    patient: null,
-    firstName: 'Unknown',
-    lastName: 'Unknown',
-    gender: 'Unknown',
-    birthDate: 'Unknown',
     isOpenID: window.Careshare.isOpenID,
     isSideBarDisplayed: true,
     lastLoginFailed: false,
@@ -19,21 +18,20 @@ export default Ember.Controller.extend({
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
-    goals: [],
-    problems: [],
-    observations: [],
-    interventions: [],
-    medications: null,
-    showGoals: true,
-    showProblems: true,
-    showObservations: true,
-    showInterventions: true,
-    showMedications: true,
-    colClass: Ember.computed('showGoals', 'showProblems','showObservations','showInterventions','showMedications', function() {
-        var numCol =  this.get('showGoals') + this.get('showProblems') + this.get('showObservations') + this.get('showInterventions') + this.get('showMedications');
-        //                                Use Bootstrap class  : custom class  
-        var colClass = 12%numCol === 0 ? "col-md-" + 12/numCol : "col-xs-5ths";
-        return colClass
+    Goals: [], // goals
+    Conditions: [], // problems
+    DiagnosticOrders: [], // observations
+    ProcedureRequests: [], // interventions
+    MedicationOrders: null, // medications
+    showGoals: true, // goals
+    showConditions: true, // problems
+    showDiagnosticOrders: true, // observations
+    showProcedureRequests: true, // interventions
+    showMedicationOrders: false, // medications
+    colClass: Ember.computed('showGoals', 'showConditions', 'showDiagnosticOrders', 'showProcedureRequests', 'showMedicationOrders', function () {
+        var numCol = this.get('showGoals') + this.get('showConditions') + this.get('showDiagnosticOrders') + this.get('showProcedureRequests') + this.get('showMedicationOrders');
+        // Use Bootstrap class  : custom class
+        return 12 % numCol === 0 ? "col-md-" + 12 / numCol : "col-xs-5ths";
     }),
     addReference: function (referringObject, referredObject, attributeName, isListAttribute) {
         // creates a FHIR reference to referredObject and adds it to the attribute named in listName
@@ -54,23 +52,24 @@ export default Ember.Controller.extend({
     },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
     mGoals: function () {
-        return this.applyHighlights('goals');
-    }.property('goals', 'toHighlight'),
+        return this.applyHighlights('Goals');
+    }.property('Goals', 'toHighlight'),
     mProblems: function () {
-        return this.applyHighlights('problems');
-    }.property('problems', 'toHighlight'),
+        return this.applyHighlights('Conditions');
+    }.property('Conditions', 'toHighlight'),
     mObservations: function () {
-        return this.applyHighlights('observations');
-    }.property('observations', 'toHighlight'),
+        return this.applyHighlights('DiagnosticOrders');
+    }.property('DiagnosticOrders', 'toHighlight'),
     mInterventions: function () {
-        return this.applyHighlights('interventions');
-    }.property('interventions', 'toHighlight'),
+        return this.applyHighlights('ProcedureRequests');
+    }.property('ProcedureRequests', 'toHighlight'),
     mMedications: function () {
-        return this.applyHighlights('medications');
-    }.property('medications', 'toHighlight'),
+        return this.applyHighlights('Medications');
+    }.property('MedicationOrders', 'toHighlight'),
     applyHighlights: function (modelsKey) {
         var models = this.get(modelsKey);
         if (!models) {
+            console.log(`applyHighlights(${modelsKey}) failed: field not found`);
             return [];
         }
         var toHighlight = this.get('toHighlight');
@@ -84,10 +83,16 @@ export default Ember.Controller.extend({
         var addresses = model.get('addresses').toArray();
         for (var i = 0; i < addresses.length; i++) {
             var reference = addresses[i].get('reference').split('/');
-            if (reference[0].toLowerCase() !== ignoreReference && reference[1] !== model.id) {
+            if (reference[0].dasherize() !== ignoreReference && reference[1] !== model.id) {
                 newHighlights.add(reference[1]);
             }
         }
+    },
+    doPeek: function (modelName) {
+        // TODO: find a better way to force models (Goals, Conditions, etc.) to auto-update from the store
+        // also see FIXME notes in routes/careplan.js
+        var value = this.store.peekAll(modelName, {});
+        this.set(modelName.pluralize(), value.toArray());
     },
     actions: {
         accountRequest: function () {
@@ -172,7 +177,7 @@ export default Ember.Controller.extend({
                     if (!model.get('goals')) {
                         model.set('goals', Ember.Set.create());
                     }
-                    var goals = this.get('goals')
+                    var goals = this.get('Goals')
                         .toArray();
                     for (var c = 0; c < goals.length; c++) {
                         var goal = goals[c];

@@ -14,14 +14,5 @@ export default DS.RESTAdapter.extend({
             }
         }
         return this._super(modelName, id, snapshot, requestType, query);
-    },
-    // TODO: remove this temporary fix, it will be integrated into the FHIR adapter soon
-    createRecord: function (store, type, snapshot) {
-        if (snapshot.id) {
-            // if we have set an ID on this record, use "update" instead of "create"
-            // (triggers a PUT instead of POST)
-            return this.updateRecord(store, type, snapshot);
-        }
-        return this._super(store, type, snapshot);
     }
 });
