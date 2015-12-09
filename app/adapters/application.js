@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import DS from 'ember-data';
 import FHIRAdapter from 'ember-fhir-adapter/adapters/application';
 
 export default FHIRAdapter.extend({

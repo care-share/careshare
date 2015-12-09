@@ -8,7 +8,13 @@ export default CarePlanResource.extend({
     actions: {
         createRecord: function (type) {
             var code = this.store.createRecord('codeable-concept');
-            var args = {code: code};
+            var severity = this.store.createRecord('codeable-concept');
+            var category = this.store.createRecord('codeable-concept');
+            var args = {
+                code: code,
+                severity: severity,
+                category: category
+            };
             this._super(type, args);
         }
     }
