@@ -89,7 +89,10 @@ export default Ember.Controller.extend({
         },
         updateRecord: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE RECORD - parent: ' + record + ',name: ' + name + ',type: ' + type);
-            if (record && !record.get(name)) {
+            if(record && record.get(name)){
+			    console.log('(CONTROLLER) EXISTING RECORD: '+record.get(name));
+			}
+			if (record && (!record.get(name) || record.get(name).get('constructor.typeKey') != type)) {
                 var newRecord = this.store.createRecord(type, {});
                 console.log('MODEL NAME: ' + record.toString());
                 console.log('++NEW RECORD: ' + newRecord + '++');
@@ -98,6 +101,11 @@ export default Ember.Controller.extend({
                 console.log('!!FAILED - parent does not exist or record already exists!!');
             }
         },
+		undoRecord: function(record){
+		    console.log('(' + this.get('me') + ') UNDO RECORD - record: ' + record);
+			record.rollbackAttributes();
+			record.reload();
+		},
         updateArray: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE ARRAY - parent: ' + record + ',name: ' + name + ',type: ' + type);
             var newRecord = this.store.createRecord(type, {});

@@ -32,13 +32,13 @@ export default Ember.Component.extend({
 				    this.set('displayDate','');
 				}else{
 				    this.set('displayDate', date.getUTCFullYear() + '-' + 
-			         (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() 
-				     + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
+			         (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
 				}
 			    console.log('FHIR-DATETIME: displayDate is now ('+this.get('displayDate')+')');
 			}
-			else
+			else{
 				this.set('displayDate', '(None)');
+			}
 	    }
     }
 });
