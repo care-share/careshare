@@ -65,9 +65,9 @@ export default Ember.Controller.extend({
             var that = this;
 
             // check if this is a new record or if we are updating an existing one
-            var isNewRecord = record.isNewRecord;
+            var isNewRecord = record.get('isNewRecord');
             if (isNewRecord) {
-                record.isNewRecord = undefined;
+                record.set('isNewRecord',undefined);
             }
 
             // save this model
