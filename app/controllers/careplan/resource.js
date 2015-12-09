@@ -4,7 +4,7 @@ import uuid from 'ember-uuid/utils/uuid-generator';
 export default Ember.Controller.extend({
     // the "carePlanRefAttr" field is set by child controllers
     actions: {
-        createRecord: function (type) {
+        createRecord: function (type, args) {
             // create a time-based ID so records can be sorted in chronological order by ID
             var dateTime = new Date().getTime();
             var newId = `${dateTime}-${uuid.v4()}`;
@@ -15,7 +15,13 @@ export default Ember.Controller.extend({
             var patientRef = this.store.createRecord('reference', {
                 reference: `Patient/${patientId}`
             });
-            this.store.createRecord(type, {id: newId, patient: patientRef, isNewRecord: true});
+            if (!args) {
+                args = {};
+            }
+            args.id = newId;
+            args.patient = patientRef;
+            args.isNewRecord = true;
+            this.store.createRecord(type, args);
             // FIXME: this shouldn't be necessary, see controllers/careplan.js
             this.controllerFor('careplan').doPeek(type);
 

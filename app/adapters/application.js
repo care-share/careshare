@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import FHIRAdapter from 'ember-fhir-adapter/adapters/application';
 
-export default DS.RESTAdapter.extend({
+export default FHIRAdapter.extend({
     pathForType: function (type) {
         return Ember.String.capitalize(Ember.String.camelize(type));
     },
