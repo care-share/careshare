@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
     Conditions: [], // problems
     DiagnosticOrders: [], // observations
     ProcedureRequests: [], // interventions
-    MedicationOrders: null, // medications
+    MedicationOrders: [], // medications
     showGoals: true, // goals
     showConditions: true, // problems
     showDiagnosticOrders: true, // observations
@@ -49,6 +49,12 @@ export default Ember.Controller.extend({
             referringObject.set(attributeName, [reference]);
         }
         referringObject.save();
+    },
+    addLocalRelation: function (from, to, relName) {
+        if (!from.get(relName)) {
+            from.set(relName, Ember.Set.create());
+        }
+        from.get(relName).add(to);
     },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
     mGoals: function () {
@@ -85,6 +91,16 @@ export default Ember.Controller.extend({
             var reference = addresses[i].get('reference').split('/');
             if (reference[0].dasherize() !== ignoreReference && reference[1] !== model.id) {
                 newHighlights.add(reference[1]);
+            }
+            if (!ignoreReference) {
+                var relName = `rl${reference[0].camelize().capitalize().pluralize()}`;
+                var related = this.store.peekRecord(reference[0], reference[1]);
+                if (!related) {
+                    // this may be an old reference to a model that no longer exists; skip this iteration
+                    continue;
+                }
+                // add "Goal -> <model>" temporary descriptive reference
+                this.addLocalRelation(model, related, relName);
             }
         }
     },
@@ -142,15 +158,16 @@ export default Ember.Controller.extend({
                 case ('goal', 'procedure-request'):
                 case ('goal', 'nutrition-order'):
                     this.addReference(ontoObject, draggedObject, 'addresses', true);
-                    // add a relation directly to the model
-                    if (draggedObject.get('goals')) {
-                        draggedObject.get('goals').push(ontoObject);
-                    }
+                    // add a temporary descriptive reference directly to the model
+                    this.addLocalRelation(draggedObject, ontoObject, 'rlGoals');
                     break;
                 case ('condition', 'goal'):
                 case ('procedure-request', 'goal'):
                 case ('nutrition-order', 'goal'):
                     this.addReference(draggedObject, ontoObject, 'addresses', true);
+                    // add a temporary descriptive reference directly to the model
+                    var relName = `rl${ontoModel.camelize().capitalize().pluralize()}`;
+                    this.addLocalRelation(draggedObject, ontoObject, relName);
                     break;
                 case ('condition', 'medication-order'):
                     this.addReference(draggedObject, ontoObject, 'reason', false);
@@ -174,9 +191,6 @@ export default Ember.Controller.extend({
                 case 'condition':
                 case 'procedure-request':
                 case 'nutrition-order':
-                    if (!model.get('goals')) {
-                        model.set('goals', Ember.Set.create());
-                    }
                     var goals = this.get('Goals')
                         .toArray();
                     for (var c = 0; c < goals.length; c++) {
@@ -188,7 +202,7 @@ export default Ember.Controller.extend({
                                 newHighlights.add(goal.id);
                                 // first, store a temporary descriptive reference to the goal in this resource
                                 // we need this to be able to show references in the expanded "edit" view of the resource
-                                model.get('goals').add(goal);
+                                this.addLocalRelation(model, goal, 'rlGoals');
                                 // highlight other relations to this goal, ignoring the current model type
                                 this.highlightGoalRefs(newHighlights, goal, modelName);
                                 break;

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    me: 'related-list',    
+    me: 'related-list',
     classNames: ['related-list'],
     setup: function () {
         if (this.get('parent')) {
@@ -14,19 +14,21 @@ export default Ember.Component.extend({
         var display = this.get('display'); // which attribute we display for each resource
         // observe the [] property of the relation Set, so we get alerted when the content changes
         var observe = 'parent.' + this.get('relation') + '.[]';
-        Ember.defineProperty(this, 'selections', Ember.computed(function() {
+        Ember.defineProperty(this, 'selections', Ember.computed(function () {
             var selections = [];
-            var observed = this.get(observe) // get the Set that we are observing
-                .toArray() // convert the Set to an Array
-                .sortBy('id'); // sort the Array by ID (so the order matches up with what is in the resource column)
-            for (var i = 0; i < observed.length; i++) {
-                // create an array of objects of type {model, display}
-                // reason is that each object will have some display property, but different model types will have
-                // different fields for this
-                selections.push({
-                    model: observed[i],
-                    display: observed[i].get(display)
-                });
+            var set = this.get(observe); // get the Set that we are observing
+            if (set) {
+                var observed = set.toArray() // convert the Set to an Array
+                    .sortBy('id'); // sort the Array by ID (so the order matches up with what is in the resource column)
+                for (var i = 0; i < observed.length; i++) {
+                    // create an array of objects of type {model, display}
+                    // reason is that each object will have some display property, but different model types will have
+                    // different fields for this
+                    selections.push({
+                        model: observed[i],
+                        display: observed[i].get(display)
+                    });
+                }
             }
             return selections;
         }).property(observe));
@@ -46,12 +48,16 @@ export default Ember.Component.extend({
                     this.removeGoalRef(from, to);
                     break;
                 // TODO: add more cases
+                default:
+                    console.log('no reference logic found');
             }
         }
     },
     removeGoalRef: function (goal, other) {
         // first remove the temporary descriptive reference we are storing in the resource
-        other.get('goals').removeObject(goal);
+        var relName = `rl${other._internalModel.modelName.camelize().capitalize().pluralize()}`;
+        this.removeLocalRelation(goal, other, relName);
+        this.removeLocalRelation(other, goal, 'rlGoals');
 
         // now, remove the actual reference in the goal's Ember model and save that on the server
         var addresses = goal.get('addresses').toArray();
@@ -63,5 +69,11 @@ export default Ember.Component.extend({
         }
         // save goal after loop is finished, in case there were multiple references to the same resource for some reason
         goal.save();
+    },
+    removeLocalRelation: function (from, to, relName) {
+        var relation = from.get(relName);
+        if (relation) {
+            relation.removeObject(to);
+        }
     }
 });
