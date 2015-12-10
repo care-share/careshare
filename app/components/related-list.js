@@ -4,7 +4,6 @@ export default Ember.Component.extend({
     me: 'related-list',
     classNames: ['related-list'],
 	originalSelections: null,
-	lastExpanded: null,
     setup: function () {
         if (this.get('parent')) {
 			this.set('originalSelections',this.get('selections'));
@@ -28,9 +27,6 @@ export default Ember.Component.extend({
                     // create an array of objects of type {model, display}
                     // reason is that each object will have some display property, but different model types will have
                     // different fields for this
-					if(observed[i].get('isExpanded') === true){
-					    observed[i].set('isExpanded',false);
-					}
                     selections.push({
                         model: observed[i],
                         display: observed[i].get(display)

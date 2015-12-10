@@ -110,7 +110,7 @@
 							Body Site: {{codeable-concept parent=problem attribute=problem.bodySite name='bodySite'}}<br>
 							Notes: {{fhir-edit name='notes' attribute=problem.notes}}
                             --}}
-                            {{related-list parent=problem relation='rlGoals' display='description' label="Goals"}}
+                            {{related-list parent=problem relation='rlGoals' display='description' label="Goals" lastExpanded=controller.lastExpanded}}
                             <div style="clear:left;">
                                 Notes:
                             </div>
