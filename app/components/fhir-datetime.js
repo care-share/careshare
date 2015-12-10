@@ -34,6 +34,7 @@ export default Ember.Component.extend({
 				    this.set('displayDate', date.getUTCFullYear() + '-' + 
 			         (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
 				}
+				if(this.get('displayDate').indexOf('nvalid') > -1){this.set('attribute','');}
 			    console.log('FHIR-DATETIME: displayDate is now ('+this.get('displayDate')+')');
 			}
 			else{
