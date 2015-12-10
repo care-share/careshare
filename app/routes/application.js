@@ -65,7 +65,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
                     this.controllerFor('application')
                         .set('lastLoginFailed', true);
                 }
-                this.send('checkTemplate');
             }
         },
         sessionAuthenticationSucceeded: function () {

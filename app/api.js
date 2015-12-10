@@ -7,16 +7,12 @@ export default {
     host: config.APP.apiUrl,
     openidlogin: function (data) {
         console.log('openidlogin sent with code: ' + data);
+        var that = this;
         var deferred = jQuery.ajax(this.host + '/auth/openid?code=' + data, null)
             .then(function (data) {
                     console.log('data: ' + JSON.stringify(data));
                     console.log('token: ' + data.data.token);
-                    return {
-                        token: data.data.token,
-                        name_first: data.data.name_first,
-                        roles: data.data.roles,
-                        email: data.data.email
-                    };
+                    return that.createSessionData(data);
                 },
                 function (error) {
                     return {status: error.statusText, message: error.responseText};
@@ -28,22 +24,26 @@ export default {
             email: username,
             password: password
         };
+        var that = this;
         var deferred = jQuery.post(this.host + '/auth/login', payload)
             .then(function (data) {
                     console.log('data: ' + JSON.stringify(data));
                     console.log('token: ' + data.data.token);
-                    return {
-                        token: data.data.token,
-                        name_first: data.data.name_first,
-                        roles: data.data.roles,
-                        email: data.data.email,
-                        isAdmin: data.data.roles.indexOf('admin') > -1
-                    };
+                    return that.createSessionData(data);
                 },
                 function (error) {
                     return {status: error.statusText, message: error.responseText};
                 });
         return Ember.RSVP.resolve(deferred);
+    },
+    createSessionData: function (data) {
+        return {
+            token: data.data.token,
+            name_first: data.data.name_first,
+            roles: data.data.roles,
+            email: data.data.email,
+            isAdmin: data.data.roles.indexOf('admin') > -1
+        };
     },
     submitRequest: function (info, controller) {
         console.log('Account request sent: Full Name - ' + info.fullName + ',Email - ' + info.email);

@@ -25,8 +25,12 @@ export default Ember.Controller.extend({
         },
         openidlogin: function (data) {
             console.log('App controller: openidlogin(' + data + ')');
+            var that = this;
             return this.get('session')
-                .authenticate('authenticator:custom', data);
+                .authenticate('authenticator:custom', data)
+                .then(function () {
+                    that.send('checkTemplate');
+                });
         },
         validate: function () {
             console.log('App controller: validate');
