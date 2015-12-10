@@ -4,6 +4,7 @@ export default Ember.Component.extend({
     me: 'related-list',
     classNames: ['related-list'],
 	originalSelections: null,
+	lastExpanded: null,
     setup: function () {
         if (this.get('parent')) {
 			this.set('originalSelections',this.get('selections'));
@@ -27,6 +28,9 @@ export default Ember.Component.extend({
                     // create an array of objects of type {model, display}
                     // reason is that each object will have some display property, but different model types will have
                     // different fields for this
+					if(observed[i].get('isExpanded') === true){
+					    observed[i].set('isExpanded',false);
+					}
                     selections.push({
                         model: observed[i],
                         display: observed[i].get(display)
@@ -38,8 +42,17 @@ export default Ember.Component.extend({
     }.on('init'),
     actions: {
 	    selected: function(selection){
-		    console.log('SELECTED: '+selection.display);
-			//this.controllerFor('goals').send('expand',selection.model);
+		    console.log('SELECTED: '+selection.display);			
+			if(this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model){
+			    this.get('lastExpanded').set('isExpanded',!this.get('lastExpanded.isExpanded'));
+			}
+			else{
+			    if(this.get('lastExpanded') !== null){
+				    this.get('lastExpanded').set('isExpanded',false);
+			    }
+			    this.set('lastExpanded',selection.model);
+			    this.get('lastExpanded').set('isExpanded',true);	
+			}	
 		},
         deleteReference: function (from, to) {
             var fromType = from._internalModel.modelName;
