@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-// actions are defined at: http://ember-simple-auth.com/ember-simple-auth-api-docs.html#SimpleAuth-ApplicationRouteMixin
 export default Ember.Route.extend(ApplicationRouteMixin, {
     setupController: function (controller) {
         console.log('is_openid: ' + window.Careshare.is_openid);
@@ -33,30 +32,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
                         .set('lastLoginFailed', true);
                 }
             }
-        },
-        sessionAuthenticationSucceeded: function () {
-            this.controllerFor('application')
-                .set('lastLoginFailed', false);
-        },
-        sessionAuthenticationFailed: function (error) {
-            this.controllerFor('application')
-                .set('lastLoginFailed', true);
-
-            var errorMessage = 'An unknown error occurred.';
-            var errorType = 'alert-danger';
-            console.log('Error: ' + error.status + ', ' + error.message);
-            if (error.status === 'Unauthorized') {
-                errorMessage = 'Invalid credentials.';
-                errorType = 'alert-warning';
-            }
-            else if (error.status === 'Forbidden') {
-                errorMessage = 'Your account has not yet been approved.';
-                errorType = 'alert-info';
-            }
-            this.controllerFor('application')
-                .set('errorMessage', errorMessage);
-            this.controllerFor('application')
-                .set('errorType', errorType);
         }
     }
 });

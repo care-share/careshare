@@ -48,17 +48,12 @@ module.exports = function (environment) {
         }
 
         ENV.APP.apiUrl = proto + '://api.' + process.env.domain + port;
+        ENV.APP.fhirUrl = proto + '://fhir.' + process.env.domain + port;
     }
 
     if (process.env.is_openid == 'true') {
         ENV.APP.is_openid = true;
     }
-
-    ENV['simple-auth'] = {
-        authorizer: 'authorizer:custom',
-        store: 'simple-auth-session-store:local-storage',
-        crossOriginWhitelist: [ENV.APP.apiUrl]
-    };
 
     if (environment === 'development') {
         // ENV.APP.LOG_RESOLVER = true;

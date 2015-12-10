@@ -2,6 +2,7 @@ import Ember from 'ember';
 import API from '../api';
 
 export default Ember.Controller.extend({
+    session: Ember.inject.service('session'), // needed for ember-simple-auth
     apiUrl: window.Careshare.apiUrl,
     isOpenID: window.Careshare.isOpenID,
     isSideBarDisplayed: true,

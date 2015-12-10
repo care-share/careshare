@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Base from 'simple-auth/authenticators/base';
+import Base from 'ember-simple-auth/authenticators/base';
 import API from '../api';
 import JWT from 'npm:jsonwebtoken';
 
@@ -11,9 +11,6 @@ export default Base.extend({
             return Ember.RSVP.reject(data);
         }
         return Ember.RSVP.resolve(data);
-    },
-    openidlogin(data){
-        console.log('openidconnect(' + data + ')');
     },
     authenticate(data) {
         if (data != null && data['code'] != null) {

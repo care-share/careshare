@@ -3,6 +3,7 @@ import API from '../api';
 
 export default Ember.Controller.extend({
     // controller dependencies
+    session: Ember.inject.service('session'), // needed for ember-simple-auth
     needs: "patient",
     patient: Ember.computed.alias("controllers.patient"),
     // local vars

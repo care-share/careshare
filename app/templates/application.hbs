@@ -67,7 +67,7 @@
                     {{/link-to}}
                 </li>
 
-                {{#if session.secure.isAdmin}}
+                {{#if session.data.authenticated.isAdmin}}
                     <li class="side-nav-item ">
                         {{#link-to 'account'}}
                             <i class="nav-item-icon icon ion-settings"></i> Review Account Requests
@@ -92,7 +92,7 @@
                     <i class="icon ion-gear-b"></i>
                 </a>
             </div>
-            Welcome, {{session.secure.name_first}}!
+            Welcome, {{session.data.authenticated.name_first}}!
             <button aria-hidden="true" {{action 'invalidate'}} class="btn btn-sm btn-default" type="submit">Sign Out
             </button>
         </div>
@@ -111,7 +111,7 @@
                 <!--div class="app-header">
           <h3 class="app-title pull-left hidden-xs"/>
           <ol class="breadcrumb bg-none pull-left hide-xs">
-            <li>Welcome, {{session.secure.name_first}}!</li>      
+            <li>Welcome, {{session.data.authenticated.name_first}}!</li>
           </ol>          
             
           <div class="pull-right">
