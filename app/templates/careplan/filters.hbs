@@ -11,9 +11,9 @@
                 </div>
             {{/if}}
         </li>
-        <li class="patient-filter {{if patient.showProblems 'active'}}">
+        <li class="patient-filter {{if patient.showConditions 'active'}}">
             <span class="glyphicon glyphicon-heart-empty"></span>
-            <span {{action 'toggleShowProblems'}} class="column-toggler"> Problems </span>
+            <span {{action 'toggleShow' 'Condition'}} class="column-toggler"> Problems </span>
             <span {{action 'toggleExpandProblems'}}
                     class="filters-expander {{if expandProblems 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
             {{#if expandProblems}}
@@ -24,7 +24,7 @@
         </li>
         <li class="patient-filter {{if patient.showGoals 'active'}}">
             <span class="glyphicon glyphicon-heart-empty"></span>
-            <span {{action 'toggleShowGoals'}} class="column-toggler"> Goals </span>
+            <span {{action 'toggleShow' 'Goal'}} class="column-toggler"> Goals </span>
             <span {{action 'toggleExpandGoals'}}
                     class="filters-expander {{if expandGoals 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
             {{#if expandGoals}}
@@ -33,9 +33,9 @@
                 </div>
             {{/if}}
         </li>
-        <li class="patient-filter {{if patient.showInterventions 'active'}}">
+        <li class="patient-filter {{if patient.showProcedureRequests 'active'}}">
             <span class="glyphicon glyphicon-heart-empty"></span>
-            <span {{action 'toggleShowInterventions'}} class="column-toggler"> Interventions </span>
+            <span {{action 'toggleShow' 'ProcedureRequest'}} class="column-toggler"> Interventions </span>
             <span {{action 'toggleExpandInterventions'}}
                     class="filters-expander {{if expandInterventions 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
             {{#if expandInterventions}}
@@ -44,9 +44,9 @@
                 </div>
             {{/if}}
         </li>
-        <li class="patient-filter {{if patient.showObservations 'active'}}">
+        <li class="patient-filter {{if patient.showDiagnosticOrders 'active'}}">
             <span class="glyphicon glyphicon-heart-empty"></span>
-            <span {{action 'toggleShowObservations'}} class="column-toggler"> Observations </span>
+            <span {{action 'toggleShow' 'DiagnosticOrder'}} class="column-toggler"> Observations </span>
             <span {{action 'toggleExpandObservations'}}
                     class="filters-expander {{if expandObservations 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
             {{#if expandObservations}}
@@ -55,8 +55,9 @@
                 </div>
             {{/if}}
         </li>
-        <li class="patient-filter {{if patient.showMedications 'active'}}">
+        <li class="patient-filter {{if patient.showMedicationOrders 'active'}}">
             <span class="glyphicon glyphicon-heart-empty"></span>
+            <!-- TODO: change this action to use 'toggleShow' 'Medication' once we create the controller -->
             <span {{action 'toggleShowMedications'}} class="column-toggler"> Medications </span>
             <span  {{action 'toggleExpandMedications'}}
                     class="filters-expander {{if expandMedications 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>

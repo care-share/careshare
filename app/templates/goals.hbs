@@ -9,6 +9,8 @@
                             Description: {{fhir-edit name='description' attribute=goal.description action='altered'}}
                             Status: {{fhir-choice name='status' attribute=goal.status choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}
                             Status Date: {{fhir-date name='statusDate' attribute=goal.statusDate}}
+                            {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
+                            {{related-list parent=goal relation='rlProcedureRequests' display='status' label="Interventions"}}
                         {{else}}
                             {{goal.description}}
                             {{#unless goal.description}}

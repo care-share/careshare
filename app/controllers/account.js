@@ -2,6 +2,7 @@ import Ember from 'ember';
 import API from '../api';
 
 export default Ember.Controller.extend({
+    session: Ember.inject.service('session'), // needed for ember-simple-auth
     mUser: undefined,
     mFhirId: undefined,
     mSearch: '',
@@ -28,7 +29,7 @@ export default Ember.Controller.extend({
             var fhir_id = this.get('mFhirId');
             this.set('mUser.fhir_id', fhir_id);
             // change user's FHIR ID in the database
-            API.changeFhirId(this.get('mUser.email'), fhir_id, this.get('session.secure'), this);
+            API.changeFhirId(this.get('mUser.email'), fhir_id, this.get('session.data.authenticated'), this);
             // clear props
             this.set('mUser', undefined);
             this.set('mFhirId', undefined);
@@ -43,21 +44,21 @@ export default Ember.Controller.extend({
         approve: function (email) {
             console.log('approve(controller) called');
             this.get('target')
-                .send('approve', email, this.get('session.secure'), this);
+                .send('approve', email, this.get('session.data.authenticated'), this);
         },
         deny: function (email) {
             console.log('deny(controller) called');
             this.get('target')
-                .send('deny', email, this.get('session.secure'), this);
+                .send('deny', email, this.get('session.data.authenticated'), this);
         },
         toggleRole: function (email, role, isHeld) {
             console.log('toggleRole(controller) called');
             if (!isHeld) {
                 this.get('target')
-                    .send('addRole', email, role, this.get('session.secure'), this);
+                    .send('addRole', email, role, this.get('session.data.authenticated'), this);
             } else {
                 this.get('target')
-                    .send('removeRole', email, role, this.get('session.secure'), this);
+                    .send('removeRole', email, role, this.get('session.data.authenticated'), this);
             }
         }
     },

@@ -10,6 +10,7 @@ export default Ember.Component.extend({
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (' + this.get('me') + ') {record: ' + this.get('parent') + ',name: ' + this.get('name'));
+			this.sendAction('updateRecord', this.get('parent'), this.get('name'), 'CodeableConcept');
         }
     }.on('init'),
     actions: {
@@ -18,13 +19,8 @@ export default Ember.Component.extend({
             this.sendAction('updateRecord', parent, name, type);
         },
         saveRecord: function () {
-            console.log('(' + this.get('me') + ') SAVE RECORD');
-            if (!this.get('root')) {
-                this.get('parent').save();
-            }
-            else {
-                this.get('root').save();
-            }
+            console.log('(' + this.get('me') + ') SAVE RECORD - record: ' + this.get('root'));
+            this.sendAction('saveRecord', this.get('root'));
         },
         removeItem: function (record, index) {
             console.log('(' + this.get('me') + ') REMOVE ARRAY ITEM - parent: ' + record + ',index: ' + index);

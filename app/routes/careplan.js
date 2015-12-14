@@ -1,170 +1,101 @@
 import Ember from 'ember';
-import ApplicationRouteMixin from 'simple-auth/mixins/application-route-mixin';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-// actions are defined at: http://ember-simple-auth.com/ember-simple-auth-api-docs.html#SimpleAuth-ApplicationRouteMixin
 export default Ember.Route.extend(ApplicationRouteMixin, {
     model: function (params) {
         var controller = this.controllerFor('careplan');
         console.log('Loading Careplan ROUTE');
         console.log(params);
-        params.patient_id = this.controllerFor('patient').id;
-        var that = this;
+        controller.id = params.careplan_id;
 
-        this.store.find('patient', params.patient_id)
+        this.store.find('CarePlan', params.careplan_id)
             .then(function (response) {
-                controller.set('gender', response.get('gender')
-                        .charAt(0)
-                        .toUpperCase() +
-                    response.get('gender')
-                        .substr(1));
-                response.get('name')
-                    .forEach(function (name) {
-                        controller.set('firstName', name.get('given'));
-                        controller.set('lastName', name.get('family'));
-                    });
-                controller.set('birthDate', response.get('birthDate'));
+                controller.set('CarePlan', response);
             });
+
         //Load all information as the default has it showing
-        this.store.query('Condition', {})
-            .then(function (response) {
-                controller.set('problems', []);
-                that.store.peekAll('Condition', {})
-                    .forEach(function (item) {
-                        controller.get('problems')
-                            .push(item);
-                    });
-            });
-        this.store.query('Goal', {})
-            .then(function (response) {
-                controller.set('goals', []);
-                that.store.peekAll('Goal', {})
-                    .forEach(
-                        function (item) {
-                            controller.get('goals')
-                                .push(item);
-                        });
-            });
-        this.store.query('ProcedureRequest', {})
-            .then(
-                function (response) {
-                    controller.set('interventions', []);
-                    that.store.peekAll('ProcedureRequest', {})
-                        .forEach(
-                            function (item) {
-                                controller.get('interventions')
-                                    .push(item);
-                            });
-                });
-        this.store.query('DiagnosticOrder', {})
-            .then(
-                function (response) {
-                    controller.set('observations', []);
-                    that.store.peekAll('DiagnosticOrder', {})
-                        .forEach(
-                            function (item) {
-                                controller.get('observations')
-                                    .push(item);
-                            });
-                });
+        this.doQueries('Condition'); // conditions
+        this.doQueries('Goal'); // goals
+        this.doQueries('ProcedureRequest'); // interventions
+        this.doQueries('DiagnosticOrder'); // observations
 
-        var patientId = window.location.href.split('/')[4];
-        var mystore = this.store;
-        this.store.query('MedicationOrder', {'patient': patientId})
-            .then(function (response) {
-                var promises = [];
-                var mrholder = [];
-                response.forEach(function (mo) {
-                    var momr = mo.get('medicationReference');
-                    if (momr == null) {
-                        console.debug('No Medication Reference for ' + mo.get('id'));
-                        return;
-                    }
-                    mrholder[mrholder.length] = momr;
-                    var ref = momr.get('reference');
-                    var rid = ref.split('/')[1];
-                    var med = mystore.findRecord('medication', rid);
-                    promises[promises.length] = med;
-                });
-
-                Ember.RSVP.all(promises)
-                    .then(function (res) {
-                        res.forEach(function (med) {
-                            var mr = mrholder.shift();
-                            mr.set('medication', med);
-                        });
-                        controller.set('medications', response);
-                    });
+        // TODO: change this to use new function for queries
+        //var patientId = window.location.href.split('/')[4];
+        //var mystore = this.store;
+        //this.store.query('MedicationOrder', {'patient': patientId})
+        //    .then(function (response) {
+        //        var promises = [];
+        //        var mrholder = [];
+        //        response.forEach(function (mo) {
+        //            var momr = mo.get('medicationReference');
+        //            if (momr == null) {
+        //                console.debug('No Medication Reference for ' + mo.get('id'));
+        //                return;
+        //            }
+        //            mrholder[mrholder.length] = momr;
+        //            var ref = momr.get('reference');
+        //            var rid = ref.split('/')[1];
+        //            var med = mystore.findRecord('medication', rid);
+        //            promises[promises.length] = med;
+        //        });
+        //
+        //        Ember.RSVP.all(promises)
+        //            .then(function (res) {
+        //                res.forEach(function (med) {
+        //                    var mr = mrholder.shift();
+        //                    mr.set('medication', med);
+        //                });
+        //                controller.set('MedicationOrder', response);
+        //            });
+        //    });
+    },
+    // do queries for a model (single name, not pluralized name)
+    doQueries: function (modelName) {
+        var include;
+        switch (modelName) {
+            case ('Condition'):
+                include = 'CarePlan:condition';
+                break;
+            case ('Goal'):
+                include = 'CarePlan:goal';
+                break;
+            case ('ProcedureRequest'):
+            case ('DiagnosticOrder'):
+                include = 'CarePlan:activityreference';
+                // TODO: find a way to narrow down the target resource type for activityreference
+                // should be possible according to: http://hl7.org/fhir/search.html#include
+                // however, adding a third part (e.g. 'CarePlan:activityreference:ProcedureRequest') does not work
+                break;
+        }
+        var controller = this.controllerFor('careplan');
+        // to get the "create" buttons to work properly, we need to query *then* peekAll
+        this.store.query('CarePlan', {_id: controller.id, _include: include}) // the "_include" is effectively a join
+            .then(function (/*response*/) {
+                // response from query is an AdapterPopulatedRecordArray; immutable and does not live-update changes to the template
+                var value = controller.store.peekAll(modelName, {});
+                // value from peekAll is a RecordArray; mutable and live-updates changes to the template
+                controller.set(modelName.pluralize(), value);
+                // FIXME: revisit this...
+                // RecordArray should auto-update but does not seem to be triggering refresh of computed properties
+                // however, hover-highlighting causes those computed properties to get refreshed?!
+                // tried watching 'Model.[]' instead of 'Model' but that resulted in weird errors
+                // As a temporary fix, we have implemented the "doPeek" method in the careplan controller, which we
+                // manually call from sub-controllers
             });
     },
     actions: {
-        toggleShowProblems: function () {
+        toggleShow: function (modelName) {
             var controller = this.controllerFor('careplan');
-            controller.toggleProperty('showProblems');
-            if (controller.get('showProblems')) {
-                var that = this;
-                this.store.query('Condition', {})
-                    .then(function (response) {
-                        controller.set('problems', []);
-                        that.store.peekAll('Condition', {})
-                            .forEach(function (item) {
-                                controller.get('problems')
-                                    .push(item);
-                            });
-                    });
-            }
-        },
-        toggleShowGoals: function () {
-            var controller = this.controllerFor('careplan');
-            controller.toggleProperty('showGoals');
-            if (controller.get('showGoals')) {
-                var that = this;
-                this.store.query('Goal', {})
-                    .then(function (response) {
-                        controller.set('goals', []);
-                        that.store.peekAll('Goal', {})
-                            .forEach(function (item) {
-                                controller.get('goals')
-                                    .push(item);
-                            });
-                    });
-            }
-        },
-        toggleShowInterventions: function () {
-            var controller = this.controllerFor('careplan');
-            controller.toggleProperty('showInterventions');
-            if (controller.get('showInterventions')) {
-                var that = this;
-                this.store.query('ProcedureRequest', {})
-                    .then(function (response) {
-                        controller.set('interventions', []);
-                        that.store.peekAll('ProcedureRequest', {})
-                            .forEach(function (item) {
-                                controller.get('interventions')
-                                    .push(item);
-                            });
-                    });
-            }
-        },
-        toggleShowObservations: function () {
-            var controller = this.controllerFor('careplan');
-            controller.toggleProperty('showObservations');
-            if (controller.get('showObservations')) {
-                var that = this;
-                this.store.query('DiagnosticOrder', {})
-                    .then(function (response) {
-                        controller.set('observations', []);
-                        that.store.peekAll('DiagnosticOrder', {})
-                            .forEach(function (item) {
-                                controller.get('observations')
-                                    .push(item);
-                            });
-                    });
+            var prop = 'show' + modelName.pluralize();
+            controller.toggleProperty(prop);
+            if (controller.get(prop)) {
+                this.doQueries(modelName);
             }
         },
         toggleShowMedications: function () {
             var controller = this.controllerFor('careplan');
-            controller.toggleProperty('showMedications');
-            if (controller.get('showMedications')) {
+            controller.toggleProperty('showMedicationOrders');
+            if (controller.get('showMedicationOrders')) {
                 // duplicate. figure out where ember wants helper code to live
                 // or where this information should really be populated
 
@@ -193,7 +124,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
                                     var mr = mrholder.shift();
                                     mr.set('medication', med);
                                 });
-                                controller.set('medications', response);
+                                controller.set('MedicationOrders', response);
                             });
                     });
             }

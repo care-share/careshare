@@ -1,4 +1,4 @@
-{{#if session.secure.isAdmin}}
+{{#if session.data.authenticated.isAdmin}}
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -163,7 +163,7 @@
                                 {{/if}}
                             {{/em-modal-toggler}}
                         </td>
-                        {{#if (not-eq user.email session.secure.email)}}
+                        {{#if (not-eq user.email session.data.authenticated.email)}}
                             <td style="padding:0">
                                 <span {{action 'deny' user.email}} class="icon btn-icon ion-close"></span>
                             </td>

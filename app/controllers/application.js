@@ -2,6 +2,7 @@ import Ember from 'ember';
 import API from '../api';
 
 export default Ember.Controller.extend({
+    session: Ember.inject.service('session'), // needed for ember-simple-auth
     apiUrl: window.Careshare.apiUrl,
     isOpenID: window.Careshare.isOpenID,
     isSideBarDisplayed: true,
@@ -25,8 +26,12 @@ export default Ember.Controller.extend({
         },
         openidlogin: function (data) {
             console.log('App controller: openidlogin(' + data + ')');
+            var that = this;
             return this.get('session')
-                .authenticate('authenticator:custom', data);
+                .authenticate('authenticator:custom', data)
+                .then(function () {
+                    that.send('checkTemplate');
+                });
         },
         validate: function () {
             console.log('App controller: validate');

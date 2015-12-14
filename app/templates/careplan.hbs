@@ -7,11 +7,11 @@
             <div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">
                 <div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
                     <div style="background-color: rgb(197,234,142);text-align: center">
-                        {{firstName}},{{lastName}} (Active)
+                        {{patient.lastName}}, {{patient.firstName}} (Active)
                     </div>
                     <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
 
-                    <div class="panel" style="padding: 0">{{gender}}<br />{{birthDate}}</div>
+                    <div class="panel" style="padding: 0">{{patient.gender}}<br />{{patient.birthDate}}</div>
                 </div>
                 <div class="panel-body" style="padding: 0;height:100%;">
                     <!-- Tab Content -->
@@ -47,7 +47,7 @@
             <button>Reject All</button>
             </div>-->
             <div class="row" style="height:100%">
-                {{#if showProblems}}
+                {{#if showConditions}}
                     <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "problems" mProblems}}
                     </div>
@@ -57,17 +57,17 @@
                         {{render "goals" mGoals}}
                     </div>
                 {{/if}}
-                {{#if showInterventions}}
+                {{#if showProcedureRequests}}
                     <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "interventions" mInterventions}}
                     </div>
                 {{/if}}
-                {{#if showObservations}}
+                {{#if showDiagnosticOrders}}
                     <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "observations" mObservations}}
                     </div>
                 {{/if}}
-                {{#if showMedications}}
+                {{#if showMedicationOrders}}
                     <div class="{{colClass}} well fhir-column-wrapper" >
                         {{render "medications" mMedications}}
                     </div>

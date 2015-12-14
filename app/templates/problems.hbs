@@ -6,30 +6,31 @@
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem type='Condition' as |section|}}
                         {{#if (eq section "expanded")}}                           
-                            {{!--codeable-concept parent=problem attribute=problem.code name='code' --}}
-                            <!-- TODO Fix this to codable concept, but why is codable concept reliant on fhir element it seems overloaded -->
-                            
-                                 <div class="form-inline">
-                                    <div class="form-group col-lg-12" style="padding:2px">
-                                    {{fhir-edit parent=problem attribute=problem.code.text name='code' }}
-                                    {{fhir-choice name='clinicalStatus' attribute=problem.clinicalStatus choices='active,relapse,remission,resolved'}}
+
+                                <div class="form-inline">
+                                    <div class="form-group col-lg-12" style="padding:2px">                                   
+										{{#codeable-concept parent=problem name='code'}}
+											{{fhir-edit parent=problem attribute=problem.code.text name='text'}}
+										{{/codeable-concept}}         
+                                        {{fhir-choice parent=problem attribute=problem.clinicalStatus name='clinicalStatus' choices='active,relapse,remission,resolved'}}			
                                     </div>
-                                </div>
-                                
+                                </div> 
                                 <div class="form-inline">
                                     <div class="form-group col-lg-12" style="padding:2px">
-                                        {{fhir-choice parent=problem attribute=problem.severity name='severity' choices='Unspecified,Low,Moderate,Important,Critical'}}
-                                        {{fhir-choice parent=problem attribute=problem.category name='category' choices='Complaint,Symptom,Finding,Diagnosis'}}
+                                        {{#codeable-concept parent=problem name='severity'}}
+										    {{fhir-choice parent=problem attribute=problem.severity.text name='text' choices='Unspecified,Low,Moderate,Important,Critical'}}
+										{{/codeable-concept}}
+										{{#codeable-concept parent=problem name='category'}}
+										    {{fhir-choice parent=problem attribute=problem.category.text name='text' choices='Complaint,Symptom,Finding,Diagnosis'}}
+										{{/codeable-concept}}
                                     </div>
                                 </div>
                                 <div>
-                                    Onset:
-                                        {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
-                                    Abatement:
-                                        {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
+                                    Onset:{{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
+                                    Abatement:{{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
                                 </div>
                                 <select id="dropdown{{patient.id}}" class="form-control">
-                                        <option disabled selected> Locations </option>
+                                    <option disabled selected> Locations </option>
                                 </select>
                         {{!--
 							Identifier(s): {{fhir-identifier parent=problem attribute=problem.identifier name='identifier'}}<br>
@@ -110,7 +111,7 @@
 							Body Site: {{codeable-concept parent=problem attribute=problem.bodySite name='bodySite'}}<br>
 							Notes: {{fhir-edit name='notes' attribute=problem.notes}}
                             --}}
-                            {{related-list parent=problem relation='goals' display='description' label="Goals"}}
+                            {{related-list parent=problem relation='rlGoals' display='description' label="Goals" lastExpanded=controller.lastExpanded}}
                             <div style="clear:left;">
                                 Notes:
                             </div>
@@ -125,8 +126,7 @@
         {{/draggable-object-target}}
     {{else}}
         No Problems<br/>
-    {{/each}}
-    
+    {{/each}}   
 </div>
 <div>
 <button  class="nobackground" {{action 'createRecord' 'Condition'}}>
