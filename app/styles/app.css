@@ -19997,7 +19997,8 @@ a {
 
 .fhir-element {
   overflow:auto;
-  padding-bottom: 8px;
+  padding-bottom: 4px;
+  padding-top: 4px;
 }
 
 
@@ -20059,6 +20060,15 @@ button.glyphicon{
 
 }
 
+button.nobackground{
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+  }
+
 /*This will only work on webkit browsers*/
 /*TODO find solutions for other browsers*/
 .fhir-column::-webkit-scrollbar-track
@@ -20081,11 +20091,4 @@ button.glyphicon{
   background-color: #555;
 }
 
-button.nobackground{
-    background-color: Transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-  }
+

@@ -8,7 +8,7 @@
                         {{#if (eq section "expanded")}}                           
                             {{!--codeable-concept parent=problem attribute=problem.code name='code' --}}
                             <!-- TODO Fix this to codable concept, but why is codable concept reliant on fhir element it seems overloaded -->
-                           
+                            
                                  <div class="form-inline">
                                     <div class="form-group col-lg-12" style="padding:2px">
                                     {{fhir-edit parent=problem attribute=problem.code.text name='code' }}
@@ -115,7 +115,9 @@
                                 Notes:
                             </div>
                         {{else}}
+                            {{!TODO: Wrap this with severity border-left}}
                             {{problem.code.text}} - ({{problem.clinicalStatus}})
+                           
                         {{/if}}
                     {{/fhir-element}}
                 </div>
@@ -126,7 +128,9 @@
     {{/each}}
     
 </div>
+<div>
 <button  class="nobackground" {{action 'createRecord' 'Condition'}}>
     <span class="glyphicon glyphicon-plus"></span> <strong>Add Problem</strong> 
 </button>
+</div>
 
