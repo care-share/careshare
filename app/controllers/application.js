@@ -22,7 +22,8 @@ export default Ember.Controller.extend({
             API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);
         },
         toggleSideBarVisibility: function () {
-            this.set('isSideBarDisplayed', false);
+            console.log("SideBar toggleNoDisplay")
+            this.toggleProperty('isSideBarDisplayed');
         },
         openidlogin: function (data) {
             console.log('App controller: openidlogin(' + data + ')');

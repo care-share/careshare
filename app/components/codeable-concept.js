@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+    tagName: 'span',
     me: 'CODEABLE-CONCEPT',    
     classNames: ['codable-concept'],
     updateRecord: 'updateRecord',
