@@ -12,6 +12,7 @@ export default Ember.Component.extend({
         console.log('INIT: FHIR-EDIT- attribute: ' + this.get('attribute') + ',name: ' + this.get('name'));	
     }.on('init'),
 	attrObserve: function () {
+	    if(!this.get('trackChanges'))return;
 	    var patcher = this.get('patcher');
 	    var diff = patcher.diff_main(this.get('original'),this.get('attribute'),true);
 		this.set('calculatedPatch',patcher.diff_prettyHtml(diff));
