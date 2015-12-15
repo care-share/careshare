@@ -34,6 +34,7 @@
                             {{/link-to}}
                         </ul>
                         {{outlet}}
+						<button {{action 'toggleChangeRequest'}}>Toggle Change Request View</button>
                     </div>
                 </div>
             </div>
@@ -41,11 +42,14 @@
         <!-- Page Content -->
         <!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
         <div class="fhir-columns col-md-9">
-            <!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
-            Other practitioners have requested changes to this plan's...
-            <button>Accept All</button>
-            <button>Reject All</button>
-            </div>-->
+		    {{#if isChangeRequest}}
+                <div class="alert alert-warning" role="alert" style="color: black">
+                    Other practitioners have requested changes to this plan.
+                    <button>Accept All</button>
+                    <button>Reject All</button>
+					<button>Sign</button>
+                </div>
+			{{/if}}
             <div class="row" style="height:100%">
                 {{#if showConditions}}
                     <div class="{{colClass}} well fhir-column-wrapper" >
