@@ -11,11 +11,11 @@
                                     <div class="col-xs-12" style="padding:2px">  
                                         <div class="col-xs-12 col-lg-6">                                    
     										{{#codeable-concept parent=problem name='code'}}
-    											{{fhir-edit parent=problem attribute=problem.code.text name='text'}}
+    											{{fhir-edit trackChanges=isChangeRequest parent=problem attribute=problem.code.text name='text'}}
     										{{/codeable-concept}}         
                                         </div>
                                         <div class="col-xs-12 col-lg-6">   
-                                            {{fhir-choice parent=problem attribute=problem.clinicalStatus name='clinicalStatus' choices='active,relapse,remission,resolved'}}	
+                                            {{fhir-choice trackChanges=isChangeRequest parent=problem attribute=problem.clinicalStatus name='clinicalStatus' choices='active,relapse,remission,resolved'}}	
                                         </div>		
                                     </div>
                                 </div> 
@@ -54,7 +54,6 @@
                                 <select id="dropdown{{patient.id}}" class="form-control">
                                     <option disabled selected> Body Sites </option>
                                 </select>
-                      
                                 {{related-list parent=problem relation='rlGoals' display='description' label="Goals" lastExpanded=controller.lastExpanded}}
                                 <div style="clear:left;">
                                     Notes:
@@ -62,8 +61,7 @@
                             </div>
                         {{else}}
                             {{!TODO: Wrap this with severity border-left}}
-                            {{problem.code.text}} - ({{problem.clinicalStatus}})
-                           
+                            {{problem.code.text}} - ({{problem.clinicalStatus}})                          
                         {{/if}}
                     {{/fhir-element}}
                 </div>
