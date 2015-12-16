@@ -1,1 +1,7 @@
 {{view "select" content=finalChoices value=attribute class="form-control"}}
+{{#if (and trackChanges (gt calculatedPatch.length 0))}} 
+    <div style='background-color:#dddddd'>
+	    {{{calculatedPatch}}}
+		<button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
+	</div> 
+{{/if}}
