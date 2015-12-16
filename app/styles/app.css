@@ -20109,7 +20109,15 @@ button.nobackground{
 }*/
 
 
-
+/*
 .control-label{ 
   padding-top: 7px; 
+}*/
+
+/* Landscape tablet & small desktop */
+@media (min-width: 1024px) {
+  /* line 1476, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
+  .control-label{ 
+  padding-top: 7px; 
+}
 }
