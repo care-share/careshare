@@ -95,7 +95,7 @@ export default Ember.Controller.extend({
         },
         updateRecord: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE RECORD - parent: ' + record + ',name: ' + name + ',type: ' + type);
-			if (record && !record.get(name)) {
+			if (record && !record.get(`${name}.content`)) {
                 var newRecord = this.store.createRecord(type, {});
                 console.log('MODEL NAME: ' + record.toString());
                 console.log('++NEW RECORD: ' + newRecord + '++');

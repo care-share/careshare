@@ -9,10 +9,8 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-xs-12 fhir-form-item">  
-                                        <div class="col-xs-12 col-lg-6">                                    
-                                            {{#codeable-concept parent=goal name='description'}}
-                                                {{fhir-edit parent=goal attribute=goal.description name='description' action='altered'}}
-                                            {{/codeable-concept}}         
+                                        <div class="col-xs-12 col-lg-6">
+                                            {{fhir-edit parent=goal attribute=goal.description name='description' action='altered'}}
                                         </div>
                                         <div class="col-xs-12 col-lg-6">   
                                             {{fhir-choice parent=goal name='status' attribute=goal.status  
@@ -34,22 +32,24 @@
                                     <label class="col-sm-5 control-label"  for="priority"> Priority: </label>
                                     <div id="priority" class="col-xs-12 col-lg-7"> 
                                         {{#codeable-concept parent=goal name='priority'}}
-                                            {{fhir-choice parent=goal attribute=goal.priority name='text' choices='Unspecified,Low,Medium,High'}}
+                                            {{fhir-choice parent=goal attribute=goal.priority.text name='text' choices='Unspecified,Low,Medium,High'}}
                                         {{/codeable-concept}}
                                     </div>
                                 </div>
+                                <!-- TODO: create a "fhir-choice-multi" component so we can support selecting multiple categories
                                 <div class=" col-xs-12 fhir-form-item">
                                     <label class="col-sm-5 control-label"  for="category"> Category: </label>
-                                    <div id="priority" class="col-xs-12 col-lg-7"> 
+                                    <div id="priority" class="col-xs-12 col-lg-7">
                                         {{#codeable-concept parent=goal name='category'}}
-                                            {{fhir-choice parent=goal attribute=goal.category name='text' choices='CHANGEME,CHANGEME'}}
+                                            {{fhir-choice parent=goal attribute=goal.category.text name='text' choices='CHANGEME,CHANGEME'}}
                                         {{/codeable-concept}}
                                     </div>
-                                </div>                                
+                                </div>
+                                -->
                                 <div class="col-xs-12 fhir-form-item">                                 
                                     <label class="col-sm-5 control-label"  for="targetDate">Target Date:</label>                                     
                                     <div id="targetDate" class="col-xs-12 col-lg-7"> 
-                                        {{fhir-datetime name='targetDate' attribute=goal.target.targetDate}}
+                                        {{fhir-datetime name='targetDate' attribute=goal.targetDate}}
                                     </div>
                                 </div>
                                 {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
