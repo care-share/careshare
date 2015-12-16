@@ -20054,8 +20054,8 @@ button.glyphicon{
   background-color: #C9DEF2;
   padding-top: 0px;
   padding-bottom: 2px;
-  padding-left: 5px
-  padding-right: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
 
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -20099,3 +20099,17 @@ button.nobackground{
 }
 
 
+.fhir-column .col-lg-1, .fhir-column .col-lg-10, .fhir-column .col-lg-11, .fhir-column .col-lg-12, .fhir-column .col-lg-2, .fhir-column .col-lg-3, .fhir-column .col-lg-4, .fhir-column .col-lg-5, .fhir-column .col-lg-6, .fhir-column .col-lg-7, .fhir-column .col-lg-8, .fhir-column .col-lg-9, .fhir-column .col-md-1, .fhir-column .col-md-10, .fhir-column .col-md-11, .fhir-column .col-md-12, .fhir-column .col-md-2, .fhir-column .col-md-3, .fhir-column .col-md-4, .fhir-column .col-md-5, .fhir-column .col-md-6, .fhir-column .col-md-7, .fhir-column .col-md-8, .fhir-column .col-md-9, .fhir-column .col-sm-1, .fhir-column .col-sm-10, .fhir-column .col-sm-11, .fhir-column .col-sm-12, .fhir-column .col-sm-2, .fhir-column .col-sm-3, .fhir-column .col-sm-4, .fhir-column .col-sm-5, .fhir-column .col-sm-6, .fhir-column .col-sm-7, .fhir-column .col-sm-8, .fhir-column .col-sm-9, .fhir-column .col-xs-1, .fhir-column .col-xs-10, .fhir-column .col-xs-11, .fhir-column .col-xs-12, .fhir-column .col-xs-2, .fhir-column .col-xs-3, .fhir-column .col-xs-4, .fhir-column .col-xs-5, .fhir-column .col-xs-6, .fhir-column .col-xs-7, .fhir-column .col-xs-8, .fhir-column .col-xs-9 {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+/*.ember-text-field{
+  width: 100% !important;
+}*/
+
+
+
+.control-label{ 
+  padding-top: 7px; 
+}
