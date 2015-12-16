@@ -38,14 +38,22 @@ export default Ember.Controller.extend({
             console.log('App controller: validate');
             var credentials = this.getProperties('identification', 'password');
             console.log('ID: ' + credentials.identification + ',PASS: ' + credentials.password);
+            var that = this;
             return this.get('session')
-                .authenticate('authenticator:custom', credentials);
+                .authenticate('authenticator:custom', credentials)
+                .then(function () {
+                    that.send('checkTemplate');
+                });
         },
         invalidate: function () {
             console.log('App controller: invalidate ' + JSON.stringify(this.get('session')));
             var credentials = this.getProperties('identification', 'password');
+            var that = this;
             return this.get('session')
-                .invalidate(credentials);
+                .invalidate(credentials)
+                .then(function () {
+                    that.send('checkTemplate');
+                });
         },
         patientsCount: function () {
             console.log('getPatientCount called!');
