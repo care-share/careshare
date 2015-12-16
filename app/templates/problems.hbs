@@ -6,17 +6,12 @@
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem type='Condition' as |section|}}
                         {{#if (eq section "expanded")}}                           
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-xs-12" style="padding:2px">  
-                                        <div class="col-xs-12 col-lg-6">                                    
-    										{{#codeable-concept parent=problem name='code'}}
-    											{{fhir-edit trackChanges=isChangeRequest parent=problem attribute=problem.code.text name='text'}}
-    										{{/codeable-concept}}         
-                                        </div>
-                                        <div class="col-xs-12 col-lg-6">   
-                                            {{fhir-choice parent=problem attribute=problem.clinicalStatus name='clinicalStatus' choices='active,relapse,remission,resolved'}}	
-                                        </div>		
+                                <div class="form-inline">
+                                    <div class="form-group col-lg-12" style="padding:2px">                                   
+										{{#codeable-concept parent=problem name='code'}}
+											{{fhir-edit trackChanges=isChangeRequest parent=problem attribute=problem.code.text name='text'}}
+										{{/codeable-concept}}         
+                                        {{fhir-choice parent=problem attribute=problem.clinicalStatus name='clinicalStatus' choices='active,relapse,remission,resolved'}}			
                                     </div>
                                 </div> 
                                 <div >
@@ -58,7 +53,6 @@
                                 <div style="clear:left;">
                                     Notes:
                                 </div>
-                            </div>
                         {{else}}
                             {{!TODO: Wrap this with severity border-left}}
                             {{problem.code.text}} - ({{problem.clinicalStatus}})                          
