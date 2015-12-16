@@ -1,2 +1,7 @@
-{{input value=attribute autofocus="autofocus"class="form-control"}}
-{{#if trackChanges}} {{{calculatedPatch}}} {{/if}}
+{{input value=attribute autofocus="autofocus" size="5" class="form-control"}}
+{{#if (and trackChanges (gt calculatedPatch.length 0))}} 
+    <div style='background-color:#dddddd'>
+	    {{{calculatedPatch}}}
+		<button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
+	</div> 
+{{/if}}
