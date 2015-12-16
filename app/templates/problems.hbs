@@ -24,7 +24,7 @@
                                         <label class="col-sm-5 control-label"  for="severity"> Severity: </label>
                                         <div id="severity" class="col-xs-12 col-lg-7"> 
                                             {{#codeable-concept parent=problem name='severity'}}
-    										    {{fhir-choice parent=problem attribute=problem.severity.text name='text' choices='Unspecified,Low,Moderate,Important,Critical'}}
+    										    {{fhir-choice trackChanges=isChangeRequest parent=problem attribute=problem.severity.text name='text' choices='Unspecified,Low,Moderate,Important,Critical'}}
     										{{/codeable-concept}}
                                         </div>
                                     </div>
@@ -32,7 +32,7 @@
                                         <label class="col-sm-5 control-label"  for="category">Category:</label>                                     
                                         <div id="category" class="col-xs-12 col-lg-7"> 
     										{{#codeable-concept parent=problem name='category'}}
-    										    {{fhir-choice parent=problem attribute=problem.category.text name='text' choices='Complaint,Symptom,Finding,Diagnosis'}}
+    										    {{fhir-choice trackChanges=isChangeRequest parent=problem attribute=problem.category.text name='text' choices='Complaint,Symptom,Finding,Diagnosis'}}
     										{{/codeable-concept}}
                                         </div>
                                     </div>
