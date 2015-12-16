@@ -19,6 +19,7 @@ export default Ember.Component.extend({
 	actions:{
 	    cancel: function(){
 		    this.set('attribute',this.get('original'));
+			this.set('calculatedPatch','');
 		}
 	}
 });
