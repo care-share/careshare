@@ -6,11 +6,55 @@
                 <div {{action "hoverOn" goal on="mouseEnter"}} {{action "hoverOff" goal on="mouseLeave"}}>
                     {{#fhir-element root=goal type='Goal' as |section|}}
                         {{#if (eq section "expanded")}}
-                            Description: {{fhir-edit name='description' attribute=goal.description action='altered'}}
-                            Status: {{fhir-choice name='status' attribute=goal.status choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}
-                            Status Date: {{fhir-date name='statusDate' attribute=goal.statusDate}}
-                            {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
-                            {{related-list parent=goal relation='rlProcedureRequests' display='status' label="Interventions"}}
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-xs-12 fhir-form-item">  
+                                        <div class="col-xs-12 col-lg-6">                                    
+                                            {{#codeable-concept parent=goal name='description'}}
+                                                {{fhir-edit parent=goal attribute=goal.description name='description' action='altered'}}
+                                            {{/codeable-concept}}         
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6">   
+                                            {{fhir-choice parent=goal name='status' attribute=goal.status  
+                                            choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}   
+                                        </div>      
+                                    </div>
+                                </div> 
+                                {{#if (eq goal.status "achieved")}}
+                                    <div class=" col-xs-12 fhir-form-item">
+                                        <label class="col-sm-5 control-label"  for="outcome"> Outcome: </label>
+                                        <div id="priority" class="col-xs-12 col-lg-7"> 
+                                            {{#codeable-concept parent=problem name='outcome'}}
+                                                {{fhir-choice parent=goal attribute=goal.outcome name='text' choices='CHANGEME,CHANGEME'}}
+                                            {{/codeable-concept}}
+                                        </div>
+                                    </div>
+                                {{/if}}
+                                <div class=" col-xs-12 fhir-form-item">
+                                    <label class="col-sm-5 control-label"  for="priority"> Priority: </label>
+                                    <div id="priority" class="col-xs-12 col-lg-7"> 
+                                        {{#codeable-concept parent=goal name='priority'}}
+                                            {{fhir-choice parent=goal attribute=goal.priority name='text' choices='Unspecified,Low,Medium,High'}}
+                                        {{/codeable-concept}}
+                                    </div>
+                                </div>
+                                <div class=" col-xs-12 fhir-form-item">
+                                    <label class="col-sm-5 control-label"  for="category"> Category: </label>
+                                    <div id="priority" class="col-xs-12 col-lg-7"> 
+                                        {{#codeable-concept parent=goal name='category'}}
+                                            {{fhir-choice parent=goal attribute=goal.category name='text' choices='CHANGEME,CHANGEME'}}
+                                        {{/codeable-concept}}
+                                    </div>
+                                </div>                                
+                                <div class="col-xs-12 fhir-form-item">                                 
+                                    <label class="col-sm-5 control-label"  for="targetDate">Target Date:</label>                                     
+                                    <div id="targetDate" class="col-xs-12 col-lg-7"> 
+                                        {{fhir-datetime name='targetDate' attribute=goal.target.targetDate}}
+                                    </div>
+                                </div>
+                                {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
+                                {{related-list parent=goal relation='rlProcedureRequests' display='status' label="Interventions"}}
+                            </div>
                         {{else}}
                             {{goal.description}}
                             {{#unless goal.description}}

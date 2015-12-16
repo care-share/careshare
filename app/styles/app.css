@@ -20108,7 +20108,9 @@ button.nobackground{
   width: 100% !important;
 }*/
 
-
+.fhir-form-item{
+  padding:2px;
+}
 /*
 .control-label{ 
   padding-top: 7px; 
