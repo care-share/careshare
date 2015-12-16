@@ -147,37 +147,57 @@ export default Ember.Controller.extend({
             this.toggleProperty('isShowingForm');
         },
         createRelation: function (draggedObject, options) {
-            console.log('createRelation called');
             var ontoObject = options.target.ontoObject;
             var ontoModel = ontoObject._internalModel.modelName;
             var draggedModel = draggedObject._internalModel.modelName;
+            console.log(`createRelation called for ${draggedModel} to ${ontoModel}`);
 
             // Architectural logic for how we create the link:
             // (we need to know which type should be the referrer, and what attribute the reference list lives in, and whether that attribute allows multiple values)
-            switch (ontoModel, draggedModel) {
-                case ('goal', 'condition'):
-                case ('goal', 'procedure-request'):
-                case ('goal', 'nutrition-order'):
-                    this.addReference(ontoObject, draggedObject, 'addresses', true);
-                    // add a temporary descriptive reference directly to the model
-                    this.addLocalRelation(draggedObject, ontoObject, 'rlGoals');
-                    break;
-                case ('condition', 'goal'):
-                case ('procedure-request', 'goal'):
-                case ('nutrition-order', 'goal'):
-                    this.addReference(draggedObject, ontoObject, 'addresses', true);
-                    // add a temporary descriptive reference directly to the model
-                    var relName = `rl${ontoModel.camelize().capitalize().pluralize()}`;
-                    this.addLocalRelation(draggedObject, ontoObject, relName);
-                    break;
-                case ('condition', 'medication-order'):
-                    this.addReference(draggedObject, ontoObject, 'reason', false);
-                    break;
-                case ('medication-order', 'condition'):
-                    this.addReference(ontoObject, draggedObject, 'reason', false);
-                    break;
-                default:
-                    console.log('no link logic found');
+            var that = this;
+            var otherToGoal = function () {
+                that.addReference(ontoObject, draggedObject, 'addresses', true);
+                // add a temporary descriptive reference directly to the model
+                that.addLocalRelation(draggedObject, ontoObject, 'rlGoals');
+            };
+            var goalToOther = function () {
+                that.addReference(draggedObject, ontoObject, 'addresses', true);
+                // add a temporary descriptive reference directly to the model
+                var relName = `rl${ontoModel.camelize().capitalize().pluralize()}`;
+                that.addLocalRelation(draggedObject, ontoObject, relName);
+            };
+            var medToCondition = function () {
+                that.addReference(draggedObject, ontoObject, 'reason', false);
+            };
+            var conditionToMed = function () {
+                that.addReference(ontoObject, draggedObject, 'reason', false);
+            };
+            var map = {
+                // ontoModel
+                'goal': {
+                    // draggedModel
+                    'condition': otherToGoal,
+                    'procedure-request': otherToGoal,
+                    'nutrition-order': otherToGoal
+                },
+                'condition': {
+                    'goal': goalToOther,
+                    'medication-order': medToCondition
+                },
+                'procedure-request': {
+                    'goal': goalToOther
+                },
+                'nutrition-order': {
+                    'goal': goalToOther
+                },
+                'medication-order': {
+                    'condition': conditionToMed
+                }
+            };
+            if (map[ontoModel] && map[ontoModel][draggedModel]) {
+                map[ontoModel][draggedModel]();
+            } else {
+                console.log('No link logic found!');
             }
         },
         hoverOn: function (model) {
