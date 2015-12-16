@@ -29,14 +29,6 @@ export default Ember.ArrayController.extend({
         toggleExpanded: function () {
             this.set('currentId', null);
         },
-        setChoice: function (patient, careplan) {
-            if (careplan === -9999) {
-                this.set('currentId', null);
-            } else {
-                //this.transitionTo('patients.care-plans',patient,careplan);
-                window.location.href = '/patients/' + patient + '/careplans/' + careplan;
-            }
-        },
         getCarePlans: function (id) {
             var parent = this;
             this.store.find('CarePlan', {

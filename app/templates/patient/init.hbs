@@ -5,18 +5,18 @@
     <h3>
         PLACEHOLDER FOR PATIENT INFO BANNER
         <br/>
-        Patient name:                   {{#each name as |name|}}
-        <span>{{name.given}},{{name.family}}</span>
-    {{/each}}
+        Patient name:
+        {{#each name as |name|}}
+            <span>{{name.family}}, {{name.given}}</span>
+        {{/each}}
     </h3>
     Age: {{age}} (born {{birthDate}})
     <br/>
     Gender: {{gender}}
 </div>
 <div class="col-sm-12">
-    <br/>
     <h4>Which concerns are relevant to this care plan?</h4>
-    {{multiselect-checkboxes options=conditions labelProperty='displayName' selection=selectedConditions}}
+    {{multiselect-checkboxes options=conditions labelProperty='code.text' selection=selectedConditions}}
 </div>
 <div class="col-sm-12">
     <h4>Functional limitations</h4>
@@ -44,8 +44,6 @@
         <li class="col-md-4">
             <label>{{input type="checkbox" name="limitationDyspneaWithMinimalExertion" checked=limitationDyspneaWithMinimalExertion}}
                 Dyspnea With Minimal Exertion</label></li>
-        <li class="col-md-4"><label>{{input type="checkbox" name="limitationAmputation" checked=limitationAmputation}}
-            Amputation</label></li>
         <li class="col-md-5"><label>Other: {{input type="text" name="limitationOther"}}</label></li>
     </ul>
 </div>
@@ -72,7 +70,7 @@
 </div>
 <div class="col-sm-12">
     <h4>Notes</h4>
-    {{textarea value=comment cols="80" rows="6"}}
+    {{textarea value=comment cols="80" rows="3"}}
 </div>
 <div class="col-sm-12">
     <br/>

@@ -39,15 +39,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             console.log('Rendering patient from Application');
             this.transitionTo('patient.filters', id);
         },
-        renderCarePlan: function (patientID) {
-            var e = document.getElementById('dropdown' + patientID);
-            var careplanID = e.options[e.selectedIndex].value;
-            console.log('patientID');
-            console.log(patientID);
-
-            // this.get('controller').transitionToRoute('careplan', testing);
-            this.transitionTo('careplan', {'a': patientID, 'b': careplanID});
-        },
         queryParamsDidChange: function (params) {
             if (params != null) {
                 console.log('params changed...');

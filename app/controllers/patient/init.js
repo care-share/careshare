@@ -37,17 +37,7 @@ export default Ember.ObjectController.extend({
             var that = this;
             carePlan.save()
                 .then(function (/*savedCarePlan*/) {
-                    that.store.find('CarePlan', {
-                            subject: that.model.id
-                        })
-                        .then(function (response) {
-                            if (response != null) {
-                                var careplans = response.toArray();
-                                if (careplans.length > 0) {
-                                    that.transitionToRoute('careplan', careplans[0]);
-                                }
-                            }
-                        });
+                    that.transitionToRoute('careplan.filters', that.model.id, newId);
                 }); // TODO: add catch for errors
         }
     }
