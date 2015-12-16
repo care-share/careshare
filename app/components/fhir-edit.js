@@ -26,5 +26,10 @@ export default Ember.Component.extend({
 			}
 		});
 		this.set('calculatedPatch',finalPatch);
-    }.observes('attribute')
+    }.observes('attribute'),
+	actions:{
+	    cancel: function(){
+		    this.set('attribute',this.get('original'));
+		}
+	}
 });
