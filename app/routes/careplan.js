@@ -8,17 +8,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         console.log(params);
         controller.id = params.careplan_id;
 
-        this.store.find('CarePlan', params.careplan_id)
-            .then(function (response) {
-                controller.set('CarePlan', response);
-            });
-
-        //Load all information as the default has it showing
-        this.doQueries('Condition'); // conditions
-        this.doQueries('Goal'); // goals
-        this.doQueries('ProcedureRequest'); // interventions
-        this.doQueries('DiagnosticOrder'); // observations
-
         // TODO: change this to use new function for queries
         //var patientId = window.location.href.split('/')[4];
         //var mystore = this.store;
@@ -48,9 +37,23 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         //                controller.set('MedicationOrder', response);
         //            });
         //    });
+        return this.store.find('CarePlan', params.careplan_id);
+    },
+    afterModel(/*model*/) {
+        var condition = this.doQueries('Condition', true); // conditions
+        var goal = this.doQueries('Goal', true); // goals
+        var procedureRequest = this.doQueries('ProcedureRequest', true); // interventions
+        var diagnosticOrder = this.doQueries('DiagnosticOrder', true); // observations
+        // we have to wait until the queries are all finished before we allow the route to render
+        // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved
+        return Ember.RSVP.allSettled([condition, goal, procedureRequest, diagnosticOrder]);
     },
     // do queries for a model (single name, not pluralized name)
-    doQueries: function (modelName) {
+    doQueries: function (modelName, doUnload) {
+        if (doUnload) {
+            // if we've already loaded records for another CarePlan, unload them first before continuing
+            this.store.unloadAll(modelName);
+        }
         var include;
         switch (modelName) {
             case ('Condition'):
@@ -69,12 +72,12 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         }
         var controller = this.controllerFor('careplan');
         // to get the "create" buttons to work properly, we need to query *then* peekAll
-        this.store.query('CarePlan', {_id: controller.id, _include: include}) // the "_include" is effectively a join
+        return this.store.query('CarePlan', {_id: controller.id, _include: include}) // the "_include" is effectively a join
             .then(function (/*response*/) {
                 // response from query is an AdapterPopulatedRecordArray; immutable and does not live-update changes to the template
                 var value = controller.store.peekAll(modelName, {});
                 // value from peekAll is a RecordArray; mutable and live-updates changes to the template
-                controller.set(modelName.pluralize(), value);
+                controller.set(modelName.pluralize(), value.toArray());
                 // FIXME: revisit this...
                 // RecordArray should auto-update but does not seem to be triggering refresh of computed properties
                 // however, hover-highlighting causes those computed properties to get refreshed?!

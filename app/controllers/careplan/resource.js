@@ -33,7 +33,7 @@ export default Ember.Controller.extend({
             console.log('(CONTROLLER) REMOVE RECORD- record: ' + record);
 
             // remove "CarePlan -> <model>" reference
-            var carePlan = this.controllerFor('careplan').get('CarePlan');
+            var carePlan = this.controllerFor('careplan').get('model');
             var refs = carePlan.get(this.carePlanRefAttr)
                 .toArray();
             var modelName = record._internalModel.modelName.camelize().capitalize();
@@ -61,7 +61,7 @@ export default Ember.Controller.extend({
         saveRecord: function (record) {
             console.log('(CONTROLLER) SAVE RECORD- record: ' + record);
             var modelName = record._internalModel.modelName.camelize().capitalize();
-            var carePlan = this.controllerFor('careplan').get('CarePlan');
+            var carePlan = this.controllerFor('careplan').get('model');
             var that = this;
 
             // check if this is a new record or if we are updating an existing one
