@@ -1,3 +1,9 @@
-{{#bs-datetimepicker date=displayDate showToday=false format="YYYY-MM-DDTHH:mm:ss" forceDateOutput=true}}
-    {{input class='ember-view ember-text-field form-control' value=attribute focus-out='cancel' autofocus="autofocus"}}
-{{/bs-datetimepicker}}
+{{#if showTime}}
+    {{#bs-datetimepicker date=displayDate pickTime=showTime showToday=false format='YYYY-MM-DDTHH:mm:ss' forceDateOutput=true}}
+        {{input class='ember-view ember-text-field form-control' value=attribute focus-out='cancel' autofocus='autofocus'}}
+    {{/bs-datetimepicker}}
+{{else}}
+    {{#bs-datetimepicker date=displayDate pickTime=showTime showToday=false format='YYYY-MM-DD' forceDateOutput=true}}
+        {{input class='ember-view ember-text-field form-control' value=attribute focus-out='cancel' autofocus='autofocus'}}
+    {{/bs-datetimepicker}}
+{{/if}}

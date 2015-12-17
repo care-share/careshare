@@ -1,8 +1,11 @@
 import Ember from 'ember';
+
 export default Ember.Component.extend({
-    classNames: ['fhir-datetime'],
+	// args passed in from template: attribute, showTime
+	showTime: false,
+    classNames: ['fhir-datetime'], // needed for Ember to add this CSS class to the HTML element
     originalValue: '',
-	displayDate: '',
+	displayDate: '', // TODO: remove this because it's redundant for its 'format'? or make this into a computed property
 	isObserving: true,
 	setup: function () {
 	    console.log('FHIR-DATETIME: init');

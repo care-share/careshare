@@ -22,8 +22,8 @@
                                     <div class=" col-xs-12 fhir-form-item">
                                         <label class="col-sm-5 control-label"  for="outcome"> Outcome: </label>
                                         <div id="priority" class="col-xs-12 col-lg-7"> 
-                                            {{#codeable-concept parent=problem name='outcome'}}
-                                                {{fhir-choice parent=goal attribute=goal.outcome name='text' choices='CHANGEME,CHANGEME'}}
+                                            {{#codeable-concept parent=goal name='outcome'}}
+                                                {{fhir-choice attribute=goal.outcome choices='CHANGEME,CHANGEME'}}
                                             {{/codeable-concept}}
                                         </div>
                                     </div>
@@ -32,7 +32,7 @@
                                     <label class="col-sm-5 control-label"  for="priority"> Priority: </label>
                                     <div id="priority" class="col-xs-12 col-lg-7"> 
                                         {{#codeable-concept parent=goal name='priority'}}
-                                            {{fhir-choice parent=goal attribute=goal.priority.text name='text' choices='Unspecified,Low,Medium,High'}}
+                                            {{fhir-choice attribute=goal.priority.text choices='Unspecified,Low,Medium,High'}}
                                         {{/codeable-concept}}
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                     <label class="col-sm-5 control-label"  for="category"> Category: </label>
                                     <div id="priority" class="col-xs-12 col-lg-7">
                                         {{#codeable-concept parent=goal name='category'}}
-                                            {{fhir-choice parent=goal attribute=goal.category.text name='text' choices='CHANGEME,CHANGEME'}}
+                                            {{fhir-choice attribute=goal.category.text choices='CHANGEME,CHANGEME'}}
                                         {{/codeable-concept}}
                                     </div>
                                 </div>

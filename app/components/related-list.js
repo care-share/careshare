@@ -1,8 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    me: 'related-list',
-    classNames: ['related-list'],
+    // args passed in from template: parent, relation (string), display (string), label (string)
+    classNames: ['related-list'], // needed for Ember to add this CSS class to the HTML element
 	originalSelections: null,
     setup: function () {
         if (this.get('parent')) {
@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 			this.get('originalSelections').forEach(function(item){
 			    console.log('selection: '+item.display);
 			});
-            console.log('[INIT] (' + this.get('me') + ') '+this.get('originalSelections'));
+            console.log('[INIT] (RELATED-LIST) '+this.get('originalSelections'));
         }
     }.on('init'),
     onInitialization: function () {

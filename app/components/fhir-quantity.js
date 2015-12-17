@@ -1,26 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    me: 'QUANTITY',
-	hover: false,
-    updateRecord: 'updateRecord',
-    updateArray: 'updateArray',
-    removeItem: 'removeItem',
-    saveRecord: 'saveRecord',
+    // args passed in from template: parent, name, type
+    // action dictionary/map:
+    updateRecord: 'updateRecord', // this is needed to bubble this action to the respective controller action
+    updateArray: 'updateArray', // this is needed to bubble this action to the respective controller action
+    removeItem: 'removeItem', // this is needed to bubble this action to the respective controller action
+    saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
     setup: function () {
         if (this.get('parent')) {
-            console.log('[INIT] (' + this.get('me') + ') {record: ' + this.get('parent') + ',name: ' + this.get('name'));
+            console.log('[INIT] (QUANTITY) {record: ' + this.get('parent') + ',name: ' + this.get('name'));
         }
     }.on('init'),
     actions: {
-	    hoverOn: function(){this.set('hover',true);},
-		hoverOff: function(){this.set('hover',false);},
+        // TODO: do we need these actions? remove them if not
         updateRecord: function (parent, name, type) {
-            console.log('(' + this.get('me') + ') UPDATE RECORD - record: ' + parent + ',name: ' + name + ',type: ' + type);
+            console.log('(QUANTITY) UPDATE RECORD - record: ' + parent + ',name: ' + name + ',type: ' + type);
             this.sendAction('updateRecord', parent, name, type);
         },
         saveRecord: function () {
-            console.log('(' + this.get('me') + ') SAVE RECORD');
+            console.log('(QUANTITY) SAVE RECORD');
             if (!this.get('root')) {
                 this.get('parent').save();
             }
@@ -29,11 +28,11 @@ export default Ember.Component.extend({
             }
         },
         removeItem: function (record, index) {
-            console.log('(' + this.get('me') + ') REMOVE ARRAY ITEM - parent: ' + record + ',index: ' + index);
+            console.log('(QUANTITY) REMOVE ARRAY ITEM - parent: ' + record + ',index: ' + index);
             this.sendAction('removeItem', record, index);
         },
         updateArray: function (parent, name, type) {
-            console.log('(' + this.get('me') + ') UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
+            console.log('(QUANTITY) UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
             this.sendAction('updateArray', parent, name, type);
         }
     }
