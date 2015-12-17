@@ -14,15 +14,11 @@ export default Ember.Component.extend({
             console.log('[INIT] (' + this.get('me') + ') {record: ' +
                 this.get('parent') + ',name: ' + this.get('name') + ',type: ' + this.get('type'));
             this.sendAction('updateRecord', this.get('parent'), this.get('name'), this.get('type'));
+        } else if (this.get('root.isNewRecord')) {
+            // newly created records start out expanded
+            this.set('expanded', true);
         }
     }.on('init'),
-    isTopLevel: function () {
-            console.log("Root");
-            console.log(this.get('root'));
-            if (this.get('root')){
-                return true;
-            }
-    },
     actions: {
         updateArray: function (parent, name, type) {
             console.log('(' + this.get('me') + ') UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
@@ -63,6 +59,5 @@ export default Ember.Component.extend({
         expand: function () {
             this.set('expanded', true);
         }
-
     }
 });
