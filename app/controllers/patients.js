@@ -11,18 +11,12 @@ export default Ember.ArrayController.extend({
             // triggers queries for attributes that are lazy-loaded (e.g. Care Plans)
             patient.set('doLazyLoad', true);
         },
-        renderPatient: function (/*id*/) {
-            console.log('Rendering patient from patients');
-            //this.transitionToRoute('patient.filters', id);
-            return true;
-        },
         renderCarePlan: function (patientID) {
             console.log('Rendering patient from patients');
             var e = document.getElementById('dropdown' + patientID);
             //this.transitionToRoute('patient.filters', id);
             var careplanID = e.options[e.selectedIndex].value;
 
-            // this.get('controller').transitionToRoute('careplan', testing);
             this.transitionToRoute('careplan.filters', patientID, careplanID);
             //return true;
         },
