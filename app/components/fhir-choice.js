@@ -3,34 +3,30 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	tagName: 'span',
 	original: '',
-	patcher: null,
-	canceled: false,
-	calculatedPatch: '',
+	selectedChoice: '',
+	calculatedPatch: function(){
+	    console.log('fhir-choice recalc selectedChoice: '+this.get('selectedChoice')+',original:'+this.get('original'));	
+        console.log('fhir-choice attribute type: '+typeof(this.get('attribute'))+
+		',selectedChoice type: '+typeof(this.get('selectedChoice')));
+		try{this.set('attribute',this.get('selectedChoice'));}catch(err){console.log('ERROR fhir-choice: '+err);}
+	    console.log('fhir-choice attribute is now: '+this.get('attribute'));
+	    return (this.get('selectedChoice') === this.get('original')) ? '' :
+		    '\<ins style=\'background:#e6ffe6\'\>'+this.get('selectedChoice')+'\<\/ins\>';
+	}.property('selectedChoice'),
     classNames: ['fhir-choice'],
     finalChoices: [],
     setup: function () {
-	    if(this.get('original') === undefined)
-	        this.set('original','');
-		this.set('patcher',new diff_match_patch());
-        this.set('finalChoices', this.get('choices').split(','));
-		console.log('INIT: FHIR-CHOICE- attribute: ' + this.get('original'));	
+	    this.set('finalChoices', this.get('choices').split(','));
+		if(this.get('attribute') === undefined)
+        this.set('selectedChoice',this.get('attribute') === undefined ?
+		    this.get('finalChoices')[0] : this.get('attribute'));
+	    this.set('original',this.get('selectedChoice'));
+		console.log('INIT: FHIR-CHOICE- attribute: ' + this.get('attribute'));	
     }.on('init'),
-	attrObserve: function () {
-	    if(this.get('canceled') === true){
-		    this.set('canceled',false);
-			return;
-	    }
-	    console.log('fhir-choice attribute changed: '+this.get('attribute'));
-	    var patcher = this.get('patcher');
-	    var diff = patcher.diff_main(this.get('original'),this.get('attribute'),true);
-		this.set('calculatedPatch',patcher.diff_prettyHtml(diff));
-    }.observes('attribute'),
 	actions:{
 	    cancel: function(){
-		    this.set('attribute',this.get('original'));
-			this.set('calculatedPatch','');
-	        console.log('fhir-choice calculatedPatch: '+this.get('calculatedPatch'));
-		    this.set('canceled',true);
+		    console.log('fhir-choice cancel: current-'+this.get('attribute')+',new- '+this.get('original'));
+		    this.set('selectedChoice',this.get('original'));
 		}
 	}
 });
