@@ -1,3 +1,9 @@
 {{#bs-datetimepicker date=displayDate showToday=false format="YYYY-MM-DDTHH:mm:ss" forceDateOutput=true}}
     {{input class='ember-view ember-text-field form-control' value=attribute focus-out='cancel' autofocus="autofocus"}}
 {{/bs-datetimepicker}}
+{{#if (and trackChanges (gt calculatedPatch.length 0))}} 
+    <div style='background-color:#dddddd'>
+	    {{{calculatedPatch}}}
+		<button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
+	</div> 
+{{/if}}

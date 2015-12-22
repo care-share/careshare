@@ -4,6 +4,11 @@ export default Ember.Component.extend({
     originalValue: '',
 	displayDate: '',
 	isObserving: true,
+	calculatedPatch: function(){
+	    console.log('fhir-datetime recalc displayDate: '+this.get('displayDate')+',original:'+this.get('original'));	
+	    return (this.get('displayDate') === this.get('original')) ? '' :
+		    '\<ins style=\'background:#e6ffe6\'\>'+this.get('displayDate')+'\<\/ins\>';
+	}.property('displayDate'),
 	setup: function () {
 	    console.log('FHIR-DATETIME: init');
 		this.set('originalValue',this.get('attribute'));
@@ -23,6 +28,7 @@ export default Ember.Component.extend({
             console.log('FHIR-DATETIME: cancel');
             this.set('attribute', this.get('originalValue'));
 			this.send('dateFormat');
+			this.set('calculatedPatch','');
         },
 		dateFormat: function(){
 		    console.log('FHIR-DATETIME: format attribute ('+this.get('originalValue')+')');
@@ -40,6 +46,7 @@ export default Ember.Component.extend({
 			else{
 				this.set('displayDate', '(None)');
 			}
+			
 	    }
     }
 });
