@@ -17,7 +17,6 @@ export default Ember.Component.extend({
     finalChoices: [],
     setup: function () {
 	    this.set('finalChoices', this.get('choices').split(','));
-		if(this.get('attribute') === undefined)
         this.set('selectedChoice',this.get('attribute') === undefined ?
 		    this.get('finalChoices')[0] : this.get('attribute'));
 	    this.set('original',this.get('selectedChoice'));
