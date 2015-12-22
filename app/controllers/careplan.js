@@ -21,16 +21,16 @@ export default Ember.Controller.extend({
     showOpenID: false,
     Goals: [], // goals
     Conditions: [], // problems
-    DiagnosticOrders: [], // observations
+    NutritionOrders: [], // nutrition
     ProcedureRequests: [], // interventions
     MedicationOrders: [], // medications
     showGoals: true, // goals
     showConditions: true, // problems
-    showDiagnosticOrders: true, // observations
+    showNutritionOrders: true, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: false, // medications
-    colClass: Ember.computed('showGoals', 'showConditions', 'showDiagnosticOrders', 'showProcedureRequests', 'showMedicationOrders', function () {
-        var numCol = this.get('showGoals') + this.get('showConditions') + this.get('showDiagnosticOrders') + this.get('showProcedureRequests') + this.get('showMedicationOrders');
+    colClass: Ember.computed('showGoals', 'showConditions', 'showNutritionOrders', 'showProcedureRequests', 'showMedicationOrders', function () {
+        var numCol = this.get('showGoals') + this.get('showConditions') + this.get('showNutritionOrders') + this.get('showProcedureRequests') + this.get('showMedicationOrders');
         // Use Bootstrap class  : custom class
         return 12 % numCol === 0 ? "col-md-" + 12 / numCol : "col-xs-5ths";
     }),
@@ -64,9 +64,9 @@ export default Ember.Controller.extend({
     mProblems: function () {
         return this.applyHighlights('Conditions');
     }.property('Conditions', 'toHighlight'),
-    mObservations: function () {
-        return this.applyHighlights('DiagnosticOrders');
-    }.property('DiagnosticOrders', 'toHighlight'),
+    mNutrition: function () {
+        return this.applyHighlights('NutritionOrders');
+    }.property('NutritionOrders', 'toHighlight'),
     mInterventions: function () {
         return this.applyHighlights('ProcedureRequests');
     }.property('ProcedureRequests', 'toHighlight'),

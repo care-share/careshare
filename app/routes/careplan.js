@@ -43,10 +43,10 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         var condition = this.doQueries('Condition', true); // conditions
         var goal = this.doQueries('Goal', true); // goals
         var procedureRequest = this.doQueries('ProcedureRequest', true); // interventions
-        var diagnosticOrder = this.doQueries('DiagnosticOrder', true); // observations
+        var nutritionOrder = this.doQueries('NutritionOrder', true); // nutrition
         // we have to wait until the queries are all finished before we allow the route to render
         // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved
-        return Ember.RSVP.allSettled([condition, goal, procedureRequest, diagnosticOrder]);
+        return Ember.RSVP.allSettled([condition, goal, procedureRequest, nutritionOrder]);
     },
     // do queries for a model (single name, not pluralized name)
     doQueries: function (modelName, doUnload) {
@@ -63,7 +63,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
                 include = 'CarePlan:goal';
                 break;
             case ('ProcedureRequest'):
-            case ('DiagnosticOrder'):
+            case ('NutritionOrder'):
                 include = 'CarePlan:activityreference';
                 // TODO: find a way to narrow down the target resource type for activityreference
                 // should be possible according to: http://hl7.org/fhir/search.html#include
