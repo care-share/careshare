@@ -6,15 +6,51 @@
                 <div {{action "hoverOn" intervention on="mouseEnter"}} {{action "hoverOff" intervention on="mouseLeave"}}>
                     {{#fhir-element root=intervention type='ProcedureRequest' as |section|}}
                         {{#if (eq section "expanded")}}
-                            Status: {{fhir-choice name='status' attribute=intervention.status choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-xs-12 fhir-form-item">  
+                                    <div class="col-xs-12 col-lg-6">                                    
+                                        {{#codeable-concept parent=intervention name='code'}}
+                                            {{fhir-edit attribute=intervention.code.text }}
+                                        {{/codeable-concept}}         
+                                    </div>
+                                    <div class="col-xs-12 col-lg-6">   
+                                        {{fhir-choice attribute=intervention.status choices='proposed,draft,requested,received,accepted,in-progress,completed,suspended,rejected,aborted'}}  
+                                    </div>      
+                                </div>
+                                <div class=" col-xs-12 fhir-form-item">
+                                    <label class="col-sm-5 control-label"  for="priority"> Priority: </label>
+                                    <div id="priority" class="col-xs-12 col-lg-7"> 
+                                        {{fhir-choice attribute=intervention.priority choices='Unspecified,Low,Medium,High'}}
+                                    </div>
+                                </div>
+                                <div>
+                                    timing
+                                </div>
+
+                                <select id="dropdown{{patient.id}}" class="form-control">
+                                    <option disabled selected> Body Sites </option>
+                                </select>
+                                <div>
+                                    reason
+                                </div>
+                                <div>
+                                 Performer
+                                </div>
+                                <div>
+                                 Orderer
+                                </div>
+
                             Ordered On: {{fhir-datetime attribute=intervention.orderedOn showTime=false}}
                             {{related-list parent=intervention relation='rlGoals' display='description' label="Goals"}}
+                            </div>
+                        </div>
                         {{else}}
-                            {{intervention.status}}
-                            {{#unless intervention.status}}
-                                Add status...
-                            {{/unless}}
+                            {{intervention.code.text}} - {{intervention.status}}
                         {{/if}}
+                    {{/fhir-element}}
+                    {{#fhir-element root=intervention type='ProcedureRequest' as |section|}}
+                        testing
                     {{/fhir-element}}
                 </div>
             {{/draggable-object}}

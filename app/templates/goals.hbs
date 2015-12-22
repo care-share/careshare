@@ -10,10 +10,11 @@
                                 <div class="form-group">
                                     <div class="col-xs-12 fhir-form-item">  
                                         <div class="col-xs-12 col-lg-6">
-                                            {{fhir-edit parent=goal attribute=goal.description name='description' action='altered'}}
+                                            {{fhir-edit attribute=goal.description}}
+                                            {{!fhir-edit attribute=goal.description action='altered'}}
                                         </div>
                                         <div class="col-xs-12 col-lg-6">   
-                                            {{fhir-choice parent=goal name='status' attribute=goal.status  
+                                            {{fhir-choice attribute=goal.status  
                                             choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}   
                                         </div>      
                                     </div>
@@ -21,7 +22,7 @@
                                 {{#if (eq goal.status "achieved")}}
                                     <div class=" col-xs-12 fhir-form-item">
                                         <label class="col-sm-5 control-label"  for="outcome"> Outcome: </label>
-                                        <div id="priority" class="col-xs-12 col-lg-7"> 
+                                        <div id="outcome" class="col-xs-12 col-lg-7"> 
                                             {{#codeable-concept parent=goal name='outcome'}}
                                                 {{fhir-choice attribute=goal.outcome choices='CHANGEME,CHANGEME'}}
                                             {{/codeable-concept}}
@@ -49,7 +50,7 @@
                                 <div class="col-xs-12 fhir-form-item">                                 
                                     <label class="col-sm-5 control-label"  for="targetDate">Target Date:</label>                                     
                                     <div id="targetDate" class="col-xs-12 col-lg-7"> 
-                                        {{fhir-datetime name='targetDate' attribute=goal.targetDate}}
+                                        {{fhir-datetime attribute=goal.targetDate}}
                                     </div>
                                 </div>
                                 {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
@@ -57,9 +58,6 @@
                             </div>
                         {{else}}
                             {{goal.description}}
-                            {{#unless goal.description}}
-                                Add description...
-                            {{/unless}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>
