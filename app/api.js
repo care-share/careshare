@@ -150,9 +150,13 @@ export default {
     },
     changeFhirId: function (id, fhir_id, data, controller) {
         console.log('SET FHIR ID: ' + fhir_id + ' FOR USER ' + id);
+        var url = `${this.host}/users/${id}/fhir_id`;
+        if (fhir_id) {
+            url += `/${fhir_id}`;
+        }
         Ember.$.ajax({
-            url: this.host + '/users/' + id + '/fhir_id/' + (fhir_id ? fhir_id : ''),
-            type: 'put',
+            url: url,
+            type: (fhir_id ? 'put' : 'delete'),
             headers: {
                 'X-Auth-Token': data.token
             },
