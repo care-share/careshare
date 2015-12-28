@@ -29,7 +29,7 @@ export default Ember.Controller.extend({
             var fhir_id = this.get('mFhirId');
             this.set('mUser.fhir_id', fhir_id);
             // change user's FHIR ID in the database
-            API.changeFhirId(this.get('mUser.email'), fhir_id, this.get('session.data.authenticated'), this);
+            API.changeFhirId(this.get('mUser._id'), fhir_id, this.get('session.data.authenticated'), this);
             // clear props
             this.set('mUser', undefined);
             this.set('mFhirId', undefined);
@@ -41,24 +41,24 @@ export default Ember.Controller.extend({
             this.get('target')
                 .send('reset', this);
         },
-        approve: function (email) {
+        approve: function (id) {
             console.log('approve(controller) called');
             this.get('target')
-                .send('approve', email, this.get('session.data.authenticated'), this);
+                .send('approve', id, this.get('session.data.authenticated'), this);
         },
-        deny: function (email) {
+        deny: function (id) {
             console.log('deny(controller) called');
             this.get('target')
-                .send('deny', email, this.get('session.data.authenticated'), this);
+                .send('deny', id, this.get('session.data.authenticated'), this);
         },
-        toggleRole: function (email, role, isHeld) {
+        toggleRole: function (id, role, isHeld) {
             console.log('toggleRole(controller) called');
             if (!isHeld) {
                 this.get('target')
-                    .send('addRole', email, role, this.get('session.data.authenticated'), this);
+                    .send('addRole', id, role, this.get('session.data.authenticated'), this);
             } else {
                 this.get('target')
-                    .send('removeRole', email, role, this.get('session.data.authenticated'), this);
+                    .send('removeRole', id, role, this.get('session.data.authenticated'), this);
             }
         }
     },
