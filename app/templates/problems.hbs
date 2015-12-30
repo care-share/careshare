@@ -11,7 +11,7 @@
                                     <div class="col-xs-12" style="padding:2px">  
                                         <div class="col-xs-12 col-lg-6">                                    
     										{{#codeable-concept parent=problem name='code'}}
-    											{{fhir-edit trackChanges=isChangeRequest parent=problem attribute=problem.code.text name='text'}}
+    											{{fhir-edit trackChanges=isChangeRequest parent=problem name='code.text'}}
     										{{/codeable-concept}}         
                                         </div>
                                         <div class="col-xs-12 col-lg-6">   
