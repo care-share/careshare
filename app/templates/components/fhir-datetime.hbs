@@ -1,13 +1,12 @@
 {{#em-modal configName="bs" id=name}}
-    <!--the content of the modal...-->
     {{#em-modal-body}}
-        {{#bs-datetimepicker date=diffAttribute showToday=false format="YYYY-MM-DDTHH:mm:ss" forceDateOutput=true}}
-            {{input class='ember-view ember-text-field form-control' value=diffAttribute autofocus="autofocus"}}
+        {{#bs-datetimepicker date=diffAttribute showToday=false format="YYYY-MM-DDTHH:mm:ss" noIcon=true forceDateOutput=true sideBySide=true}}
+            {{input class='form-control' value=diffAttribute autofocus="autofocus"}}
         {{/bs-datetimepicker}}
 		{{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
     {{/em-modal-body}}
 {{/em-modal}}
-{{#em-modal-toggler modal-id=name class="glyphicon glyphicon-calendar"}}{{/em-modal-toggler}}
+{{em-modal-toggler modal-id=name class="glyphicon glyphicon-calendar"}}
 {{#if (gt calculatedPatch.length 0)}} 
     <div style='background-color:#dddddd'>
 	    {{{calculatedPatch}}}
