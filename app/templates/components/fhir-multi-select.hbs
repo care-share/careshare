@@ -1,0 +1,13 @@
+<select id="dropdown{{patient.id}}" class="form-control"
+    {{!action 'doLazyLoad' patient on='click'}}
+    {{!action 'doLazyLoad' patient on='mouseEnter'}}
+    {{!action 'renderCarePlan' patient.id on='change'}}
+    data-placeholder={{placeholder}} multiple="">
+    {{#each option in options}}
+        <option value={{option.value}}>
+            <div>
+                {{option.text}}
+            </div>
+        </option>
+    {{/each}}
+</select>
