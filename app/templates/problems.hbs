@@ -11,57 +11,57 @@
                                     <div class="col-xs-12 fhir-form-item">  
                                         <div class="col-xs-12 col-lg-6">                                    
     										{{#codeable-concept parent=problem name='code'}}
-    											{{fhir-edit parent=problem name='code.text'}}
+    											{{fhir-edit parent=problem attribute=problem.code.text name='text'}}
     										{{/codeable-concept}}         
                                         </div>
                                         <div class="col-xs-12 col-lg-6">   
-                                            {{fhir-choice parent=problem name='clinicalStatus' choices='active,relapse,remission,resolved'}}	
+                                            {{fhir-choice parent=problem attribute=problem.clinicalStatus name='clinicalStatus' choices='active,relapse,remission,resolved'}}	
                                         </div>		
                                     </div>
                                 </div> 
-							</div>
-                            <div>
-                                <div class=" col-xs-12" style="padding:2px">
-                                        <label class="col-sm-5 control-label"  for="severity"> Severity: </label>
-                                        <div id="severity" class="col-xs-12 col-lg-7"> 
-                                            {{#codeable-concept parent=problem name='severity'}}
-    										    {{fhir-choice parent=problem name='severity.text' choices='Unspecified,Low,Moderate,Important,Critical'}}
-    										{{/codeable-concept}}
-                                        </div>
+                                <div class=" col-xs-12 fhir-form-item">
+                                    <label class="col-sm-5 control-label"  for="severity"> Severity: </label>
+                                    <div id="severity" class="col-xs-12 col-lg-7"> 
+                                        {{#codeable-concept parent=problem name='severity'}}
+										    {{fhir-choice parent=problem attribute=problem.severity.text name='text' choices='Unspecified,Low,Moderate,Important,Critical'}}
+										{{/codeable-concept}}
                                     </div>
-                                    <div class="col-xs-12" style="padding:2px">                                 
-                                        <label class="col-sm-5 control-label"  for="category">Category:</label>                                     
-                                        <div id="category" class="col-xs-12 col-lg-7"> 
-    										{{#codeable-concept parent=problem name='category'}}
-    										    {{fhir-choice parent=problem name='category.text' choices='Complaint,Symptom,Finding,Diagnosis'}}
-    										{{/codeable-concept}}
-                                        </div>
+                                </div>
+                                <div class="col-xs-12 fhir-form-item">                                 
+                                    <label class="col-sm-5 control-label"  for="category">Category:</label>                                     
+                                    <div id="category" class="col-xs-12 col-lg-7"> 
+										{{#codeable-concept parent=problem name='category'}}
+										    {{fhir-choice parent=problem attribute=problem.category.text name='text' choices='Complaint,Symptom,Finding,Diagnosis'}}
+										{{/codeable-concept}}
                                     </div>
                                 </div>
                                 <div>
                                     <div class="col-xs-12 fhir-form-item">                                 
                                         <label class="col-sm-5 control-label"  for="onset">Onset:</label>                                     
                                         <div id="onset" class="col-xs-12 col-lg-7"> 
-                                            {{fhir-datetime parent=problem name='onsetDateTime'}}
+                                            {{fhir-datetime name='onsetDateTime' attribute=problem.onsetDateTime}}
                                         </div>
                                     </div>
                                     <div class="col-xs-12 fhir-form-item">                                 
                                         <label class="col-sm-5 control-label"  for="abatement">Abatement:</label>                                     
                                         <div id="abatement" class="col-xs-12 col-lg-7"> 
-                                            {{fhir-datetime parent=problem name='abatementDateTime'}}
+                                            {{fhir-datetime name='abatementDateTime' attribute=problem.abatementDateTime}}
                                         </div>
                                     </div>
                                 </div>
                                 <select id="dropdown{{patient.id}}" class="form-control">
                                     <option disabled selected> Body Sites </option>
                                 </select>
+                      
                                 {{related-list parent=problem relation='rlGoals' display='description' label="Goals" lastExpanded=controller.lastExpanded}}
                                 <div style="clear:left;">
                                     Notes:
                                 </div>
+                            </div>
                         {{else}}
                             {{!TODO: Wrap this with severity border-left}}
-                            {{problem.code.text}} - ({{problem.clinicalStatus}})                          
+                            {{problem.code.text}} - ({{problem.clinicalStatus}})
+                           
                         {{/if}}
                     {{/fhir-element}}
                 </div>

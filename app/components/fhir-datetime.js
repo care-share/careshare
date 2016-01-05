@@ -1,40 +1,45 @@
 import Ember from 'ember';
 export default Ember.Component.extend({
-	diffAttribute: null,
-	original: null,
-	patcher: new diff_match_patch(),
     classNames: ['fhir-datetime'],
-	showModal: false,
+    originalValue: '',
+	displayDate: '',
+	isObserving: true,
 	setup: function () {
-		this.set('original',this.get('parent').get(this.get('name')));
-	    this.set('diffAttribute',this.get('parent').get(this.get('name')+'Diff'));
-			
-		if(this.get('diffAttribute') === null || this.get('diffAttribute') === undefined){
-			if(this.get('original') === null || this.get('original') === undefined){
-		        this.set('diffAttribute','');
-		    }else{this.set('diffAttribute',this.get('original'));}	
-		}		
-        console.log('(FHIR-DATETIME) parent: '+this.get('parent')+', name: '+this.get('name')
-		    +', original: '+this.get('original')+', diffAttribute: '+this.get('diffAttribute'));
+	    console.log('FHIR-DATETIME: init');
+		this.set('originalValue',this.get('attribute'));
+		this.send('dateFormat');
 	}.on('init'),
-	calculatedPatch: function () {
-	    console.log('(FHIR-DATETIME) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' and original is: '+this.get('original'));
-	    if(this.get('diffAttribute') !== null && this.get('diffAttribute') !== undefined &&
-		    this.get('original') !== this.get('diffAttribute')){
-		    var diff = this.get('patcher').diff_main(
-			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : ''
-				,this.get('diffAttribute'),true);
-	        return this.get('patcher').diff_prettyHtml(diff);
+	change: function () {
+		console.log('FHIR-DATETIME: changed to '+this.get('attribute'));
+		if(this.get('isObserving') === true){
+			this.set('isObserving',false);
+			this.set('originalValue',new Date(Ember.Date.parse(this.get('attribute'))));	
+			this.send('dateFormat');
+			this.set('isObserving',true);
 		}
-		return '';
-    }.property('diffAttribute'),
+	}.observes('attribute'),
     actions: {
         cancel: function () {
-		    this.set('diffAttribute',
-			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '');
+            console.log('FHIR-DATETIME: cancel');
+            this.set('attribute', this.get('originalValue'));
+			this.send('dateFormat');
         },
-		modalToggle: function(){
-		    this.set('showModal',!this.get('showModal'));
-		}
+		dateFormat: function(){
+		    console.log('FHIR-DATETIME: format attribute ('+this.get('originalValue')+')');
+			if(this.get('originalValue')){
+	            var date = new Date(Ember.Date.parse(this.get('originalValue')));
+				if(Number.isNaN(date.getUTCFullYear())){
+				    this.set('displayDate','');
+				}else{
+				    this.set('displayDate', date.getUTCFullYear() + '-' + 
+			         (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
+				}
+				if(this.get('displayDate').indexOf('nvalid') > -1){this.set('attribute','');}
+			    console.log('FHIR-DATETIME: displayDate is now ('+this.get('displayDate')+')');
+			}
+			else{
+				this.set('displayDate', '(None)');
+			}
+	    }
     }
 });

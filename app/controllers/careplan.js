@@ -8,7 +8,6 @@ export default Ember.Controller.extend({
     patient: Ember.computed.alias("controllers.patient"),
     // local vars
     apiUrl: window.Careshare.apiUrl,
-	isChangeRequest: false,
     isOpenID: window.Careshare.isOpenID,
     isSideBarDisplayed: true,
     lastLoginFailed: false,
@@ -116,9 +115,6 @@ export default Ember.Controller.extend({
         accountRequest: function () {
             API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);
         },
-		toggleChangeRequest: function(){
-		    this.set('isChangeRequest',!this.get('isChangeRequest'));
-		},
         toggleSideBarVisibility: function () {
             this.set('isSideBarDisplayed', false);
         },
