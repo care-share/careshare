@@ -52,11 +52,11 @@
                 {{#each model as |user|}}
                     <tr>
                         <td>{{user.name_last}}, {{user.name_first}} </td>
-                        <td> {{user.email}} </td>
+                        <td><span title="ID: {{user._id}}">{{user.email}}</span></td>
                         <td>
                             <div class="btn-group btn-group-xs">
                                 {{#each user.allRoles as |role|}}
-                                    <button {{action 'toggleRole' user.email role.key role.value}}
+                                    <button {{action 'toggleRole' user._id role.key role.value}}
                                             class="btn {{if role.value 'btn-success' 'btn-danger'}}">
                                         {{role.key}}
                                     </button>
@@ -74,8 +74,8 @@
                             {{/em-modal-toggler}}
                         </td>
                         <td style="padding:0">
-                            <span {{action 'approve' user.email}} class="icon btn-icon ion-checkmark"></span>
-                            <span {{action 'deny' user.email}} class="icon btn-icon ion-close"></span>
+                            <span {{action 'approve' user._id}} class="icon btn-icon ion-checkmark"></span>
+                            <span {{action 'deny' user._id}} class="icon btn-icon ion-close"></span>
                         </td>
                     </tr>
                 {{else}}
@@ -142,11 +142,11 @@
                 {{#each approved as |user|}}
                     <tr>
                         <td>{{user.name_last}}, {{user.name_first}} </td>
-                        <td> {{user.email}} </td>
+                        <td><span title="ID: {{user._id}}">{{user.email}}</span></td>
                         <td>
                             <div class="btn-group btn-group-xs">
                                 {{#each user.allRoles as |role|}}
-                                    <button {{action 'toggleRole' user.email role.key role.value}}
+                                    <button {{action 'toggleRole' user._id role.key role.value}}
                                             class="btn {{if role.value 'btn-success' 'btn-danger'}}">
                                         {{role.key}}
                                     </button>
@@ -163,9 +163,9 @@
                                 {{/if}}
                             {{/em-modal-toggler}}
                         </td>
-                        {{#if (not-eq user.email session.data.authenticated.email)}}
+                        {{#if (not-eq user._id session.data.authenticated._id)}}
                             <td style="padding:0">
-                                <span {{action 'deny' user.email}} class="icon btn-icon ion-close"></span>
+                                <span {{action 'deny' user._id}} class="icon btn-icon ion-close"></span>
                             </td>
                         {{else}}
                             <td>
@@ -191,7 +191,7 @@
     {{#em-modal-body}}
         <h4>
             <strong>CareShare User:</strong>
-            {{mUser.name_first}} {{mUser.name_last}} ({{mUser.email}})
+            {{mUser.name_first}} {{mUser.name_last}} (<span title="ID: {{mUser._id}}">{{mUser.email}}</span>)
             <br/>
             <strong>Associated FHIR ID:</strong>
             {{#if mFhirId}}

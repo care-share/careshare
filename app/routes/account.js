@@ -13,21 +13,21 @@ export default Ember.Route.extend({
             API.unapproved(this.get('session.data.authenticated'), controller);
             API.approved(this.get('session.data.authenticated'), controller);
         },
-        approve: function (email, session, controller) {
+        approve: function (id, session, controller) {
             console.log('approve(route) called');
-            API.approve(email, session, controller);
+            API.approve(id, session, controller);
         },
-        deny: function (email, session, controller) {
+        deny: function (id, session, controller) {
             console.log('deny(route) called');
-            API.deny(email, session, controller);
+            API.deny(id, session, controller);
         },
-        addRole: function (email, role, session, controller) {
+        addRole: function (id, role, session, controller) {
             console.log('add role(route) called');
-            API.addRole(email, role, session, controller);
+            API.addRole(id, role, session, controller);
         },
-        removeRole: function (email, role, session, controller) {
+        removeRole: function (id, role, session, controller) {
             console.log('remove role(route) called');
-            API.removeRole(email, role, session, controller);
+            API.removeRole(id, role, session, controller);
         }
     }
 });

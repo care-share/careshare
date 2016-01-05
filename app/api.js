@@ -41,6 +41,7 @@ export default {
             token: data.data.token,
             name_first: data.data.name_first,
             roles: data.data.roles,
+            _id: data.data._id,
             email: data.data.email,
             isAdmin: data.data.roles.indexOf('admin') > -1
         };
@@ -105,10 +106,10 @@ export default {
             });
         return Ember.RSVP.resolve({token: null});
     },
-    approve: function (email, data, controller) {
-        console.log('APPROVE: ' + email);
+    approve: function (id, data, controller) {
+        console.log('APPROVE: ' + id);
         Ember.$.ajax({
-            url: this.host + '/users/' + email + '/approve',
+            url: this.host + '/users/' + id + '/approve',
             type: 'post',
             headers: {
                 'X-Auth-Token': data.token
@@ -122,10 +123,10 @@ export default {
 
         return false;
     },
-    deny: function (email, data, controller) {
-        console.log('DENY: ' + email);
+    deny: function (id, data, controller) {
+        console.log('DENY: ' + id);
         Ember.$.ajax({
-            url: this.host + '/users/' + email,
+            url: this.host + '/users/' + id,
             type: 'delete',
             headers: {
                 'X-Auth-Token': data.token
@@ -139,19 +140,23 @@ export default {
 
         return false;
     },
-    addRole: function (email, role, data, controller) {
-        console.log('ADD ROLE: ' + role + ' FOR USER ' + email);
-        return changeRole(this.host, email, role, data, controller, true);
+    addRole: function (id, role, data, controller) {
+        console.log('ADD ROLE: ' + role + ' FOR USER ' + id);
+        return changeRole(this.host, id, role, data, controller, true);
     },
-    removeRole: function (email, role, data, controller) {
-        console.log('REMOVE ROLE: ' + role + ' FOR USER ' + email);
-        return changeRole(this.host, email, role, data, controller, false);
+    removeRole: function (id, role, data, controller) {
+        console.log('REMOVE ROLE: ' + role + ' FOR USER ' + id);
+        return changeRole(this.host, id, role, data, controller, false);
     },
-    changeFhirId: function (email, fhir_id, data, controller) {
-        console.log('SET FHIR ID: ' + fhir_id + ' FOR USER ' + email);
+    changeFhirId: function (id, fhir_id, data, controller) {
+        console.log('SET FHIR ID: ' + fhir_id + ' FOR USER ' + id);
+        var url = `${this.host}/users/${id}/fhir_id`;
+        if (fhir_id) {
+            url += `/${fhir_id}`;
+        }
         Ember.$.ajax({
-            url: this.host + '/users/' + email + '/fhir_id/' + (fhir_id ? fhir_id : ''),
-            type: 'put',
+            url: url,
+            type: (fhir_id ? 'put' : 'delete'),
             headers: {
                 'X-Auth-Token': data.token
             },
@@ -165,10 +170,10 @@ export default {
     }
 };
 
-function changeRole(host, email, role, data, controller, toggle) {
+function changeRole(host, id, role, data, controller, toggle) {
     var action = toggle ? 'put' : 'delete';
     Ember.$.ajax({
-        url: host + '/users/' + email + '/roles/' + role,
+        url: host + '/users/' + id + '/roles/' + role,
         type: action,
         headers: {
             'X-Auth-Token': data.token
