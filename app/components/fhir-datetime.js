@@ -4,6 +4,7 @@ export default Ember.Component.extend({
 	original: null,
 	patcher: new diff_match_patch(),
     classNames: ['fhir-datetime'],
+	showModal: false,
 	setup: function () {
 		this.set('original',this.get('parent').get(this.get('name')));
 	    this.set('diffAttribute',this.get('parent').get(this.get('name')+'Diff'));
@@ -31,6 +32,9 @@ export default Ember.Component.extend({
         cancel: function () {
 		    this.set('diffAttribute',
 			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '');
-        }
+        },
+		modalToggle: function(){
+		    this.set('showModal',!this.get('showModal'));
+		}
     }
 });
