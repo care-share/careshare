@@ -3,29 +3,33 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	tagName: 'span',
 	original: '',
-	selectedChoice: '',
-	calculatedPatch: function(){
-	    console.log('fhir-choice recalc selectedChoice: '+this.get('selectedChoice')+',original:'+this.get('original'));	
-        console.log('fhir-choice attribute type: '+typeof(this.get('attribute'))+
-		',selectedChoice type: '+typeof(this.get('selectedChoice')));
-		try{this.set('attribute',this.get('selectedChoice'));}catch(err){console.log('ERROR fhir-choice: '+err);}
-	    console.log('fhir-choice attribute is now: '+this.get('attribute'));
-	    return (this.get('selectedChoice') === this.get('original')) ? '' :
-		    '\<ins style=\'background:#e6ffe6\'\>'+this.get('selectedChoice')+'\<\/ins\>';
-	}.property('selectedChoice'),
+	patcher: null,
     classNames: ['fhir-choice'],
     finalChoices: [],
     setup: function () {
 	    this.set('finalChoices', this.get('choices').split(','));
-        this.set('selectedChoice',this.get('attribute') === undefined ?
-		    this.get('finalChoices')[0] : this.get('attribute'));
-	    this.set('original',this.get('selectedChoice'));
-		console.log('INIT: FHIR-CHOICE- attribute: ' + this.get('attribute'));	
+		this.set('original',this.get('parent').get(this.get('name')));
+	    this.set('patcher',new diff_match_patch());
+		
+		if(this.get('original') === null || this.get('original') === undefined){
+		    this.set('original',this.get('finalChoices')[0]);
+		}
+		
+		this.set('diffAttribute',this.get('original'));			
+		console.log('(FHIR-CHOICE) parent: '+this.get('parent')+', name: '+this.get('name')
+		    +', original: '+this.get('original')+', diffAttribute is named: parent.'+this.get('name')+'Diff');
     }.on('init'),
+	calculatedPatch: function () {
+	    console.log('(FHIR-CHOICE) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' and original is: '+this.get('original'));
+		var patcher = this.get('patcher');
+	    if(this.get('original') !== this.get('diffAttribute')){
+		    var diff = patcher.diff_main(this.get('original'),this.get('diffAttribute'),true);
+	        return patcher.diff_prettyHtml(diff);
+		}else{return '';}
+    }.property('diffAttribute'),
 	actions:{
 	    cancel: function(){
-		    console.log('fhir-choice cancel: current-'+this.get('attribute')+',new- '+this.get('original'));
-		    this.set('selectedChoice',this.get('original'));
+		    this.set('diffAttribute',this.get('original'));
 		}
 	}
 });
