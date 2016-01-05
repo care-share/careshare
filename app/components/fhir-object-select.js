@@ -3,9 +3,9 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	tagName: 'span',
     classNames: ['fhir-object-select'],
-    compSelection: function() {
-	   	return this.get('parent').get(this.get('localVariable'));
-  	}.property('parent', 'localVariable'),
+   //  compSelection: function() {
+	  //  	return this.get('parent').get(this.get('localVariable'));
+  	// }.property('parent', 'localVariable'),
     setup: function () {
     }.on('init'),
     actions: {

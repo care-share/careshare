@@ -28,11 +28,9 @@
                                 <div class=" col-xs-12 fhir-form-item">
                                     <label class="col-sm-5 control-label"  for="priority"> Reason: </label>
                                     <div id="priority" class="col-xs-12 col-lg-7"> 
-                                        {{#if (eq intervention.rlCondition false)}}
-                                            nothing
-                                        {{else}}
-                                            {{fhir-object-select parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
-                                        {{/if}}
+                                            {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
+                                            {{fhir-object-select compSelection=intervention.rlCondition parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
+                                      
                                     </div>
                                 </div>
                                 <select id="" class="form-control">
