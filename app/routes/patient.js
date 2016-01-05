@@ -4,6 +4,7 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 export default Ember.Route.extend(ApplicationRouteMixin, {
     model: function (params) {
         var controller = this.controllerFor('patient');
+        controller.set('id', params.patient_id);
         this.store.find('patient', params.patient_id)
             .then(function (response) {
                 if (response.get('gender')) {
@@ -19,7 +20,6 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
                         controller.set('lastName', name.get('family'));
                     });
                 controller.set('birthDate', response.get('birthDate'));
-                controller.set('id', params.patient_id);
             });
     },
     actions: {}
