@@ -1,10 +1,10 @@
-<h3 class="fhir-column-header">Observations</h3>
-<div id="observations-column" class="panel-group fhir-column">
+<h3 class="fhir-column-header">Nutrition</h3>
+<div id="nutrition-column" class="panel-group fhir-column">
     {{#each model as |observation|}}
         {{#draggable-object-target action="createRelation" ontoObject=goal}}
             {{#draggable-object content=goal}}
                 <div {{action "hoverOn" observation on="mouseEnter"}} {{action "hoverOff" observation on="mouseLeave"}}>
-                    {{#fhir-element root=observation type='DiagnosticOrder' as |section|}}
+                    {{#fhir-element root=observation type='NutritionOrder' as |section|}}
                         {{#if (eq section "expanded")}}
                             Status: {{fhir-choice name='status' attribute=observation.status choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
                         {{else}}
@@ -18,10 +18,10 @@
             {{/draggable-object}}
         {{/draggable-object-target}}
     {{else}}
-        No Observations<br />
+        No Nutrition<br />
     {{/each}}
     
 </div>
-<button  class="nobackground" {{action 'createRecord' 'DiagnosticOrder'}}>
-    <span class="glyphicon glyphicon-plus"></span> <strong>Add Observation</strong> 
+<button  class="nobackground" {{action 'createRecord' 'NutritionOrder'}}>
+    <span class="glyphicon glyphicon-plus"></span> <strong>Add Nutrition</strong>
 </button>

@@ -9,7 +9,7 @@ let PatientSerializer = Patient.extend({
         (hash.content || hash)['links'] = {
             carePlans: `/CarePlan${queryParam}`,
             conditions: `/Condition${queryParam}`,
-            observations: `/Observation${queryParam}`,
+            nutrition: `/Nutrition${queryParam}`,
             encounters: `/Encounter${queryParam}`,
             medications: `/MedicationStatement${queryParam}`,
             appointments: `/Appointment${queryParam}`,

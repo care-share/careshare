@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     patient: Ember.computed.alias('controllers.patient'),
     expandGoals: false,
     expandProblems: false,
-    expandObservations: false,
+    expandNutrition: false,
     expandInterventions: false,
     expandMedications: false,
     expandParticipants: false,
@@ -19,8 +19,8 @@ export default Ember.Controller.extend({
         toggleExpandInterventions: function () {
             this.toggleProperty('expandInterventions');
         },
-        toggleExpandObservations: function () {
-            this.toggleProperty('expandObservations');
+        toggleExpandNutrition: function () {
+            this.toggleProperty('expandNutrition');
         },
         toggleExpandMedications: function () {
             this.toggleProperty('expandMedications');

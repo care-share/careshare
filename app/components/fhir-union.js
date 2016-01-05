@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-    classNames: ['fhir-union'],
+    // args passed in from template: root, choices (JSON)
+    classNames: ['fhir-union'], // needed for Ember to add this CSS class to the HTML element
     isTypeChosen: false,
     allChoices: [],
     myChoice: {name: 'none', type: 'None selected'},

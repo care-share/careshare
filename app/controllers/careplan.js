@@ -21,16 +21,16 @@ export default Ember.Controller.extend({
     showOpenID: false,
     Goals: [], // goals
     Conditions: [], // problems
-    DiagnosticOrders: [], // observations
+    NutritionOrders: [], // nutrition
     ProcedureRequests: [], // interventions
     MedicationOrders: [], // medications
     showGoals: true, // goals
     showConditions: true, // problems
-    showDiagnosticOrders: true, // observations
+    showNutritionOrders: true, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: false, // medications
-    colClass: Ember.computed('showGoals', 'showConditions', 'showDiagnosticOrders', 'showProcedureRequests', 'showMedicationOrders', function () {
-        var numCol = this.get('showGoals') + this.get('showConditions') + this.get('showDiagnosticOrders') + this.get('showProcedureRequests') + this.get('showMedicationOrders');
+    colClass: Ember.computed('showGoals', 'showConditions', 'showNutritionOrders', 'showProcedureRequests', 'showMedicationOrders', function () {
+        var numCol = this.get('showGoals') + this.get('showConditions') + this.get('showNutritionOrders') + this.get('showProcedureRequests') + this.get('showMedicationOrders');
         // Use Bootstrap class  : custom class
         return 12 % numCol === 0 ? "col-md-" + 12 / numCol : "col-xs-5ths";
     }),
@@ -47,15 +47,21 @@ export default Ember.Controller.extend({
             references.addObject(reference);
             referringObject.set(attributeName, references);
         } else { // for reference attributes that allow only one value
-            referringObject.set(attributeName, [reference]);
+            referringObject.set(attributeName, reference);
         }
+        console.log(referringObject);
         referringObject.save();
     },
-    addLocalRelation: function (from, to, relName) {
-        if (!from.get(relName)) {
-            from.set(relName, Ember.Set.create());
+    addLocalRelation: function (from, to, relName, isSingleItem) {
+        if (isSingleItem){
+            from.set(relName, to);
         }
-        from.get(relName).add(to);
+        else {
+            if (!from.get(relName)) {
+                from.set(relName, Ember.Set.create());
+            }
+            from.get(relName).add(to);
+        } 
     },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
     mGoals: function () {
@@ -64,9 +70,9 @@ export default Ember.Controller.extend({
     mProblems: function () {
         return this.applyHighlights('Conditions');
     }.property('Conditions', 'toHighlight'),
-    mObservations: function () {
-        return this.applyHighlights('DiagnosticOrders');
-    }.property('DiagnosticOrders', 'toHighlight'),
+    mNutrition: function () {
+        return this.applyHighlights('NutritionOrders');
+    }.property('NutritionOrders', 'toHighlight'),
     mInterventions: function () {
         return this.applyHighlights('ProcedureRequests');
     }.property('ProcedureRequests', 'toHighlight'),
@@ -172,6 +178,19 @@ export default Ember.Controller.extend({
             var conditionToMed = function () {
                 that.addReference(ontoObject, draggedObject, 'reason', false);
             };
+
+            
+            var interventionToCondition = function () {
+                that.addReference(draggedObject, ontoObject, 'reasonReference', false);
+                // add a temporary descriptive reference directly to the model
+                that.addLocalRelation(draggedObject, ontoObject,  'rlCondition', true);
+            };
+
+            var conditionToIntervention = function () {
+                that.addReference(ontoObject, draggedObject, 'reasonReference', false);
+                // add a temporary descriptive reference directly to the model
+                that.addLocalRelation(ontoObject, draggedObject, 'rlCondition', true);
+            };
             var map = {
                 // ontoModel
                 'goal': {
@@ -182,10 +201,12 @@ export default Ember.Controller.extend({
                 },
                 'condition': {
                     'goal': goalToOther,
-                    'medication-order': medToCondition
+                    'medication-order': medToCondition,
+                    'procedure-request': interventionToCondition
                 },
                 'procedure-request': {
-                    'goal': goalToOther
+                    'goal': goalToOther,
+                    'condition': conditionToIntervention
                 },
                 'nutrition-order': {
                     'goal': goalToOther
@@ -206,11 +227,39 @@ export default Ember.Controller.extend({
             var newHighlights = Ember.Set.create();
             switch (modelName) {
                 // TODO: is there a better/cleaner way to do this?
+                // Clearly there is now with the need for nested if's inside the switch
                 case 'goal':
                     this.highlightGoalRefs(newHighlights, model);
                     break;
                 case 'condition':
+                    if (modelName === 'condition'){
+                        var interventions = this.get('ProcedureRequests').toArray();
+                        var conID = model.get('id');
+                        for (var c = 0; c < interventions.length; c++) {
+                            var intervention = interventions[c];
+                                                                                        //Reference is "type/ID"
+                            var interventionID = intervention.get('reasonReference').get('reference').split('/')[1];
+                            if (conID === interventionID){
+                                newHighlights.add(intervention.id);
+                            }
+                        }
+                    }
+                    //no break
                 case 'procedure-request':
+                    if (modelName === 'procedure-request' &&  model.get('reasonReference').get('reference')){
+                        var conditions = this.get('Conditions').toArray();
+                                                                        //Reference is "type/ID"
+                        var refID = model.get('reasonReference').get('reference').split('/')[1];
+                        for (var c = 0; c < conditions.length; c++) {
+                            var condition = conditions[c];
+                            var conID = condition.get('id');
+                            if (conID === refID){
+                                newHighlights.add(condition.id);
+                                this.addLocalRelation(model, condition, 'rlCondition', true);
+                            }
+                        }
+                    }
+                    //no break
                 case 'nutrition-order':
                     var goals = this.get('Goals')
                         .toArray();
@@ -238,7 +287,7 @@ export default Ember.Controller.extend({
         },
         hoverOff: function (model) {
             var modelName = model._internalModel.modelName;
-            console.log('hoverOff: ' + modelName + ' ' + model.id);
+            //console.log('hoverOff: ' + modelName + ' ' + model.id);
             var newHighlights = Ember.Set.create();
             this.set('toHighlight', newHighlights);
         }

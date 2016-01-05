@@ -44,14 +44,14 @@
                 </div>
             {{/if}}
         </li>
-        <li class="patient-filter {{if patient.showDiagnosticOrders 'active'}}">
+        <li class="patient-filter {{if patient.showNutritionOrders 'active'}}">
             <span class="glyphicon glyphicon-heart-empty"></span>
-            <span {{action 'toggleShow' 'DiagnosticOrder'}} class="column-toggler"> Observations </span>
-            <span {{action 'toggleExpandObservations'}}
-                    class="filters-expander {{if expandObservations 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
-            {{#if expandObservations}}
+            <span {{action 'toggleShow' 'NutritionOrder'}} class="column-toggler"> Nutrition </span>
+            <span {{action 'toggleExpandNutrition'}}
+                    class="filters-expander {{if expandNutrition 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
+            {{#if expandNutrition}}
                 <div>
-                    List of Observations here
+                    List of Nutrition here
                 </div>
             {{/if}}
         </li>

@@ -1,3 +1,4 @@
 {{#fhir-element parent=parent name=name type='Period' as |section|}}
+    <!-- TODO: update this component to not use fhir-element?? -->
     From: {{fhir-datetime name='start' attribute=attribute.start}} To: {{fhir-datetime name='end' attribute=attribute.end}}
 {{/fhir-element}}
