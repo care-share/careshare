@@ -246,7 +246,7 @@ export default Ember.Controller.extend({
                     }
                     //no break
                 case 'procedure-request':
-                    if (modelName === 'procedure-request'){
+                    if (modelName === 'procedure-request' &&  model.get('reasonReference').get('reference')){
                         var conditions = this.get('Conditions').toArray();
                                                                         //Reference is "type/ID"
                         var refID = model.get('reasonReference').get('reference').split('/')[1];

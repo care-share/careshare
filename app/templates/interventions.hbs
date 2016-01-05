@@ -28,7 +28,11 @@
                                 <div class=" col-xs-12 fhir-form-item">
                                     <label class="col-sm-5 control-label"  for="priority"> Reason: </label>
                                     <div id="priority" class="col-xs-12 col-lg-7"> 
-                                        {{fhir-object-select parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
+                                        {{#if (eq intervention.rlCondition false)}}
+                                            nothing
+                                        {{else}}
+                                            {{fhir-object-select parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
+                                        {{/if}}
                                     </div>
                                 </div>
                                 <select id="" class="form-control">
