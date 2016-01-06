@@ -26,6 +26,20 @@ export default CarePlanResource.extend({
                 category: category
             };
             this._super(type, args);
+        },
+        saveRecord: function (record) {
+            console.log('(PROBLEMS CONTROLLER) SAVE RECORD- record: ' + record + '. Applying diffs...');
+            
+            //Manually set diffs (TODO: for now, but maybe do this automatically in the future?).
+            record.set('code.text',record.get('code.textDiff'));
+            record.set('clinicalStatus',record.get('clinicalStatusDiff'));
+            record.set('severity.text',record.get('severity.textDiff'));
+            record.set('category.text',record.get('category.textDiff'));
+            record.set('onsetDateTime',record.get('onsetDateTimeDiff'));
+            record.set('abatementDateTime',record.get('abatementDateTimeDiff'));
+            
+            //TODO: Need to reload the controller to call init() and reset the diff. Should we be calling record.reload()???
+            return this._super(record);
         }
     }
 });
