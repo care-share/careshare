@@ -6,8 +6,8 @@
                 <div {{action "hoverOn" intervention on="mouseEnter"}} {{action "hoverOff" intervention on="mouseLeave"}}>
                     {{#fhir-element root=intervention type='ProcedureRequest' as |section|}}
                         {{#if (eq section "expanded")}}
-                            Status: {{fhir-choice name='status' attribute=intervention.status choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
-                            Ordered On: {{fhir-date name='orderedOn' attribute=intervention.orderedOn}}
+                            Status: {{fhir-choice parent=intervention name='status' choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+                            Ordered On: {{fhir-date parent=intervention name='orderedOn'}}
                             {{related-list parent=intervention relation='rlGoals' display='description' label="Goals"}}
                         {{else}}
                             {{intervention.status}}
