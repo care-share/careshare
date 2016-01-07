@@ -5,11 +5,23 @@ export default Ember.Component.extend({
     tagName: 'span', // needed for Ember to build this in a HTML span element instead of a div
     classNames: ['nutrition-order-supplement'], // needed for Ember to add this CSS class to the HTML element
     // action dictionary/map:
-    updateRecord: 'updateRecord', // this is needed to bubble this action to the respective controller action
+    updateArray: 'updateRecord', // this is needed to bubble this action to the respective controller action
     setup: function () {
         console.log('[INIT] (nutrition-order-supplement) {record: ' + this.get('parent'));
-        // causes the controller to create a CodeableConcept object for this attribute ('name')
-        this.sendAction('updateRecord', this.get('parent'), "supplement", 'NutritionOrderSupplementComponent');
-        // TODO: perhaps ditch 'parent' and 'name' in favor of an 'attribute' that is directly tied to parent.name?
+        
+        var supplements = this.get('parent').get('supplement').toArray();
+       
+        //TODO: This is a shortcut because we make an Improper? assumption that there will only be one supplement 
+        // supplements.addObject(supplement);
+        //If this supplement doesnt exist, create it
+        if ( !(supplements && supplements[0]) ){
+            var supplement = this.get('parent').store.createRecord('NutritionOrderSupplementComponent', { });
+            supplements[0] = supplement;
+            this.get('parent').set('supplement', supplements);
+        }
+        
+        
+        // causes the controller to create a NutritionOrderSupplementComponent  array object for this attribute ('supplement')
+        //this.sendAction('updateRecord', this.get('parent'), "supplement.0", 'NutritionOrderSupplementComponent');
     }.on('init')
 });
