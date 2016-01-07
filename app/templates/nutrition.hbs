@@ -1,18 +1,55 @@
 <h3 class="fhir-column-header">Nutrition</h3>
 <div id="nutrition-column" class="panel-group fhir-column">
-    {{#each model as |observation|}}
-        {{#draggable-object-target action="createRelation" ontoObject=goal}}
-            {{#draggable-object content=goal}}
-                <div {{action "hoverOn" observation on="mouseEnter"}} {{action "hoverOff" observation on="mouseLeave"}}>
-                    {{#fhir-element root=observation type='NutritionOrder' as |section|}}
+    {{#each model as |nutrition|}}
+        {{#draggable-object-target action="createRelation" ontoObject=nutrition}}
+            {{#draggable-object content=nutrition}}
+                <div {{action "hoverOn" nutrition on="mouseEnter"}} {{action "hoverOff" nutrition on="mouseLeave"}}>
+                    {{#fhir-element root=nutrition type='NutritionOrder' as |section|}}
                         {{#if (eq section "expanded")}}
-                            Status: {{fhir-choice name='status' attribute=observation.status choices='proposed,draft,planned,requested,received,accepted,in-progress,review,completed,cancelled,suspended,rejected,failed'}}
+                            {{! THIS IS ONLY FOR SUPPLEMENTS TODO: NiceToHave: Create a type handler that can use the other types}}
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-xs-12 fhir-form-item">  
+                                        <div class="col-xs-12 col-lg-6">
+                                        {{#nutrition-order-supplement parent=nutrition}}
+                                            {{fhir-edit attribute=nutrition.supplement.productName }}       
+                                        {{/nutrition-order-supplement}}
+                                        </div>
+                                        <div class="col-xs-12 col-lg-6">   
+                                            {{fhir-choice name='status' attribute=nutrition.status 
+                                                choices="proposed,draft,planned,requested,active,on-hold,completed,cancelled"}} 
+                                        </div>      
+                                    </div>
+                                    <div class=" col-xs-12 fhir-form-item">
+                                        <label class="col-sm-5 control-label"  for="type"> Type: </label>
+                                        <div id="type" class="col-xs-12 col-lg-7"> 
+                                            {{#codeable-concept parent=nutrition name='code'}}
+                                                {{fhir-edit attribute=nutrition.supplement.type.text }}
+                                            {{/codeable-concept}} 
+                                        </div>
+                                    </div>
+                                    <div class=" col-xs-12 fhir-form-item">
+                                        <label class="col-xs-12 control-label"  for="type"> Instruction: </label>
+                                        <div id="type" class="col-xs-12"> 
+                                            {{#codeable-concept parent=nutrition name='code'}}
+                                                {{fhir-edit attribute=nutrition.supplement.instruction }}
+                                            {{/codeable-concept}} 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                schedule - timing
+                                quantity - SimpleQuantity
+                                orderer
+                                </div>
+                                Ordered On: {{fhir-datetime attribute=nutrition.dateTime showTime=true}}
+                                {{related-list parent=nutrition relation='rlGoals' display='description' label="Goals"}}
+                            </div>
                         {{else}}
-                            {{observation.status}}
-                            {{#unless observation.status}}
-                                Add status...
-                            {{/unless}}
+                            {{nutrition.supplement.productName }} - {{nutrition.status}}
                         {{/if}}
+                        
+
                     {{/fhir-element}}
                 </div>
             {{/draggable-object}}
