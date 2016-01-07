@@ -6,40 +6,42 @@
                 <div {{action "hoverOn" nutrition on="mouseEnter"}} {{action "hoverOff" nutrition on="mouseLeave"}}>
                     {{#fhir-element root=nutrition type='NutritionOrder' as |section|}}
                         {{#if (eq section "expanded")}}
-                            {{! THIS IS ONLY FOR SUPPLEMENTS TODO: NiceToHave: Create a type handler that can use the other types}}
+                        {{! THIS IS ONLY FOR SUPPLEMENTS TODO: NiceToHave: Create a type handler that can use the other types}}
                             <div class="row">
                                 <div class="col-xs-12 col-lg-6">
                                     {{fhir-choice attribute=nutrition.status
                                     choices='proposed,draft,planned,requested,active,on-hold,completed,cancelled'}}
                                 </div>
                                 {{#backbone-element parent=nutrition name='supplement' type='nutrition-order-supplement-component'}}
-                                <div class="form-group">
-                                    <div class="col-xs-12 fhir-form-item">
-                                        <div class="col-xs-12 col-lg-6">
-                                            {{fhir-edit attribute=nutrition.supplement.firstObject.productName }}
+                                    <div class="form-group">
+                                        <div class="col-xs-12 fhir-form-item">
+                                            <div class="col-xs-12 col-lg-6">
+                                                {{fhir-edit attribute=nutrition.supplement.firstObject.productName }}
+                                            </div>
+                                        </div>
+                                        <div class=" col-xs-12 fhir-form-item">
+                                            <label class="col-sm-5 control-label" for="type"> Type: </label>
+
+                                            <div id="type" class="col-xs-12 col-lg-7">
+                                                {{#codeable-concept parent=nutrition.supplement.firstObject name='type'}}
+                                                    {{fhir-edit attribute=nutrition.supplement.firstObject.type.text }}
+                                                {{/codeable-concept}}
+                                            </div>
+                                        </div>
+                                        <div class=" col-xs-12 fhir-form-item">
+                                            <label class="col-xs-12 control-label" for="type"> Instruction: </label>
+
+                                            <div id="type" class="col-xs-12">
+                                                {{fhir-edit attribute=nutrition.supplement.firstObject.instruction }}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class=" col-xs-12 fhir-form-item">
-                                        <label class="col-sm-5 control-label"  for="type"> Type: </label>
-                                        <div id="type" class="col-xs-12 col-lg-7">
-                                            {{#codeable-concept parent=nutrition.supplement.firstObject name='type'}}
-                                                {{fhir-edit attribute=nutrition.supplement.firstObject.type.text }}
-                                            {{/codeable-concept}}
-                                        </div>
+                                    <div>
+                                        schedule - timing
+                                        quantity - SimpleQuantity
+                                        orderer
                                     </div>
-                                    <div class=" col-xs-12 fhir-form-item">
-                                        <label class="col-xs-12 control-label"  for="type"> Instruction: </label>
-                                        <div id="type" class="col-xs-12">
-                                            {{fhir-edit attribute=nutrition.supplement.firstObject.instruction }}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                schedule - timing
-                                quantity - SimpleQuantity
-                                orderer
-                                </div>
-                            {{/backbone-element}}
+                                {{/backbone-element}}
                                 Ordered On: {{fhir-datetime attribute=nutrition.dateTime showTime=true}}
                                 {{related-list parent=nutrition relation='rlGoals' display='description' label="Goals"}}
                             </div>
@@ -51,10 +53,10 @@
             {{/draggable-object}}
         {{/draggable-object-target}}
     {{else}}
-        No Nutrition<br />
+        No Nutrition<br/>
     {{/each}}
 
 </div>
-<button  class="nobackground" {{action 'createRecord' 'NutritionOrder'}}>
+<button class="nobackground" {{action 'createRecord' 'NutritionOrder'}}>
     <span class="glyphicon glyphicon-plus"></span> <strong>Add Nutrition</strong>
 </button>

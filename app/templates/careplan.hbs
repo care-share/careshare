@@ -11,7 +11,7 @@
                     </div>
                     <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
 
-                    <div class="panel" style="padding: 0">{{patient.gender}}<br />{{patient.birthDate}}</div>
+                    <div class="panel" style="padding: 0">{{patient.gender}}<br/>{{patient.birthDate}}</div>
                 </div>
                 <div class="panel-body" style="padding: 0;height:100%;">
                     <!-- Tab Content -->
@@ -48,27 +48,27 @@
             </div>-->
             <div class="row" style="height:100%">
                 {{#if showConditions}}
-                    <div class="{{colClass}} well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper">
                         {{render "problems" mProblems}}
                     </div>
                 {{/if}}
                 {{#if showGoals}}
-                    <div class="{{colClass}} well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper">
                         {{render "goals" mGoals}}
                     </div>
                 {{/if}}
                 {{#if showProcedureRequests}}
-                    <div class="{{colClass}} well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper">
                         {{render "interventions" mInterventions}}
                     </div>
                 {{/if}}
                 {{#if showNutritionOrders}}
-                    <div class="{{colClass}} well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper">
                         {{render "nutrition" mNutrition}}
                     </div>
                 {{/if}}
                 {{#if showMedicationOrders}}
-                    <div class="{{colClass}} well fhir-column-wrapper" >
+                    <div class="{{colClass}} well fhir-column-wrapper">
                         {{render "medications" mMedications}}
                     </div>
                 {{/if}}

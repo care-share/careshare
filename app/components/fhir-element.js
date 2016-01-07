@@ -9,7 +9,7 @@ export default Ember.Component.extend({
     currentHover: false,
     // action dictionary/map:
     updateRecord: 'updateRecord', // this is needed to bubble this action to the respective controller action
-	undoRecord: 'undoRecord', // this is needed to bubble this action to the respective controller action
+    undoRecord: 'undoRecord', // this is needed to bubble this action to the respective controller action
     deleteRecord: 'deleteRecord', // this is needed to bubble this action to the respective controller action
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
     setup: function () {
@@ -31,10 +31,10 @@ export default Ember.Component.extend({
             console.log('(FHIR-ELEMENT) UPDATE RECORD - record: ' + parent + ',name: ' + name + ',type: ' + type);
             this.sendAction('updateRecord', parent, name, type);
         },
-		undoRecord: function(){
-		    console.log('(FHIR-ELEMENT) UNDO RECORD - record: ' + this.get('root'));
+        undoRecord: function () {
+            console.log('(FHIR-ELEMENT) UNDO RECORD - record: ' + this.get('root'));
             this.sendAction('undoRecord', this.get('root'));
-		},
+        },
         deleteRecord: function () {
             console.log('(FHIR-ELEMENT) DELETE RECORD - record: ' + this.get('root'));
             this.sendAction('deleteRecord', this.get('root'));
@@ -55,9 +55,9 @@ export default Ember.Component.extend({
         },
         toggleExpanded: function () {
             this.toggleProperty('expanded');
-            if (this.get('expanded') === false){
+            if (this.get('expanded') === false) {
                 this.set('currentHover', false);
-            } 
+            }
         },
         expand: function () {
             this.set('expanded', true);

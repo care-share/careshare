@@ -8,21 +8,22 @@
                         {{#if (eq section "expanded")}}
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-xs-12 fhir-form-item">  
+                                    <div class="col-xs-12 fhir-form-item">
                                         <div class="col-xs-12 col-lg-6">
                                             {{fhir-edit attribute=goal.description}}
                                             {{!fhir-edit attribute=goal.description action='altered'}}
                                         </div>
-                                        <div class="col-xs-12 col-lg-6">   
-                                            {{fhir-choice attribute=goal.status  
-                                            choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}   
-                                        </div>      
+                                        <div class="col-xs-12 col-lg-6">
+                                            {{fhir-choice attribute=goal.status
+                                            choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                                 {{#if (eq goal.status "achieved")}}
                                     <div class=" col-xs-12 fhir-form-item">
-                                        <label class="col-sm-5 control-label"  for="outcome"> Outcome: </label>
-                                        <div id="outcome" class="col-xs-12 col-lg-7"> 
+                                        <label class="col-sm-5 control-label" for="outcome"> Outcome: </label>
+
+                                        <div id="outcome" class="col-xs-12 col-lg-7">
                                             {{#codeable-concept parent=goal name='outcome'}}
                                                 {{fhir-choice attribute=goal.outcome choices='CHANGEME,CHANGEME'}}
                                             {{/codeable-concept}}
@@ -30,8 +31,9 @@
                                     </div>
                                 {{/if}}
                                 <div class=" col-xs-12 fhir-form-item">
-                                    <label class="col-sm-5 control-label"  for="priority"> Priority: </label>
-                                    <div id="priority" class="col-xs-12 col-lg-7"> 
+                                    <label class="col-sm-5 control-label" for="priority"> Priority: </label>
+
+                                    <div id="priority" class="col-xs-12 col-lg-7">
                                         {{#codeable-concept parent=goal name='priority'}}
 
                                             {{fhir-choice attribute=goal.priority.text choices='Unspecified,Low,Medium,High'}}
@@ -43,22 +45,24 @@
                                     <label class="col-sm-5 control-label"  for="category"> Category: </label>
                                     <div id="priority" class="col-xs-12 col-lg-7">
                                         {{#codeable-concept parent=goal name='category'}}
-                                            {{fhir-choice attribute=goal.category.text choices='CHANGEME,CHANGEME'}}
-                                        {{/codeable-concept}}
+                                    {{fhir-choice attribute=goal.category.text choices='CHANGEME,CHANGEME'}}
+                                {{/codeable-concept}}
                                     </div>
-                                </div-->     
+                                </div-->
 
                                 <div class=" col-xs-12 fhir-form-item">
-                                    <label class="col-sm-5 control-label"  for="category"> Category: </label>
-                                    <div id="priority" class="col-xs-12 col-lg-7"> 
-                                            {{fhir-multi-select parent=goal attribute=goal.category name='text' choices='CHANGEME,CHANGEME'}}
-                                        
-                                    </div>
-                                </div>                             
+                                    <label class="col-sm-5 control-label" for="category"> Category: </label>
 
-                                <div class="col-xs-12 fhir-form-item">                                 
-                                    <label class="col-sm-5 control-label"  for="targetDate">Target Date:</label>                                     
-                                    <div id="targetDate" class="col-xs-12 col-lg-7"> 
+                                    <div id="priority" class="col-xs-12 col-lg-7">
+                                        {{fhir-multi-select parent=goal attribute=goal.category name='text' choices='CHANGEME,CHANGEME'}}
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 fhir-form-item">
+                                    <label class="col-sm-5 control-label" for="targetDate">Target Date:</label>
+
+                                    <div id="targetDate" class="col-xs-12 col-lg-7">
                                         {{fhir-datetime attribute=goal.targetDate}}
                                     </div>
                                 </div>
@@ -73,10 +77,10 @@
             {{/draggable-object}}
         {{/draggable-object-target}}
     {{else}}
-        No Goals<br />
+        No Goals<br/>
     {{/each}}
-    
-</div> 
-<button  class="nobackground" {{action 'createRecord' 'Goal'}}>
-    <span class="glyphicon glyphicon-plus"></span> <strong>Add Goal</strong> 
+
+</div>
+<button class="nobackground" {{action 'createRecord' 'Goal'}}>
+    <span class="glyphicon glyphicon-plus"></span> <strong>Add Goal</strong>
 </button>

@@ -55,11 +55,11 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         // to get the "create" buttons to work properly, we need to query *then* peekAll
         return this.store.query(resource, query) // the "_include" is effectively a join
             .then(function (/*response*/) {
-            //}, function (error) {
-            //    // FIXME: FHIR adapter serializer encounters an error when the MedicationOrder query returns...
-            //    // but apparently the records still get added to the store, so our "peekAll" can still execute just fine
-            //    console.log(`Encountered an error when querying for "${modelName}": ${error.message}`);
-            //}).finally(function() {
+                //}, function (error) {
+                //    // FIXME: FHIR adapter serializer encounters an error when the MedicationOrder query returns...
+                //    // but apparently the records still get added to the store, so our "peekAll" can still execute just fine
+                //    console.log(`Encountered an error when querying for "${modelName}": ${error.message}`);
+                //}).finally(function() {
                 // response from query is an AdapterPopulatedRecordArray; immutable and does not live-update changes to the template
                 var value = controller.store.peekAll(modelName, {});
                 // value from peekAll is a RecordArray; mutable and live-updates changes to the template

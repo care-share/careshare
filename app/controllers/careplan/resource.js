@@ -67,7 +67,7 @@ export default Ember.Controller.extend({
             // check if this is a new record or if we are updating an existing one
             var isNewRecord = record.get('isNewRecord');
             if (isNewRecord) {
-                record.set('isNewRecord',undefined);
+                record.set('isNewRecord', undefined);
             }
 
             // save this model
@@ -95,7 +95,7 @@ export default Ember.Controller.extend({
         },
         updateRecord: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE RECORD - parent: ' + record + ',name: ' + name + ',type: ' + type);
-			if (record && !record.get(`${name}.content`)) {
+            if (record && !record.get(`${name}.content`)) {
                 var newRecord = this.store.createRecord(type, {});
                 console.log('MODEL NAME: ' + record.toString());
                 console.log('++NEW RECORD: ' + newRecord + '++');
@@ -104,11 +104,11 @@ export default Ember.Controller.extend({
                 console.log('!!FAILED - parent does not exist or record already exists!!');
             }
         },
-		undoRecord: function(record){
-		    console.log('(' + this.get('me') + ') UNDO RECORD - record: ' + record);
-			record.rollbackAttributes();
-			record.reload();
-		},
+        undoRecord: function (record) {
+            console.log('(' + this.get('me') + ') UNDO RECORD - record: ' + record);
+            record.rollbackAttributes();
+            record.reload();
+        },
         updateArraySingle: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE ARRAY SINGLE - parent: ' + record + ',name: ' + name + ',type: ' + type);
             if (record) {
@@ -119,27 +119,28 @@ export default Ember.Controller.extend({
                     console.log('++NEW RECORD: ' + newRecord + '++');
                     record.set(name, [newRecord]);
                 }
-            } else {
-                console.log('!!FAILED - parent does not exist');
             }
-        },
-        updateArray: function (record, name, type) {
-            console.log('(CONTROLLER) UPDATE ARRAY - parent: ' + record + ',name: ' + name + ',type: ' + type);
-            var newRecord = this.store.createRecord(type, {});
-            if (record) {
-                console.log('Array exists - adding to array.');
-                record.pushObject(newRecord);
-            } else {
-                console.log('Array does not exist - creating new array.');
-                record = [newRecord];
-            }
-        },
-        removeItem: function (record, index) {
-            console.log('(CONTROLLER) REMOVE ARRAY ITEM - parent: ' + record + ',index: ' + index);
-            if (record) {
-                console.log('Array exists - removing item.');
-                record.removeAt(index);
-            }
-        }
-    }
-});
+            else {
+                            console.log('!!FAILED - parent does not exist');
+                        }
+                    },
+                    updateArray: function (record, name, type) {
+                        console.log('(CONTROLLER) UPDATE ARRAY - parent: ' + record + ',name: ' + name + ',type: ' + type);
+                        var newRecord = this.store.createRecord(type, {});
+                        if (record) {
+                            console.log('Array exists - adding to array.');
+                            record.pushObject(newRecord);
+                        } else {
+                            console.log('Array does not exist - creating new array.');
+                            record = [newRecord];
+                        }
+                    },
+                    removeItem: function (record, index) {
+                        console.log('(CONTROLLER) REMOVE ARRAY ITEM - parent: ' + record + ',index: ' + index);
+                        if (record) {
+                            console.log('Array exists - removing item.');
+                            record.removeAt(index);
+                        }
+                    }
+                }
+            });

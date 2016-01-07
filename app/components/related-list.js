@@ -3,14 +3,14 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     // args passed in from template: parent, relation (string), display (string), label (string)
     classNames: ['related-list'], // needed for Ember to add this CSS class to the HTML element
-	originalSelections: null,
+    originalSelections: null,
     setup: function () {
         if (this.get('parent')) {
-			this.set('originalSelections',this.get('selections'));
-			this.get('originalSelections').forEach(function(item){
-			    console.log('selection: '+item.display);
-			});
-            console.log('[INIT] (RELATED-LIST) '+this.get('originalSelections'));
+            this.set('originalSelections', this.get('selections'));
+            this.get('originalSelections').forEach(function (item) {
+                console.log('selection: ' + item.display);
+            });
+            console.log('[INIT] (RELATED-LIST) ' + this.get('originalSelections'));
         }
     }.on('init'),
     onInitialization: function () {
@@ -37,19 +37,19 @@ export default Ember.Component.extend({
         }).property(observe));
     }.on('init'),
     actions: {
-	    selected: function(selection){
-		    console.log('SELECTED: '+selection.display);
-			if(this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model){
-			    this.get('lastExpanded').set('isExpanded',!this.get('lastExpanded.isExpanded'));
-			}
-			else{
-			    if(this.get('lastExpanded') !== null){
-				    this.get('lastExpanded').set('isExpanded',false);
-			    }
-			    this.set('lastExpanded',selection.model);
-			    this.get('lastExpanded').set('isExpanded',true);
-			}
-		},
+        selected: function (selection) {
+            console.log('SELECTED: ' + selection.display);
+            if (this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model) {
+                this.get('lastExpanded').set('isExpanded', !this.get('lastExpanded.isExpanded'));
+            }
+            else {
+                if (this.get('lastExpanded') !== null) {
+                    this.get('lastExpanded').set('isExpanded', false);
+                }
+                this.set('lastExpanded', selection.model);
+                this.get('lastExpanded').set('isExpanded', true);
+            }
+        },
         deleteReference: function (from, to) {
             var fromType = from._internalModel.modelName;
             var toType = to._internalModel.modelName;

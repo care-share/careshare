@@ -1,16 +1,17 @@
 <div class="panel panel-info"
     {{action "hoverOn" on="mouseEnter"}}
     {{action "hoverOff" on="mouseLeave"}}
-	{{action 'expand' on="doubleClick"}}
+    {{action 'expand' on="doubleClick"}}
      style="{{if currentHover 'border-color:#009e0f;'}}
-     {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} overflow:auto;">
+         {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} overflow:auto;">
     {{#if (or expanded (and root root.isExpanded))}}
         {{yield "expanded"}}
         {{#if root}}
-            <div style="float:left;" >
-            <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
-            <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
-			{{#if (not root.isNewRecord)}}<button class="glyphicon glyphicon-floppy-remove" {{action 'undoRecord'}}/>{{/if}}
+            <div style="float:left;">
+                <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
+                <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
+                {{#if (not root.isNewRecord)}}
+                    <button class="glyphicon glyphicon-floppy-remove" {{action 'undoRecord'}}/>{{/if}}
             </div>
         {{/if}}
         <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>

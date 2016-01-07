@@ -1,15 +1,15 @@
-<div> Related {{label}}: </div>
+<div> Related {{label}}:</div>
 <div>
     <ul class="relatedList">
         {{#each selections as |selection|}}
             <li {{action 'selected' selection on='doubleClick'}}>
                 <div>
                     {{selection.display}}
-                    <button class ="glyphicon glyphicon-remove" {{action 'deleteReference' parent selection.model}}></button>
+                    <button class="glyphicon glyphicon-remove" {{action 'deleteReference' parent selection.model}}></button>
                 </div>
             </li>
         {{else}}
-           No {{label}}
+            No {{label}}
         {{/each}}
         <!-- TODO: add an action to this button
         <li>
@@ -17,5 +17,5 @@
         </li>
         -->
     </ul>
-    <div style="clear:left;"> </div>
+    <div style="clear:left;"></div>
 </div>

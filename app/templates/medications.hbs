@@ -13,6 +13,7 @@
                         {{#if (eq section "expanded")}}
                             <div class=" col-xs-12 fhir-form-item">
                                 <label class="col-sm-5 control-label" for="dosage"> Dosage: </label>
+
                                 <div id="dosage" class="col-xs-12 col-lg-7">
                                     {{#each order.dosageInstruction as |di|}}
                                         {{fhir-edit parent=di attribute=di.text}}
@@ -22,7 +23,8 @@
                                 </div>
                             </div>
                             <div class=" col-xs-12 fhir-form-item">
-                                <label class="col-sm-5 control-label"  for="reason"> Reason: </label>
+                                <label class="col-sm-5 control-label" for="reason"> Reason: </label>
+
                                 <div id="reason" class="col-xs-12 col-lg-7">
                                     {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
                                     {{fhir-object-select compSelection=order.rlCondition parent=order variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}

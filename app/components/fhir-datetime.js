@@ -1,48 +1,50 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	// args passed in from template: attribute, showTime
-	showTime: false,
+    // args passed in from template: attribute, showTime
+    showTime: false,
     classNames: ['fhir-datetime'], // needed for Ember to add this CSS class to the HTML element
     originalValue: '',
-	displayDate: '', // TODO: remove this because it's redundant for its 'format'? or make this into a computed property
-	isObserving: true,
-	setup: function () {
-	    console.log('FHIR-DATETIME: init');
-		this.set('originalValue',this.get('attribute'));
-		this.send('dateFormat');
-	}.on('init'),
-	change: function () {
-		console.log('FHIR-DATETIME: changed to '+this.get('attribute'));
-		if(this.get('isObserving') === true){
-			this.set('isObserving',false);
-			this.set('originalValue',new Date(Ember.Date.parse(this.get('attribute'))));	
-			this.send('dateFormat');
-			this.set('isObserving',true);
-		}
-	}.observes('attribute'),
+    displayDate: '', // TODO: remove this because it's redundant for its 'format'? or make this into a computed property
+    isObserving: true,
+    setup: function () {
+        console.log('FHIR-DATETIME: init');
+        this.set('originalValue', this.get('attribute'));
+        this.send('dateFormat');
+    }.on('init'),
+    change: function () {
+        console.log('FHIR-DATETIME: changed to ' + this.get('attribute'));
+        if (this.get('isObserving') === true) {
+            this.set('isObserving', false);
+            this.set('originalValue', new Date(Ember.Date.parse(this.get('attribute'))));
+            this.send('dateFormat');
+            this.set('isObserving', true);
+        }
+    }.observes('attribute'),
     actions: {
         cancel: function () {
             console.log('FHIR-DATETIME: cancel');
             this.set('attribute', this.get('originalValue'));
-			this.send('dateFormat');
+            this.send('dateFormat');
         },
-		dateFormat: function(){
-		    console.log('FHIR-DATETIME: format attribute ('+this.get('originalValue')+')');
-			if(this.get('originalValue')){
-	            var date = new Date(Ember.Date.parse(this.get('originalValue')));
-				if(Number.isNaN(date.getUTCFullYear())){
-				    this.set('displayDate','');
-				}else{
-				    this.set('displayDate', date.getUTCFullYear() + '-' + 
-			         (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
-				}
-				if(this.get('displayDate').indexOf('nvalid') > -1){this.set('attribute','');}
-			    console.log('FHIR-DATETIME: displayDate is now ('+this.get('displayDate')+')');
-			}
-			else{
-				this.set('displayDate', '(None)');
-			}
-	    }
+        dateFormat: function () {
+            console.log('FHIR-DATETIME: format attribute (' + this.get('originalValue') + ')');
+            if (this.get('originalValue')) {
+                var date = new Date(Ember.Date.parse(this.get('originalValue')));
+                if (Number.isNaN(date.getUTCFullYear())) {
+                    this.set('displayDate', '');
+                } else {
+                    this.set('displayDate', date.getUTCFullYear() + '-' +
+                        (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
+                }
+                if (this.get('displayDate').indexOf('nvalid') > -1) {
+                    this.set('attribute', '');
+                }
+                console.log('FHIR-DATETIME: displayDate is now (' + this.get('displayDate') + ')');
+            }
+            else {
+                this.set('displayDate', '(None)');
+            }
+        }
     }
 });

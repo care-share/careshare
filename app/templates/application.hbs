@@ -1,19 +1,19 @@
-
 <header class="content-header">
     <div class="side-header">
-    <h1 id="brand" class="brand">
-        {{#link-to 'dashboard'}}
-            <img alt="Brand" src="/images/brand.png">
-            <strong>rural</strong>health
-        {{/link-to}}
-        <div class="header-actions pull-right">
-            <button id="toggle-content"  class="glyphicon glyphicon-menu-hamburger" {{action 'toggleSideBarVisibility' }}></button>
-        </div>
-    </h1>
-    <form id="smart-search" class="side-form hide ng-pristine ng-valid" role="form">
-        <input type="text" ng-model="search" class="form-control ng-pristine ng-valid" data-target=".side-wrapper"
-               placeholder="Smart Finder">
-    </form>
+        <h1 id="brand" class="brand">
+            {{#link-to 'dashboard'}}
+                <img alt="Brand" src="/images/brand.png">
+                <strong>rural</strong>health
+            {{/link-to}}
+            <div class="header-actions pull-right">
+                <button id="toggle-content"
+                        class="glyphicon glyphicon-menu-hamburger" {{action 'toggleSideBarVisibility' }}></button>
+            </div>
+        </h1>
+        <form id="smart-search" class="side-form hide ng-pristine ng-valid" role="form">
+            <input type="text" ng-model="search" class="form-control ng-pristine ng-valid" data-target=".side-wrapper"
+                   placeholder="Smart Finder">
+        </form>
     </div>
     <!-- Navbar Right Content -->
     <div class="header-actions pull-right">
@@ -34,19 +34,21 @@
     </div>
 
     <!--h1 class="content-title">{{header-format target.url}}</h1-->
-    <h1 class="content-title">Draft - Payment Review - Assigned - <span style="text-decoration: underline;  font-weight: bold;"> Proposed </span><span class="glyphicon glyphicon-step-forward"></span> - Active </h1>
+    <h1 class="content-title">Draft - Payment Review - Assigned - <span
+            style="text-decoration: underline;  font-weight: bold;"> Proposed </span><span
+            class="glyphicon glyphicon-step-forward"></span> - Active </h1>
     <!-- Navbar Left/Center Content -->
     <!--div class="header-actions pull-left">
       <button id="toggle-content" class="btn btn-icon" type="button"><i class="icon ion-navicon-round"></i></button>
       <button id="toggle-search" class="btn btn-icon" type="button"><i class="icon ion-search"></i></button>
     </div-->
-    
+
 </header>
 <!-- Sidebar -->
 {{#if isSideBarDisplayed }}
     <aside class="side-left ng-scope" ng-controller="SmartSearchCtrl">
         <!-- Sidebar Header-->
-        
+
         <!-- Sidebar Body-->
         <div class="side-body">
             <nav class="side-nav">
@@ -111,7 +113,7 @@
     </aside>
 {{/if }}
 <section id="content" class="content">
-    
+
     <!-- Main Application Window -->
     <div>
         <section id="content-main">
@@ -121,8 +123,8 @@
           <h3 class="app-title pull-left hidden-xs"/>
           <ol class="breadcrumb bg-none pull-left hide-xs">
             <li>Welcome, {{session.data.authenticated.name_first}}!</li>
-          </ol>          
-            
+          </ol>
+
           <div class="pull-right">
               <div class="pull-right">
               <a class="btn btn-sm btn-default btn-extend be-left" href="/consults/new">

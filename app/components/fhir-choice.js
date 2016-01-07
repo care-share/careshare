@@ -8,6 +8,6 @@ export default Ember.Component.extend({
     setup: function () {
         // TODO: support passing an array instead of a string of CSVs? (download list of codes for things)
         this.set('choiceList', this.get('choices').split(','));
-		console.log('INIT: FHIR-CHOICE- attribute: ' + this.get('attribute'));	
+        console.log('INIT: FHIR-CHOICE- attribute: ' + this.get('attribute'));
     }.on('init')
 });

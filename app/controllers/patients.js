@@ -7,7 +7,7 @@ export default Ember.ArrayController.extend({
     currentId: null,
     careplans: null,
     actions: {
-        doLazyLoad: function(patient) {
+        doLazyLoad: function (patient) {
             // triggers queries for attributes that are lazy-loaded (e.g. Care Plans)
             patient.set('doLazyLoad', true);
         },

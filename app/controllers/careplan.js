@@ -53,7 +53,7 @@ export default Ember.Controller.extend({
         referringObject.save();
     },
     addLocalRelation: function (from, to, relName, isSingleItem) {
-        if (isSingleItem){
+        if (isSingleItem) {
             from.set(relName, to);
         } else {
             if (!from.get(relName)) {
@@ -79,7 +79,7 @@ export default Ember.Controller.extend({
         var medOrders = this.get('MedicationOrders')
             //.filterBy('medicationReference') // find medicationorders that have medication references
             //.filterBy('medicationReference.medication', false); // filter to only return those that don't have local references
-            .filter(function(item/*, index, enumerable*/) {
+            .filter(function (item/*, index, enumerable*/) {
                 return item.get('medicationReference.medication') === undefined;
             });
         for (var i = 0; i < medOrders.length; i++) {
@@ -174,7 +174,7 @@ export default Ember.Controller.extend({
                 that.addReference(draggedObject, ontoObject, 'reasonReference', false);
                 // add a temporary descriptive reference directly to the model
                 // we only need to add a local relation for the draggedObject; the ontoObject gets its relation added onMouseOver
-                that.addLocalRelation(draggedObject, ontoObject,  'rlCondition', true);
+                that.addLocalRelation(draggedObject, ontoObject, 'rlCondition', true);
             };
             var conditionToOther = function () {
                 that.addReference(ontoObject, draggedObject, 'reasonReference', false);
