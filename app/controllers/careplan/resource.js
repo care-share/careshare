@@ -109,6 +109,20 @@ export default Ember.Controller.extend({
 			record.rollbackAttributes();
 			record.reload();
 		},
+        updateArraySingle: function (record, name, type) {
+            console.log('(CONTROLLER) UPDATE ARRAY SINGLE - parent: ' + record + ',name: ' + name + ',type: ' + type);
+            if (record) {
+                var array = record.get(name).toArray();
+                if (array.length === 0) {
+                    var newRecord = this.store.createRecord(type, {});
+                    console.log('MODEL NAME: ' + record.toString());
+                    console.log('++NEW RECORD: ' + newRecord + '++');
+                    record.set(name, [newRecord]);
+                }
+            } else {
+                console.log('!!FAILED - parent does not exist');
+            }
+        },
         updateArray: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE ARRAY - parent: ' + record + ',name: ' + name + ',type: ' + type);
             var newRecord = this.store.createRecord(type, {});
