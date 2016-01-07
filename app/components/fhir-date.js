@@ -20,12 +20,11 @@ export default Ember.Component.extend({
 	}.on('init'),
 	calculatedPatch: function () {
 	    console.log('(FHIR-DATE) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' and original is: '+this.get('original'));
-	    if(this.get('diffAttribute') !== null && this.get('diffAttribute') !== undefined &&
-		    this.get('original') !== this.get('diffAttribute')){
+	    if(this.get('diffAttribute') !== null && this.get('diffAttribute') !== undefined && this.get('original') !== this.get('diffAttribute')){
 		    var diff = this.get('patcher').diff_main(
-			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : ''
-				,this.get('diffAttribute'),true);
-            this.get('parent').set(this.get('name')+'Diff',this.get('diffAttribute'));
+			    (this.get('original') !== null && this.get('original') !== undefined) ? 
+                    new Date(Ember.Date.parse(this.get('original'))).toString() : '',new Date(Ember.Date.parse(this.get('diffAttribute'))).toString(),true);
+            this.get('parent').set(this.get('name')+'Diff', new Date(Ember.Date.parse(this.get('diffAttribute'))));
 	        return this.get('patcher').diff_prettyHtml(diff);
 		}
 		return '';
