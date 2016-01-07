@@ -8,29 +8,28 @@
                         {{#if (eq section "expanded")}}
                         <div class="row">
                             <div class="form-group">
-                                <div class="col-xs-12 fhir-form-item">  
+                                <div class="col-xs-12 fhir-form-item">
                                     <div class="col-xs-12 col-lg-6">
                                         {{#codeable-concept parent=intervention name='code'}}
                                             {{fhir-edit attribute=intervention.code.text }}
-                                        {{/codeable-concept}}         
+                                        {{/codeable-concept}}
                                     </div>
-                                    <div class="col-xs-12 col-lg-6">   
-                                        {{fhir-choice attribute=intervention.status 
-                                            choices='proposed,draft,requested,received,accepted,in-progress,completed,suspended,rejected,aborted'}}  
-                                    </div>      
+                                    <div class="col-xs-12 col-lg-6">
+                                        {{fhir-choice attribute=intervention.status
+                                            choices='proposed,draft,requested,received,accepted,in-progress,completed,suspended,rejected,aborted'}}
+                                    </div>
                                 </div>
                                 <div class=" col-xs-12 fhir-form-item">
                                     <label class="col-sm-5 control-label"  for="priority"> Priority: </label>
-                                    <div id="priority" class="col-xs-12 col-lg-7"> 
+                                    <div id="priority" class="col-xs-12 col-lg-7">
                                         {{fhir-choice attribute=intervention.priority choices='Unspecified,Low,Medium,High'}}
                                     </div>
                                 </div>
                                 <div class=" col-xs-12 fhir-form-item">
-                                    <label class="col-sm-5 control-label"  for="priority"> Reason: </label>
-                                    <div id="priority" class="col-xs-12 col-lg-7"> 
-                                            {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
-                                            {{fhir-object-select compSelection=intervention.rlCondition parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
-                                      
+                                    <label class="col-sm-5 control-label"  for="reason"> Reason: </label>
+                                    <div id="reason" class="col-xs-12 col-lg-7">
+                                        {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
+                                        {{fhir-object-select compSelection=intervention.rlCondition parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
                                     </div>
                                 </div>
                                 <select id="" class="form-control">
@@ -57,8 +56,8 @@
     {{else}}
         No Interventions<br />
     {{/each}}
-    
+
 </div>
 <button  class="nobackground" {{action 'createRecord' 'ProcedureRequest'}}>
-    <span class="glyphicon glyphicon-plus"></span> <strong>Add Intervention</strong> 
+    <span class="glyphicon glyphicon-plus"></span> <strong>Add Intervention</strong>
 </button>

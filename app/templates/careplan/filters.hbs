@@ -7,7 +7,10 @@
                     class="filters-expander {{if expandParticipants 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
             {{#if expandParticipants}}
                 <div>
-                    List of Participants here
+                    <ul>
+                        <li>Physical Therapy</li>
+                        <li>Skilled Nursing</li>
+                    </ul>
                 </div>
             {{/if}}
         </li>
@@ -57,9 +60,8 @@
         </li>
         <li class="patient-filter {{if patient.showMedicationOrders 'active'}}">
             <span class="glyphicon glyphicon-heart-empty"></span>
-            <!-- TODO: change this action to use 'toggleShow' 'Medication' once we create the controller -->
-            <span {{action 'toggleShowMedications'}} class="column-toggler"> Medications </span>
-            <span  {{action 'toggleExpandMedications'}}
+            <span {{action 'toggleShow' 'MedicationOrder'}} class="column-toggler"> Medications </span>
+            <span {{action 'toggleExpandMedications'}}
                     class="filters-expander {{if expandMedications 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
             {{#if expandMedications}}
                 <div>

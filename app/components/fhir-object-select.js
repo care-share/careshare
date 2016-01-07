@@ -18,7 +18,7 @@ export default Ember.Component.extend({
 		            reference: input
 		        });
 
-		        console.log(reference)
+		        console.log(reference);
 		        this.get('parent').set(this.get('variable'), reference);
 		        var inputsplit = input.split('/');
 		        this.get('parent').set(this.get('localVariable'), this.get('parent').store.peekRecord(inputsplit[0], inputsplit[1]));
