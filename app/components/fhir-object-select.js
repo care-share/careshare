@@ -10,30 +10,41 @@ export default Ember.Component.extend({
     }.on('init'),
     actions: {
         changed: function (input) {
-            if (input === 'none') {
-                this.get('parent').set(this.get('variable'), '');
+            var attr = this.get('variable');
+            var target;
+            var relatedListName = `rl${this.get('parent')._internalModel.modelName.camelize().capitalize().pluralize()}`;
+            var relatedList;
+            var targetRef = this.get(`parent.${attr}.content`);
+            if (targetRef) {
+                // an existing reference is present; delete the target's local reference to our parent object
+                var split = targetRef.get('reference').split('/');
+                target = this.get('parent').store.peekRecord(split[0], split[1]);
+                relatedList = target.get(relatedListName);
+                if (relatedList) {
+                    relatedList.removeObject(this.get('parent'));
+                }
             }
-            else {
+            if (input === 'none') {
+                this.get('parent').set(attr, undefined);
+            } else {
                 var reference = this.get('parent').store.createRecord('reference', {
                     reference: input
                 });
 
                 console.log(reference);
-                this.get('parent').set(this.get('variable'), reference);
+                this.get('parent').set(attr, reference);
                 var inputsplit = input.split('/');
                 this.get('parent').set(this.get('localVariable'), this.get('parent').store.peekRecord(inputsplit[0], inputsplit[1]));
-                // if (isListAttribute) { // for reference attributes with any allowed length
-                //     var references = referringObject.get(attributeName)
-                //         .toArray();
-                //     // TODO: should add logic to check if the reference already exists
-                //     // We end up adding duplicates, but that won't break anything for now
-                //     references.addObject(reference);
-                //     referringObject.set(attributeName, references);
-                // } else { // for reference attributes that allow only one value
-                //     referringObject.set(attributeName, reference);
-                // }
-                // console.log(referringObject);
-                // referringObject.save();
+
+                // add a local reference from the target to our parent object
+                target = this.get('parent').store.peekRecord(inputsplit[0], inputsplit[1]);
+                relatedList = target.get(relatedListName);
+                if (relatedList) {
+                    relatedList.addObject(this.get('parent'));
+                } else {
+                    target.set(relatedListName, [this.get('parent')]);
+                }
+                // TODO: save the parent when we add a relation???
             }
         }
     }
