@@ -3,7 +3,7 @@
     {{!action 'doLazyLoad' patient on='mouseEnter'}}
     {{!action 'renderCarePlan' patient.id on='change'}}
         data-placeholder={{placeholder}} multiple="">
-    {{#each option in options}}
+    {{#each options as |option|}}
         <option value={{option.value}}>
             <div>
                 {{option.text}}

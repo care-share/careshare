@@ -24,9 +24,12 @@
                                         <label class="col-sm-5 control-label" for="outcome"> Outcome: </label>
 
                                         <div id="outcome" class="col-xs-12 col-lg-7">
+                                            TODO
+                                            {{!--
                                             {{#codeable-concept parent=goal name='outcome'}}
                                                 {{fhir-choice attribute=goal.outcome choices='CHANGEME,CHANGEME'}}
                                             {{/codeable-concept}}
+                                            --}}
                                         </div>
                                     </div>
                                 {{/if}}
@@ -36,7 +39,7 @@
                                     <div id="priority" class="col-xs-12 col-lg-7">
                                         {{#codeable-concept parent=goal name='priority'}}
 
-                                            {{fhir-choice attribute=goal.priority.text choices='Unspecified,Low,Medium,High'}}
+                                            {{fhir-choice attribute=goal.priority.text choices='unspecified,low,medium,high'}}
                                         {{/codeable-concept}}
                                     </div>
                                 </div>

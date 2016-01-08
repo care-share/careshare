@@ -24,7 +24,7 @@
 
                                     <div id="severity" class="col-xs-12 col-lg-7">
                                         {{#codeable-concept parent=problem name='severity'}}
-                                            {{fhir-choice attribute=problem.severity.text choices='Unspecified,Low,Moderate,Important,Critical'}}
+                                            {{fhir-choice attribute=problem.severity.text choices='unspecified,low,moderate,important,critical'}}
                                         {{/codeable-concept}}
                                     </div>
                                 </div>
@@ -33,7 +33,7 @@
 
                                     <div id="category" class="col-xs-12 col-lg-7">
                                         {{#codeable-concept parent=problem name='category'}}
-                                            {{fhir-choice attribute=problem.category.text choices='Complaint,Symptom,Finding,Diagnosis'}}
+                                            {{fhir-choice attribute=problem.category.text choices='complaint,symptom,finding,diagnosis'}}
                                         {{/codeable-concept}}
                                     </div>
                                 </div>

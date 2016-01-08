@@ -31,7 +31,7 @@ export default Ember.Component.extend({
             console.log('FHIR-DATETIME: format attribute (' + this.get('originalValue') + ')');
             if (this.get('originalValue')) {
                 var date = new Date(Ember.Date.parse(this.get('originalValue')));
-                if (Number.isNaN(date.getUTCFullYear())) {
+                if (isNaN(date.getUTCFullYear())) {
                     this.set('displayDate', '');
                 } else {
                     this.set('displayDate', date.getUTCFullYear() + '-' +

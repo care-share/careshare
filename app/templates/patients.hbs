@@ -50,7 +50,7 @@
                 {{#each filteredContent as |patient|}}
                     <tr class="">
                         {{#each patient.name as |name|}}
-                            <td class="fullName col-xs-3"> {{name.given}},{{name.family}} </td>
+                            <td class="fullName col-xs-3">{{name.family}}, {{name.given}}</td>
                             <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
                             <td class="carePlan col-xs-3">
                                 <select id="dropdown{{patient.id}}" class="form-control"
@@ -58,7 +58,7 @@
                                     {{action 'doLazyLoad' patient on='mouseEnter'}}
                                     {{action 'renderCarePlan' patient.id on='change'}}>
                                     <option disabled selected> -- Select a Careplan to View --</option>
-                                    {{#each careplan in patient.lazyCarePlans}}
+                                    {{#each patient.lazyCarePlans as |careplan|}}
                                         <option value={{careplan.id}}>
                                             <div>
                                                 {{careplan.id}}
