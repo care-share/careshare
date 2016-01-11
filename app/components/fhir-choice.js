@@ -24,10 +24,12 @@ export default Ember.Component.extend({
 	    console.log('(FHIR-CHOICE) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' vs. original: '+this.get('original'));
 	    if(this.get('diffAttribute') !== null && this.get('diffAttribute') !== undefined &&
 		    this.get('original') !== this.get('diffAttribute')){
-		    var diff = this.get('patcher').diff_main(
-			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '',this.get('diffAttribute'),true);
-            this.get('parent').set(this.get('name')+'Diff',this.get('diffAttribute'));
-	        return this.get('patcher').diff_prettyHtml(diff);
+                this.get('parent').set(this.get('name')+'Diff',this.get('diffAttribute'));
+                if(this.get('original') !== null && this.get('original') !== undefined){
+                    return '\<del style=\"background:\#ffe6e6;\"\>'+this.get('original')+'\<\/del\>'+
+                    '\<ins style=\"background:\#e6ffe6;\"\>'+this.get('diffAttribute')+'\<\/ins\>';
+                }
+                return this.get('patcher').diff_prettyHtml(this.get('patcher').diff_main('',this.get('diffAttribute'),true));
 		}
 		return '';
     }.property('diffAttribute'),
