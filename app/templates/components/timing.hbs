@@ -1,0 +1,7 @@
+{{#em-modal configName="bs" id=name}}
+    {{#em-modal-body}}
+        {{yield}}
+		{{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
+    {{/em-modal-body}}
+{{/em-modal}}
+{{em-modal-toggler modal-id=name class="glyphicon glyphicon-time"}}
