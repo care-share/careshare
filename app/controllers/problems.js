@@ -36,8 +36,8 @@ export default CarePlanResource.extend({
             record.set('severity.text',record.get('severity.textDiff'));
             record.set('category.text',record.get('category.textDiff'));
             record.set('onsetDateTime',record.get('onsetDateTimeDiff'));
-            console.log('onsetDateTime: ['+record.get('onsetDateTime')+']--> ['+record.get('onsetDateTimeDiff')+']');
             record.set('abatementDateTime',record.get('abatementDateTimeDiff'));
+            this.get('parentController').reset();
             
             //TODO: Need to reload the controller to call init() and reset the diff. Should we be calling record.reload()???
             return this._super(record);
