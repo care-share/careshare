@@ -16,7 +16,7 @@
 
                                 <div id="dosage" class="col-xs-12 col-lg-7">
                                     {{#each order.dosageInstruction as |di|}}
-                                        {{fhir-edit parent=di attribute=di.text}}
+                                        {{fhir-edit parent=di name='text'}}
                                     {{else}}
                                         NO DOSAGE
                                     {{/each}}
