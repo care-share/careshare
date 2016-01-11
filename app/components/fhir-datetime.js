@@ -15,8 +15,7 @@ export default Ember.Component.extend({
 		    }else{this.set('diffAttribute',this.get('original'));}	
 		}else{this.set('diffAttribute',existingDiff);}
         
-	    console.log('(FHIR-DATETIME) parent: '+this.get('parent')+', name: '+this.get('name')
-		    +', original: '+this.get('original')+', diffAttribute: '+this.get('diffAttribute'));
+	    console.log('(FHIR-DATETIME) parent: '+this.get('parent')+', name: '+this.get('name')+', original: '+this.get('original')+', diffAttribute: '+this.get('diffAttribute'));
 	}.on('init'),
 	calculatedPatch: function () {
 	    console.log('(FHIR-DATETIME) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' and original is: '+this.get('original'));

@@ -18,16 +18,14 @@ export default Ember.Component.extend({
 		    }else{this.set('diffAttribute',this.get('original'));}	
 		}else{this.set('diffAttribute',existingDiff);}
         
-	    console.log('(FHIR-CHOICE) parent: '+this.get('parent')+', name: '+this.get('name')
-		    +', original: '+this.get('original')+', diffAttribute: '+this.get('diffAttribute'));
+	    console.log('(FHIR-CHOICE) parent: '+this.get('parent')+', name: '+this.get('name')+', original: '+this.get('original')+', diffAttribute: '+this.get('diffAttribute'));
     }.on('init'),
 	calculatedPatch: function () {
 	    console.log('(FHIR-CHOICE) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' vs. original: '+this.get('original'));
 	    if(this.get('diffAttribute') !== null && this.get('diffAttribute') !== undefined &&
 		    this.get('original') !== this.get('diffAttribute')){
 		    var diff = this.get('patcher').diff_main(
-			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : ''
-				,this.get('diffAttribute'),true);
+			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '',this.get('diffAttribute'),true);
             this.get('parent').set(this.get('name')+'Diff',this.get('diffAttribute'));
 	        return this.get('patcher').diff_prettyHtml(diff);
 		}

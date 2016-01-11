@@ -6,7 +6,6 @@ export default CarePlanResource.extend({
     lastExpanded: null,
 	parentController: null,
 	isChangeRequest: false,
-	lastExpanded: null,
     // the "carePlanRefAttr" field is set by child controllers
 	setup: function(){
 		console.log('PARENT CONTROLLER: '+this.controllerFor('careplan'));
