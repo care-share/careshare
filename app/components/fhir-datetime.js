@@ -1,50 +1,41 @@
 import Ember from 'ember';
-
 export default Ember.Component.extend({
-    // args passed in from template: attribute, showTime
-    showTime: false,
-    classNames: ['fhir-datetime'], // needed for Ember to add this CSS class to the HTML element
-    originalValue: '',
-    displayDate: '', // TODO: remove this because it's redundant for its 'format'? or make this into a computed property
-    isObserving: true,
-    setup: function () {
-        console.log('FHIR-DATETIME: init');
-        this.set('originalValue', this.get('attribute'));
-        this.send('dateFormat');
-    }.on('init'),
-    change: function () {
-        console.log('FHIR-DATETIME: changed to ' + this.get('attribute'));
-        if (this.get('isObserving') === true) {
-            this.set('isObserving', false);
-            this.set('originalValue', new Date(Ember.Date.parse(this.get('attribute'))));
-            this.send('dateFormat');
-            this.set('isObserving', true);
-        }
-    }.observes('attribute'),
+	diffAttribute: null,
+	original: null,
+	patcher: new diff_match_patch(),
+    classNames: ['fhir-datetime'],
+	showModal: false,
+	setup: function () {
+		this.set('original',this.get('parent').get(this.get('name')));
+        
+        var existingDiff = this.get('parent').get(this.get('name')+'Diff');		
+		if(existingDiff === null || existingDiff === undefined){
+			if(this.get('original') === null || this.get('original') === undefined){
+		        this.set('diffAttribute','');
+		    }else{this.set('diffAttribute',this.get('original'));}	
+		}else{this.set('diffAttribute',existingDiff);}
+        
+	    console.log('(FHIR-DATETIME) parent: '+this.get('parent')+', name: '+this.get('name')
+		    +', original: '+this.get('original')+', diffAttribute: '+this.get('diffAttribute'));
+	}.on('init'),
+	calculatedPatch: function () {
+	    console.log('(FHIR-DATETIME) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' and original is: '+this.get('original'));
+	    if(this.get('diffAttribute') !== null && this.get('diffAttribute') !== undefined && this.get('original') !== this.get('diffAttribute')){
+		    var diff = this.get('patcher').diff_main(
+			    (this.get('original') !== null && this.get('original') !== undefined) ? 
+                    new Date(Ember.Date.parse(this.get('original'))).toString() : '',new Date(Ember.Date.parse(this.get('diffAttribute'))).toString(),true);
+            this.get('parent').set(this.get('name')+'Diff', new Date(Ember.Date.parse(this.get('diffAttribute'))));
+	        return this.get('patcher').diff_prettyHtml(diff);
+		}
+		return '';
+    }.property('diffAttribute'),
     actions: {
         cancel: function () {
-            console.log('FHIR-DATETIME: cancel');
-            this.set('attribute', this.get('originalValue'));
-            this.send('dateFormat');
+		    this.set('diffAttribute',
+			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '');
         },
-        dateFormat: function () {
-            console.log('FHIR-DATETIME: format attribute (' + this.get('originalValue') + ')');
-            if (this.get('originalValue')) {
-                var date = new Date(Ember.Date.parse(this.get('originalValue')));
-                if (isNaN(date.getUTCFullYear())) {
-                    this.set('displayDate', '');
-                } else {
-                    this.set('displayDate', date.getUTCFullYear() + '-' +
-                        (date.getUTCMonth() + 1 < 10 ? '0' : '') + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + 'T' + date.getUTCHours() + ':' + date.getUTCMinutes() + ':' + date.getUTCSeconds());
-                }
-                if (this.get('displayDate').indexOf('nvalid') > -1) {
-                    this.set('attribute', '');
-                }
-                console.log('FHIR-DATETIME: displayDate is now (' + this.get('displayDate') + ')');
-            }
-            else {
-                this.set('displayDate', '(None)');
-            }
-        }
+		modalToggle: function(){
+		    this.set('showModal',!this.get('showModal'));
+		}
     }
 });

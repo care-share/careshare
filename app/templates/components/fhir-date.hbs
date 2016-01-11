@@ -1,6 +1,6 @@
 {{#em-modal configName="bs" id=name}}
     {{#em-modal-body}}
-        {{#bs-datetimepicker date=diffAttribute showToday=false format="YYYY-MM-DDTHH:mm:ss" noIcon=true forceDateOutput=true sideBySide=true}}
+        {{#bs-datetimepicker date=diffAttribute pickTime=false showToday=false format="YYYY-MM-DD" noIcon=true forceDateOutput=true sideBySide=true}}
             {{input class='form-control' value=diffAttribute autofocus="autofocus"}}
         {{/bs-datetimepicker}}
 		{{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
