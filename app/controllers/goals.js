@@ -20,6 +20,7 @@ export default CarePlanResource.extend({
             console.log('(GOALS CONTROLLER) SAVE RECORD- record: ' + record + '. Applying diffs...');
 
             //Manually set diffs (TODO: for now, but maybe do this automatically in the future?).
+            record.set('priority.text',record.get('priority.textDiff'));
             record.set('description',record.get('descriptionDiff'));
             record.set('status',record.get('statusDiff'));
             record.set('targetDate',record.get('targetDateDiff'));
