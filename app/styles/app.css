@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*
 
-    
+
 
 
  */
@@ -2263,7 +2263,7 @@ a.list-group-item.active:focus {
 /* panel info */
 /* line 1039, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
 .panel-info {
-  border-color: #31B0D5;
+  border-color: #FFFFFF;
 }
 
 /* line 1043, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
@@ -3127,7 +3127,7 @@ ul.messenger-theme-flat .messenger-message-slot.messenger-first.messenger-last .
   box-shadow: inset 48px 0px 0px #2c3e50;
 }
 
-/* 
+/*
  * noUiSlider
  * Functional styling;
  * These styles are required for noUiSlider to function.
@@ -3595,9 +3595,9 @@ ul.messenger-theme-flat .messenger-message-slot.messenger-first.messenger-last .
   background: #4FDACF;
 }
 
-/* 
+/*
  * Pace 0.4.15, loader automatically plugin
- * http://github.hubspot.com/pace/ 
+ * http://github.hubspot.com/pace/
  */
 /* line 2050, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
 .pace {
@@ -4474,7 +4474,7 @@ h6.box-heading {
  *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -8949,13 +8949,13 @@ ul.messenger-theme-air .messenger-spinner {
  * forms.css v1.1
  * Rural Health Template
  *
- * default theme usage colors: 
+ * default theme usage colors:
  *  - body: none;
  *  - side left: wetashpalt - #34495e;
  *  - side header: belizehole - #34abb3;
  *  - content: cloud - #ecf0f1;
  *  - content header: peterriver - #3498db;
- *  
+ *
  * 	- primary: peterriver - #3498db;
  * 	- success: emerald - #2ecc71;
  * 	- info: bluesky - #5bc0de;
@@ -8964,7 +8964,7 @@ ul.messenger-theme-air .messenger-spinner {
  *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -10935,7 +10935,7 @@ iframe.wysihtml5-sandbox {
  *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -11398,7 +11398,7 @@ iframe.wysihtml5-sandbox {
  *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -11510,7 +11510,7 @@ iframe.wysihtml5-sandbox {
  *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -11564,7 +11564,7 @@ iframe.wysihtml5-sandbox {
 *
 * License:
 * No License. Not for commercial or public release.
-* 
+*
 * Copyright 2014, MITRE
 * http://mitre.org
 */
@@ -11660,7 +11660,7 @@ iframe.wysihtml5-sandbox {
 *
 * License:
 * No License. Not for commercial or public release.
-* 
+*
 * Copyright 2014, MITRE
 * http://mitre.org
 */
@@ -11772,7 +11772,7 @@ iframe.wysihtml5-sandbox {
  *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -11858,7 +11858,7 @@ body {
 /* line 79, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/main.scss */
 .side-left {
   /*position: fixed;*/
-  float: left; 
+  float: left;
   padding: 0;
   width: 300px;
   height: 100vh;
@@ -12100,14 +12100,14 @@ body {
 
 /* line 276, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/main.scss */
 .content {
-  
+
   padding: 0;
   /*
 position: fixed;
   padding-left: 300px;
     width: 100%;
   */
-  overflow: auto;   
+  overflow: auto;
   height: 100%;
   z-index: 1;
 }
@@ -12375,12 +12375,12 @@ position: fixed;
   overflow-x: hidden;
 }
 
-/** 
+/**
  * Transition Layout
  * Working like a pagination but this use on singgle page/layout and transition
- * 
- * 
- * usage: 
+ *
+ *
+ * usage:
  *   <div class="transsition-layout">...</div>
  */
 /* line 514, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/main.scss */
@@ -12423,7 +12423,7 @@ position: fixed;
 
 	-webkit-animation-delay: .4s;
     -moz-animation-delay: .4s;
-    animation-delay: .4s;	
+    animation-delay: .4s;
 
     -webkit-animation: slideIn .7s ease both;
 	-o-animation: slideIn .7s ease both;
@@ -12524,16 +12524,16 @@ position: fixed;
 }
 */
 /* End Transition Layout */
-/** 
+/**
  * Magic layout with isotope
  * Beautifull layout inspired by google+
  * Support with 2-4 elements coloumn
  *
  * if your viewport > 1280 this is support with 2-4 elements coloumn
  * but if your viewport less then or equel 1280 this is only support with 2 element column
- * 
- * usage: 
- *   add data-cols="3" or data-cols="4" to magic layout element 
+ *
+ * usage:
+ *   add data-cols="3" or data-cols="4" to magic layout element
  *   <div class="magic-layout" data-cols="4">...</div>
  */
 /* line 640, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/main.scss */
@@ -13111,7 +13111,7 @@ position: fixed;
   transform: translate(300px);
 }
 
-/* 
+/*
 .gallery-item.expand::after {
     position: relative;
     top: -12px;
@@ -14306,7 +14306,7 @@ position: fixed;
  * Rural Health Template
  *
  * Use to setting font-family, basic color, events element (hover, active, focus, etc)
- * default theme usage colors: 
+ * default theme usage colors:
  *  - body: none;
  *  - side left: wetasphalt - #2A2B26;
  *  - side header: belizehole - #34abb3;
@@ -14952,7 +14952,7 @@ position: fixed;
  *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -14976,10 +14976,10 @@ position: fixed;
  *
  *
  * Replace bootstrap typography
- * 
+ *
  * License:
  * No License. Not for commercial or public release.
- * 
+ *
  * Copyright 2014, MITRE
  * http://mitre.org
  */
@@ -19967,9 +19967,9 @@ a {
 }
 
 .relatedList{
-    margin: 0; 
-    padding: 0; 
-    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
     list-style-image: none;
 }
 
@@ -19983,7 +19983,7 @@ a {
   color:#eee;
   font-size:12px;
   font-weight: bold;
-  
+
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -20012,7 +20012,7 @@ a {
 
 .fhir-choice {
 
-  
+
 }
 
 .form-control {
@@ -20029,7 +20029,7 @@ button.glyphicon{
 }
 
 .fhir-columns{
-  background-color: rgb(242,247,252); 
+  background-color: rgb(242,247,252);
   height:100vh;
   padding:0px;
 }
@@ -20112,14 +20112,14 @@ button.nobackground{
   padding:2px;
 }
 /*
-.control-label{ 
-  padding-top: 7px; 
+.control-label{
+  padding-top: 7px;
 }*/
 
 /* Landscape tablet & small desktop */
 @media (min-width: 1024px) {
   /* line 1476, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
-  .control-label{ 
-  padding-top: 7px; 
+  .control-label{
+  padding-top: 7px;
 }
 }
