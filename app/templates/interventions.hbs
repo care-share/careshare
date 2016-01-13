@@ -44,6 +44,14 @@
                                     <div>
                                         Orderer
                                     </div>
+                                    
+                                    Scheduled:
+    								{{#fhir-timing parent=intervention name='scheduledTiming'}}
+    									Event: {{fhir-datetime parent=intervention.scheduledTiming name='event' inline=true}}
+                                        {{#codeable-concept parent=intervention name='scheduledTiming.code'}}
+                                            Code: {{fhir-edit parent=intervention.scheduledTiming.code name='text'}}
+                                        {{/codeable-concept}}
+    								{{/fhir-timing}}    
 
                                     Ordered On: {{fhir-datetime parent=intervention name='orderedOn'}}
                                     {{related-list parent=intervention relation='rlGoals' display='description' label="Goals"}}

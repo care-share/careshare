@@ -1,17 +1,29 @@
-{{#em-modal configName="bs" id=name}}
-    {{#em-modal-body}}
-        {{#bs-datetimepicker date=diffAttribute pickTime=false showToday=false format="YYYY-MM-DD" noIcon=true forceDateOutput=true sideBySide=true}}
-            {{input class='form-control' value=diffAttribute autofocus="autofocus"}}
-        {{/bs-datetimepicker}}
-		{{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
-    {{/em-modal-body}}
-{{/em-modal}}
-{{#if (gt calculatedPatch.length 0)}} 
-    <div style='background-color:#dddddd'>
-	    {{{calculatedPatch}}}
-		<button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
-	</div> 
+{{#if inline}}
+    {{#bs-datetimepicker date=diffAttribute pickTime=false showToday=false format="YYYY-MM-DD" forceDateOutput=true}}
+        {{#if (gt calculatedPatch.length 0)}} 
+            <div style='background-color:#dddddd'>
+                {{{calculatedPatch}}}
+                <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
+            </div> 
+        {{/if}}
+        {{input class='form-control' value=diffAttribute autofocus="autofocus"}}
+    {{/bs-datetimepicker}}    
 {{else}}
-    {{diffAttribute}}
-{{/if}} 
-{{em-modal-toggler modal-id=name class="glyphicon glyphicon-calendar"}}
+    {{#em-modal configName="bs" id=name}}
+        {{#em-modal-body}}
+            {{#bs-datetimepicker date=diffAttribute pickTime=false showToday=false format="YYYY-MM-DD" noIcon=true forceDateOutput=true sideBySide=true}}
+                {{input class='form-control' value=diffAttribute autofocus="autofocus"}}
+            {{/bs-datetimepicker}}
+            {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
+        {{/em-modal-body}}
+    {{/em-modal}}
+    {{#if (gt calculatedPatch.length 0)}} 
+        <div style='background-color:#dddddd'>
+            {{{calculatedPatch}}}
+            <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
+        </div> 
+    {{else}}
+        {{diffAttribute}}
+    {{/if}} 
+    {{em-modal-toggler modal-id=name class="glyphicon glyphicon-calendar"}}
+{{/if}}

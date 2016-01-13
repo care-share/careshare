@@ -4,10 +4,8 @@ export default Ember.Component.extend({
 	original: null,
 	patcher: new diff_match_patch(),
     classNames: ['fhir-datetime'],
-	showModal: false,
 	setup: function () {
-		this.set('original',this.get('parent').get(this.get('name')));
-        
+		this.set('original',this.get('parent').get(this.get('name')));      
         var existingDiff = this.get('parent').get(this.get('name')+'Diff');		
 		if(existingDiff === null || existingDiff === undefined){
 			if(this.get('original') === null || this.get('original') === undefined){
@@ -23,8 +21,10 @@ export default Ember.Component.extend({
 		    var diff = this.get('patcher').diff_main(
 			    (this.get('original') !== null && this.get('original') !== undefined) ? 
                     new Date(Ember.Date.parse(this.get('original'))).toString() : '',new Date(Ember.Date.parse(this.get('diffAttribute'))).toString(),true);
-            this.get('parent').set(this.get('name')+'Diff', new Date(Ember.Date.parse(this.get('diffAttribute'))));
-	        return this.get('patcher').diff_prettyHtml(diff);
+            if(diff.toString().indexOf('Invalid Date') === -1){
+                this.get('parent').set(this.get('name')+'Diff', new Date(Ember.Date.parse(this.get('diffAttribute'))));
+                return this.get('patcher').diff_prettyHtml(diff);
+            }
 		}
 		return '';
     }.property('diffAttribute'),
@@ -32,9 +32,6 @@ export default Ember.Component.extend({
         cancel: function () {
 		    this.set('diffAttribute',
 			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '');
-        },
-		modalToggle: function(){
-		    this.set('showModal',!this.get('showModal'));
-		}
+        }
     }
 });
