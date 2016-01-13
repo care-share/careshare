@@ -11,6 +11,10 @@
                                     <div class="col-xs-12 fhir-form-item">
                                         <div class="col-xs-12 col-lg-6">
                                             {{fhir-edit parent=goal name='description'}}
+                                            {{!goal.example.[-goal].value}}
+                                            {{#each goal.changes.[-description] as |cr|}}
+                                                {{change-request parent=goal name='description' old=cr.originalValue new=cr.value }}
+                                            {{/each}}
                                         </div>
                                         <div class="col-xs-12 col-lg-6">
                                             {{fhir-choice parent=goal name='status'
