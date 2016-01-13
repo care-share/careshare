@@ -44,14 +44,23 @@
                                     <div>
                                         Orderer
                                     </div>
-                                    
+                                    <br>
                                     Scheduled:
     								{{#fhir-timing parent=intervention name='scheduledTiming'}}
-    									Event: {{fhir-datetime parent=intervention.scheduledTiming name='event' inline=true}}
                                         {{#codeable-concept parent=intervention name='scheduledTiming.code'}}
-                                            Code: {{fhir-edit parent=intervention.scheduledTiming.code name='text'}}
+                                            Short Code: {{fhir-edit parent=intervention.scheduledTiming.code name='text'}}<br>
                                         {{/codeable-concept}}
-    								{{/fhir-timing}}    
+                                        Frequency: {{fhir-edit parent=intervention.scheduledTiming.repeat name='frequency' isNumber='integer'}} to 
+                                                   {{fhir-edit parent=intervention.scheduledTiming.repeat name='frequencyMax' isNumber='integer'}}<br>
+                                        Period: {{fhir-edit parent=intervention.scheduledTiming.repeat name='period' isNumber='decimal'}} to 
+                                                {{fhir-edit parent=intervention.scheduledTiming.repeat name='periodMax' isNumber='decimal'}}
+                                                {{fhir-choice parent=intervention.scheduledTiming.repeat name='periodUnits' choices='s,min,h,d,wk,mo,a'}}<br>
+                                        Duration: {{fhir-edit parent=intervention.scheduledTiming.repeat name='duration' isNumber='decimal'}} to 
+                                                {{fhir-edit parent=intervention.scheduledTiming.repeat name='durationMax' isNumber='decimal'}}
+                                                {{fhir-choice parent=intervention.scheduledTiming.repeat name='durationUnits' choices='s,min,h,d,wk,mo,a'}}<br>
+                                        Repeat: {{fhir-edit parent=intervention.scheduledTiming.repeat name='count' isNumber='integer'}} times<br><br>
+    									Start date: {{fhir-datetime parent=intervention.scheduledTiming name='event' inline=true}}
+    								{{/fhir-timing}}<br><br>
 
                                     Ordered On: {{fhir-datetime parent=intervention name='orderedOn'}}
                                     {{related-list parent=intervention relation='rlGoals' display='description' label="Goals"}}

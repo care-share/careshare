@@ -24,7 +24,7 @@ export default Ember.Component.extend({
 		    this.get('original') !== this.get('diffAttribute')){
 		    var diff = this.get('patcher').diff_main(
 			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '',this.get('diffAttribute'),true);
-            this.get('parent').set(this.get('name')+'Diff',this.get('diffAttribute'));
+            //this.get('parent').set(this.get('name')+'Diff',this.get('diffAttribute'));
 	        return this.get('patcher').diff_prettyHtml(diff);
 		}
 		return '';
