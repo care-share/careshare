@@ -6,22 +6,20 @@
                 <div {{action "hoverOn" order on="mouseEnter"}} {{action "hoverOff" order on="mouseLeave"}}>
                     {{#fhir-element root=order type='MedicationOrder' as |section|}}
                         {{#if order.medicationReference.medication.code.text}}
+                            <!-- medication text should NOT be editable -->
                             {{order.medicationReference.medication.code.text}}
                         {{else}}
                             NO MEDICATION
                         {{/if}}
                         {{#if (eq section "expanded")}}
+                            {{#backbone-element parent=model name='dosageInstruction' type='medication-order-dosage-instruction-component'}}
                             <div class=" col-xs-12 fhir-form-item">
                                 <label class="col-sm-5 control-label" for="dosage"> Dosage: </label>
-
                                 <div id="dosage" class="col-xs-12 col-lg-7">
-                                    {{#each order.dosageInstruction as |di|}}
-                                        {{fhir-edit parent=di attribute=di.text}}
-                                    {{else}}
-                                        NO DOSAGE
-                                    {{/each}}
+                                    {{fhir-edit parent=model.dosageInstruction.firstObject name='text'}}
                                 </div>
                             </div>
+                            {{/backbone-element}}
                             <div class=" col-xs-12 fhir-form-item">
                                 <label class="col-sm-5 control-label" for="reason"> Reason: </label>
 

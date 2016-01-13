@@ -12,10 +12,10 @@
                                     <div class="form-group">
                                         <div class="col-xs-12 fhir-form-item">
                                             <div class="col-xs-12 col-lg-6">
-                                                {{fhir-edit attribute=nutrition.supplement.firstObject.productName }}
+                                                {{fhir-edit parent=nutrition.supplement.firstObject name='productName'}}
                                             </div>
                                             <div class="col-xs-12 col-lg-6">
-                                                {{fhir-choice attribute=nutrition.status
+                                                {{fhir-choice parent=nutrition name='status'
                                                 choices='proposed,draft,planned,requested,active,on-hold,completed,cancelled'}}
                                             </div>
                                         </div>
@@ -23,14 +23,14 @@
                                             <label class="col-sm-5 control-label" for="type"> Type: </label>
                                             <div id="type" class="col-xs-12 col-lg-7">
                                                 {{#codeable-concept parent=nutrition.supplement.firstObject name='type'}}
-                                                    {{fhir-edit attribute=nutrition.supplement.firstObject.type.text }}
+                                                    {{fhir-edit parent=nutrition.supplement.firstObject.type name='text'}}
                                                 {{/codeable-concept}}
                                             </div>
                                         </div>
                                         <div class=" col-xs-12 fhir-form-item">
                                             <label class="col-xs-12 control-label" for="type"> Instruction: </label>
                                             <div id="type" class="col-xs-12">
-                                                {{fhir-edit attribute=nutrition.supplement.firstObject.instruction }}
+                                                {{fhir-edit parent=nutrition.supplement.firstObject name='instruction'}}
                                             </div>
                                         </div>
                                         <div>
@@ -40,7 +40,7 @@
                                         </div>
                                     </div>
                                 {{/backbone-element}}
-                                Ordered On: {{fhir-datetime attribute=nutrition.dateTime showTime=true}}
+                                Ordered On: {{fhir-datetime parent=nutrition name='dateTime'}}
                                 {{related-list parent=nutrition relation='rlGoals' display='description' label="Goals"}}
                             </div>
                         {{else}}
