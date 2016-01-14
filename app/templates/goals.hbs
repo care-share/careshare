@@ -46,6 +46,9 @@
                                         {{#codeable-concept parent=goal name='priority'}}
                                             {{fhir-choice parent=goal name='priority.text' choices='unspecified,low,medium,high'}}
                                         {{/codeable-concept}}
+                                        {{#each goal.changes.[-priority] as |cr|}}
+                                            {{change-request parent=goal name='priority' old=cr.originalValue new=cr.value }}
+                                        {{/each}}
                                     </div>
                                 </div>
                                 <!-- TODO: create a "fhir-choice-multi" component so we can support selecting multiple categories
@@ -72,6 +75,9 @@
 
                                     <div id="targetDate" class="col-xs-12 col-lg-7">
                                         {{fhir-datetime parent=goal name='targetDate' showTime=true}}
+                                        {{#each goal.changes.[-targetDate] as |cr|}}
+                                            {{change-request parent=goal name='targetDate' old=cr.originalValue new=cr.value }}
+                                        {{/each}}
                                     </div>
                                 </div>
                                 {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
