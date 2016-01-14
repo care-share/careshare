@@ -42,24 +42,24 @@ export default model.extend({
               }
             },
             "diff": [
-              // {
-              //   "op": "replace",
-              //   "path": "/description",
-              //   "originalValue": "Patient will maintain bowel & bladder function without infection/constipation during this cert period",
-              //   "value": "Win the PowerBall lottery"
-              // },
-              // {
-              //   "op": "replace",
-              //   "path": "/description",
-              //   "originalValue": "x",
-              //   "value": "y"
-              // },
-              // {
-              //   "op": "replace",
-              //   "path": "/status",
-              //   "originalValue": "old status",
-              //   "value": "new status"
-              // }
+              {
+                "op": "replace",
+                "path": "/description",
+                "originalValue": "Patient will maintain bowel & bladder function without infection/constipation during this cert period",
+                "value": "Win the PowerBall lottery"
+              },
+              {
+                "op": "replace",
+                "path": "/description",
+                "originalValue": "x",
+                "value": "y"
+              },
+              {
+                "op": "replace",
+                "path": "/status",
+                "originalValue": "old status",
+                "value": "new status"
+              }
             ]
           }
         ],
