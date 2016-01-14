@@ -1,5 +1,5 @@
 import model from 'ember-fhir-adapter/models/goal';
-import diffProp from 'careshare/properties/diff-property';
+import nomChange from 'careshare/properties/nominations-change-property';
 
 export default model.extend({
     nominations:[
@@ -42,43 +42,28 @@ export default model.extend({
               }
             },
             "diff": [
-              {
-                "op": "replace",
-                "path": "/description",
-                "originalValue": "Patient will maintain bowel & bladder function without infection/constipation during this cert period",
-                "value": "Win the PowerBall lottery"
-              }
+              // {
+              //   "op": "replace",
+              //   "path": "/description",
+              //   "originalValue": "Patient will maintain bowel & bladder function without infection/constipation during this cert period",
+              //   "value": "Win the PowerBall lottery"
+              // },
+              // {
+              //   "op": "replace",
+              //   "path": "/description",
+              //   "originalValue": "x",
+              //   "value": "y"
+              // },
+              // {
+              //   "op": "replace",
+              //   "path": "/status",
+              //   "originalValue": "old status",
+              //   "value": "new status"
+              // }
             ]
           }
         ],
-    changes: {},
+    changes: nomChange(),
     init: function(){
-        //this.set('example', {'description': [1,2,3,4,5]})
-        console.log("Init for Goal")
-
-        var noms = this.get('nominations')
-        console.log(noms)
-        for (var n in noms){
-            if (noms.hasOwnProperty(n)){
-                for (var d in noms[n].diff){
-                    if (noms[n].diff.hasOwnProperty(d)){
-                        var diffObj = noms[n].diff[d]
-                        console.log(diffObj)
-                        var crObj = {
-                            'originalValue': diffObj.originalValue,
-                            'value': diffObj.value
-                        }
-                        var pathNameWithDash = diffObj.path.replace('/','-')
-                        if (this.get('changes')[pathNameWithDash]){
-                            this.get('changes')[pathNameWithDash].push(crObj);
-                        }
-                        else {
-                            this.get('changes')[pathNameWithDash] = [crObj];
-                        }
-                    }
-                }
-            }
-
-        }
     }
 });

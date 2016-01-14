@@ -1,39 +1,40 @@
-import Ember from 'ember';
-export default Ember.Component.extend({
-	diffAttribute: null,
-	original: null,
+import PassthroughComponent from 'careshare/components/passthrough-component';
+
+export default PassthroughComponent.extend({
 	patcher: new diff_match_patch(),
     classNames: ['fhir-datetime'],
 	showModal: false,
+    orignalValue: '',
 	setup: function () {
-		this.set('original',this.get('parent').get(this.get('name')));
-        
-        var existingDiff = this.get('parent').get(this.get('name')+'Diff');		
-		if(existingDiff === null || existingDiff === undefined){
-			if(this.get('original') === null || this.get('original') === undefined){
-		        this.set('diffAttribute','');
-		    }else{this.set('diffAttribute',this.get('original'));}	
-		}else{this.set('diffAttribute',existingDiff);}
-        
-	    console.log('(FHIR-DATETIME) parent: '+this.get('parent')+', name: '+this.get('name')+', original: '+this.get('original')+', diffAttribute: '+this.get('diffAttribute'));
-	}.on('init'),
-	calculatedPatch: function () {
-	    console.log('(FHIR-DATETIME) diffAttribute altered, diffAttribute is: '+this.get('diffAttribute')+' and original is: '+this.get('original'));
-	    if(this.get('diffAttribute') !== null && this.get('diffAttribute') !== undefined && this.get('original') !== this.get('diffAttribute')){
-		    var diff = this.get('patcher').diff_main(
-			    (this.get('original') !== null && this.get('original') !== undefined) ? 
-                    new Date(Ember.Date.parse(this.get('original'))).toString() : '',new Date(Ember.Date.parse(this.get('diffAttribute'))).toString(),true);
-            if(diff.toString().indexOf('Invalid Date') === -1){
-                this.get('parent').set(this.get('name')+'Diff', new Date(Ember.Date.parse(this.get('diffAttribute'))));
-                return this.get('patcher').diff_prettyHtml(diff);
-            }
-		}
-		return '';
-    }.property('diffAttribute'),
+        //Get a string representation of the ORIGINAL property
+        var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
+        this.set('originalValue', sanitizedValue);
+
+
+        //Define computed property in setup because the attribute name has to be set dynamically
+        Ember.defineProperty(this, 'calculatedPatch', Ember.computed(function() {
+                //Get a string representation of the CURRENT property
+                var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
+
+                // If there is a difference between the original and current create the Diff
+                if (this.get('originalValue') !== sanitizedValue){
+                    var diff = this.get('patcher').diff_main(
+                        new Date(Ember.Date.parse(this.get('originalValue'))).toString(),
+                        new Date(Ember.Date.parse(sanitizedValue)).toString(),
+                        true
+                    );
+                    if(diff.toString().indexOf('Invalid Date') === -1){
+                        return this.get('patcher').diff_prettyHtml(diff);
+                    }
+                }
+                //If not return empty (Handlebars checks for empty string before creating DIV)
+                return "";
+        }).property('parent.' + this.get('name')));
+
+
+    }.on('init'),
     actions: {
         cancel: function () {
-		    this.set('diffAttribute',
-			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '');
         },
 		modalToggle: function(){
 		    this.set('showModal',!this.get('showModal'));

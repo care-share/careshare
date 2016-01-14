@@ -20,13 +20,8 @@ export default CarePlanResource.extend({
 	}.observes('parentController.isChangeRequest'),
     actions: {
         saveRecord: function (record) {
-            console.log('(INTERVENTIONS CONTROLLER) SAVE RECORD- record: ' + record + '. Applying diffs...');
+            console.log('(INTERVENTIONS CONTROLLER) SAVE RECORD- record: ' + record + '');
 
-            //Manually set diffs (TODO: for now, but maybe do this automatically in the future?).
-            record.set('code.text',record.get('code.textDiff'));
-            record.set('status',record.get('statusDiff'));
-            record.set('priority',record.get('priorityDiff'));
-            record.set('orderedOn',record.get('orderedOnDiff'));
 
             //TODO: Need to reload the controller to call init() and reset the diff. Should we be calling record.reload()???
             return this._super(record);

@@ -17,14 +17,9 @@ export default CarePlanResource.extend({
 	}.observes('parentController.isChangeRequest'),
     actions: {
         saveRecord: function (record) {
-            console.log('(NUTRITION CONTROLLER) SAVE RECORD- record: ' + record + '. Applying diffs...');
+            console.log('(NUTRITION CONTROLLER) SAVE RECORD- record: ' + record + '');
 
-            //Manually set diffs (TODO: for now, but maybe do this automatically in the future?).
-            record.set('supplement.firstObject.productName',record.get('supplement.firstObject.productNameDiff'));
-            record.set('status',record.get('statusDiff'));
-            record.set('supplement.firstObject.type.text',record.get('supplement.firstObject.type.textDiff'));
-            record.set('supplement.firstObject.instruction',record.get('supplement.firstObject.instructionDiff'));
-            record.set('dateTime',record.get('dateTimeDiff'));
+
 
             //TODO: Need to reload the controller to call init() and reset the diff. Should we be calling record.reload()???
             return this._super(record);

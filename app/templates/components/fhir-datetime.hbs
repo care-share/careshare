@@ -1,17 +1,23 @@
 {{#em-modal configName="bs" id=name}}
     {{#em-modal-body}}
-        {{#bs-datetimepicker date=diffAttribute showToday=false format="YYYY-MM-DDTHH:mm:ss" noIcon=true forceDateOutput=true sideBySide=true}}
-            {{input class='form-control' value=diffAttribute autofocus="autofocus"}}
-        {{/bs-datetimepicker}}
+        {{#if showTime}}
+            {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='YYYY-MM-DDTHH:mm:ss' noIcon=true forceDateOutput=true sideBySide=true}}
+                {{input class='form-control' value=passthrough autofocus="autofocus"}}
+            {{/bs-datetimepicker}}
+        {{else}}
+            {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='YYYY-MM-DD' noIcon=true forceDateOutput=true sideBySide=true}}
+                {{input class='form-control' value=passthrough autofocus="autofocus"}}
+            {{/bs-datetimepicker}}
+        {{/if}}
 		{{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
     {{/em-modal-body}}
 {{/em-modal}}
-{{#if (gt calculatedPatch.length 0)}} 
+{{#if (gt calculatedPatch.length 0)}}
     <div style='background-color:#dddddd'>
 	    {{{calculatedPatch}}}
 		<button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
-	</div> 
+	</div>
 {{else}}
-    {{diffAttribute}}
-{{/if}} 
+    {{passthrough}}
+{{/if}}
 {{em-modal-toggler modal-id=name class="glyphicon glyphicon-calendar"}}

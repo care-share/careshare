@@ -1,9 +1,8 @@
-import Ember from 'ember';
+import PassthroughComponent from 'careshare/components/passthrough-component';
 
-export default Ember.Component.extend({
+
+export default PassthroughComponent.extend({
     tagName: 'span',
-	diffAttribute: null,
-	original: null,
 	patcher: new diff_match_patch(),
     classNames: ['fhir-edit'],
     originalValue: '',
@@ -13,19 +12,6 @@ export default Ember.Component.extend({
         //Get a string representation of the ORIGINAL property
         var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
         this.set('originalValue', sanitizedValue);
-
-        // Does not work even though it returns the computed property and not the evaluation
-        // this.set('passthrough', this.get('parent')[this.get('name')])
-
-        //Creates a computed property that acts as a pass though from inner component to actual parent model
-        Ember.defineProperty(this, 'passthrough', Ember.computed(function(key, value) {
-                // Set parent variable when passthrough is edited externally
-                if (arguments.length > 1) {
-                    this.get('parent').set(this.get('name'), value);
-                }
-                // Sets passthrough to this when property changes
-                return this.get('parent.' + this.get('name'));
-            }).property('parent.' + this.get('name')));
 
 
         //Define computed property in setup because the attribute name has to be set dynamically
@@ -48,8 +34,7 @@ export default Ember.Component.extend({
     }.on('init'),
 	actions:{
 	    cancel: function(){
-		    this.set('diffAttribute',
-			    (this.get('original') !== null && this.get('original') !== undefined) ? this.get('original') : '');
+
 		}
 	}
 });

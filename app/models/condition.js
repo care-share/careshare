@@ -4,12 +4,6 @@ import DS from 'ember-data';
 import Ember from 'ember';
 
 export default model.extend({
-    clinicalStatusDiff: diffProp('clinicalStatus'),
-    // code is extended from codeable-concept, which has its own diffProp
-    // severity is extended from codeable-concept, which has its own diffProp
-    // category is extended from codeable-concept, which has its own diffProp
-    onsetDateTimeDiff: diffProp('onsetDateTime'),
-    abatementDateTimeDiff: diffProp('abatementDateTime'),
     displayName: Ember.computed('name', function () {
         // There might be multiple codings, but we only want one
         // human readable display name, so we just take it from the

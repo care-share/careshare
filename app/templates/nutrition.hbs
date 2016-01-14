@@ -40,7 +40,7 @@
                                         </div>
                                     </div>
                                 {{/backbone-element}}
-                                Ordered On: {{fhir-datetime parent=nutrition name='dateTime'}}
+                                Ordered On: {{fhir-datetime parent=nutrition name='dateTime' showTime=true}}
                                 {{related-list parent=nutrition relation='rlGoals' display='description' label="Goals"}}
                             </div>
                         {{else}}
