@@ -24,6 +24,7 @@ export default PassthroughComponent.extend({
                     var diff = this.get('patcher').diff_main(this.get('originalValue'),sanitizedValue,true);
                     return '\<del style=\"background:\#ffe6e6;\"\>'+this.get('originalValue')+'\<\/del\>'+
                     '\<ins style=\"background:\#e6ffe6;\"\>'+sanitizedValue+'\<\/ins\>';
+
                 }
                 //If not return empty (Handlebars checks for empty string before creating DIV)
                 else{
