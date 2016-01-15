@@ -10,15 +10,36 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
 
         return this.store.find('CarePlan', params.careplan_id);
     },
-    afterModel(/*model*/) {
+    afterModel(model) {
+        var controller = this.controllerFor('careplan');
+
         var condition = this.doQueries('Condition', true); // conditions
         var goal = this.doQueries('Goal', true); // goals
         var procedureRequest = this.doQueries('ProcedureRequest', true); // interventions
         var nutritionOrder = this.doQueries('NutritionOrder', true); // nutrition
         var medicationOrder = this.doQueries('MedicationOrder', true); // medications
+
         // we have to wait until the queries are all finished before we allow the route to render
         // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved
-        return Ember.RSVP.allSettled([condition, goal, procedureRequest, nutritionOrder, medicationOrder]);
+        return Ember.RSVP.allSettled([condition, goal, procedureRequest, nutritionOrder, medicationOrder])
+            .then(function () {
+                // figure out which Conditions and MedicationOrders are NOT related to the CarePlan
+                var carePlan = model;
+                function loop(modelName, attr, key) {
+                    var array = controller.get(modelName.pluralize());
+                    var related = carePlan.get(attr).toArray().map(function (item) {
+                        return item.get(key).split('/')[1]; // return ID string for this reference
+                    });
+                    for (var i = 0; i < array.length; i++) {
+                        if (related.contains(array[i].id)) {
+                            array[i].set('isRelatedToCarePlan', true);
+                        }
+                    }
+                }
+
+                loop('Condition', 'addresses', 'reference');
+                loop('MedicationOrder', 'activity', 'reference.reference');
+            });
     },
     // do queries for a model (single name, not pluralized name)
     doQueries: function (modelName, doUnload) {
@@ -32,7 +53,8 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
         var include;
         switch (modelName) {
             case ('Condition'):
-                include = 'CarePlan:condition';
+                resource = 'Condition';
+                query = {patient: this.controllerFor('patient').id};
                 break;
             case ('Goal'):
                 include = 'CarePlan:goal';
@@ -50,7 +72,9 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
                 include = 'MedicationOrder:medication';
                 break;
         }
-        query._include = include;
+        if (include) {
+            query._include = include;
+        }
 
         // to get the "create" buttons to work properly, we need to query *then* peekAll
         return this.store.query(resource, query) // the "_include" is effectively a join

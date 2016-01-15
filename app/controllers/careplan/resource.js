@@ -21,6 +21,9 @@ export default Ember.Controller.extend({
             args.id = newId;
             args.patient = patientRef;
             args.isNewRecord = true;
+            if (type === 'Condition' || type === 'MedicationOrder') {
+                args.isRelatedToCarePlan = true;
+            }
             this.store.createRecord(type, args);
             // FIXME: this shouldn't be necessary, see controllers/careplan.js
             this.controllerFor('careplan').doPeek(type);

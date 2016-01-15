@@ -3,7 +3,8 @@ import DS from 'ember-data';
 import nomChange from 'careshare/properties/nominations-change-property';
 
 export default model.extend({
-    carePlans: DS.hasMany('care-plan' ,{'async': true}),
+
+    carePlan: DS.belongsTo('care-plan', {'async': true}),
     nominations: DS.attr('array'),
     changes: nomChange(),
     init: function(){
