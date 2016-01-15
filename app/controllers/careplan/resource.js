@@ -77,24 +77,22 @@ export default Ember.Controller.extend({
             // save this model
             record.save().then(function () {
                 // iff this is a new record, add "CarePlan -> <model>" reference
-                if (!isNewRecord) {
-                    return;
-                }
-
-                var ref = that.store.createRecord('reference', {
-                    reference: `${modelName}/${record.id}`
-                });
-                if (that.carePlanRefAttr === 'activity') {
-                    // the CarePlan activity field requires a 'backbone' wrapper element...
-                    ref = that.store.createRecord('care-plan-activity-component', {
-                        reference: ref
+                if (isNewRecord) {
+                    var ref = that.store.createRecord('reference', {
+                        reference: `${modelName}/${record.id}`
                     });
+                    if (that.carePlanRefAttr === 'activity') {
+                        // the CarePlan activity field requires a 'backbone' wrapper element...
+                        ref = that.store.createRecord('care-plan-activity-component', {
+                            reference: ref
+                        });
+                    }
+                    var refs = carePlan.get(that.carePlanRefAttr)
+                        .toArray();
+                    refs.addObject(ref);
+                    carePlan.set(that.carePlanRefAttr, refs);
+                    carePlan.save();
                 }
-                var refs = carePlan.get(that.carePlanRefAttr)
-                    .toArray();
-                refs.addObject(ref);
-                carePlan.set(that.carePlanRefAttr, refs);
-                carePlan.save();
             });
         },
         updateRecord: function (record, name, type) {

@@ -20126,6 +20126,17 @@ button.nobackground{
 
 .is-related-to-care-plan
 {
-  /*TODO: change this to not-horrendous styling*/
-  background-color: blue
+}
+
+.not-related-to-care-plan > .panel
+{
+  background-color: lightgray;
+}
+
+.not-related-to-care-plan input{
+  background-color: inherit !important;
+}
+
+.not-related-to-care-plan select{
+  background-color: inherit !important;
 }

@@ -34,7 +34,24 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
                         if (related.contains(array[i].id)) {
                             array[i].set('isRelatedToCarePlan', true);
                         }
+                        else {
+                            array[i].set('isRelatedToCarePlan', false);
+                        }
                     }
+                    // array.sort(function(a, b) {
+                    //   if (a.get("isRelatedToCarePlan")) {
+                    //     if (b.get("isRelatedToCarePlan")){
+                    //         return 0;
+                    //     }
+                    //     else {
+                    //         return 1;
+                    //     }
+                    //   }
+                    //   else {
+                    //     return -1;
+                    //   }
+                    // });
+                    // controller.set(modelName.pluralize(), array);
                 }
 
                 loop('Condition', 'addresses', 'reference');
