@@ -3,8 +3,6 @@
 </div>
 <div class="col-sm-12" style="border-width:2px; border-style:dashed; border-color:#ccc">
     <h3>
-        PLACEHOLDER FOR PATIENT INFO BANNER
-        <br/>
         Patient name:
         {{#each name as |name|}}
             <span>{{name.family}}, {{name.given}}</span>
@@ -14,9 +12,17 @@
     <br/>
     Gender: {{gender}}
 </div>
-<div class="col-sm-12">
+<div class="col-sm-5">
     <h4>Which concerns are relevant to this care plan?</h4>
     {{multiselect-checkboxes options=conditions labelProperty='code.text' selection=selectedConditions}}
+</div>
+<div class="col-sm-5">
+    <h4>Notes</h4>
+    {{textarea value=comment cols="40" rows="5"}}
+</div>
+<div class="col-sm-2">
+    <br/>
+    <button {{action 'initializeCarePlan'}}>Submit</button>
 </div>
 <div class="col-sm-12">
     <h4>Functional limitations</h4>
@@ -67,14 +73,6 @@
             Agitated</label></li>
         <li class="col-md-5"><label>Other: {{input type="text" name="mentalStatusOther"}}</label></li>
     </ul>
-</div>
-<div class="col-sm-12">
-    <h4>Notes</h4>
-    {{textarea value=comment cols="80" rows="3"}}
-</div>
-<div class="col-sm-12">
-    <br/>
-    <button {{action 'initializeCarePlan'}}>Submit</button>
 </div>
 <div class="col-sm-12">
     <br/>
