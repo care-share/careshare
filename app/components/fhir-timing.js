@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import PassthroughComponent from 'careshare/components/passthrough-component';
 
-export default Ember.Component.extend({
+export default PassthroughComponent.extend({
     // args passed in from template: parent, name
     tagName: 'span', // needed for Ember to build this in a HTML span element instead of a div
     classNames: ['timing'], // needed for Ember to add this CSS class to the HTML element
