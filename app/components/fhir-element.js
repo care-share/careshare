@@ -21,6 +21,9 @@ export default Ember.Component.extend({
             // newly created records start out expanded
             this.set('expanded', true);
         }
+        if (this.get('root.isRelatedToCarePlan')) {
+            this.get('classNames').addObject('is-related-to-care-plan');
+        }
     }.on('init'),
     actions: {
         updateArray: function (parent, name, type) {
