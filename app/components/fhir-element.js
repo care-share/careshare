@@ -21,8 +21,11 @@ export default Ember.Component.extend({
             // newly created records start out expanded
             this.set('expanded', true);
         }
-        if (this.get('root.isRelatedToCarePlan')) {
+        if (this.get('root.isRelatedToCarePlan') === true) {
             this.get('classNames').addObject('is-related-to-care-plan');
+        }
+        else if (this.get('root.isRelatedToCarePlan') === false ){
+            this.get('classNames').addObject('not-related-to-care-plan');
         }
     }.on('init'),
     actions: {
