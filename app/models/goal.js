@@ -3,12 +3,7 @@ import DS from 'ember-data';
 import nomChange from 'careshare/properties/nominations-change-property';
 
 export default model.extend({
-
-    carePlan: DS.belongsTo('care-plan', {'async': true}),
+    carePlanId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
     nominations: DS.attr('array'),
-    changes: nomChange(),
-    init: function(){
-        console.log("I MADE A GOAL AND ITS CAREPLAN IS ");
-        console.log(carePlans)
-    }
+    changes: nomChange()
 });
