@@ -1,4 +1,17 @@
-<h3 class="fhir-column-header">Interventions / Observations</h3>
+<div class="row" style="margin-bottom:0px">
+    <div class="col-xs-12">
+        <h3 class="fhir-column-header">Interventions / Observations</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8"></div>
+    <div class="col-xs-4" style="padding-right:0px;padding-left:0px">
+        <button class="nobackground" {{action 'createRecord' 'ProcedureRequest'}}>
+            <span class="glyphicon glyphicon-plus"></span> <strong>Add</strong>
+        </button>
+    </div>
+</div>
+        
 <div id="interventions-column" class="panel-group fhir-column">
     {{#each model as |intervention|}}
         {{#draggable-object-target action="createRelation" ontoObject=intervention}}
@@ -77,6 +90,3 @@
     {{/each}}
 
 </div>
-<button class="nobackground" {{action 'createRecord' 'ProcedureRequest'}}>
-    <span class="glyphicon glyphicon-plus"></span> <strong>Add Intervention</strong>
-</button>
