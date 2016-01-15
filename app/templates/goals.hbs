@@ -46,8 +46,8 @@
                                         {{#codeable-concept parent=goal name='priority'}}
                                             {{fhir-choice parent=goal name='priority.text' choices='unspecified,low,medium,high'}}
                                         {{/codeable-concept}}
-                                        {{#each goal.changes.[-priority] as |cr|}}
-                                            {{change-request parent=goal name='priority' old=cr.originalValue new=cr.value }}
+                                        {{#each goal.changes.[-priority-text] as |cr|}}
+                                            {{change-request parent=goal name='priority.text' old=cr.originalValue new=cr.value }}
                                         {{/each}}
                                     </div>
                                 </div>

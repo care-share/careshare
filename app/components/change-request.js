@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 
     actions: {
         accept: function(){
-            this.get('parent').set(this.get('name'), this.get("old"));
+            this.get('parent').set(this.get('name'), this.get("new"));
         }
     }
 
