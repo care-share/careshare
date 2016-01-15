@@ -13,10 +13,16 @@
                                         <div class="col-xs-12 fhir-form-item">
                                             <div class="col-xs-12 col-lg-6">
                                                 {{fhir-edit parent=nutrition.supplement.firstObject name='productName'}}
+                                                {{#each nutrition.changes.[-supplement-firstObject] as |cr|}}
+                                                    {{change-request parent=nutrition.supplement.firstObject name='productName' old=cr.originalValue new=cr.value }}
+                                                {{/each}}
                                             </div>
                                             <div class="col-xs-12 col-lg-6">
                                                 {{fhir-choice parent=nutrition name='status'
                                                 choices='proposed,draft,planned,requested,active,on-hold,completed,cancelled'}}
+                                                {{#each nutrition.changes.[-status] as |cr|}}
+                                                    {{change-request parent=nutrition name='status' old=cr.originalValue new=cr.value }}
+                                                {{/each}}
                                             </div>
                                         </div>
                                         <div class=" col-xs-12 fhir-form-item">
@@ -25,12 +31,19 @@
                                                 {{#codeable-concept parent=nutrition.supplement.firstObject name='type'}}
                                                     {{fhir-edit parent=nutrition.supplement.firstObject.type name='text'}}
                                                 {{/codeable-concept}}
+                                                {{#each nutrition.changes.[-supplement-firstObject-type-text] as |cr|}}
+                                                    {{change-request parent=nutrition.supplement.firstObject.type name='text' old=cr.originalValue new=cr.value }}
+                                                {{/each}}
+
                                             </div>
                                         </div>
                                         <div class=" col-xs-12 fhir-form-item">
                                             <label class="col-xs-12 control-label" for="type"> Instruction: </label>
                                             <div id="type" class="col-xs-12">
                                                 {{fhir-edit parent=nutrition.supplement.firstObject name='instruction'}}
+                                                {{#each nutrition.changes.[-supplement-firstObject-instruction] as |cr|}}
+                                                    {{change-request parent=nutrition.supplement.firstObject name='instruction' old=cr.originalValue new=cr.value }}
+                                                {{/each}}
                                             </div>
                                         </div>
                                         <div>
@@ -41,6 +54,10 @@
                                     </div>
                                 {{/backbone-element}}
                                 Ordered On: {{fhir-datetime parent=nutrition name='dateTime' showTime=true}}
+                                {{#each nutrition.changes.[-dateTime] as |cr|}}
+                                    {{change-request parent=nutrition name='dateTime' old=cr.originalValue new=cr.value }}
+                                {{/each}}
+
                                 {{related-list parent=nutrition relation='rlGoals' display='description' label="Goals"}}
                             </div>
                         {{else}}
