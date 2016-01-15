@@ -64,6 +64,7 @@ export default model.extend({
     //         ]
     //       }
     //     ],
+    carePlans: DS.belongsTo('care-plan', {'async': true}),
     nominations: DS.attr('array'),
     changes: nomChange(),
     init: function(){
