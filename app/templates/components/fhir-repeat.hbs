@@ -1,0 +1,9 @@
+Frequency: {{fhir-edit parent=parent name='frequency' isNumber='integer'}} to
+           {{fhir-edit parent=parent name='frequencyMax' isNumber='integer'}}<br>
+Period: {{fhir-edit parent=parent name='period' isNumber='decimal'}} to
+        {{fhir-edit parent=parent name='periodMax' isNumber='decimal'}}
+        {{fhir-choice parent=parent name='periodUnits' choices='s,min,h,d,wk,mo,a'}}<br>
+Duration: {{fhir-edit parent=parent name='duration' isNumber='decimal'}} to
+        {{fhir-edit parent=parent name='durationMax' isNumber='decimal'}}
+        {{fhir-choice parent=parent name='durationUnits' choices='s,min,h,d,wk,mo,a'}}<br>
+Repeat: {{fhir-edit parent=parent name='count' isNumber='integer'}} times<br><br>

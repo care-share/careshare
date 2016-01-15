@@ -1,6 +1,10 @@
 {{#em-modal configName="bs" id=name}}
     {{#em-modal-body}}
-        {{yield}}
+        {{#codeable-concept parent=child name='code'}}
+            Short Code: {{fhir-edit parent=child.code name='text'}}<br>
+        {{/codeable-concept}}
+        {{fhir-repeat parent=child name='repeat'}}
+        Start date: {{fhir-datetime parent=parent name='event' inline=true}}
         {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
     {{/em-modal-body}}
 {{/em-modal}}

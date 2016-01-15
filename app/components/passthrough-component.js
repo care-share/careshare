@@ -4,7 +4,7 @@ export default Ember.Component.extend({
     patcher: new diff_match_patch(),
     passthroughInit: function () {
 
-        console.log('Passthrough INIT:');
+        console.log('Passthrough INIT: parent= '+this.get('parent'));
         //Get a string representation of the ORIGINAL property
         var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
         this.set('originalValue', sanitizedValue);
@@ -16,7 +16,8 @@ export default Ember.Component.extend({
         Ember.defineProperty(this, 'passthrough', Ember.computed(function(key, value) {
                 // Set parent variable when passthrough is edited externally
                 if (arguments.length > 1) {
-                    this.get('parent').set(this.get('name'), value);
+                  console.log('(passthrough-component) parent: '+this.get('parent')+',name: '+this.get('name')+',parent.name: '+this.get('parent').get('repeat'));
+                  this.get('parent').set(this.get('name'), value);
                 }
                 // Sets passthrough to this when property changes
                 return this.get('parent.' + this.get('name'));

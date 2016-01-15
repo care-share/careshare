@@ -10,6 +10,12 @@ export default Ember.Component.extend({
         console.log('[INIT] (TIMING) {record: ' + this.get('parent') + ',name: ' + this.get('name'));
         // causes the controller to create a Timing object for this attribute ('name')
         this.sendAction('updateRecord', this.get('parent'), this.get('name'), 'Timing');
+        this.set('child',this.get('parent.'+this.get('name')));
         // TODO: perhaps ditch 'parent' and 'name' in favor of an 'attribute' that is directly tied to parent.name?
-    }.on('init')
+    }.on('init'),
+    actions: {
+      updateRecord: function(parent,name,type){
+        this.sendAction('updateRecord',parent,name,type);
+      }
+    }
 });
