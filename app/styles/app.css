@@ -20123,3 +20123,9 @@ button.nobackground{
   padding-top: 7px;
 }
 }
+
+.is-related-to-care-plan
+{
+  /*TODO: change this to not-horrendous styling*/
+  background-color: blue
+}
