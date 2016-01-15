@@ -6,6 +6,8 @@ export default CarePlanResource.extend({
     lastExpanded: null,
 	parentController: null,
 	isChangeRequest: false,
+    nominationsDic: {'description': [1,2,3,4,5]},
+
     // the "carePlanRefAttr" field is set by child controllers
 	setup: function(){
 		console.log('PARENT CONTROLLER: '+this.controllerFor('careplan'));
@@ -17,13 +19,8 @@ export default CarePlanResource.extend({
 	}.observes('parentController.isChangeRequest'),
     actions: {
         saveRecord: function (record) {
-            console.log('(GOALS CONTROLLER) SAVE RECORD- record: ' + record + '. Applying diffs...');
+            console.log('(GOALS CONTROLLER) SAVE RECORD- record: ' + record + '');
 
-            //Manually set diffs (TODO: for now, but maybe do this automatically in the future?).
-            record.set('priority.text',record.get('priority.textDiff'));
-            record.set('description',record.get('descriptionDiff'));
-            record.set('status',record.get('statusDiff'));
-            record.set('targetDate',record.get('targetDateDiff'));
 
             //TODO: Need to reload the controller to call init() and reset the diff. Should we be calling record.reload()???
             return this._super(record);

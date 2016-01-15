@@ -11,10 +11,17 @@
                                     <div class="col-xs-12 fhir-form-item">
                                         <div class="col-xs-12 col-lg-6">
                                             {{fhir-edit parent=goal name='description'}}
+                                            {{!goal.example.[-goal].value}}
+                                            {{#each goal.changes.[-description] as |cr|}}
+                                                {{change-request parent=goal name='description' old=cr.originalValue new=cr.value }}
+                                            {{/each}}
                                         </div>
                                         <div class="col-xs-12 col-lg-6">
                                             {{fhir-choice parent=goal name='status'
                                             choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}
+                                            {{#each goal.changes.[-status] as |cr|}}
+                                                {{change-request parent=goal name='status' old=cr.originalValue new=cr.value }}
+                                            {{/each}}
                                         </div>
                                     </div>
                                 </div>
@@ -39,6 +46,9 @@
                                         {{#codeable-concept parent=goal name='priority'}}
                                             {{fhir-choice parent=goal name='priority.text' choices='unspecified,low,medium,high'}}
                                         {{/codeable-concept}}
+                                        {{#each goal.changes.[-priority-text] as |cr|}}
+                                            {{change-request parent=goal name='priority.text' old=cr.originalValue new=cr.value }}
+                                        {{/each}}
                                     </div>
                                 </div>
                                 <!-- TODO: create a "fhir-choice-multi" component so we can support selecting multiple categories
@@ -64,7 +74,10 @@
                                     <label class="col-sm-5 control-label" for="targetDate">Target Date:</label>
 
                                     <div id="targetDate" class="col-xs-12 col-lg-7">
-                                        {{fhir-datetime parent=goal name='targetDate'}}
+                                        {{fhir-datetime parent=goal name='targetDate' showTime=true}}
+                                        {{#each goal.changes.[-targetDate] as |cr|}}
+                                            {{change-request parent=goal name='targetDate' old=cr.originalValue new=cr.value }}
+                                        {{/each}}
                                     </div>
                                 </div>
                                 {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
