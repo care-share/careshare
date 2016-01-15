@@ -5,9 +5,9 @@ let GoalSerializer = Goal.extend({
         nominations:  {embedded: 'always'}
     },
     normalize: function (type, hash, prop) {
-        let queryParam = `?goal:Goal=${hash.id}`;
+        let queryParam = `?goal=${hash.id}`;
         (hash.content || hash)['links'] = {
-            carePlans: `/CarePlan${queryParam}`
+            carePlan: `/CarePlan${queryParam}`
         };
         return this._super(type, hash, prop);
     }
