@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import PassthroughComponent from 'careshare/components/passthrough-component';
 
 export default PassthroughComponent.extend({

@@ -1,5 +1,4 @@
 import CarePlanResource from 'careshare/controllers/careplan/resource';
-import Ember from 'ember';
 
 export default CarePlanResource.extend({
     needs: "careplan",

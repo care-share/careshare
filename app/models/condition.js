@@ -1,5 +1,4 @@
 import model from 'ember-fhir-adapter/models/condition';
-import diffProp from 'careshare/properties/diff-property';
 import DS from 'ember-data';
 import Ember from 'ember';
 

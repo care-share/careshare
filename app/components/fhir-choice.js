@@ -1,4 +1,5 @@
 import PassthroughComponent from 'careshare/components/passthrough-component';
+import Ember from 'ember';
 
 
 export default PassthroughComponent.extend({
@@ -21,14 +22,14 @@ export default PassthroughComponent.extend({
 
                 // If there is a difference between the original and current create the Diff
                 if (this.get('originalValue') !== sanitizedValue){
-                    var diff = this.get('patcher').diff_main(this.get('originalValue'),sanitizedValue,true);
+                    //var diff = this.get('patcher').diff_main(this.get('originalValue'),sanitizedValue,true);
                     return '\<del style=\"background:\#ffe6e6;\"\>'+this.get('originalValue')+'\<\/del\>'+
                     '\<ins style=\"background:\#e6ffe6;\"\>'+sanitizedValue+'\<\/ins\>';
 
                 }
                 //If not return empty (Handlebars checks for empty string before creating DIV)
                 else{
-                    return ""
+                    return "";
                 }
             }).property('parent.' + this.get('name')));
 

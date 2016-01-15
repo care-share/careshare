@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import PassthroughComponent from 'careshare/components/passthrough-component';
 
 
@@ -26,7 +27,7 @@ export default PassthroughComponent.extend({
                 }
                 //If not return empty (Handlebars checks for empty string before creating DIV)
                 else{
-                    return ""
+                    return "";
                 }
             }).property('parent.' + this.get('name')));
 
