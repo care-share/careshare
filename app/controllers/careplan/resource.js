@@ -72,6 +72,7 @@ export default Ember.Controller.extend({
             if (isNewRecord) {
                 record.set('isNewRecord', undefined);
             }
+            record.set('carePlanId', carePlan.get('id'));
 
             // save this model
             record.save().then(function () {

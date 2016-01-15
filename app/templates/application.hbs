@@ -1,7 +1,7 @@
 <header class="content-header">
     <div class="side-header">
         <h1 id="brand" class="brand">
-            {{#link-to 'dashboard'}}
+            {{#link-to 'patients'}}
                 <img alt="Brand" src="/images/brand.png">
                 <strong>rural</strong>health
             {{/link-to}}
@@ -52,10 +52,10 @@
         <!-- Sidebar Body-->
         <div class="side-body">
             <nav class="side-nav">
-                <ul>
+                <ul>{{!
                     <li class="side-nav-item active">
                         <a href="/dashboard"><i class="nav-item-icon icon ion-social-rss-outline"></i>Dashboard</a>
-                    </li>
+                    </li> }}
                     <li class="side-nav-item ">
                         {{#link-to 'patients'}}<span class="badge">(patient count)</span>
                             <i class="nav-item-icon icon ion-ios-person-outline"></i> Patients
