@@ -22,7 +22,7 @@
                                         <div class="col-xs-12 fhir-form-item">
                                             <div class="col-xs-12 col-lg-6">
                                                 {{fhir-edit parent=nutrition.supplement.firstObject name='productName'}}
-                                                {{#each nutrition.changes.[-supplement-firstObject] as |cr|}}
+                                                {{#each nutrition.changes.[-supplement-0-productName] as |cr|}}
                                                     {{change-request parent=nutrition.supplement.firstObject name='productName' cr=cr}}
                                                 {{/each}}
                                             </div>
@@ -40,7 +40,7 @@
                                                 {{#codeable-concept parent=nutrition.supplement.firstObject name='type'}}
                                                     {{fhir-edit parent=nutrition.supplement.firstObject.type name='text'}}
                                                 {{/codeable-concept}}
-                                                {{#each nutrition.changes.[-supplement-firstObject-type-text] as |cr|}}
+                                                {{#each nutrition.changes.[-supplement-0-type-text] as |cr|}}
                                                     {{change-request parent=nutrition.supplement.firstObject.type name='text' cr=cr}}
                                                 {{/each}}
 
@@ -50,7 +50,7 @@
                                             <label class="col-xs-12 control-label" for="type"> Instruction: </label>
                                             <div id="type" class="col-xs-12">
                                                 {{fhir-edit parent=nutrition.supplement.firstObject name='instruction'}}
-                                                {{#each nutrition.changes.[-supplement-firstObject-instruction] as |cr|}}
+                                                {{#each nutrition.changes.[-supplement-0-instruction] as |cr|}}
                                                     {{change-request parent=nutrition.supplement.firstObject name='instruction' cr=cr}}
                                                 {{/each}}
                                             </div>
