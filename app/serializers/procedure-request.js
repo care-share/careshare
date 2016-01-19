@@ -1,10 +1,7 @@
-import ProcedureRequest from 'ember-fhir-adapter/serializers/procedure-request';
+import serializer from 'ember-fhir-adapter/serializers/procedure-request';
 
-let ProcedureRequestSerializer = ProcedureRequest.extend({
+export default serializer.extend({
     attrs: {
         nominations:  {embedded: 'always'}
     }
-
 });
-
-export default ProcedureRequestSerializer;

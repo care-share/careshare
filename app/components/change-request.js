@@ -8,12 +8,13 @@ export default Ember.Component.extend({
         return this.get('patcher').diff_prettyHtml(diff);
     }.property('old', 'new'),
     setup: function () {
-
+        this.set('old', this.get('cr').originalValue);
+        this.set('new', this.get('cr').value);
     }.on('init'),
 
     actions: {
         accept: function(){
-            this.get('parent').set(this.get('name'), this.get("new"));
+            this.get('parent').set(this.get('name'), this.get('new'));
         }
     }
 

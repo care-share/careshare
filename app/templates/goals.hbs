@@ -22,14 +22,14 @@
                                             {{fhir-edit parent=goal name='description'}}
                                             {{!goal.example.[-goal].value}}
                                             {{#each goal.changes.[-description] as |cr|}}
-                                                {{change-request parent=goal name='description' old=cr.originalValue new=cr.value }}
+                                                {{change-request parent=goal name='description' cr=cr}}
                                             {{/each}}
                                         </div>
                                         <div class="col-xs-12 col-lg-6">
                                             {{fhir-choice parent=goal name='status'
                                             choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}
                                             {{#each goal.changes.[-status] as |cr|}}
-                                                {{change-request parent=goal name='status' old=cr.originalValue new=cr.value }}
+                                                {{change-request parent=goal name='status' cr=cr}}
                                             {{/each}}
                                         </div>
                                     </div>
@@ -56,7 +56,7 @@
                                             {{fhir-choice parent=goal name='priority.text' choices='unspecified,low,medium,high'}}
                                         {{/codeable-concept}}
                                         {{#each goal.changes.[-priority-text] as |cr|}}
-                                            {{change-request parent=goal name='priority.text' old=cr.originalValue new=cr.value }}
+                                            {{change-request parent=goal name='priority.text' cr=cr}}
                                         {{/each}}
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                     <div id="targetDate" class="col-xs-12 col-lg-7">
                                         {{fhir-datetime parent=goal name='targetDate' showTime=true}}
                                         {{#each goal.changes.[-targetDate] as |cr|}}
-                                            {{change-request parent=goal name='targetDate' old=cr.originalValue new=cr.value }}
+                                            {{change-request parent=goal name='targetDate' cr=cr}}
                                         {{/each}}
                                     </div>
                                 </div>
