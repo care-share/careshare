@@ -1,4 +1,4 @@
-import serializer from 'ember-fhir-adapter/serializers/goal';
+import serializer from 'ember-fhir-adapter/serializers/nutrition-order';
 
 export default serializer.extend({
     attrs: {
