@@ -1,4 +1,4 @@
-import Goal from 'ember-fhir-adapter/serializers/procedure-request';
+import ProcedureRequest from 'ember-fhir-adapter/serializers/procedure-request';
 
 let ProcedureRequestSerializer = ProcedureRequest.extend({
     attrs: {
