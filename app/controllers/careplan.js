@@ -9,7 +9,6 @@ export default Ember.Controller.extend({
     // local vars
     apiUrl: window.Careshare.apiUrl,
     isOpenID: window.Careshare.isOpenID,
-    isSideBarDisplayed: true,
     lastLoginFailed: false,
     isShowingForm: true,
     accountRequestSucceeded: false,
@@ -116,9 +115,6 @@ export default Ember.Controller.extend({
     actions: {
         accountRequest: function () {
             API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);
-        },
-        toggleSideBarVisibility: function () {
-            this.set('isSideBarDisplayed', false);
         },
         openidlogin: function (data) {
             console.log('App controller: openidlogin(' + data + ')');
