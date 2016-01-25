@@ -78,7 +78,7 @@
                             </td>
                         {{/each}}
                         <td class="homeMed col-xs-2">
-                          <a href="{{apiUrl}}/medrec?patient_id={{patient.id}}&token={{session.session.secure.token}}">Enter Home Med List</a>
+                          {{#link-to 'medrec' patient}}Enter Home Med List{{/link-to}}
                          </td>
                         <td class="col-xs-3">
                             {{#link-to 'patient.init' patient}}Initiate Care Plan{{/link-to}}
