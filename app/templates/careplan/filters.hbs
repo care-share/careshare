@@ -1,7 +1,6 @@
 <div class="tab-pane fade in active">
     <ul class="nav nav-pills nav-stacked">
         <li class="patient-filter">
-            <span class="glyphicon glyphicon-heart-empty"></span>
             <span class="column-toggler"> Services </span>
             <span {{action 'toggleExpandParticipants'}}
                     class="filters-expander {{if expandParticipants 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
@@ -15,7 +14,6 @@
             {{/if}}
         </li>
         <li class="patient-filter {{if patient.showConditions 'active'}}">
-            <span class="glyphicon glyphicon-heart-empty"></span>
             <span {{action 'toggleShow' 'Condition'}} class="column-toggler"> Problems </span>
             <span {{action 'toggleExpandProblems'}}
                     class="filters-expander {{if expandProblems 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
@@ -26,7 +24,6 @@
             {{/if}}
         </li>
         <li class="patient-filter {{if patient.showGoals 'active'}}">
-            <span class="glyphicon glyphicon-heart-empty"></span>
             <span {{action 'toggleShow' 'Goal'}} class="column-toggler"> Goals </span>
             <span {{action 'toggleExpandGoals'}}
                     class="filters-expander {{if expandGoals 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
@@ -37,7 +34,6 @@
             {{/if}}
         </li>
         <li class="patient-filter {{if patient.showProcedureRequests 'active'}}">
-            <span class="glyphicon glyphicon-heart-empty"></span>
             <span {{action 'toggleShow' 'ProcedureRequest'}} class="column-toggler"> Interventions </span>
             <span {{action 'toggleExpandInterventions'}}
                     class="filters-expander {{if expandInterventions 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
@@ -48,7 +44,6 @@
             {{/if}}
         </li>
         <li class="patient-filter {{if patient.showNutritionOrders 'active'}}">
-            <span class="glyphicon glyphicon-heart-empty"></span>
             <span {{action 'toggleShow' 'NutritionOrder'}} class="column-toggler"> Nutrition </span>
             <span {{action 'toggleExpandNutrition'}}
                     class="filters-expander {{if expandNutrition 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
@@ -59,7 +54,6 @@
             {{/if}}
         </li>
         <li class="patient-filter {{if patient.showMedicationOrders 'active'}}">
-            <span class="glyphicon glyphicon-heart-empty"></span>
             <span {{action 'toggleShow' 'MedicationOrder'}} class="column-toggler"> Medications </span>
             <span {{action 'toggleExpandMedications'}}
                     class="filters-expander {{if expandMedications 'glyphicon glyphicon-chevron-down' 'glyphicon glyphicon-chevron-right'}}"></span>
