@@ -31,6 +31,13 @@
                         <a class="desc">&darr;</a>
                     </div>
                 </th>
+                <th class="homeMed col-xs-2">
+                    Medications
+                    <div class="order pull-left">
+                        <a class="asc">&uarr;</a>
+                        <a class="desc">&darr;</a>
+                    </div>
+                </th>
                 <th class="col-xs-3">
                     Link
                 </th>
@@ -70,6 +77,9 @@
                                 </select>
                             </td>
                         {{/each}}
+                        <td class="homeMed col-xs-2">
+                          <a href="{{apiUrl}}/medrec?patient_id={{patient.id}}&token={{session.session.secure.token}}">Enter Home Med List</a>
+                         </td>
                         <td class="col-xs-3">
                             {{#link-to 'patient.init' patient}}Initiate Care Plan{{/link-to}}
                         </td>
