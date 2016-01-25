@@ -15,6 +15,10 @@ export default Ember.Component.extend({
     actions: {
         accept: function(){
             this.get('parent').set(this.get('name'), this.get('new'));
+            // add this nomination to the acceptedNominations array (so it gets removed on the server side)
+            this.get('parent.acceptedNominations').addObject(this.get('cr').id);
+            // hide this change request now that it has been applied
+            this.set('hidden', true);
         }
     }
 
