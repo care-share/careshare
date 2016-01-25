@@ -12,6 +12,8 @@ export default Ember.Component.extend({
     undoRecord: 'undoRecord', // this is needed to bubble this action to the respective controller action
     deleteRecord: 'deleteRecord', // this is needed to bubble this action to the respective controller action
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
+    isCreateNomination: false,
+    isDeleteNomination: false,
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (FHIR-ELEMENT) {record: ' +
@@ -26,6 +28,18 @@ export default Ember.Component.extend({
         }
         else if (this.get('root.isRelatedToCarePlan') === false ){
             this.get('classNames').addObject('not-related-to-care-plan');
+        }
+        var root = this.get('root');
+        if (this.get('root') && this.get('root.nominations')){
+            var noms = this.get('root.nominations');
+            if (noms.length === 1){
+                if (noms[0].action === "create"){
+                    this.set('isCreateNomination', true);
+                }
+                else if (noms[0].action === "delete"){
+                    this.set('isDeleteNomination', true);
+                }
+            }
         }
     }.on('init'),
     actions: {
