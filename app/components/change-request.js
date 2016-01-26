@@ -14,11 +14,16 @@ export default Ember.Component.extend({
 
     actions: {
         accept: function(){
+            //Set input value to accepted change's value
             this.get('parent').set(this.get('name'), this.get('new'));
             // add this nomination to the acceptedNominations array (so it gets removed on the server side)
             this.get('parent.acceptedNominations').addObject(this.get('cr').id);
-            // hide this change request now that it has been applied
-            this.set('hidden', true);
+            //TODO apply styling to selected choice
+        },
+        reject: function(){
+            // add this nomination to the rejectedNominations array (so it gets removed on the server side)
+            this.get('parent.rejectedNominations').addObject(this.get('cr').id);
+            //TODO apply styling to selected choice
         }
     }
 
