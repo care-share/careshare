@@ -14,6 +14,7 @@ export default Ember.Component.extend({
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
     isCreateNomination: false,
     isDeleteNomination: false,
+    isChangeNomination: false,
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (FHIR-ELEMENT) {record: ' +
@@ -30,6 +31,7 @@ export default Ember.Component.extend({
             this.get('classNames').addObject('not-related-to-care-plan');
         }
         var root = this.get('root');
+        //&& (this.get('root.nominations').length >= 1)
         if (this.get('root') && this.get('root.nominations')){
             var noms = this.get('root.nominations');
             if (noms.length === 1){
@@ -39,6 +41,12 @@ export default Ember.Component.extend({
                 else if (noms[0].action === "delete"){
                     this.set('isDeleteNomination', true);
                 }
+                else{
+                    this.set('isChangeNomination', true);
+                }
+            }
+            else if(noms.length > 1){
+                this.set('isChangeNomination', true);
             }
         }
     }.on('init'),
@@ -84,13 +92,13 @@ export default Ember.Component.extend({
         },
         acceptDeletion: function(){
             console.log('(FHIR-ELEMENT) ACCEPT HH DELETE RECORD - record: ' + this.get('root'));
-            var nomId = this.get('root.nominations')[0].id
+            var nomId = this.get('root.nominations')[0].id;
             this.set('root.acceptedNominations', [nomId]);
             this.sendAction('deleteRecord', this.get('root'));
         },
         rejectDeletion: function(){
             console.log('(FHIR-ELEMENT) Reject HH DELETE RECORD - record: ' + this.get('root'));
-            var nomId = this.get('root.nominations')[0].id
+            var nomId = this.get('root.nominations')[0].id;
             this.set('root.rejectedNominations', [nomId]);
             this.sendAction('saveRecord', this.get('root'));
         }
