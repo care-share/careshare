@@ -57,7 +57,7 @@
                                         </div>
                                         <div>
                                           Scheduled: {{nutrition.supplement.firstObject.schedule.repeat.displayCode}} {{fhir-timing parent=nutrition.supplement.firstObject name='schedule'}}<br>
-                                          {{!-- TODO: Quantity(SimpleQuantity) --}}
+                                          Quantity: {{fhir-simple-quantity parent=nutrition.supplement.firstObject name='quantity'}}
                                           {{!-- TODO: Orderer(Reference(Practitioner)) --}}
                                         </div>
                                     </div>

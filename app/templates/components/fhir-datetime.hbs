@@ -35,13 +35,13 @@
             {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
         {{/em-modal-body}}
     {{/em-modal}}
-    {{#if (gt calculatedPatch.length 0)}}
+    {{!--{{#if (gt calculatedPatch.length 0)}}
         <div style='background-color:#dddddd'>
             {{{calculatedPatch}}}
             <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
         </div>
     {{else}}
         {{passthrough}}
-    {{/if}}
+    {{/if}}--}}
     {{em-modal-toggler modal-id=name class="glyphicon glyphicon-calendar"}}
 {{/if}}
