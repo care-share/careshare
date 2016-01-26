@@ -2,10 +2,12 @@ import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
     needs: 'application',
+    session: Ember.inject.service('session'), // needed for ember-simple-auth
     application: Ember.computed.alias('controllers.application'),
     appController: Ember.inject.controller('application'),
     currentId: null,
     careplans: null,
+    apiUrl: window.Careshare.apiUrl,
     actions: {
         doLazyLoad: function (patient) {
             // triggers queries for attributes that are lazy-loaded (e.g. Care Plans)

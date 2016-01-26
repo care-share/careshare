@@ -1,4 +1,4 @@
-import serializer from 'ember-fhir-adapter/serializers/goal';
+import serializer from 'ember-fhir-adapter/serializers/procedure-request';
 
 export default serializer.extend({
     attrs: {

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import uuid from 'ember-uuid/utils/uuid-generator';
 
 export default Ember.Controller.extend({
+    session: Ember.inject.service('session'), // needed for ember-simple-auth
     // the "carePlanRefAttr" field is set by child controllers
     actions: {
         createRecord: function (type, args) {
@@ -71,6 +72,17 @@ export default Ember.Controller.extend({
             var isNewRecord = record.get('isNewRecord');
             if (isNewRecord) {
                 record.set('isNewRecord', undefined);
+            } else {
+                var sessionRoles = this.get('session.data.authenticated.roles');
+                if (sessionRoles && sessionRoles.indexOf('physician') > -1) {
+                    // this is a physician user, is this a nomination for a new record?
+                    var nominations = record.get('nominations');
+                    if (nominations && nominations.length === 1 && nominations[0].action === 'create') {
+                        isNewRecord = true;
+                        record.set('acceptedNominations', [nominations[0].authorId]);
+                        record.set('nominations', []); // clear out the create nomination
+                    }
+                }
             }
             record.set('carePlanId', carePlan.get('id'));
 
@@ -93,6 +105,7 @@ export default Ember.Controller.extend({
                     carePlan.set(that.carePlanRefAttr, refs);
                     carePlan.save();
                 }
+                // TODO: reload record?
             });
         },
         updateRecord: function (record, name, type) {
@@ -123,26 +136,26 @@ export default Ember.Controller.extend({
                 }
             }
             else {
-                            console.log('!!FAILED - parent does not exist');
-                        }
-                    },
-                    updateArray: function (record, name, type) {
-                        console.log('(CONTROLLER) UPDATE ARRAY - parent: ' + record + ',name: ' + name + ',type: ' + type);
-                        var newRecord = this.store.createRecord(type, {});
-                        if (record) {
-                            console.log('Array exists - adding to array.');
-                            record.pushObject(newRecord);
-                        } else {
-                            console.log('Array does not exist - creating new array.');
-                            record = [newRecord];
-                        }
-                    },
-                    removeItem: function (record, index) {
-                        console.log('(CONTROLLER) REMOVE ARRAY ITEM - parent: ' + record + ',index: ' + index);
-                        if (record) {
-                            console.log('Array exists - removing item.');
-                            record.removeAt(index);
-                        }
-                    }
-                }
-            });
+                console.log('!!FAILED - parent does not exist');
+            }
+        },
+        updateArray: function (record, name, type) {
+            console.log('(CONTROLLER) UPDATE ARRAY - parent: ' + record + ',name: ' + name + ',type: ' + type);
+            var newRecord = this.store.createRecord(type, {});
+            if (record) {
+                console.log('Array exists - adding to array.');
+                record.pushObject(newRecord);
+            } else {
+                console.log('Array does not exist - creating new array.');
+                record = [newRecord];
+            }
+        },
+        removeItem: function (record, index) {
+            console.log('(CONTROLLER) REMOVE ARRAY ITEM - parent: ' + record + ',index: ' + index);
+            if (record) {
+                console.log('Array exists - removing item.');
+                record.removeAt(index);
+            }
+        }
+    }
+});

@@ -20003,6 +20003,8 @@ a {
 }
 
 .fhir-element {
+
+  position:relative;
   overflow:auto;
   padding-bottom: 4px;
   padding-top: 4px;
@@ -20139,4 +20141,33 @@ button.nobackground{
 
 .not-related-to-care-plan select{
   background-color: inherit !important;
+}
+
+.careplan-notification{
+    position:absolute;
+    top: 0px;
+    right:0px;
+    padding:1px 2px 1px 2px;
+    background-color:red;
+    color:white;
+    font-weight:bold;
+    font-size:0.55em;
+
+    border-radius:30px;
+    box-shadow:1px 1px 1px gray;
+}
+
+
+.deleted-overlay {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:rgba(0, 0, 0, 0.25);
+    background-image: url("http://www.clipartbest.com/cliparts/biy/76e/biy76eE6T.png");
+    background-size: 100% 100%;
+    z-index:9999;
+    color:white;
+    pointer-events: none;
 }

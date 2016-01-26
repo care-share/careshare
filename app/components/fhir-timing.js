@@ -11,6 +11,7 @@ export default PassthroughComponent.extend({
         // causes the controller to create a Timing object for this attribute ('name')
         this.sendAction('updateRecord', this.get('parent'), this.get('name'), 'Timing');
         this.set('child',this.get('parent.'+this.get('name')));
+        this.sendAction('updateRecord', this.get('child'), 'repeat', 'TimingRepeatComponent');
         // TODO: perhaps ditch 'parent' and 'name' in favor of an 'attribute' that is directly tied to parent.name?
     }.on('init'),
     actions: {

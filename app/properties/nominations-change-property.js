@@ -15,7 +15,7 @@ export default function () {
                             'originalValue': diffObj.originalValue,
                             'value': diffObj.value
                         };
-                        var pathNameWithDash = diffObj.path.replace('/','-');
+                        var pathNameWithDash = diffObj.path.split('/').join('-'); // replace all / in path with -
                         if (changeDic[pathNameWithDash]){
                             changeDic[pathNameWithDash].push(crObj);
                         }
