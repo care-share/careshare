@@ -127,8 +127,10 @@ export default Ember.Controller.extend({
     doPeek: function (modelName) {
         // TODO: find a better way to force models (Goals, Conditions, etc.) to auto-update from the store
         // also see FIXME notes in routes/careplan.js
-        var value = this.store.peekAll(modelName, {});
-        this.set(modelName.pluralize(), value.toArray());
+        var value = this.store.peekAll(modelName, {})
+            .toArray()
+            .filterBy('isError', false); // this is needed to prevent showing records that have been deleted
+        this.set(modelName.pluralize(), value);
     },
     actions: {
 	setStatus: function(newStatus) {
