@@ -20036,6 +20036,11 @@ button.glyphicon{
   padding:0px;
 }
 
+.fhir-columns .content-title .current-status{
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 .applicationBody{
   padding: 0px;
 }

@@ -35,6 +35,9 @@
 {{#if isCreateNomination}}
         <div class="careplan-notification"> New </div>
 {{/if}}
+{{#if isChangeNomination}}
+        <div class="careplan-notification"> Change </div>
+{{/if}}
 </div>
 {{#if isDeleteNomination}}
     <button {{action 'acceptDeletion'}}>Sign</button>

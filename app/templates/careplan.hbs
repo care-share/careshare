@@ -41,12 +41,26 @@
         <!-- Page Content -->
         <!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
         <div class="fhir-columns col-md-10">
+	    <div class="row" style="height:5%">
+	        <h3 class="content-title">
+		    Status:
+		    <button {{action "setStatus" "draft"}}>reset</button>
+		    <span {{bind-attr class="statusIsDraft:current-status"}}>Draft</span>
+		    {{!-- Referred is not a status in the FHIR spec; this is a customization for the app. The HAPI server lets us set whatever value we want. --}}
+		    {{#if statusIsDraft}} <button {{action "setStatus" "referred"}}>Sign <span class="glyphicon glyphicon-forward"></span> </button> {{/if}}
+		    <span {{bind-attr class="statusIsReferred:current-status"}}>Referred</span>
+		    {{#if statusIsReferred}} <button {{action "setStatus" "proposed"}}>Submit <span class="glyphicon glyphicon-forward"></span></button> {{/if}}
+		    <span {{bind-attr class="statusIsProposed:current-status"}}>Proposed</span>
+		    {{#if statusIsProposed}} <button {{action "setStatus" "active"}}>Certify <span class="glyphicon glyphicon-forward"></span></button> {{/if}}
+		    <span {{bind-attr class="statusIsActive:current-status"}}>Active</span>
+                </h3>
+	    </div>
             <!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
             Other practitioners have requested changes to this plan's...
             <button>Accept All</button>
             <button>Reject All</button>
             </div>-->
-            <div class="row" style="height:100%">
+            <div class="row" style="height:95%">
                 {{#if showConditions}}
                     <div class="{{colClass}} well fhir-column-wrapper">
                         {{render "problems" mProblems}}

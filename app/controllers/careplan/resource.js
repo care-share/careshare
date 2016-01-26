@@ -56,9 +56,26 @@ export default Ember.Controller.extend({
             carePlan.set(this.carePlanRefAttr, refs);
             carePlan.save().then(function () {
                 // remove this model
-                record.destroyRecord().then(function () {
-                    // FIXME: this shouldn't be necessary, see controllers/careplan.js
-                    that.controllerFor('careplan').doPeek(modelName);
+                that.get('session').authorize('authorizer:custom', (headerName, headerValue) => {
+                    const headers = {};
+                    headers[headerName] = headerValue;
+                    Ember.$.ajax({
+                        type: 'DELETE',
+                        url: `${window.Careshare.fhirUrl}/${modelName}/${record.id}`,
+                        headers: headers,
+                        success : function() {
+                            // for some reason, .catch() is not working for Ember promises...
+                            record.reload().then(function (){}, function (err) {
+                                console.log(`Deleted record ${record.id}, encountered an error! ${err.message}`);
+                                // for a record that's been deleted from the FHIR server, err.errors[0].status should equal "410" (Gone)
+                                // TODO: should we validate that the error we received is a code 410?
+                                // for some reason, unloadRecord does not remove the record from the store if it is errored out...
+                                // instead, when we peek from the store, we filter out models that have encountered errors
+                                // so, this record will disappear from view
+                                that.controllerFor('careplan').doPeek(modelName);
+                            });
+                        }
+                    });
                 });
             });
         },
@@ -105,7 +122,7 @@ export default Ember.Controller.extend({
                     carePlan.set(that.carePlanRefAttr, refs);
                     carePlan.save();
                 }
-                // TODO: reload record?
+                record.reload();
             });
         },
         updateRecord: function (record, name, type) {

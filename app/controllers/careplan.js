@@ -28,6 +28,24 @@ export default Ember.Controller.extend({
     showNutritionOrders: true, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: true, // medications
+    statusIsProposed: function() {
+	return this.model.get('status') === 'proposed';
+    }.property('model.status'),
+    statusIsDraft: function() {
+	return this.model.get('status') === 'draft';
+    }.property('model.status'),
+    statusIsActive: function() {
+	return this.model.get('status') === 'active';
+    }.property('model.status'),
+    statusIsCompleted: function() {
+	return this.model.get('status') === 'completed';
+    }.property('model.status'),
+    statusIsCancelled: function() {
+	return this.model.get('status') === 'cancelled';
+    }.property('model.status'),
+    statusIsReferred: function() { // this one is not in the FHIR spec, but the server allows us to set it anyway
+	return this.model.get('status') === 'referred';
+    }.property('model.status'),
     colClass: Ember.computed('showGoals', 'showConditions', 'showNutritionOrders', 'showProcedureRequests', 'showMedicationOrders', function () {
         var numCol = this.get('showGoals') + this.get('showConditions') + this.get('showNutritionOrders') + this.get('showProcedureRequests') + this.get('showMedicationOrders');
         // Use Bootstrap class  : custom class
@@ -109,10 +127,17 @@ export default Ember.Controller.extend({
     doPeek: function (modelName) {
         // TODO: find a better way to force models (Goals, Conditions, etc.) to auto-update from the store
         // also see FIXME notes in routes/careplan.js
-        var value = this.store.peekAll(modelName, {});
-        this.set(modelName.pluralize(), value.toArray());
+        var value = this.store.peekAll(modelName, {})
+            .toArray()
+            .filterBy('isError', false); // this is needed to prevent showing records that have been deleted
+        this.set(modelName.pluralize(), value);
     },
     actions: {
+	setStatus: function(newStatus) {
+	    console.log("setting Status!");
+	    this.model.set('status', newStatus);
+	    this.model.save();
+	},
         accountRequest: function () {
             API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);
         },

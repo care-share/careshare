@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                         {{else}}
-                            {{intervention.scheduledTiming.repeat.displayCode}} - {{intervention.code.text}}
+                            {{if intervention.scheduledTiming.repeat.displayCode intervention.scheduledTiming.repeat.displayCode 'DETAILS'}} - {{intervention.code.text}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>
