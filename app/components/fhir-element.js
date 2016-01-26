@@ -30,26 +30,26 @@ export default Ember.Component.extend({
         else if (this.get('root.isRelatedToCarePlan') === false ){
             this.get('classNames').addObject('not-related-to-care-plan');
         }
+    }.on('init'),
+    nominationsChanged: function() {
         var root = this.get('root');
-        //&& (this.get('root.nominations').length >= 1)
-        if (this.get('root') && this.get('root.nominations')){
+        if (root){
             var noms = this.get('root.nominations');
-            if (noms.length === 1){
-                if (noms[0].action === "create"){
-                    this.set('isCreateNomination', true);
-                }
-                else if (noms[0].action === "delete"){
-                    this.set('isDeleteNomination', true);
-                }
-                else{
-                    this.set('isChangeNomination', true);
-                }
-            }
-            else if(noms.length > 1){
+            if ((noms && noms.length === 1 && noms[0].action === 'create') || root.get('isNewRecord')){
+                this.set('isCreateNomination', true);
+                this.set('isChangeNomination', false);
+                this.set('isDeleteNomination', false);
+            } else if (noms && noms.length === 1 && noms[0].action === 'delete'){
+                this.set('isCreateNomination', false);
+                this.set('isChangeNomination', false);
+                this.set('isDeleteNomination', true);
+            } else if (noms && noms.length >= 1) {
+                this.set('isCreateNomination', false);
                 this.set('isChangeNomination', true);
+                this.set('isDeleteNomination', false);
             }
         }
-    }.on('init'),
+    }.observes('root.nominations').on('init'),
     actions: {
         updateArray: function (parent, name, type) {
             console.log('(FHIR-ELEMENT) UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);

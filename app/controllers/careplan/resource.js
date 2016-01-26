@@ -97,7 +97,6 @@ export default Ember.Controller.extend({
                     if (nominations && nominations.length === 1 && nominations[0].action === 'create') {
                         isNewRecord = true;
                         record.set('acceptedNominations', [nominations[0].id]);
-                        record.set('nominations', []); // clear out the create nomination
                     }
                 }
             }
