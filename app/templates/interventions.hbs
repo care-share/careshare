@@ -67,7 +67,7 @@
                                         Orderer
                                     </div>
                                     <br>
-                                    Scheduled: {{fhir-timing parent=intervention name='scheduledTiming'}}<br><br>
+                                    Scheduled: {{intervention.scheduledTiming.repeat.displayCode}} {{fhir-timing parent=intervention name='scheduledTiming'}}<br><br>
                                     Ordered On: {{fhir-datetime parent=intervention name='orderedOn' showTime=true}}
                                     {{#each intervention.changes.[-orderedOn] as |cr|}}
                                         {{change-request parent=intervention name='orderedOn' cr=cr}}
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                         {{else}}
-                            {{intervention.code.text}} - {{intervention.status}}
+                            {{intervention.scheduledTiming.repeat.displayCode}} - {{intervention.status}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>

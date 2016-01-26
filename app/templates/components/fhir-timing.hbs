@@ -1,6 +1,6 @@
 {{#em-modal configName="bs" id=name}}
     {{#em-modal-body}}
-        Short Code: {{fhir-edit parent=child.repeat name='displayCode'}}<br>
+        Short Code: <b>{{child.repeat.displayCode}}</b><br><br>
         Frequency: {{fhir-edit parent=child.repeat name='frequency' isNumber='integer'}} to
                    {{fhir-edit parent=child.repeat name='frequencyMax' isNumber='integer'}}<br>
         Period: {{fhir-edit parent=child.repeat name='period' isNumber='decimal'}} to
