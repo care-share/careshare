@@ -58,7 +58,7 @@ export default model.extend({
 	}
 
 	if (encodedPattern && periodUnits) {
-	    return encodedPattern + periodUnits;
+	    return (encodedPattern + periodUnits).toUpperCase();
 	} else {
 	    return "DETAILS";
 	}
