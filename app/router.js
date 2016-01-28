@@ -8,16 +8,16 @@ var Router = Ember.Router.extend({
 export default Router.map(function () {
     this.route('login');
     this.route('goals');
-    this.route('medrec', {path: '/medrec/:patient_id'});
     this.resource('account', {path: '/account'});
     this.resource('workInProgress');
     this.resource('patients', function () {
         this.resource('patient', {path: '/:patient_id'}, function () {
             this.route('init');
+            this.route('medrec');
             this.resource('careplans', function () {
                 this.route('new');
                 this.resource('careplan', {path: '/:careplan_id'}, function () {
-                    this.route('init');
+//                    this.route('init');
                     this.route('filters');
                     this.route('patientInfo');
                     this.route('notes');
