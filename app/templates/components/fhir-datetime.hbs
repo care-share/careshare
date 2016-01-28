@@ -1,6 +1,6 @@
 {{#if inline}}
     {{#if showTime}}
-        {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='YYYY-MM-DDTHH:mm:ss' forceDateOutput=true }}
+        {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='L LT' forceDateOutput=true }}
             {{input class='form-control' value=passthrough autofocus="autofocus"}}
             {{#if (gt calculatedPatch.length 0)}}
                 <div style='background-color:#dddddd'>
@@ -10,7 +10,7 @@
             {{/if}}
         {{/bs-datetimepicker}}
     {{else}}
-        {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='YYYY-MM-DD' forceDateOutput=true }}
+        {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='L' forceDateOutput=true }}
             {{input class='form-control' value=passthrough autofocus="autofocus"}}
             {{#if (gt calculatedPatch.length 0)}}
                 <div style='background-color:#dddddd'>
@@ -24,11 +24,11 @@
     {{#em-modal configName="bs" id=name}}
         {{#em-modal-body}}
             {{#if showTime}}
-                {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='YYYY-MM-DDTHH:mm:ss' noIcon=true forceDateOutput=true sideBySide=true}}
+                {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='L LT' noIcon=true forceDateOutput=true sideBySide=true}}
                     {{input class='form-control' value=passthrough autofocus="autofocus"}}
                 {{/bs-datetimepicker}}
             {{else}}
-                {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='YYYY-MM-DD' noIcon=true forceDateOutput=true sideBySide=true}}
+                {{#bs-datetimepicker date=passthrough showToday=false pickTime=showTime format='L' noIcon=true forceDateOutput=true sideBySide=true}}
                     {{input class='form-control' value=passthrough autofocus="autofocus"}}
                 {{/bs-datetimepicker}}
             {{/if}}

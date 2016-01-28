@@ -7,7 +7,7 @@
             {{/link-to}}
             <div class="header-actions pull-right">
                 <button id="toggle-content"
-                        class="glyphicon glyphicon-menu-hamburger" {{action 'toggleSideBarVisibility' }}></button>
+                        class="glyphicon glyphicon-menu-hamburger nobackground" {{action 'toggleSideBarVisibility' }}></button>
             </div>
         </h1>
         <form id="smart-search" class="side-form hide ng-pristine ng-valid" role="form">
@@ -59,7 +59,7 @@
                         <a href="/dashboard"><i class="nav-item-icon icon ion-social-rss-outline"></i>Dashboard</a>
                     </li> }}
                     <li class="side-nav-item ">
-                        {{#link-to 'patients'}}<span class="badge">(patient count)</span>
+                        {{#link-to 'patients'}}
                             <i class="nav-item-icon icon ion-ios-person-outline"></i> Patients
                         {{/link-to}}
 

@@ -2,7 +2,7 @@ import model from 'ember-fhir-adapter/models/timing-repeat-component';
 import DS from 'ember-data';
 
 export default model.extend({
-    displayText: function() {
+    displayText: function() { // spelled out summary of the repeat pattern
 	var frequency = this.get("frequency");
 	var frequencyMax = this.get("frequencyMax");
 	var period = this.get("period");
@@ -26,7 +26,7 @@ export default model.extend({
 	}
 	return string
     }.property('frequency', 'frequencyMax', 'period', 'periodMax', 'when'),
-    displayCode: function() {
+    displayCode: function() { // short code of the repeat pattern, falls back to displayText if it's not encodable
 	var frequency = this.get("frequency");
 	var frequencyMax = this.get("frequencyMax");
 	var period = this.get("period");
@@ -86,10 +86,10 @@ export default model.extend({
 	    }
 	}
 
-	if (encodedPattern && periodUnits) {
+	if (encodedPattern && periodUnits) { // either we've figured out a way to encode this
 	    return (encodedPattern + periodUnits).toUpperCase();
-	} else {
-	    return null;
+	} else { // or we fall back to the verbose version
+	    return this.get('displayText');
 	}
 	    
 	    
