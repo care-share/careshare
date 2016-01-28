@@ -25,7 +25,7 @@ export default Ember.Controller.extend({
     MedicationOrders: [], // medications
     showGoals: true, // goals
     showConditions: true, // problems
-    showNutritionOrders: true, // nutrition
+    showNutritionOrders: false, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: true, // medications
     statusIsProposed: function() {

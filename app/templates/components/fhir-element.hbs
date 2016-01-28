@@ -13,7 +13,7 @@
                 <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
                 <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
                 {{#if (not root.isNewRecord)}}
-                    <button class="glyphicon glyphicon-floppy-remove" {{action 'undoRecord'}}/>
+                    <button class="glyphicon glyphicon-repeat" {{action 'undoRecord'}}/>
                 {{/if}}
             </div>
         {{/if}}

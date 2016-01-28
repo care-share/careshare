@@ -17,6 +17,11 @@ export default Ember.Controller.extend({
     showOpenID: false,
     goals: null, problems: null, nutrition: null, interventions: null, medications: null,
     showGoals: true, showProblems: true, showNutrition: true, showInterventions: true, showMedications: true,
+    birthDateFormatted: function(){
+        //TODO is there a better way to extract?
+        var stringArray = this.get('birthDate').toDateString().split(' ');
+        return stringArray[1] + '/' + stringArray[2] + '/' + stringArray[3];
+    }.property('birthDate'),
     actions: {
         accountRequest: function () {
             API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);

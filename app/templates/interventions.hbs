@@ -1,12 +1,9 @@
-<div class="row" style="margin-bottom:0px">
-    <div class="col-xs-12">
+<div class="row">
+    <div class="col-xs-8">
         <h3 class="fhir-column-header">Interventions / Observations</h3>
     </div>
-</div>
-<div class="row">
-    <div class="col-xs-8"></div>
-    <div class="col-xs-4" style="padding-right:0px;padding-left:0px">
-        <button class="nobackground" {{action 'createRecord' 'ProcedureRequest'}}>
+    <div class="col-xs-4" style="padding-top:10px;padding-right:0px;padding-left:0px">
+        <button class="nobackground f-right" {{action 'createRecord' 'ProcedureRequest'}}>
             <span class="glyphicon glyphicon-plus"></span> <strong>Add</strong>
         </button>
     </div>
@@ -22,7 +19,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-xs-12 fhir-form-item">
-                                        <div class="col-xs-12 col-lg-6">
+                                        <div class="col-xs-12">
                                             {{#codeable-concept parent=intervention name='code'}}
                                                 {{fhir-edit parent=intervention name='code.text'}}
                                             {{/codeable-concept}}
@@ -30,13 +27,13 @@
                                                 {{change-request parent=intervention name='code.text' cr=cr}}
                                             {{/each}}
                                         </div>
-                                        <div class="col-xs-12 col-lg-6">
+                                        {{!-- <div class="col-xs-12 col-lg-6">
                                             {{fhir-choice parent=intervention name='status'
                                             choices='proposed,draft,requested,received,accepted,in-progress,completed,suspended,rejected,aborted'}}
                                             {{#each intervention.changes.[-status] as |cr|}}
                                                 {{change-request parent=intervention name='status' cr=cr}}
                                             {{/each}}
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class=" col-xs-12 fhir-form-item">
                                         <label class="col-sm-5 control-label" for="priority"> Priority: </label>
@@ -56,6 +53,7 @@
                                             {{fhir-object-select compSelection=intervention.rlCondition parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
                                         </div>
                                     </div>
+                                    {{! TODO Removed not working sections
                                     <select id="" class="form-control">
                                         <option disabled selected> Body Sites</option>
                                     </select>
@@ -65,13 +63,25 @@
                                     </div>
                                     <div>
                                         Orderer
+                                    </div> }}
+                                    <div class=" col-xs-12 fhir-form-item">
+                                        <label class="col-sm-5 control-label" for="reason"> Scheduled: </label>
+
+                                        <div id="reason" class="col-xs-12 col-lg-7">
+                                            {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
+                                            {{intervention.scheduledTiming.repeat.displayCode}} {{fhir-timing parent=intervention name='scheduledTiming'}}
+                                        </div>
                                     </div>
-                                    <br>
-                                    Scheduled: {{intervention.scheduledTiming.repeat.displayCode}} {{fhir-timing parent=intervention name='scheduledTiming'}}<br><br>
-                                    Ordered On: {{fhir-datetime parent=intervention name='orderedOn' showTime=true}}
-                                    {{#each intervention.changes.[-orderedOn] as |cr|}}
-                                        {{change-request parent=intervention name='orderedOn' cr=cr}}
-                                    {{/each}}
+                                    <div class=" col-xs-12 fhir-form-item">
+                                        <label class="col-sm-5 control-label" for="reason"> Ordered On: </label>
+
+                                        <div id="reason" class="col-xs-12 col-lg-7">
+                                            {{fhir-datetime parent=intervention name='orderedOn' showTime=true}}
+                                            {{#each intervention.changes.[-orderedOn] as |cr|}}
+                                                {{change-request parent=intervention name='orderedOn' cr=cr}}
+                                            {{/each}}
+                                        </div>
+                                    </div>
                                     {{related-list parent=intervention relation='rlGoals' display='description' label="Goals"}}
                                 </div>
                             </div>

@@ -5,11 +5,13 @@
             <li {{action 'selected' selection on='doubleClick'}}>
                 <div>
                     {{selection.display}}
-                    <button class="glyphicon glyphicon-remove" {{action 'deleteReference' parent selection.model}}></button>
+                    <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection.model}}></button>
                 </div>
             </li>
         {{else}}
-            No {{label}}
+            <div class="no-related-items">
+                No Related {{label}}
+            </div>
         {{/each}}
         <!-- TODO: add an action to this button
         <li>

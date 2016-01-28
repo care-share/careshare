@@ -8,13 +8,14 @@ export default PassthroughComponent.extend({
     classNames: ['fhir-choice'],
     finalChoices: [],
     originalValue: '',
+    promptText: function (){
+            return this.get('prompt') ? this.get('prompt') : "--Please select--";
+    }.property('prompt'),
     setup: function () {
 	    this.set('finalChoices', this.get('choices').split(','));
         //Get a string representation of the ORIGINAL property
         var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
         this.set('originalValue', sanitizedValue);
-
-
         //Define computed property in setup because the attribute name has to be set dynamically
         Ember.defineProperty(this, 'calculatedPatch', Ember.computed(function() {
                 //Get a string representation of the CURRENT property
