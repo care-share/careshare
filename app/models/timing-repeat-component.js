@@ -15,16 +15,21 @@ export default model.extend({
 		// frequency is 1 or not set, but we have a period.
 		// construct a period-based code.
 		var encodedPeriod;
-		switch(period) {
-		case 1: // e.g. QD
-		    encodedPeriod = "";
-		    break;
-		case 2: // e.g. QOW
-		    encodedPeriod = "O";
-		    break;
-		default: // e.g. Q6H
-		    encodedPeriod = period.toString()
-		}
+		if (periodMax) {
+		    // range period
+		    encodedPeriod = period.toString() + "-" + periodMax.toString();
+		} else {
+		    switch(period) {
+		    case 1: // e.g. QD
+			encodedPeriod = "";
+			break;
+		    case 2: // e.g. QOW
+			encodedPeriod = "O";
+			break;
+		    default: // e.g. Q6H
+			encodedPeriod = period.toString()
+		    }
+	        }
 		encodedPattern = "Q" + encodedPeriod;
 	    }
 	} else if (!period || period == 1) {
@@ -52,8 +57,8 @@ export default model.extend({
 		    default:
 			encodedFrequency = frequency.toString()
 		    }
-		    encodedPattern = encodedFrequency + "I";
 		}
+		encodedPattern = encodedFrequency + "I";
 	    }
 	}
 
