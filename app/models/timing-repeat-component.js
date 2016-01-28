@@ -2,6 +2,30 @@ import model from 'ember-fhir-adapter/models/timing-repeat-component';
 import DS from 'ember-data';
 
 export default model.extend({
+    displayText: function() {
+	var frequency = this.get("frequency");
+	var frequencyMax = this.get("frequencyMax");
+	var period = this.get("period");
+	var periodMax = this.get("periodMax");
+	var periodUnits = this.get("periodUnits");
+	var when = this.get("when");
+	var string = null;
+        if (!frequency && !period) {
+	    string = "None specified";
+	} else {
+	    string = frequency.toString();
+	    if (frequencyMax){
+		string = string + "-" + frequencyMax.toString();
+	    }
+	    string = string + " times every ";
+	    string = string + period.toString();
+	    if (periodMax){
+		string = string + "-" + periodMax.toString();
+	    }
+	    string = string + " " + periodUnits.toUpperCase();
+	}
+	return string
+    }.property('frequency', 'frequencyMax', 'period', 'periodMax', 'when'),
     displayCode: function() {
 	var frequency = this.get("frequency");
 	var frequencyMax = this.get("frequencyMax");
@@ -32,7 +56,7 @@ export default model.extend({
 	        }
 		encodedPattern = "Q" + encodedPeriod;
 	    }
-	} else if (!period || period == 1) {
+	} else if (!period || (period == 1 && !periodMax)) {
 	    if (frequency) {
 		// period is 1 or not set, but we have a frequency.
 		// construct a frequency-based code.
@@ -65,7 +89,7 @@ export default model.extend({
 	if (encodedPattern && periodUnits) {
 	    return (encodedPattern + periodUnits).toUpperCase();
 	} else {
-	    return "DETAILS";
+	    return null;
 	}
 	    
 	    
