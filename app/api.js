@@ -110,7 +110,7 @@ export default {
         console.log('APPROVE: ' + id);
         Ember.$.ajax({
             url: this.host + '/users/' + id + '/approve',
-            type: 'post',
+            type: 'put',
             headers: {
                 'X-Auth-Token': data.token
             },
