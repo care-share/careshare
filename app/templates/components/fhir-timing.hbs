@@ -10,7 +10,7 @@
                 {{fhir-edit parent=child.repeat name='durationMax' isNumber='decimal'}}
                 {{fhir-choice parent=child.repeat name='durationUnits' choices='s,min,h,d,wk,mo,a'}}<br>
         Repeat: {{fhir-edit parent=child.repeat name='count' isNumber='integer'}} times<br><br>
-        Start date: {{fhir-datetime parent=child.repeat name='event' inline=true}}
+        Start date: {{fhir-datetime parent=child name='event' inline=true}}
         {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
     {{/em-modal-body}}
 {{/em-modal}}
