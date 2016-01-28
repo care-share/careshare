@@ -33,32 +33,32 @@
             </div>
         </div>
         <div>
-            Duration:
-        </div>
-        <div class="row">
-            <div class="col-xs-4">
-                {{fhir-edit parent=child.repeat name='duration' isNumber='decimal'}}
-            </div>
-            <div class="col-xs-2" style="text-align:center;">
-                to
-            </div>
-            <div class="col-xs-4">
-                {{fhir-edit parent=child.repeat name='durationMax' isNumber='decimal'}}
-            </div>
-            <div class="col-xs-2">
-                {{fhir-choice parent=child.repeat name='durationUnits' choices='s,min,h,d,wk,mo,a' prompt='Unit'}}
-            </div>
-        </div>
-        Repeat:
-        <div class="row">
-            <div class="col-xs-10">
-                {{fhir-edit parent=child.repeat name='count' isNumber='integer'}}
-            </div>
-            <div class="col-xs-2">
-                times
-            </div>
-        </div>
-        Start date: {{fhir-datetime parent=child.repeat name='event' inline=true}}
+          Duration:
+      </div>
+      <div class="row">
+          <div class="col-xs-4">
+              {{fhir-edit parent=child.repeat name='duration' isNumber='decimal'}}
+          </div>
+          <div class="col-xs-2" style="text-align:center;">
+              to
+          </div>
+          <div class="col-xs-4">
+              {{fhir-edit parent=child.repeat name='durationMax' isNumber='decimal'}}
+          </div>
+          <div class="col-xs-2">
+              {{fhir-choice parent=child.repeat name='durationUnits' choices='s,min,h,d,wk,mo,a' prompt='Unit'}}
+          </div>
+      </div>
+      Repeat:
+      <div class="row">
+          <div class="col-xs-10">
+              {{fhir-edit parent=child.repeat name='count' isNumber='integer'}}
+          </div>
+          <div class="col-xs-2">
+              times
+          </div>
+      </div>
+      Start date: {{fhir-datetime parent=child.repeat name='event' inline=true}}
         {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
     {{/em-modal-body}}
 {{/em-modal}}

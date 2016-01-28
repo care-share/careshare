@@ -5,8 +5,18 @@ export default PassthroughComponent.extend({
 	patcher: new diff_match_patch(),
     classNames: ['fhir-datetime'],
 	showModal: false,
-    orignalValue: '',
+    originalValue: '',
 	setup: function () {
+    		//Creates a computed property that converts date strings to Date objects
+    		Ember.defineProperty(this, 'datePassthrough', Ember.computed(function(key, value) {
+            // Set parent variable when passthrough is edited externally
+            if (arguments.length > 1) {
+							this.set('passthrough', new Date(Ember.Date.parse(value)));
+            }
+            // Sets passthrough to this when property changes
+            return this.get('passthrough');
+        }).property('passthrough'));
+
         //Get a string representation of the ORIGINAL property
         var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
         this.set('originalValue', sanitizedValue);
