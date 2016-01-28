@@ -2,7 +2,31 @@ import model from 'ember-fhir-adapter/models/timing-repeat-component';
 import DS from 'ember-data';
 
 export default model.extend({
-    displayCode: function() {
+    displayText: function() { // spelled out summary of the repeat pattern
+	var frequency = this.get("frequency");
+	var frequencyMax = this.get("frequencyMax");
+	var period = this.get("period");
+	var periodMax = this.get("periodMax");
+	var periodUnits = this.get("periodUnits");
+	var when = this.get("when");
+	var string = null;
+        if (!frequency && !period) {
+	    string = "None specified";
+	} else {
+	    string = frequency.toString();
+	    if (frequencyMax){
+		string = string + "-" + frequencyMax.toString();
+	    }
+	    string = string + " times every ";
+	    string = string + period.toString();
+	    if (periodMax){
+		string = string + "-" + periodMax.toString();
+	    }
+	    string = string + " " + periodUnits.toUpperCase();
+	}
+	return string
+    }.property('frequency', 'frequencyMax', 'period', 'periodMax', 'when'),
+    displayCode: function() { // short code of the repeat pattern, falls back to displayText if it's not encodable
 	var frequency = this.get("frequency");
 	var frequencyMax = this.get("frequencyMax");
 	var period = this.get("period");
@@ -15,19 +39,24 @@ export default model.extend({
 		// frequency is 1 or not set, but we have a period.
 		// construct a period-based code.
 		var encodedPeriod;
-		switch(period) {
-		case 1: // e.g. QD
-		    encodedPeriod = "";
-		    break;
-		case 2: // e.g. QOW
-		    encodedPeriod = "O";
-		    break;
-		default: // e.g. Q6H
-		    encodedPeriod = period.toString()
-		}
+		if (periodMax) {
+		    // range period
+		    encodedPeriod = period.toString() + "-" + periodMax.toString();
+		} else {
+		    switch(period) {
+		    case 1: // e.g. QD
+			encodedPeriod = "";
+			break;
+		    case 2: // e.g. QOW
+			encodedPeriod = "O";
+			break;
+		    default: // e.g. Q6H
+			encodedPeriod = period.toString()
+		    }
+	        }
 		encodedPattern = "Q" + encodedPeriod;
 	    }
-	} else if (!period || period == 1) {
+	} else if (!period || (period == 1 && !periodMax)) {
 	    if (frequency) {
 		// period is 1 or not set, but we have a frequency.
 		// construct a frequency-based code.
@@ -52,15 +81,15 @@ export default model.extend({
 		    default:
 			encodedFrequency = frequency.toString()
 		    }
-		    encodedPattern = encodedFrequency + "I";
 		}
+		encodedPattern = encodedFrequency + "I";
 	    }
 	}
 
-	if (encodedPattern && periodUnits) {
-	    return encodedPattern + periodUnits;
-	} else {
-	    return "DETAILS";
+	if (encodedPattern && periodUnits) { // either we've figured out a way to encode this
+	    return (encodedPattern + periodUnits).toUpperCase();
+	} else { // or we fall back to the verbose version
+	    return this.get('displayText');
 	}
 	    
 	    

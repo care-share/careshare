@@ -1,16 +1,64 @@
 {{#em-modal configName="bs" id=name}}
     {{#em-modal-body}}
         Short Code: <b>{{child.repeat.displayCode}}</b><br><br>
-        Frequency: {{fhir-edit parent=child.repeat name='frequency' isNumber='integer'}} to
-                   {{fhir-edit parent=child.repeat name='frequencyMax' isNumber='integer'}}<br>
-        Period: {{fhir-edit parent=child.repeat name='period' isNumber='decimal'}} to
+        <div>
+        Frequency:
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                {{fhir-edit parent=child.repeat name='frequency' isNumber='integer'}}
+            </div>
+            <div class="col-xs-2" style="text-align:center;">
+                to
+            </div>
+            <div class="col-xs-4">
+                {{fhir-edit parent=child.repeat name='frequencyMax' isNumber='integer'}}
+            </div>
+        </div>
+        <div>
+            Period:
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                {{fhir-edit parent=child.repeat name='period' isNumber='decimal'}}
+            </div>
+            <div class="col-xs-2" style="text-align:center;">
+                to
+            </div>
+            <div class="col-xs-4">
                 {{fhir-edit parent=child.repeat name='periodMax' isNumber='decimal'}}
-                {{fhir-choice parent=child.repeat name='periodUnits' choices='s,min,h,d,wk,mo,a'}}<br>
-        Duration: {{fhir-edit parent=child.repeat name='duration' isNumber='decimal'}} to
-                {{fhir-edit parent=child.repeat name='durationMax' isNumber='decimal'}}
-                {{fhir-choice parent=child.repeat name='durationUnits' choices='s,min,h,d,wk,mo,a'}}<br>
-        Repeat: {{fhir-edit parent=child.repeat name='count' isNumber='integer'}} times<br><br>
-        Start date: {{fhir-datetime parent=child name='event' inline=true}}
+            </div>
+            <div class="col-xs-2">
+                {{fhir-choice parent=child.repeat name='periodUnits' choices='s,min,h,d,wk,mo,a' prompt='Unit'}}
+            </div>
+        </div>
+        <div>
+          Duration:
+      </div>
+      <div class="row">
+          <div class="col-xs-4">
+              {{fhir-edit parent=child.repeat name='duration' isNumber='decimal'}}
+          </div>
+          <div class="col-xs-2" style="text-align:center;">
+              to
+          </div>
+          <div class="col-xs-4">
+              {{fhir-edit parent=child.repeat name='durationMax' isNumber='decimal'}}
+          </div>
+          <div class="col-xs-2">
+              {{fhir-choice parent=child.repeat name='durationUnits' choices='s,min,h,d,wk,mo,a' prompt='Unit'}}
+          </div>
+      </div>
+      Repeat:
+      <div class="row">
+          <div class="col-xs-10">
+              {{fhir-edit parent=child.repeat name='count' isNumber='integer'}}
+          </div>
+          <div class="col-xs-2">
+              times
+          </div>
+      </div>
+      Start date: {{fhir-datetime parent=child.repeat name='event' inline=true}}
         {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
     {{/em-modal-body}}
 {{/em-modal}}

@@ -7,21 +7,37 @@
             <div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">
                 <div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
                     <div style="background-color: rgb(197,234,142);text-align: center">
-                        {{patient.lastName}}, {{patient.firstName}} (Active)
+                        <div>
+                            Careplan ID: {{model.id}}
+                        </div>
+                        <div>
+                            Status: ({{model.status}})
+                        </div>
+                        <div>
+                            {{#if statusIsDraft}} <button class="btn btn-default" {{action "setStatus" "referred"}}>Sign Careplan</button> {{/if}}
+                            {{#if statusIsReferred}} <button class="btn btn-default" style="margin-bottom: 5px;" {{action "setStatus" "proposed"}}>Submit Careplan</button> {{/if}}
+                            {{#if statusIsProposed}} <button class="btn btn-default" {{action "setStatus" "active"}}>Certify Careplan</button> {{/if}}
+                        </div>
                     </div>
-                    <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
-
-                    <div class="panel" style="padding: 0">{{patient.gender}}<br/>{{patient.birthDate}}</div>
+                    <div class="row panel">
+                        <div class="col-md-4">
+                            <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
+                        </div>
+                        <div class="col-md-8">
+                            {{patient.lastName}}, {{patient.firstName}}
+                            <br/>
+                            <div style="padding: 0">{{patient.gender}}
+                            <br/>{{patient.birthDateFormatted}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body" style="padding: 0;height:100%;">
                     <!-- Tab Content -->
                     <div class="tab-content" style="padding: 0">
-                        <ul class="nav nav-tabs" style="background-color: rgb(242,247,252)">
+                        <ul class="nav nav-tabs">
                             {{#link-to 'careplan.filters'  tagName='li' href=false }}
                                 {{#link-to 'careplan.filters'}}Filter{{/link-to}}
-                            {{/link-to}}
-                            {{#link-to 'careplan.patientInfo'  tagName='li' href=false }}
-                                {{#link-to 'careplan.patientInfo'}}Patient{{/link-to}}
                             {{/link-to}}
                             {{#link-to 'careplan.notes'  tagName='li' href=false }}
                                 {{#link-to 'careplan.notes'}}Notes{{/link-to}}
@@ -41,20 +57,6 @@
         <!-- Page Content -->
         <!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
         <div class="fhir-columns col-md-10">
-	    <div class="row" style="height:5%">
-	        <h3 class="content-title">
-		    Status:
-		    <button {{action "setStatus" "draft"}}>reset</button>
-		    <span {{bind-attr class="statusIsDraft:current-status"}}>Draft</span>
-		    {{!-- Referred is not a status in the FHIR spec; this is a customization for the app. The HAPI server lets us set whatever value we want. --}}
-		    {{#if statusIsDraft}} <button {{action "setStatus" "referred"}}>Sign <span class="glyphicon glyphicon-forward"></span> </button> {{/if}}
-		    <span {{bind-attr class="statusIsReferred:current-status"}}>Referred</span>
-		    {{#if statusIsReferred}} <button {{action "setStatus" "proposed"}}>Submit <span class="glyphicon glyphicon-forward"></span></button> {{/if}}
-		    <span {{bind-attr class="statusIsProposed:current-status"}}>Proposed</span>
-		    {{#if statusIsProposed}} <button {{action "setStatus" "active"}}>Certify <span class="glyphicon glyphicon-forward"></span></button> {{/if}}
-		    <span {{bind-attr class="statusIsActive:current-status"}}>Active</span>
-                </h3>
-	    </div>
             <!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
             Other practitioners have requested changes to this plan's...
             <button>Accept All</button>
