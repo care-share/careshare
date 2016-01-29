@@ -4,9 +4,11 @@ export default PassthroughComponent.extend({
     // args passed in from template: parent, name
     tagName: 'span', // needed for Ember to build this in a HTML span element instead of a div
     classNames: ['timing'], // needed for Ember to add this CSS class to the HTML element
+    nameID: '',
     // action dictionary/map:
     updateRecord: 'updateRecord', // this is needed to bubble this action to the respective controller action
     setup: function () {
+        this.set('nameID',this.get('name')+new Date().valueOf()+Math.random());
         console.log('[INIT] (TIMING) {record: ' + this.get('parent') + ',name: ' + this.get('name'));
         // causes the controller to create a Timing object for this attribute ('name')
         this.sendAction('updateRecord', this.get('parent'), this.get('name'), 'Timing');

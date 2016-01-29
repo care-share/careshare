@@ -6,7 +6,9 @@ export default PassthroughComponent.extend({
   classNames: ['fhir-datetime'],
 	showModal: false,
   originalValue: '',
+	nameID: '',
 	setup: function () {
+			  this.set('nameID',this.get('name')+new Date().valueOf()+Math.random());
 		    var attribute;
 				if(this.get('name')){
 					attribute = this.get('parent').get(this.get('name'));
