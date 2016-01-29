@@ -16,7 +16,7 @@
                             NO MEDICATION
                         {{/if}}
                         {{#if (eq section "expanded")}}
-                            {{#backbone-element parent=order name='dosageInstruction' type='medication-order-dosage-instruction-component'}}
+                            {{#backbone-element parent=order name='dosageInstruction' type='medication-order-dosage-instruction-component' isArray=true}}
                             <div class=" col-xs-12 fhir-form-item">
                                 <label class="col-sm-5 control-label" for="dosage"> Dosage: </label>
                                 <div id="dosage" class="col-xs-12 col-lg-7">

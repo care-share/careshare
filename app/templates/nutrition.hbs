@@ -17,7 +17,7 @@
                         {{#if (eq section "expanded")}}
                         {{! THIS IS ONLY FOR SUPPLEMENTS TODO: NiceToHave: Create a type handler that can use the other types}}
                             <div class="row">
-                                {{#backbone-element parent=nutrition name='supplement' type='nutrition-order-supplement-component'}}
+                                {{#backbone-element parent=nutrition name='supplement' type='nutrition-order-supplement-component' isArray=true}}
                                     <div class="form-group">
                                         <div class="col-xs-12 fhir-form-item">
                                             <div class="col-xs-12 col-lg-6">
