@@ -3,10 +3,16 @@ import PassthroughComponent from 'careshare/components/passthrough-component';
 
 export default PassthroughComponent.extend({
 	patcher: new diff_match_patch(),
-    classNames: ['fhir-datetime'],
+  classNames: ['fhir-datetime'],
 	showModal: false,
-    originalValue: '',
+  originalValue: '',
 	setup: function () {
+		    var attribute;
+				if(this.get('name')){
+					attribute = this.get('parent').get(this.get('name'));
+				}else{
+					attribute = this.get('parent');
+				}
     		//Creates a computed property that converts date strings to Date objects
     		Ember.defineProperty(this, 'datePassthrough', Ember.computed(function(key, value) {
             // Set parent variable when passthrough is edited externally
@@ -18,14 +24,14 @@ export default PassthroughComponent.extend({
         }).property('passthrough'));
 
         //Get a string representation of the ORIGINAL property
-        var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
+        var sanitizedValue = attribute ? attribute : '';
         this.set('originalValue', sanitizedValue);
 
 
         //Define computed property in setup because the attribute name has to be set dynamically
         Ember.defineProperty(this, 'calculatedPatch', Ember.computed(function() {
                 //Get a string representation of the CURRENT property
-                var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
+                var sanitizedValue = attribute ? attribute : '';
 
                 // If there is a difference between the original and current create the Diff
                 if (this.get('originalValue') !== sanitizedValue){
@@ -40,7 +46,8 @@ export default PassthroughComponent.extend({
                 }
                 //If not return empty (Handlebars checks for empty string before creating DIV)
                 return "";
-        }).property('parent.' + this.get('name')));
+        }).property(this.get('name')?('parent.' + this.get('name')):'parent')
+			);
 
 
     }.on('init'),
