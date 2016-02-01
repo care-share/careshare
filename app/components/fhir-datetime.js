@@ -2,11 +2,11 @@ import Ember from 'ember';
 import PassthroughComponent from 'careshare/components/passthrough-component';
 
 export default PassthroughComponent.extend({
-    patcher: new diff_match_patch(),
-    classNames: ['fhir-datetime'],
-    showModal: false,
-    originalValue: '',
-    isArray: false, // is this used for a single object or an array of objects?
+	patcher: new diff_match_patch(),
+	classNames: ['fhir-datetime'],
+	showModal: false,
+	originalValue: '',
+	isArray: false, // is this used for a single object or an array of objects?
     setup: function () {
         // Creates a computed property that converts date strings to Date objects
         Ember.defineProperty(this, 'datePassthrough', Ember.computed({
@@ -17,21 +17,31 @@ export default PassthroughComponent.extend({
                 if (this.get('isArray')) {
                     if (passthrough && passthrough.length > 0) {
                         result = passthrough[0];
-                    }
+                    }else {
+		                    result = passthrough;
+		                }
                 } else {
                     result = passthrough;
                 }
-                return result;
+								console.log('datePassthrough get result: '+result);
+								if(result !== null && result !== undefined)
+                return (("0"+(result.getMonth()+1)).slice(-2)+'/'+("0" + result.getDate()).slice(-2)+'/'+result.getFullYear()+' '
+											+((result.getHours() > 12)?(result.getHours()-12):(("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
+											((result.getHours() > 12)?' PM':' AM')).replace("00:00 AM","");
             },
             set(key, value) {
                 var result = new Date(Ember.Date.parse(value));
+								console.log('datePassthrough set value: '+value+',result: '+result);
                 this.set('passthrough', this.get('isArray') ? [result] : result);
+								return (("0"+(result.getMonth()+1)).slice(-2)+'/'+("0" + result.getDate()).slice(-2)+'/'+result.getFullYear()+' '
+											+((result.getHours() > 12)?(result.getHours()-12):(("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
+											((result.getHours() > 12)?' PM':' AM')).replace("00:00 AM","");
             }
         }).property('passthrough'));
 
-        //Get a string representation of the ORIGINAL property
-        var attr = this.get('parent').get(this.get('name'));
-        var sanitizedValue = attr ? attr : '';
+				//Get a string representation of the ORIGINAL property
+				var attr = this.get('parent').get(this.get('name'));
+				var sanitizedValue = attr ? attr : '';
         this.set('originalValue', sanitizedValue);
 
         //Define computed property in setup because the attribute name has to be set dynamically

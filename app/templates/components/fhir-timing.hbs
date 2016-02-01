@@ -1,6 +1,6 @@
 {{#backbone-element parent=parent name=name type='timing'}}
     {{#backbone-element parent=child name='repeat' type='timing-repeat-component'}}
-        {{#em-modal configName="bs" id=(concat elementId '-modal')}}
+        {{#em-modal configName="bs" id=nameID}}
             {{#em-modal-body}}
                 Short Code: <b>{{child.repeat.displayCode}}</b><br><br>
                 <div>
@@ -64,6 +64,6 @@
                 {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
             {{/em-modal-body}}
         {{/em-modal}}
-        {{em-modal-toggler modal-id=(concat elementId '-modal') class="glyphicon glyphicon-time"}}
+        {{em-modal-toggler modal-id=nameID class="glyphicon glyphicon-time"}}
     {{/backbone-element}}
 {{/backbone-element}}

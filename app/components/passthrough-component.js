@@ -2,9 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     patcher: new diff_match_patch(),
+    nameID: '',
     passthroughInit: function () {
-
         console.log('Passthrough INIT: parent= '+this.get('parent'));
+        this.set('nameID',this.get('name')+new Date().valueOf()+Math.random());
         //Get a string representation of the ORIGINAL property
         var sanitizedValue = this.get('parent').get(this.get('name')) ? this.get('parent').get(this.get('name')) : '';
         this.set('originalValue', sanitizedValue);
