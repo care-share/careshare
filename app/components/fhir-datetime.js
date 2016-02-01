@@ -6,9 +6,9 @@ export default PassthroughComponent.extend({
   classNames: ['fhir-datetime'],
 	showModal: false,
   originalValue: '',
-	nameID: '',
 	setup: function () {
-			  this.set('nameID',this.get('name')+new Date().valueOf()+Math.random());
+		    //this.set('passthrough',new Date(Ember.Date.parse(this.get('passthrough'))));
+	    	//this.set('datePassthrough',new Date(Ember.Date.parse(this.get('passthrough'))));
 		    var attribute;
 				if(this.get('name')){
 					attribute = this.get('parent').get(this.get('name'));
@@ -21,8 +21,13 @@ export default PassthroughComponent.extend({
             if (arguments.length > 1) {
 							this.set('passthrough', new Date(Ember.Date.parse(value)));
             }
+
             // Sets passthrough to this when property changes
-            return this.get('passthrough');
+						console.log('datePassthrough init, passthrough: '+this.get('passthrough'));
+						var date = new Date(this.get('passthrough'));
+            return (("0"+(date.getMonth()+1)).slice(-2)+'/'+("0" + date.getDate()).slice(-2)+'/'+date.getFullYear()+' '
+									+((date.getHours() > 12)?(date.getHours()-12):(("0" + date.getHours()).slice(-2))) + ":" + ("0" + date.getMinutes()).slice(-2) +
+									((date.getHours() > 12)?' PM':' AM')).replace("00:00 AM","");
         }).property('passthrough'));
 
         //Get a string representation of the ORIGINAL property
@@ -51,7 +56,7 @@ export default PassthroughComponent.extend({
         }).property(this.get('name')?('parent.' + this.get('name')):'parent')
 			);
 
-
+    console.log('fhir-datetime init finished');
     }.on('init'),
     actions: {
         cancel: function () {
