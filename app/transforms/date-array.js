@@ -8,26 +8,26 @@ export default DS.DateTransform.extend({
     deserialize: function (serialized) {
         var result = [];
         if (Ember.typeOf(serialized) === 'array') {
-            result = serialized.map(mapToSuper, this).filter(filterInvalid);
+            result = serialized.map(function (item/*, index, enumerable*/) {
+                // deserialize each array element as a Date
+                return this._super(item);
+            }, this).filter(filterInvalid);
         }
         return result;
     },
     serialize: function (deserialized) {
         var result = [];
         if (Ember.typeOf(deserialized) === 'array') {
-            result = deserialized.map(mapToSuper, this).filter(filterInvalid);
+            result = deserialized.map(function (item/*, index, enumerable*/) {
+                // serialize each array element as a String
+                return this._super(item);
+            }, this).filter(filterInvalid);
         }
         return result;
     }
 });
 
-function mapToSuper (item/*, index, enumerable*/) {
-    // deserialize each array element as a Date
-    // serialize each array element as a String
-    return this._super(item);
-}
-
-function filterInvalid (item/*, index, enumerable*/) {
+function filterInvalid(item/*, index, enumerable*/) {
     // filter out any invalid elements
     return item !== null;
 }
