@@ -17,17 +17,19 @@ export default PassthroughComponent.extend({
                 if (this.get('isArray')) {
                     if (passthrough && passthrough.length > 0) {
                         result = passthrough[0];
-                    }else {
-		                    result = passthrough;
-		                }
+                    }
                 } else {
                     result = passthrough;
                 }
 								console.log('datePassthrough get result: '+result);
-								if(result !== null && result !== undefined)
-                return (("0"+(result.getMonth()+1)).slice(-2)+'/'+("0" + result.getDate()).slice(-2)+'/'+result.getFullYear()+' '
+								if(result === null || result === undefined)
+									return result;
+								;
+								var resultDate = (("0"+(result.getMonth()+1)).slice(-2)+'/'+("0" + result.getDate()).slice(-2)+'/'+result.getFullYear()+' '
 											+((result.getHours() > 12)?(result.getHours()-12):(("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
 											((result.getHours() > 12)?' PM':' AM')).replace("00:00 AM","");
+								console.log('datePassthrough resultDate: '+resultDate);
+                return resultDate;
             },
             set(key, value) {
                 var result = new Date(Ember.Date.parse(value));
