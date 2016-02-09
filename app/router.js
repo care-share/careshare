@@ -14,6 +14,7 @@ export default Router.map(function () {
         this.resource('patient', {path: '/:patient_id'}, function () {
             this.route('init');
             this.route('medrec');
+            this.route('medentry');
             this.resource('careplans', function () {
                 this.route('new');
                 this.resource('careplan', {path: '/:careplan_id'}, function () {
