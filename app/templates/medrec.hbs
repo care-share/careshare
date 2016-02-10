@@ -1,39 +1,39 @@
 <div>
     <div class='row'>
         <div class='col-xs-5ths'>
-            VA Medications
+            <h4>VA Medications</h4>
         </div>
         <div class='col-xs-5ths'>
-            Home Health
+            <h4>Home Health</h4>
         </div>
         <div class='col-xs-5ths'>
-            Decision
+            <h4>Decision</h4>
         </div>
         <div class='col-xs-5ths'>
-            Home Heatlh Actions Required
+            <h4>Home Health Actions Required</h4>
         </div>
         <div class='col-xs-5ths'>
-            VA Internal
+            <h4>VA Internal</h4>
         </div>
     </div>
-    {{#each medlist as |medpair index|}}
+    {{#each model as |medpair index|}}
         <div class='row'>
             <div class='col-xs-5ths'>
                 <div>
-                    {{medpair.ehrMed.name}}
+                    {{medpair.ehrMed.medicationReference.display}}
                 </div>
                 <div>
-                    <span>{{medpair.ehrMed.freq}}</span>
-                    <span>{{medpair.ehrMed.dose}}</span>
+                    <span>{{!-- TODO frequency? --}}(frequency)</span>
+                    <span>{{medpair.ehrMed.dosageInstruction.firstObject.text}}</span>
                 </div>
             </div>
             <div class='col-xs-5ths'>
                 <div>
-                    <span class="{{if medpair.discrepency.freq 'medrec-discrepency'}}">{{medpair.homeMed.name}}</span>
+                    <span class="{{if medpair.discrepancy.name 'medrec-discrepancy'}}">{{medpair.homeMed.name}}</span>
                 </div>
                 <div>
-                    <span class="{{if medpair.discrepency.freq 'medrec-discrepency'}}">{{medpair.homeMed.freq}}</span>
-                    <span class="{{if medpair.discrepency.dose 'medrec-discrepency'}}">{{medpair.homeMed.dose}}</span>
+                    <span class="{{if medpair.discrepancy.freq 'medrec-discrepancy'}}">{{medpair.homeMed.freq}}</span>
+                    <span class="{{if medpair.discrepancy.dose 'medrec-discrepancy'}}">{{medpair.homeMed.dose}}</span>
                 </div>
             </div>
             <div class='col-xs-5ths'>
@@ -45,13 +45,11 @@
                 </div>
             </div>
             <div class='col-xs-5ths'>
-                Home Heatlh Actions Required
+                Home Health Actions Required
             </div>
             <div class='col-xs-5ths'>
                 VA Internal
             </div>
         </div>
     {{/each}}
-
-
 </div>
