@@ -63,9 +63,10 @@ export default Ember.Controller.extend({
                         type: 'DELETE',
                         url: `${window.Careshare.fhirUrl}/${modelName}/${record.id}`,
                         headers: headers,
-                        success : function() {
+                        success: function () {
                             // for some reason, .catch() is not working for Ember promises...
-                            record.reload().then(function (){}, function (err) {
+                            record.reload().then(function () {
+                            }, function (err) {
                                 console.log(`Deleted record ${record.id}, encountered an error! ${err.message}`);
                                 // for a record that's been deleted from the FHIR server, err.errors[0].status should equal "410" (Gone)
                                 // TODO: should we validate that the error we received is a code 410?

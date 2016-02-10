@@ -14,9 +14,16 @@
                             Status: ({{model.status}})
                         </div>
                         <div>
-                            {{#if statusIsDraft}} <button class="btn btn-default" {{action "setStatus" "referred"}}>Sign Careplan</button> {{/if}}
-                            {{#if statusIsReferred}} <button class="btn btn-default" style="margin-bottom: 5px;" {{action "setStatus" "proposed"}}>Submit Careplan</button> {{/if}}
-                            {{#if statusIsProposed}} <button class="btn btn-default" {{action "setStatus" "active"}}>Certify Careplan</button> {{/if}}
+                            {{#if statusIsDraft}}
+                                <button class="btn btn-default" {{action "setStatus" "referred"}}>Sign Careplan
+                                </button> {{/if}}
+                            {{#if statusIsReferred}}
+                                <button class="btn btn-default"
+                                        style="margin-bottom: 5px;" {{action "setStatus" "proposed"}}>Submit Careplan
+                                </button> {{/if}}
+                            {{#if statusIsProposed}}
+                                <button class="btn btn-default" {{action "setStatus" "active"}}>Certify Careplan
+                                </button> {{/if}}
                         </div>
                     </div>
                     <div class="row panel">
@@ -26,8 +33,9 @@
                         <div class="col-md-8">
                             {{patient.lastName}}, {{patient.firstName}}
                             <br/>
+
                             <div style="padding: 0">{{patient.gender}}
-                            <br/>{{patient.birthDateFormatted}}
+                                <br/>{{patient.birthDateFormatted}}
                             </div>
                         </div>
                     </div>

@@ -17,12 +17,13 @@
                         {{/if}}
                         {{#if (eq section "expanded")}}
                             {{#backbone-element parent=order name='dosageInstruction' type='medication-order-dosage-instruction-component' isArray=true}}
-                            <div class=" col-xs-12 fhir-form-item">
-                                <label class="col-sm-5 control-label" for="dosage"> Dosage: </label>
-                                <div id="dosage" class="col-xs-12 col-lg-7">
-                                    {{fhir-edit parent=order.dosageInstruction.firstObject name='text'}}
+                                <div class=" col-xs-12 fhir-form-item">
+                                    <label class="col-sm-5 control-label" for="dosage"> Dosage: </label>
+
+                                    <div id="dosage" class="col-xs-12 col-lg-7">
+                                        {{fhir-edit parent=order.dosageInstruction.firstObject name='text'}}
+                                    </div>
                                 </div>
-                            </div>
                             {{/backbone-element}}
                             <div class=" col-xs-12 fhir-form-item">
                                 <label class="col-sm-5 control-label" for="reason"> Reason: </label>

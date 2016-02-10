@@ -2,22 +2,22 @@
     {{#if showTime}}
         {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L LT' forceDateOutput=true}}
             {{input class='form-control' value=datePassthrough autofocus="autofocus"}}
-            {{!--{{#if (gt calculatedPatch.length 0)}}
-                <div style='background-color:#dddddd'>
-                    {{{calculatedPatch}}}
-                    <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
-                </div>
-            {{/if}}--}}
+        {{!--{{#if (gt calculatedPatch.length 0)}}
+            <div style='background-color:#dddddd'>
+                {{{calculatedPatch}}}
+                <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
+            </div>
+        {{/if}}--}}
         {{/bs-datetimepicker}}
     {{else}}
         {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L' forceDateOutput=true}}
             {{input class='form-control' value=datePassthrough autofocus="autofocus"}}
-              {{!--{{#if (gt calculatedPatch.length 0)}}
-                <div style='background-color:#dddddd'>
-                    {{{calculatedPatch}}}
-                    <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
-                </div>
-            {{/if}}--}}
+        {{!--{{#if (gt calculatedPatch.length 0)}}
+          <div style='background-color:#dddddd'>
+              {{{calculatedPatch}}}
+              <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
+          </div>
+      {{/if}}--}}
         {{/bs-datetimepicker}}
     {{/if}}
 {{else}}
@@ -41,7 +41,7 @@
             <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
         </div>
     {{else}}--}}
-        {{datePassthrough}}
+    {{datePassthrough}}
     {{!--{{/if}}--}}
     {{em-modal-toggler modal-id=nameID class="glyphicon glyphicon-calendar"}}
 {{/if}}

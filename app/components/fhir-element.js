@@ -27,20 +27,20 @@ export default Ember.Component.extend({
         if (this.get('root.isRelatedToCarePlan') === true) {
             this.get('classNames').addObject('is-related-to-care-plan');
         }
-        else if (this.get('root.isRelatedToCarePlan') === false ){
+        else if (this.get('root.isRelatedToCarePlan') === false) {
             this.get('classNames').addObject('not-related-to-care-plan');
         }
     }.on('init'),
-    nominationsChanged: function() {
+    nominationsChanged: function () {
         var root = this.get('root');
-        if (root){
+        if (root) {
             var noms = this.get('root.nominations');
             this.set('isCreateNomination', false);
             this.set('isChangeNomination', false);
             this.set('isDeleteNomination', false);
-            if ((noms && noms.length === 1 && noms[0].action === 'create') || root.get('isNewRecord')){
+            if ((noms && noms.length === 1 && noms[0].action === 'create') || root.get('isNewRecord')) {
                 this.set('isCreateNomination', true);
-            } else if (noms && noms.length === 1 && noms[0].action === 'delete'){
+            } else if (noms && noms.length === 1 && noms[0].action === 'delete') {
                 this.set('isDeleteNomination', true);
             } else if (noms && noms.length >= 1) {
                 this.set('isChangeNomination', true);
@@ -87,13 +87,13 @@ export default Ember.Component.extend({
         expand: function () {
             this.set('expanded', true);
         },
-        acceptDeletion: function(){
+        acceptDeletion: function () {
             console.log('(FHIR-ELEMENT) ACCEPT HH DELETE RECORD - record: ' + this.get('root'));
             var nomId = this.get('root.nominations')[0].id;
             this.set('root.acceptedNominations', [nomId]);
             this.sendAction('deleteRecord', this.get('root'));
         },
-        rejectDeletion: function(){
+        rejectDeletion: function () {
             console.log('(FHIR-ELEMENT) Reject HH DELETE RECORD - record: ' + this.get('root'));
             var nomId = this.get('root.nominations')[0].id;
             this.set('root.rejectedNominations', [nomId]);

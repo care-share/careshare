@@ -25,7 +25,7 @@ export default model.extend({
             string = string + ' ' + periodUnits.toUpperCase();
         }
         return string;
-    //}.property('frequency', 'frequencyMax', 'period', 'periodMax', 'when'),
+        //}.property('frequency', 'frequencyMax', 'period', 'periodMax', 'when'),
     }.property('frequency', 'frequencyMax', 'period', 'periodMax', 'periodUnits'),
     displayCode: function () { // short code of the repeat pattern, falls back to displayText if it's not encodable
         var frequency = this.get('frequency');
@@ -94,6 +94,6 @@ export default model.extend({
         } else { // or we fall back to the verbose version
             return this.get('displayText');
         }
-    //}.property('frequency', 'frequencyMax', 'period', 'periodMax', 'when')
+        //}.property('frequency', 'frequencyMax', 'period', 'periodMax', 'when')
     }.property('frequency', 'frequencyMax', 'period', 'periodMax', 'periodUnits')
 });

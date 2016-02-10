@@ -4,7 +4,7 @@ export default Ember.Component.extend({
     classNames: ['change-request'],
     patcher: new diff_match_patch(),
     change: function () {
-        var diff = this.get('patcher').diff_main(this.get('old'),this.get('new'),true);
+        var diff = this.get('patcher').diff_main(this.get('old'), this.get('new'), true);
         return this.get('patcher').diff_prettyHtml(diff);
     }.property('old', 'new'),
     setup: function () {
@@ -13,14 +13,14 @@ export default Ember.Component.extend({
     }.on('init'),
 
     actions: {
-        accept: function(){
+        accept: function () {
             //Set input value to accepted change's value
             this.get('parent').set(this.get('name'), this.get('new'));
             // add this nomination to the acceptedNominations array (so it gets removed on the server side)
             this.get('parent.acceptedNominations').addObject(this.get('cr').id);
             //TODO apply styling to selected choice
         },
-        reject: function(){
+        reject: function () {
             // add this nomination to the rejectedNominations array (so it gets removed on the server side)
             this.get('parent.rejectedNominations').addObject(this.get('cr').id);
             //TODO apply styling to selected choice

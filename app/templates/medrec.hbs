@@ -1,13 +1,48 @@
 <div>
+    <div class='row'>
+        <div class='col-xs-5ths'>
+            VA Medications
+        </div>
+        <div class='col-xs-5ths'>
+            Home Health
+        </div>
+        <div class='col-xs-5ths'>
+            Decision
+        </div>
+        <div class='col-xs-5ths'>
+            Home Heatlh Actions Required
+        </div>
+        <div class='col-xs-5ths'>
+            VA Internal
+        </div>
+    </div>
+    {{#each medlist as |medpair index|}}
         <div class='row'>
             <div class='col-xs-5ths'>
-                VA Medications
+                <div>
+                    {{medpair.ehrMed.name}}
+                </div>
+                <div>
+                    <span>{{medpair.ehrMed.freq}}</span>
+                    <span>{{medpair.ehrMed.dose}}</span>
+                </div>
             </div>
             <div class='col-xs-5ths'>
-                Home Health
+                <div>
+                    <span class="{{if medpair.discrepency.freq 'medrec-discrepency'}}">{{medpair.homeMed.name}}</span>
+                </div>
+                <div>
+                    <span class="{{if medpair.discrepency.freq 'medrec-discrepency'}}">{{medpair.homeMed.freq}}</span>
+                    <span class="{{if medpair.discrepency.dose 'medrec-discrepency'}}">{{medpair.homeMed.dose}}</span>
+                </div>
             </div>
             <div class='col-xs-5ths'>
-                Decision
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="decisionRadio{{index}}"> Enforce VA
+                    </label>
+                    TODO use ember radio buttons
+                </div>
             </div>
             <div class='col-xs-5ths'>
                 Home Heatlh Actions Required
@@ -15,43 +50,8 @@
             <div class='col-xs-5ths'>
                 VA Internal
             </div>
-	</div>
-        {{#each medlist as |medpair index|}}
-            <div class='row'>
-                <div class='col-xs-5ths'>
-                    <div>
-                        {{medpair.ehrMed.name}}
-                    </div>
-                    <div>
-                        <span>{{medpair.ehrMed.freq}}</span>
-                        <span>{{medpair.ehrMed.dose}}</span>
-                    </div>
-                </div>
-                <div class='col-xs-5ths'>
-                    <div>
-                        <span class="{{if medpair.discrepency.freq 'medrec-discrepency'}}">{{medpair.homeMed.name}}</span>
-                    </div>
-                    <div>
-                        <span class="{{if medpair.discrepency.freq 'medrec-discrepency'}}">{{medpair.homeMed.freq}}</span>
-                        <span class="{{if medpair.discrepency.dose 'medrec-discrepency'}}">{{medpair.homeMed.dose}}</span>
-                    </div>
-                </div>
-                <div class='col-xs-5ths'>
-                    <div class="radio">
-			<label>
-			   <input type="radio" name="decisionRadio{{index}}"> Enforce VA
-                        </label>
-                        TODO use ember radio buttons
-                    </div>
-                </div>
-                <div class='col-xs-5ths'>
-                    Home Heatlh Actions Required
-                </div>
-                <div class='col-xs-5ths'>
-                    VA Internal
-                </div>
-	    </div>
-        {{/each}}
-	
+        </div>
+    {{/each}}
+
 
 </div>

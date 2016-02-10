@@ -36,6 +36,7 @@
                                         </div>
                                         <div class=" col-xs-12 fhir-form-item">
                                             <label class="col-sm-5 control-label" for="type"> Type: </label>
+
                                             <div id="type" class="col-xs-12 col-lg-7">
                                                 {{#codeable-concept parent=nutrition.supplement.firstObject name='type'}}
                                                     {{fhir-edit parent=nutrition.supplement.firstObject.type name='text'}}
@@ -48,6 +49,7 @@
                                         </div>
                                         <div class=" col-xs-12 fhir-form-item">
                                             <label class="col-xs-12 control-label" for="type"> Instruction: </label>
+
                                             <div id="type" class="col-xs-12">
                                                 {{fhir-edit parent=nutrition.supplement.firstObject name='instruction'}}
                                                 {{#each nutrition.changes.[-supplement-0-instruction] as |cr|}}
@@ -56,9 +58,10 @@
                                             </div>
                                         </div>
                                         <div>
-                                          Scheduled: {{nutrition.supplement.firstObject.schedule.repeat.displayCode}} {{fhir-timing parent=nutrition.supplement.firstObject name='schedule'}}<br>
-                                          Quantity: {{fhir-simple-quantity parent=nutrition.supplement.firstObject name='quantity'}}
-                                          {{!-- TODO: Orderer(Reference(Practitioner)) --}}
+                                            Scheduled: {{nutrition.supplement.firstObject.schedule.repeat.displayCode}} {{fhir-timing parent=nutrition.supplement.firstObject name='schedule'}}
+                                            <br>
+                                            Quantity: {{fhir-simple-quantity parent=nutrition.supplement.firstObject name='quantity'}}
+                                            {{!-- TODO: Orderer(Reference(Practitioner)) --}}
                                         </div>
                                     </div>
                                 {{/backbone-element}}

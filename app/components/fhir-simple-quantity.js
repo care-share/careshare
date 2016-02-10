@@ -13,8 +13,8 @@ export default PassthroughComponent.extend({
         // TODO: perhaps ditch 'parent' and 'name' in favor of an 'attribute' that is directly tied to parent.name?
     }.on('init'),
     actions: {
-      updateRecord: function(parent,name,type){
-        this.sendAction('updateRecord',parent,name,type);
-      }
+        updateRecord: function (parent, name, type) {
+            this.sendAction('updateRecord', parent, name, type);
+        }
     }
 });

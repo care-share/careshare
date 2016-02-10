@@ -28,23 +28,23 @@ export default Ember.Controller.extend({
     showNutritionOrders: false, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: true, // medications
-    statusIsProposed: function() {
-	return this.model.get('status') === 'proposed';
+    statusIsProposed: function () {
+        return this.model.get('status') === 'proposed';
     }.property('model.status'),
-    statusIsDraft: function() {
-	return this.model.get('status') === 'draft';
+    statusIsDraft: function () {
+        return this.model.get('status') === 'draft';
     }.property('model.status'),
-    statusIsActive: function() {
-	return this.model.get('status') === 'active';
+    statusIsActive: function () {
+        return this.model.get('status') === 'active';
     }.property('model.status'),
-    statusIsCompleted: function() {
-	return this.model.get('status') === 'completed';
+    statusIsCompleted: function () {
+        return this.model.get('status') === 'completed';
     }.property('model.status'),
-    statusIsCancelled: function() {
-	return this.model.get('status') === 'cancelled';
+    statusIsCancelled: function () {
+        return this.model.get('status') === 'cancelled';
     }.property('model.status'),
-    statusIsReferred: function() { // this one is not in the FHIR spec, but the server allows us to set it anyway
-	return this.model.get('status') === 'referred';
+    statusIsReferred: function () { // this one is not in the FHIR spec, but the server allows us to set it anyway
+        return this.model.get('status') === 'referred';
     }.property('model.status'),
     colClass: Ember.computed('showGoals', 'showConditions', 'showNutritionOrders', 'showProcedureRequests', 'showMedicationOrders', function () {
         var numCol = this.get('showGoals') + this.get('showConditions') + this.get('showNutritionOrders') + this.get('showProcedureRequests') + this.get('showMedicationOrders');
@@ -133,11 +133,11 @@ export default Ember.Controller.extend({
         this.set(modelName.pluralize(), value);
     },
     actions: {
-	setStatus: function(newStatus) {
-	    console.log("setting Status!");
-	    this.model.set('status', newStatus);
-	    this.model.save();
-	},
+        setStatus: function (newStatus) {
+            console.log("setting Status!");
+            this.model.set('status', newStatus);
+            this.model.save();
+        },
         accountRequest: function () {
             API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);
         },

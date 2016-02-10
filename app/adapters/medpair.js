@@ -6,7 +6,7 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
     session: Ember.inject.service('session'), // needed for ember-simple-auth
     host: window.Careshare.apiUrl,
     authorizer: 'authorizer:custom', // this, with the DataAdapterMixin, automatically adds authorization headers
-    pathForType: function(/*type*/) {
+    pathForType: function (/*type*/) {
         // this adapter only supports the 'query' method, where the argument is {patientId: 'foo'}
         return 'medrecs';
     },

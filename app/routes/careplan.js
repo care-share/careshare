@@ -25,6 +25,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
             .then(function () {
                 // figure out which Conditions and MedicationOrders are NOT related to the CarePlan
                 var carePlan = model;
+
                 function loop(modelName, attr, key) {
                     var array = controller.get(modelName.pluralize());
                     var related = carePlan.get(attr).toArray().map(function (item) {
