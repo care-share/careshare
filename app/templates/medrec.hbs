@@ -38,10 +38,30 @@
             </div>
             <div class='col-xs-5ths'>
                 <div class="radio">
-                    <label>
-                        <input type="radio" name="decisionRadio{{index}}"> Enforce VA
-                    </label>
-                    TODO use ember radio buttons
+                    <div class="row">
+                        <div class="col-xs-6">
+                        <label>
+                            {{radio-button value='Accept HH' checked=medpair.action}} Accept HH
+                        </label>
+                        </div>
+                        <div class="col-xs-6">
+                        <label>
+                            {{radio-button value='Clarify' checked=medpair.action}} Clarify
+                        </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                        <label>
+                            {{radio-button value='No Action' checked=medpair.action}} No Action
+                        </label>
+                        </div>
+                        <div class="col-xs-6">
+                        <label>
+                            {{radio-button value='Enforce VA' checked=medpair.action}} Enforce VA
+                        </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class='col-xs-5ths'>
