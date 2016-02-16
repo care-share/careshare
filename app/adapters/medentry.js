@@ -2,8 +2,8 @@ import base from 'careshare/adapters/careauth/base';
 
 export default base.extend({
     pathForType: function (/*type*/) {
-        // this adapter only supports the 'query' method, where the argument is {patientId: 'foo'}
-        return 'medrecs';
+        // this adapter only supports the 'update' method
+        return 'medentries';
     },
     urlForQuery(query, modelName) {
         // instead of doing urls like '/url?patient_id=foo', we want to do it like '/url/patient_id/foo'

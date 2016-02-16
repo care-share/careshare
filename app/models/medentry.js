@@ -6,5 +6,9 @@ export default DS.Model.extend({
     name: DS.attr('string'),
     dose: DS.attr('string'),
     freq: DS.attr('string'),
-    note: DS.attr('string')
+    note: DS.attr('string'),
+    // added by user in Ember template
+    action: DS.attr('string'),
+    hhNotes: DS.attr('string'),
+    vaNotes: DS.attr('string')
 });
