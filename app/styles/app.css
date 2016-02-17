@@ -20190,3 +20190,14 @@ button.nobackground{
 .relatedList .no-related-items{
   padding-left: 10px;
 }
+
+
+/*MedReq StylingI*/
+.medrec-discrepancy {
+  background-color: #ffecda;
+
+}
+
+.medrec-accepted {
+  background-color: #d4e2c1;
+}

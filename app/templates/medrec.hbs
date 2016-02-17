@@ -17,8 +17,8 @@
         </div>
     </div>
     {{#each model as |medpair index|}}
-        <div class='row'>
-            <div class='col-xs-5ths'>
+        <div class='row '>
+            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Enforce VA') 'medrec-accepted'}}  {{action "enforceVA" medpair  on='click'}}'>
                 <div>
                     {{medpair.ehrMed.medicationReference.display}}
                 </div>
@@ -27,7 +27,7 @@
                     <span>{{medpair.ehrMed.dosageInstruction.firstObject.text}}</span>
                 </div>
             </div>
-            <div class='col-xs-5ths'>
+            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}} {{action "acceptHH" medpair  on='click'}}'>
                 <div>
                     <span class="{{if medpair.discrepancy.name 'medrec-discrepancy'}}">{{medpair.homeMed.name}}</span>
                 </div>
@@ -40,24 +40,24 @@
                 <div class="radio">
                     <div class="row">
                         <div class="col-xs-6">
-                        <label>
+                        <label class="{{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}">
                             {{radio-button value='Accept HH' checked=medpair.homeMed.action}} Accept HH
                         </label>
                         </div>
                         <div class="col-xs-6">
-                        <label>
+                        <label class="{{if (eq medpair.homeMed.action 'Clarify') 'medrec-accepted'}}">
                             {{radio-button value='Clarify' checked=medpair.homeMed.action}} Clarify
                         </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
-                        <label>
+                        <label class="{{if (eq medpair.homeMed.action 'No Action') 'medrec-accepted'}}">
                             {{radio-button value='No Action' checked=medpair.homeMed.action}} No Action
                         </label>
                         </div>
                         <div class="col-xs-6">
-                        <label>
+                        <label class="{{if (eq medpair.homeMed.action 'Enforce VA') 'medrec-accepted'}}">
                             {{radio-button value='Enforce VA' checked=medpair.homeMed.action}} Enforce VA
                         </label>
                         </div>
