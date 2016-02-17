@@ -1,5 +1,5 @@
 <div>
-    <div class='row'>
+    <div class='medrec-table-header row'>
         <div class='col-xs-5ths'>
             <h4>VA Medications</h4>
         </div>
@@ -16,9 +16,10 @@
             <h4>VA Internal</h4>
         </div>
     </div>
+    <div class='medrec-table' style="overflow-y:auto; height:70vh">
     {{#each model as |medpair index|}}
         <div class='row '>
-            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Enforce VA') 'medrec-accepted'}}  {{action "enforceVA" medpair  on='click'}}'>
+            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Enforce VA') 'medrec-accepted'}}'  {{action "enforceVA" medpair  on='click'}}>
                 <div>
                     {{medpair.ehrMed.medicationReference.display}}
                 </div>
@@ -27,7 +28,7 @@
                     <span>{{medpair.ehrMed.dosageInstruction.firstObject.text}}</span>
                 </div>
             </div>
-            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}} {{action "acceptHH" medpair  on='click'}}'>
+            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}' {{action "acceptHH" medpair  on='click'}}>
                 <div>
                     <span class="{{if medpair.discrepancy.name 'medrec-discrepancy'}}">{{medpair.homeMed.name}}</span>
                 </div>
@@ -65,13 +66,18 @@
                 </div>
             </div>
             <div class='col-xs-5ths'>
-                Home Health Actions Required
+                <div style="margin-top:10px">
+                    {{textarea value=medpair.homeMed.hhNotes}}
+                </div>
             </div>
             <div class='col-xs-5ths'>
-                VA Internal
+                <div style="margin-top:10px">
+                    {{textarea value=medpair.homeMed.vaNotes}}
+                </div>
             </div>
         </div>
     {{/each}}
+    </div>
 
     <div class='row'><h3>Actions List</h3></div>
 
@@ -103,7 +109,7 @@
                     {{/if}}
                 </div>
                 <div class='col-xs-2'>
-                    {{medpair.homeMedaction}}
+                    {{medpair.homeMed.action}}
                 </div>
                 <div class='col-xs-4'>
                     {{medpair.homeMed.hhNotes}}
