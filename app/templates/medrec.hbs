@@ -41,24 +41,24 @@
                     <div class="row">
                         <div class="col-xs-6">
                         <label>
-                            {{radio-button value='Accept HH' checked=medpair.action}} Accept HH
+                            {{radio-button value='Accept HH' checked=medpair.homeMed.action}} Accept HH
                         </label>
                         </div>
                         <div class="col-xs-6">
                         <label>
-                            {{radio-button value='Clarify' checked=medpair.action}} Clarify
+                            {{radio-button value='Clarify' checked=medpair.homeMed.action}} Clarify
                         </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
                         <label>
-                            {{radio-button value='No Action' checked=medpair.action}} No Action
+                            {{radio-button value='No Action' checked=medpair.homeMed.action}} No Action
                         </label>
                         </div>
                         <div class="col-xs-6">
                         <label>
-                            {{radio-button value='Enforce VA' checked=medpair.action}} Enforce VA
+                            {{radio-button value='Enforce VA' checked=medpair.homeMed.action}} Enforce VA
                         </label>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
     {{#each model as |medpair index|}}
     {{!-- Would be nice to use filteredContent here, but it doesn't play nice --}}
 
-        {{#if medpair.actionNeedsSignature}}
+        {{#if medpair.homeMed.actionNeedsSignature}}
             <div class='row'>
                 <div class='col-xs-2'>
                     {{#if medpair.ehrMed}}
@@ -103,13 +103,13 @@
                     {{/if}}
                 </div>
                 <div class='col-xs-2'>
-                    {{medpair.action}}
+                    {{medpair.homeMedaction}}
                 </div>
                 <div class='col-xs-4'>
-                    {{medpair.hhNotes}}
+                    {{medpair.homeMed.hhNotes}}
                 </div>
                 <div class='col-xs-4'>
-                    {{medpair.vaNotes}}
+                    {{medpair.homeMed.vaNotes}}
                 </div>
             </div>
         {{/if}}
