@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import base from 'careshare/routes/base';
 import API from '../api';
 
-export default Ember.Route.extend({
-    session: Ember.inject.service('session'), // needed for ember-simple-auth
+export default base.extend({
     setupController: function (controller) {
         API.roles(this.get('session.data.authenticated'), controller);
         API.unapproved(this.get('session.data.authenticated'), controller);

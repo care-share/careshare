@@ -1,11 +1,10 @@
-import Ember from 'ember';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
+import base from 'careshare/routes/base';
 
-export default Ember.Route.extend(ApplicationRouteMixin, {
-    session: Ember.inject.service('session'), // needed for ember-simple-auth
+export default base.extend({
     renderTemplate: function () {
+        console.debug(`CARESHARE: Route "${this.routeName}", renderTemplate()`);
+        this.showOrHideSideBar();
         var url = window.location.href;
-        console.log('application route: renderTemplate');
         console.log('url: ' + url);
         if (this.get('session.isAuthenticated')) {
             this.render('application');

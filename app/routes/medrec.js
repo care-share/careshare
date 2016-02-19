@@ -1,7 +1,6 @@
-import Ember from 'ember';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
+import base from 'careshare/routes/base';
 
-export default Ember.Route.extend(ApplicationRouteMixin, {
+export default base.extend({
     model: function (/*params*/) {
         // we can't access parameters of parent routes directly to find the patient_id
         // instead, access the model provided by the parent route

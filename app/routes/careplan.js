@@ -1,7 +1,8 @@
+import base from 'careshare/routes/base';
 import Ember from 'ember';
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend(ApplicationRouteMixin, {
+export default base.extend({
+    hideSideBar: true, // when this route renders its template, it will hide the side bar
     model: function (params) {
         var controller = this.controllerFor('careplan');
         console.log('Loading Careplan ROUTE');

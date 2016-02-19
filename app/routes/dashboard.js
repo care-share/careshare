@@ -1,3 +1,3 @@
-import Ember from 'ember';
+import base from 'careshare/routes/base';
 
-export default Ember.Route.extend({});
+export default base.extend({});
