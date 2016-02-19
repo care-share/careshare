@@ -1,102 +1,97 @@
-{{#if session.isAuthenticated}}
-    <!-- Sidebar -->
-    <!--div id="wrapper" class>
-      <div id="sidebar-wrapper"-->
-    <div class="row">
-        <div class="col-md-2 patientSidebar">
-            <div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">
-                <div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
-                    <div style="background-color: rgb(197,234,142);text-align: center">
-                        <div>
-                            Careplan ID: {{model.id}}
-                        </div>
-                        <div>
-                            Status: ({{model.status}})
-                        </div>
-                        <div>
-                            {{#if statusIsDraft}}
-                                <button class="btn btn-default" {{action "setStatus" "referred"}}>Sign Careplan
-                                </button> {{/if}}
-                            {{#if statusIsReferred}}
-                                <button class="btn btn-default"
-                                        style="margin-bottom: 5px;" {{action "setStatus" "proposed"}}>Submit Careplan
-                                </button> {{/if}}
-                            {{#if statusIsProposed}}
-                                <button class="btn btn-default" {{action "setStatus" "active"}}>Certify Careplan
-                                </button> {{/if}}
-                        </div>
+<div class="row">
+    <div class="col-md-2 patientSidebar">
+        <div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">
+            <div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
+                <div style="background-color: rgb(197,234,142);text-align: center">
+                    <div>
+                        Careplan ID: {{model.id}}
                     </div>
-                    <div class="row panel">
-                        <div class="col-md-4">
-                            <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
-                        </div>
-                        <div class="col-md-8">
-                            {{patient.lastName}}, {{patient.firstName}}
-                            <br/>
-
-                            <div style="padding: 0">{{patient.gender}}
-                                <br/>{{patient.birthDateFormatted}}
-                            </div>
-                        </div>
+                    <div>
+                        Status: ({{model.status}})
+                    </div>
+                    <div>
+                        {{#if statusIsDraft}}
+                            <button class="btn btn-default" {{action "setStatus" "referred"}}>Sign Careplan
+                            </button> {{/if}}
+                        {{#if statusIsReferred}}
+                            <button class="btn btn-default"
+                                    style="margin-bottom: 5px;" {{action "setStatus" "proposed"}}>Submit Careplan
+                            </button> {{/if}}
+                        {{#if statusIsProposed}}
+                            <button class="btn btn-default" {{action "setStatus" "active"}}>Certify Careplan
+                            </button> {{/if}}
                     </div>
                 </div>
-                <div class="panel-body" style="padding: 0;height:100%;">
-                    <!-- Tab Content -->
-                    <div class="tab-content" style="padding: 0">
-                        <ul class="nav nav-tabs">
-                            {{#link-to 'careplan.filters'  tagName='li' href=false }}
-                                {{#link-to 'careplan.filters'}}Filter{{/link-to}}
-                            {{/link-to}}
-                            {{#link-to 'careplan.notes'  tagName='li' href=false }}
-                                {{#link-to 'careplan.notes'}}Notes{{/link-to}}
-                            {{/link-to}}
-                            {{#link-to 'careplan.history'  tagName='li' href=false }}
-                                {{#link-to 'careplan.history'}}History{{/link-to}}
-                            {{/link-to}}
-                            {{#link-to 'careplan.requests'  tagName='li' href=false }}
-                                {{#link-to 'careplan.requests'}}Requests{{/link-to}}
-                            {{/link-to}}
-                        </ul>
-                        {{outlet}}
+                <div class="row panel">
+                    <div class="col-md-4">
+                        <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
+                    </div>
+                    <div class="col-md-8">
+                        {{patient.lastName}}, {{patient.firstName}}
+                        <br/>
+
+                        <div style="padding: 0">{{patient.gender}}
+                            <br/>{{patient.birthDateFormatted}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Page Content -->
-        <!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
-        <div class="fhir-columns col-md-10">
-            <!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
-            Other practitioners have requested changes to this plan's...
-            <button>Accept All</button>
-            <button>Reject All</button>
-            </div>-->
-            <div class="row" style="height:95%">
-                {{#if showConditions}}
-                    <div class="{{colClass}} well fhir-column-wrapper">
-                        {{render "problems" mProblems}}
-                    </div>
-                {{/if}}
-                {{#if showGoals}}
-                    <div class="{{colClass}} well fhir-column-wrapper">
-                        {{render "goals" mGoals}}
-                    </div>
-                {{/if}}
-                {{#if showProcedureRequests}}
-                    <div class="{{colClass}} well fhir-column-wrapper">
-                        {{render "interventions" mInterventions}}
-                    </div>
-                {{/if}}
-                {{#if showNutritionOrders}}
-                    <div class="{{colClass}} well fhir-column-wrapper">
-                        {{render "nutrition" mNutrition}}
-                    </div>
-                {{/if}}
-                {{#if showMedicationOrders}}
-                    <div class="{{colClass}} well fhir-column-wrapper">
-                        {{render "medications" mMedications}}
-                    </div>
-                {{/if}}
+            <div class="panel-body" style="padding: 0;height:100%;">
+                <!-- Tab Content -->
+                <div class="tab-content" style="padding: 0">
+                    <ul class="nav nav-tabs">
+                        {{#link-to 'careplan.filters'  tagName='li' href=false }}
+                            {{#link-to 'careplan.filters'}}Filter{{/link-to}}
+                        {{/link-to}}
+                        {{#link-to 'careplan.notes'  tagName='li' href=false }}
+                            {{#link-to 'careplan.notes'}}Notes{{/link-to}}
+                        {{/link-to}}
+                        {{#link-to 'careplan.history'  tagName='li' href=false }}
+                            {{#link-to 'careplan.history'}}History{{/link-to}}
+                        {{/link-to}}
+                        {{#link-to 'careplan.requests'  tagName='li' href=false }}
+                            {{#link-to 'careplan.requests'}}Requests{{/link-to}}
+                        {{/link-to}}
+                    </ul>
+                    {{outlet}}
+                </div>
             </div>
         </div>
     </div>
-{{/if}}
+    <!-- Page Content -->
+    <!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
+    <div class="fhir-columns col-md-10">
+        <!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
+        Other practitioners have requested changes to this plan's...
+        <button>Accept All</button>
+        <button>Reject All</button>
+        </div>-->
+        <div class="row" style="height:95%">
+            {{#if showConditions}}
+                <div class="{{colClass}} well fhir-column-wrapper">
+                    {{render "problems" mProblems}}
+                </div>
+            {{/if}}
+            {{#if showGoals}}
+                <div class="{{colClass}} well fhir-column-wrapper">
+                    {{render "goals" mGoals}}
+                </div>
+            {{/if}}
+            {{#if showProcedureRequests}}
+                <div class="{{colClass}} well fhir-column-wrapper">
+                    {{render "interventions" mInterventions}}
+                </div>
+            {{/if}}
+            {{#if showNutritionOrders}}
+                <div class="{{colClass}} well fhir-column-wrapper">
+                    {{render "nutrition" mNutrition}}
+                </div>
+            {{/if}}
+            {{#if showMedicationOrders}}
+                <div class="{{colClass}} well fhir-column-wrapper">
+                    {{render "medications" mMedications}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

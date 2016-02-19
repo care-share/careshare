@@ -1,5 +1,3 @@
-{{outlet}}
-<br/>
 <div class="col-sm-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -78,10 +76,10 @@
                             </td>
                         {{/each}}
                         <td class="homeMed col-xs-2">
-                            {{#link-to 'patient.medentry' patient}}Enter Home Med List{{/link-to}}
+                            {{#link-to 'medentry' patient}}Enter Home Med List{{/link-to}}
                         </td>
                         <td class="col-xs-3">
-                            {{#link-to 'patient.init' patient}}Initiate Care Plan{{/link-to}}
+                            {{#link-to 'careplan-init' patient}}Initiate Care Plan{{/link-to}}
                         </td>
                     </tr>
                 {{else}}
