@@ -17,81 +17,103 @@
         </div>
     </div>
     <div class='medrec-table' style="overflow-y:auto; height:40vh">
-    {{#each model as |medpair index|}}
-        <div class='row '>
-            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Enforce VA') 'medrec-accepted'}}'  {{action "enforceVA" medpair  on='click'}}>
-                <div>
-                    {{medpair.ehrMed.medicationReference.display}}
-                </div>
-                <div>
-                    <span>{{!-- TODO frequency? --}}(frequency)</span>
-                    <span>{{medpair.ehrMed.dosageInstruction.firstObject.text}}</span>
-                </div>
-            </div>
-            <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}' {{action "acceptHH" medpair  on='click'}}>
-                <div>
-                    <span class="{{if medpair.discrepancy.name 'medrec-discrepancy'}}">{{medpair.homeMed.name}}</span>
-                </div>
-                <div>
-                    <span class="{{if medpair.discrepancy.freq 'medrec-discrepancy'}}">{{medpair.homeMed.freq}}</span>
-                    <span class="{{if medpair.discrepancy.dose 'medrec-discrepancy'}}">{{medpair.homeMed.dose}}</span>
-                </div>
-            </div>
-            <div class='col-xs-5ths'>
-                <div class="radio">
-                    <div class="row">
-                        <div class="col-xs-6">
-                        <label class="{{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}">
-                            {{radio-button value='Accept HH' checked=medpair.homeMed.action}} Accept HH
-                        </label>
+        {{#each model as |medpair index|}}
+            <div class='row '>
+                {{#if medpair.ehrMed}}
+                    <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Enforce VA') 'medrec-accepted'}}' {{action 'setAction' medpair 'Enforce VA' on='click'}}>
+                        <div>
+                            {{medpair.ehrMed.medicationReference.display}}
                         </div>
-                        <div class="col-xs-6">
-                        <label class="{{if (eq medpair.homeMed.action 'Clarify') 'medrec-accepted'}}">
-                            {{radio-button value='Clarify' checked=medpair.homeMed.action}} Clarify
-                        </label>
+                        <div>
+                            <span>{{!-- TODO frequency? --}}(frequency)</span>
+                            <span>{{medpair.ehrMed.dosageInstruction.firstObject.text}}</span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-6">
-                        <label class="{{if (eq medpair.homeMed.action 'No Action') 'medrec-accepted'}}">
-                            {{radio-button value='No Action' checked=medpair.homeMed.action}} No Action
-                        </label>
+                    <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}' {{action 'setAction' medpair 'Accept HH' on='click'}}>
+                        <div>
+                            <span class="{{if medpair.discrepancy.name 'medrec-discrepancy'}}">{{medpair.homeMed.name}}</span>
                         </div>
-                        <div class="col-xs-6">
-                        <label class="{{if (eq medpair.homeMed.action 'Enforce VA') 'medrec-accepted'}}">
-                            {{radio-button value='Enforce VA' checked=medpair.homeMed.action}} Enforce VA
-                        </label>
+                        <div>
+                            <span class="{{if medpair.discrepancy.freq 'medrec-discrepancy'}}">{{medpair.homeMed.freq}}</span>
+                            <span class="{{if medpair.discrepancy.dose 'medrec-discrepancy'}}">{{medpair.homeMed.dose}}</span>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Do not use') 'medrec-accepted'}}' {{action 'setAction' medpair 'Do not use' on='click'}}>
+                        <span style="font-style: italic; color: gray">Discontinued</span>
+                    </div>
+                    <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Renew') 'medrec-accepted'}}' {{action 'setAction' medpair 'Renew' on='click'}}>
+                        <div>
+                            <span>{{medpair.homeMed.name}}</span>
+                        </div>
+                        <div>
+                            <span>{{medpair.homeMed.freq}}</span>
+                            <span>{{medpair.homeMed.dose}}</span>
+                        </div>
+                    </div>
+                {{/if}}
+                <div class='col-xs-5ths'>
+                    <div class="radio">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                {{#if medpair.ehrMed}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Accept HH'}}
+                                {{else}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Renew'}}
+                                {{/if}}
+                            </div>
+                            <div class="col-xs-6">
+                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Clarify'}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='No action'}}
+                            </div>
+                            <div class="col-xs-6">
+                                {{#if medpair.ehrMed}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Enforce VA'}}
+                                {{else}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Do not use'}}
+                                {{/if}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class='col-xs-5ths'>
-                <div style="margin-top:10px">
-                    {{textarea value=medpair.homeMed.hhNotes}}
+                <div class='col-xs-5ths'>
+                    <div style="margin-top:10px">
+                        {{textarea value=medpair.homeMed.hhNotes}}
+                    </div>
+                </div>
+                <div class='col-xs-5ths'>
+                    <div style="margin-top:10px">
+                        {{textarea value=medpair.homeMed.vaNotes}}
+                    </div>
                 </div>
             </div>
-            <div class='col-xs-5ths'>
-                <div style="margin-top:10px">
-                    {{textarea value=medpair.homeMed.vaNotes}}
-                </div>
-            </div>
-        </div>
-    {{/each}}
+        {{else}}
+            <h4>No entries found</h4>
+        {{/each}}
     </div>
 
     <div class='row medrec-table-header '><h3>Actions List</h3></div>
-    Show:
-    <div>
-        {{input type="checkbox" checked=filterEnforceVA}} Enforce VA
-    </div>
-    <div>
-        {{input type="checkbox" checked=filterAcceptHH}} Accept HH
-    </div>
-    <div>
-        {{input type="checkbox" checked=filterClarify}} Clarify
-    </div>
+    <h4 style='margin: 0.5em; display: inline-block'>Show:</h4>
 
-
+    <div style='margin: 0.5em; display: inline-block'>
+        {{input type="checkbox" checked=showEnforceVA}} Enforce VA
+    </div>
+    <div style='margin: 0.5em; display: inline-block'>
+        {{input type="checkbox" checked=showAcceptHH}} Accept HH
+    </div>
+    <div style='margin: 0.5em; display: inline-block'>
+        {{input type="checkbox" checked=showClarify}} Clarify
+    </div>
+    <div style='margin: 0.5em; display: inline-block'>
+        {{input type="checkbox" checked=showRenew}} Renew
+    </div>
+    <div style='margin: 0.5em; display: inline-block'>
+        {{input type="checkbox" checked=showDoNotUse}} Do not use
+    </div>
 
     <div class='row medrec-table-header '>
         <div class='col-xs-2'>
@@ -108,32 +130,36 @@
         </div>
     </div>
 
-    <div class='medrec-table' style="overflow-y:auto; height:40vh">
-    {{#each model as |medpair index|}}
-    {{!-- Would be nice to use filteredContent here, but it doesn't play nice --}}
-
-        {{#if medpair.homeMed.actionNeedsSignature}}
-            <div class='row'>
-                <div class='col-xs-2'>
-                    {{#if medpair.ehrMed}}
-                        {{medpair.ehrMed.medicationReference.display}}
-                    {{else}}
-                        {{medpair.homeMed.name}}
-                    {{/if}}
+    <div class='medrec-table' style="overflow-y:auto; height:23vh">
+        {{#each model as |medpair index|}}
+            {{#if medpair.homeMed.actionNeedsSignature}}
+                <div class='row'>
+                    <div class='col-xs-2'>
+                        {{#if medpair.ehrMed}}
+                            {{medpair.ehrMed.medicationReference.display}}
+                        {{else}}
+                            {{medpair.homeMed.name}}
+                        {{/if}}
+                    </div>
+                    <div class='col-xs-2'>
+                        {{medpair.homeMed.action}}
+                    </div>
+                    <div class='col-xs-4'>
+                        {{medpair.homeMed.hhNotes}}
+                    </div>
+                    <div class='col-xs-4'>
+                        {{medpair.homeMed.vaNotes}}
+                    </div>
                 </div>
-                <div class='col-xs-2'>
-                    {{medpair.homeMed.action}}
-                </div>
-                <div class='col-xs-4'>
-                    {{medpair.homeMed.hhNotes}}
-                </div>
-                <div class='col-xs-4'>
-                    {{medpair.homeMed.vaNotes}}
-                </div>
-            </div>
-        {{/if}}
-
-    {{/each}}
+            {{/if}}
+        {{/each}}
     </div>
 
+    <div>
+        <span style='margin: 0.5em'>{{input type='text' value=signatureText placeholder='Enter your signature' disabled=disableSubmit}}</span>
+        <button style='margin: 0.5em' {{action 'submitForm' on='click'}} disabled={{disableSubmit}}>Sign and Submit
+        </button>
+        <span style='margin: 0.5em; color: red'>{{errorMessage}}</span>
+        <span style='margin: 0.5em; color: green'>{{successMessage}}</span>
+    </div>
 </div>
