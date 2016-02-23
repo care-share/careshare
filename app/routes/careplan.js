@@ -19,6 +19,7 @@ export default base.extend({
         var procedureRequest = this.doQueries('ProcedureRequest', true); // interventions
         var nutritionOrder = this.doQueries('NutritionOrder', true); // nutrition
         var medicationOrder = this.doQueries('MedicationOrder', true); // medications
+        var patient = this.controllerFor('patient').id;
 
         // we have to wait until the queries are all finished before we allow the route to render
         // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved

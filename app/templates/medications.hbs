@@ -2,6 +2,22 @@
     <div class="col-xs-8">
         <h3 class="fhir-column-header">Medications</h3>
     </div>
+    {{#if isPhysician}}
+    <div class="col-xs-4" style="padding-top:10px;padding-right:0px;padding-left:0px">
+        <button class="nobackground f-right" {{action 'createRecord' 'NutritionOrder'}}>
+            {{#link-to 'medrec' careplan.patient}} Reconciliation {{/link-to}}
+        </button>
+    </div>
+    {{else}}
+    <div class="col-xs-4" style="padding-top:10px;padding-right:0px;padding-left:0px">
+        <button class="nobackground f-right" {{action 'createRecord' 'NutritionOrder'}}>
+            {{#link-to 'medentry' careplan.patient}} Medlist {{/link-to}}
+        </button>
+        <button class="nobackground f-right" {{action 'createRecord' 'NutritionOrder'}}>
+            {{#link-to 'medaction' careplan.patient}} Actions {{/link-to}}
+        </button>
+    </div>
+    {{/if}}
 </div>
 <div class="panel-group fhir-column">
     {{#each model as |order|}}

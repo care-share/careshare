@@ -17,6 +17,7 @@ export default Router.map(function () {
         // this gives children access to the patient router and controller, without rendering unwanted data on the page
         this.route('medrec', {resetNamespace: true});
         this.route('medentry', {resetNamespace: true});
+        this.route('medaction', {resetNamespace: true});
         this.route('careplan-init', {path: '/careplans/init', resetNamespace: true});
         this.route('careplan', {path: '/careplans/:careplan_id', resetNamespace: true}, function () {
             this.route('filters');
