@@ -29,6 +29,11 @@
                             <span>{{medpair.ehrMed.dosageInstruction.firstObject.text}}</span>
                         </div>
                     </div>
+                    {{#if medpair.homeMed.not_found}}
+                    <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}' {{action 'setAction' medpair 'Do not use' on='click'}}>
+                        <span style="font-style: italic; color: gray">Not Found</span>
+                    </div>
+                    {{else}}
                     <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}' {{action 'setAction' medpair 'Accept HH' on='click'}}>
                         <div>
                             <span class="{{if medpair.discrepancy.name 'medrec-discrepancy'}}">{{medpair.homeMed.name}}</span>
@@ -38,6 +43,7 @@
                             <span class="{{if medpair.discrepancy.dose 'medrec-discrepancy'}}">{{medpair.homeMed.dose}}</span>
                         </div>
                     </div>
+                    {{/if}}
                 {{else}}
                     <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Do not use') 'medrec-accepted'}}' {{action 'setAction' medpair 'Do not use' on='click'}}>
                         <span style="font-style: italic; color: gray">Discontinued</span>
