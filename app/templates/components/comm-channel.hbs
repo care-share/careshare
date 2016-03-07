@@ -1,0 +1,7 @@
+<button class="btn btn-primary" type="button">
+  Messages <span class="badge">{{chatMessages.length}}</span>
+</button>
+{{input value=content action="createMessage" on="enter"}}
+{{#each chatMessages as |message|}}
+    {{chat-message message=message}}
+{{/each}}

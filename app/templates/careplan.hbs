@@ -69,11 +69,13 @@
         <div class="row" style="height:95%">
             {{#if showConditions}}
                 <div class="{{colClass}} well fhir-column-wrapper">
+                    {{comm-channel chatMessages=conditionsChatMessages resource_type='Condition'}}
                     {{render "problems" mProblems}}
                 </div>
             {{/if}}
             {{#if showGoals}}
                 <div class="{{colClass}} well fhir-column-wrapper">
+                    {{comm-channel chatMessages=goalsChatMessages resource_type='Goal'}}
                     {{render "goals" mGoals}}
                 </div>
             {{/if}}
