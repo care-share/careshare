@@ -140,7 +140,7 @@ export default Ember.Controller.extend({
     },
     actions: {
         createMessage: function(content,resource_type){
-          this.store.createRecord("comm",{resource_type:resource_type,content:content,timestamp:new Date()});
+          this.store.createRecord("comm",{resource_type:resource_type,content:content,timestamp:new Date(),src_user_id:this.get('session.data.authenticated.name_first')});
         },
         setStatus: function (newStatus) {
             console.log("setting Status!");

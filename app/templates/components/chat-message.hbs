@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    {{message.resource_type}} : {{message.content}}
+    {{message.src_user_id}} says : {{message.content}}
   </div>
   {{message.timestamp}}
   <span class="glyphicon glyphicon remove" {{action "destroy" message}}>x</span>
