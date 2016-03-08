@@ -28,12 +28,6 @@ export default Ember.Controller.extend({
     showNutritionOrders: false, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: true, // medications
-    goalsChatMessages: Ember.computed(function() {
-        return this.store.filter('comm',function(msg){return msg.get('resource_type') === 'Goal';});
-    }),
-    conditionsChatMessages: Ember.computed(function() {
-        return this.store.filter('comm',function(msg){return msg.get('resource_type') === 'Condition';});
-    }),
     statusIsProposed: function () {
         return this.model.get('status') === 'proposed';
     }.property('model.status'),
@@ -139,8 +133,10 @@ export default Ember.Controller.extend({
         this.set(modelName.pluralize(), value);
     },
     actions: {
-        createMessage: function(content,resource_type){
-          this.store.createRecord("comm",{resource_type:resource_type,content:content,timestamp:new Date(),src_user_id:this.get('session.data.authenticated.name_first')});
+        createMessage: function(content,resource_id,resource_type){
+          console.log('CAREPLAN CREATE MESSAGE');
+          this.store.createRecord("comm",{resource_type:resource_type,careplan_id:this.get('model.id'),
+                                          resource_id:resource_id,content:content,timestamp:new Date(),src_user_id:this.get('session.data.authenticated.name_first')});
         },
         setStatus: function (newStatus) {
             console.log("setting Status!");

@@ -1,7 +1,7 @@
 <button class="btn btn-primary" type="button">
-  Messages <span class="badge">{{chatMessages.length}}</span>
+  Unread <span class="badge">{{unreadCount}}</span>
 </button>
-{{input value=content action="createMessage" on="enter"}}
+{{input action="createMessage" aria-controls="existing-user-table" placeholder="Search"}}
 {{#each chatMessages as |message|}}
     {{chat-message message=message}}
 {{/each}}
