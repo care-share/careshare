@@ -10,5 +10,10 @@ export default base.extend({
                 function () {
                     console.log('PROMISE ERROR!');
                 });
+    },
+    afterModel(model) {
+        var patientIds = model.mapBy('id');
+        // find all comms for these patient IDs
+        return this.store.query('comm', {patient_id: patientIds});
     }
 });
