@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   createMessage: 'createMessage',
+  destroyMessage: 'destroyMessage',
   chatMessages: null,
   unreadCount: null,
   setup: function(){
@@ -16,7 +17,7 @@ export default Ember.Component.extend({
     },
     destroyMessage: function(message){
       console.log("COMM CHANNEL destroyMessage: "+message);
-      this.get('resource.comms').removeObject(message);
+      message.destroyRecord();
     }
   }
 });

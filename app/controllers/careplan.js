@@ -135,8 +135,14 @@ export default Ember.Controller.extend({
     actions: {
         createMessage: function(content,resource_id,resource_type){
           console.log('CAREPLAN CREATE MESSAGE');
-          this.store.createRecord("comm",{resource_type:resource_type,careplan_id:this.get('model.id'),
-                                          resource_id:resource_id,content:content,timestamp:new Date(),src_user_id:this.get('session.data.authenticated.name_first')});
+          this.store.createRecord('comm',{id: Math.random(),
+                                  resource_type:resource_type,
+                                  careplan_id:this.get('model.id'),
+                                  resource_id:resource_id,
+                                  content:content,
+                                  timestamp:new Date(),
+                                  src_user_id:this.get('session.data.authenticated.name_first')
+                                });
         },
         setStatus: function (newStatus) {
             console.log("setting Status!");

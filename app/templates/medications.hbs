@@ -49,6 +49,7 @@
                                     {{fhir-object-select compSelection=order.rlCondition parent=order variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
                                 </div>
                             </div>
+                            {{comm-channel resource=order resource_type='Medication'}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>

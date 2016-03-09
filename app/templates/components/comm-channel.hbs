@@ -3,5 +3,11 @@
 </button>
 {{input action="createMessage" aria-controls="existing-user-table" placeholder="Search"}}
 {{#each chatMessages as |message|}}
-    {{chat-message message=message}}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{message.src_user_id}} says : {{message.content}}
+      </div>
+      {{message.timestamp}}
+      <button {{action 'destroyMessage' message target='view'}}>Remove</button>
+    </div>
 {{/each}}
