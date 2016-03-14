@@ -4,8 +4,12 @@ import Ember from 'ember';
 
 export default {
     comms: Ember.computed(function() {
-        var key = 'careplan_id';
-        if (this._internalModel.modelName !== 'care-plan') {
+        var key;
+        if (this._internalModel.modelName === 'care-plan') {
+            key = 'careplan_id';
+        } else if (this._internalModel.modelName === 'patient') {
+            key = 'patient_id';
+        } else {
             key = 'resource_id';
         }
         var value = this.get('id');

@@ -22,7 +22,7 @@ export default DS.Model.extend({
     content: DS.attr('string'),
 
     // Communication is sent at a specific date/time
-    timestamp: DS.attr('date'),
+    timestamp: DS.attr('date', {defaultValue: Date.now}),
 
     /////////////////////////////////////////////
     // COMPUTED PROPERTIES
