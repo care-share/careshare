@@ -3,13 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   createMessage: 'createMessage',
   destroyMessage: 'destroyMessage',
-  chatMessages: null,
-  unreadCount: null,
-  setup: function(){
-    this.set('chatMessages',this.get('resource.comms'));
-    this.set('unreadCount',this.get('resource.unreadCount'));
-    console.log("COMM CHANNEL setup: "+this.get('chatMessages'));
-  }.on('init'),
   actions:{
     createMessage: function(message){
       console.log("COMM CHANNEL createMessage: "+message);

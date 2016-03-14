@@ -1,8 +1,8 @@
 <button class="btn btn-primary" type="button">
-  Unread <span class="badge">{{unreadCount}}</span>
+  Unread <span class="badge">{{resource.unreadCount}}</span>
 </button>
 {{input action="createMessage" aria-controls="existing-user-table" placeholder="Search"}}
-{{#each chatMessages as |message|}}
+{{#each resource.comms as |message|}}
     <div class="panel panel-default">
       <div class="panel-body">
         {{#if (or message.isMe (not message.src_user_id))}} You {{else}} User ID {{message.src_user_id}} {{/if}}
