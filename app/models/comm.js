@@ -22,11 +22,19 @@ export default DS.Model.extend({
     content: DS.attr('string'),
 
     // Communication is sent at a specific date/time
-    timestamp: DS.attr('date'),
+    timestamp: DS.attr('date', {defaultValue: Date.now}),
 
     /////////////////////////////////////////////
     // COMPUTED PROPERTIES
     session: Ember.inject.service('session'), // needed for ember-simple-auth
+
+    isMe: Ember.computed('src_user_id',function(){
+      return this.get('session.data.authenticated._id') === this.get('src_user_id');
+    }),
+
+    timestamp_formatted: Ember.computed('timestamp',function(){
+      return moment(this.get('timestamp'));
+    }),
 
     // gets/sets whether the currently logged-in user has seen this communication
     hasSeen: Ember.computed('dest', {

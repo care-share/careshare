@@ -1,6 +1,7 @@
 import patient from 'ember-fhir-adapter/models/patient';
 import DS from 'ember-data';
 import Ember from 'ember';
+import commProps from 'careshare/properties/comm-properties';
 
 export default patient.extend({
     doLazyLoad: false,
@@ -22,5 +23,8 @@ export default patient.extend({
         }
         // if doLazyLoad is true, then get carePlans (which will trigger a REST query)
         return this.get('carePlans');
-    }.property('doLazyLoad')
+    }.property('doLazyLoad'),
+    // communication properties
+    comms: commProps.comms,
+    unreadCount: commProps.unreadCount
 });
