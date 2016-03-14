@@ -33,7 +33,7 @@ export default DS.Model.extend({
     }),
 
     timestamp_formatted: Ember.computed('timestamp',function(){
-      return moment(this.get('timestamp'));
+      return moment(this.get('timestamp')).format('MMM Do YYYY [@] h:mm:ss a');
     }),
 
     // gets/sets whether the currently logged-in user has seen this communication

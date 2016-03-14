@@ -15,12 +15,9 @@ export default Ember.Component.extend({
     isCreateNomination: false,
     isDeleteNomination: false,
     isChangeNomination: false,
-    notificationsCount: function () {
-        return this.get('root.chatMessages') ? this.get('root.chatMessages').length : 0;
-    }.property('root.chatMessages'),
-    hasNewNotifications: function () {
-        return this.get('notificationsCount').length > 0
-    }.property('notificationsCount'),
+    hasNewAnnotations: function () {
+        return this.get('unreadAnnotationsCount') > 0
+    }.property('unreadAnnotationsCount'),
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (FHIR-ELEMENT) {record: ' +
@@ -36,6 +33,8 @@ export default Ember.Component.extend({
         else if (this.get('root.isRelatedToCarePlan') === false) {
             this.get('classNames').addObject('not-related-to-care-plan');
         }
+
+    this.set('unreadAnnotationsCount',this.get('resource.unreadCount'));
     }.on('init'),
     nominationsChanged: function () {
         var root = this.get('root');
