@@ -28,6 +28,14 @@ export default DS.Model.extend({
     // COMPUTED PROPERTIES
     session: Ember.inject.service('session'), // needed for ember-simple-auth
 
+    isMe: Ember.computed('src_user_id',function(){
+      return this.get('session.data.authenticated._id') === this.get('src_user_id');
+    }),
+
+    timestamp_formatted: Ember.computed('timestamp',function(){
+      return moment(this.get('timestamp'));
+    }),
+
     // gets/sets whether the currently logged-in user has seen this communication
     hasSeen: Ember.computed('dest', {
         get(/*key*/) {
