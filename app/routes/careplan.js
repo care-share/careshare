@@ -14,16 +14,16 @@ export default base.extend({
     afterModel(model) {
         var controller = this.controllerFor('careplan');
 
+        var comm = this.store.query('comm', {careplan_id: controller.id}); // find all comms for this careplan
         var condition = this.doQueries('Condition', true); // conditions
         var goal = this.doQueries('Goal', true); // goals
         var procedureRequest = this.doQueries('ProcedureRequest', true); // interventions
         var nutritionOrder = this.doQueries('NutritionOrder', true); // nutrition
         var medicationOrder = this.doQueries('MedicationOrder', true); // medications
-        var patient = this.controllerFor('patient').id;
 
         // we have to wait until the queries are all finished before we allow the route to render
         // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved
-        return Ember.RSVP.allSettled([condition, goal, procedureRequest, nutritionOrder, medicationOrder])
+        return Ember.RSVP.allSettled([comm, condition, goal, procedureRequest, nutritionOrder, medicationOrder])
             .then(function () {
                 // figure out which Conditions and MedicationOrders are NOT related to the CarePlan
                 var carePlan = model;
@@ -41,20 +41,6 @@ export default base.extend({
                             array[i].set('isRelatedToCarePlan', false);
                         }
                     }
-                    // array.sort(function(a, b) {
-                    //   if (a.get("isRelatedToCarePlan")) {
-                    //     if (b.get("isRelatedToCarePlan")){
-                    //         return 0;
-                    //     }
-                    //     else {
-                    //         return 1;
-                    //     }
-                    //   }
-                    //   else {
-                    //     return -1;
-                    //   }
-                    // });
-                    // controller.set(modelName.pluralize(), array);
                 }
 
                 loop('Condition', 'addresses', 'reference');
