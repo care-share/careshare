@@ -14,6 +14,8 @@ export default DS.Model.extend({
 
     // Communication is initiated by one user
     src_user_id: DS.attr('string'),
+    src_user_name_first: DS.attr('string'),
+    src_user_name_last: DS.attr('string'),
 
     // Communication is sent to multiple users; we keep track of who has seen it
     dest: DS.hasMany('comm-dest', {embedded: true}),
