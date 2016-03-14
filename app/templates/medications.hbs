@@ -4,18 +4,18 @@
     </div>
     {{#if isPhysician}}
     <div class="col-xs-4" style="padding-top:10px;padding-right:0px;padding-left:0px">
-        <button class="nobackground f-right" {{action 'createRecord' 'NutritionOrder'}}>
+        <span class="nobackground f-right">
             {{#link-to 'medrec' careplan.patient}} Reconciliation {{/link-to}}
-        </button>
+        </span>
     </div>
     {{else}}
     <div class="col-xs-4" style="padding-top:10px;padding-right:0px;padding-left:0px">
-        <button class="nobackground f-right" {{action 'createRecord' 'NutritionOrder'}}>
+        <span class="nobackground f-right">
             {{#link-to 'medentry' careplan.patient}} Medlist {{/link-to}}
-        </button>
-        <button class="nobackground f-right" {{action 'createRecord' 'NutritionOrder'}}>
+        </span>
+        <span class="nobackground f-right" >
             {{#link-to 'medaction' careplan.patient}} Actions {{/link-to}}
-        </button>
+        </span>
     </div>
     {{/if}}
 </div>
