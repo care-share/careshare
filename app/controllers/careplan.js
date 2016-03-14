@@ -86,7 +86,7 @@ export default Ember.Controller.extend({
             if (!from.get(relName)) {
                 from.set(relName, Ember.Set.create());
             }
-            from.get(relName).add(to);
+            from.get(relName).addObject(to);
         }
     },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
