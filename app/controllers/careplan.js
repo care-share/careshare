@@ -138,6 +138,7 @@ export default Ember.Controller.extend({
           var newMessage = this.store.createRecord('comm',{id: Math.random(),
                                   resource_type:resource_type,
                                   careplan_id:this.get('model.id'),
+                                  isMe: true,
                                   resource_id:resource_id,
                                   content:content
                                 });

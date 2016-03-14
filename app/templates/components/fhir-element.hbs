@@ -35,6 +35,9 @@
     {{#if isCreateNomination}}
         <div class="careplan-notification"> New</div>
     {{/if}}
+    {{#if hasNewAnnotations}}
+        <div class="icon-comment"> {{unreadAnnotationsCount}}</div>
+    {{/if}}
     {{#if isChangeNomination}}
         <div class="careplan-notification"> Change</div>
     {{/if}}
