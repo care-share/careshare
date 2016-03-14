@@ -57,5 +57,17 @@ export default DS.Model.extend({
                 this.get('dest').addObject(destUser);
             }
         }
+    }),
+
+    parsedTimestamp: Ember.computed('timestamp', {
+        get(/*key*/) {
+            var result = new Date(Ember.Date.parse(this.get('timestamp')));
+            return (("0" + (result.getMonth() + 1)).slice(-2) + '/' + ("0" + result.getDate()).slice(-2) + '/' + result.getFullYear() + ' '
+            + ((result.getHours() > 12) ? (result.getHours() - 12) : (("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
+            ((result.getHours() > 12) ? ' PM' : ' AM')).replace("00:00 AM", "")
+        },
+        set(key, value) {
+            //This shouldn't happen
+        }
     })
 });

@@ -15,6 +15,12 @@ export default Ember.Component.extend({
     isCreateNomination: false,
     isDeleteNomination: false,
     isChangeNomination: false,
+    notificationsCount: function () {
+        return this.get('root.chatMessages') ? this.get('root.chatMessages').length : 0;
+    }.property('root.chatMessages'),
+    hasNewNotifications: function () {
+        return this.get('notificationsCount').length > 0
+    }.property('notificationsCount'),
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (FHIR-ELEMENT) {record: ' +

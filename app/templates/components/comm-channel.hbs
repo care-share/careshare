@@ -1,13 +1,20 @@
 <button class="btn btn-primary" type="button">
-  Unread <span class="badge">{{unreadCount}}</span>
+ <span class="glyphicon glyphicon-comment"></span> Annotations <span class="badge">{{unreadCount}}</span>
 </button>
-{{input action="createMessage" aria-controls="existing-user-table" placeholder="Search"}}
+{{input action="createMessage" aria-controls="existing-user-table" placeholder="AnnotationsTEST"}}
 {{#each chatMessages as |message|}}
-    <div class="panel panel-default">
-      <div class="panel-body">
-        {{message.src_user_id}} says : {{message.content}}
+    <div class="">
+      <div class="">
+        {{message.src_user_id}}
+        <span class="annotation-timestamp">
+            {{message.parsedTimestamp}}
+        </span>
       </div>
-      {{message.timestamp}}
-      <button {{action 'destroyMessage' message target='view'}}>Remove</button>
+      <div class="annotation-content">
+        {{message.content}}
+        {{!Delete should only be available to user who creates it}}
+        <button {{action 'destroyMessage' message target='view'}} style="color:red; float: right" class="glyphicon glyphicon-remove nobackground">
+        </button>
+      </div>
     </div>
 {{/each}}
