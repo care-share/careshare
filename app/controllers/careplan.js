@@ -18,11 +18,21 @@ export default Ember.Controller.extend({
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
-    Goals: [], // goals
-    Conditions: [], // problems
-    NutritionOrders: [], // nutrition
-    ProcedureRequests: [], // interventions
-    MedicationOrders: [], // medications
+    goals: Ember.computed(function() { // goals
+        return this.store.peekAll('goal').filterBy('isError', false, {live: true});
+    }),
+    conditions: Ember.computed(function() { // problems
+        return this.store.peekAll('condition').filterBy('isError', false, {live: true});
+    }),
+    nutritionOrders: Ember.computed(function() { // nutrition
+        return this.store.peekAll('nutrition-order').filterBy('isError', false, {live: true});
+    }),
+    procedureRequests: Ember.computed(function() { // interventions
+        return this.store.peekAll('procedure-request').filterBy('isError', false, {live: true});
+    }),
+    medicationOrders: Ember.computed(function() { // medications
+        return this.store.peekAll('medication-order').filterBy('isError', false, {live: true});
+    }),
     showGoals: true, // goals
     showConditions: true, // problems
     showNutritionOrders: false, // nutrition
@@ -76,24 +86,24 @@ export default Ember.Controller.extend({
             if (!from.get(relName)) {
                 from.set(relName, Ember.Set.create());
             }
-            from.get(relName).add(to);
+            from.get(relName).addObject(to);
         }
     },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
     mGoals: function () {
-        return this.applyHighlights('Goals');
-    }.property('Goals', 'toHighlight'),
+        return this.applyHighlights('goals');
+    }.property('goals.[]', 'toHighlight'),
     mProblems: function () {
-        return this.applyHighlights('Conditions');
-    }.property('Conditions', 'toHighlight'),
+        return this.applyHighlights('conditions');
+    }.property('conditions.[]', 'toHighlight'),
     mNutrition: function () {
-        return this.applyHighlights('NutritionOrders');
-    }.property('NutritionOrders', 'toHighlight'),
+        return this.applyHighlights('nutritionOrders');
+    }.property('nutritionOrders.[]', 'toHighlight'),
     mInterventions: function () {
-        return this.applyHighlights('ProcedureRequests');
-    }.property('ProcedureRequests', 'toHighlight'),
+        return this.applyHighlights('procedureRequests');
+    }.property('procedureRequests.[]', 'toHighlight'),
     mMedications: function () {
-        var medOrders = this.get('MedicationOrders')
+        var medOrders = this.get('medicationOrders')
             //.filterBy('medicationReference') // find medicationorders that have medication references
             //.filterBy('medicationReference.medication', false); // filter to only return those that don't have local references
             .filter(function (item/*, index, enumerable*/) {
@@ -110,8 +120,8 @@ export default Ember.Controller.extend({
                 }
             }
         }
-        return this.applyHighlights('MedicationOrders');
-    }.property('MedicationOrders', 'toHighlight'),
+        return this.applyHighlights('medicationOrders');
+    }.property('medicationOrders.[]', 'toHighlight'),
     applyHighlights: function (modelsKey) {
         var models = this.get(modelsKey);
         if (!models) {
@@ -123,14 +133,6 @@ export default Ember.Controller.extend({
             model.set('highlight', toHighlight.contains(model.id));
         });
         return models.sortBy('id');
-    },
-    doPeek: function (modelName) {
-        // TODO: find a better way to force models (Goals, Conditions, etc.) to auto-update from the store
-        // also see FIXME notes in routes/careplan.js
-        var value = this.store.peekAll(modelName, {})
-            .toArray()
-            .filterBy('isError', false); // this is needed to prevent showing records that have been deleted
-        this.set(modelName.pluralize(), value);
     },
     actions: {
         createMessage: function(content,resource_id,resource_type){
@@ -293,8 +295,8 @@ export default Ember.Controller.extend({
         }
     },
     highlightFromConditionRefs: function (newHighlights, condition) {
-        var models = this.get('ProcedureRequests').toArray();
-        models = models.concat(this.get('MedicationOrders').toArray());
+        var models = this.get('procedureRequests').toArray();
+        models = models.concat(this.get('medicationOrders').toArray());
         for (var c = 0; c < models.length; c++) {
             var model = models[c];
             var modelName = model._internalModel.modelName;
@@ -332,7 +334,7 @@ export default Ember.Controller.extend({
     },
     highlightGoalFromRefs: function (newHighlights, model) {
         var modelName = model._internalModel.modelName;
-        var goals = this.get('Goals').toArray();
+        var goals = this.get('goals').toArray();
         for (var c = 0; c < goals.length; c++) {
             var goal = goals[c];
             var addresses = goal.get('addresses').toArray();

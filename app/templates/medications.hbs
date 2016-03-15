@@ -46,7 +46,7 @@
 
                                 <div id="reason" class="col-xs-12 col-lg-7">
                                     {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
-                                    {{fhir-object-select compSelection=order.rlCondition parent=order variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
+                                    {{fhir-object-select compSelection=order.rlCondition parent=order variable='reasonReference' localVariable='rlCondition' options=parentController.conditions}}
                                 </div>
                             </div>
                             {{comm-channel resource=order resource_type='Medication'}}
