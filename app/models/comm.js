@@ -14,6 +14,8 @@ export default DS.Model.extend({
 
     // Communication is initiated by one user
     src_user_id: DS.attr('string'),
+    src_user_name_first: DS.attr('string'),
+    src_user_name_last: DS.attr('string'),
 
     // Communication is sent to multiple users; we keep track of who has seen it
     dest: DS.hasMany('comm-dest', {embedded: true}),
@@ -28,7 +30,7 @@ export default DS.Model.extend({
     // COMPUTED PROPERTIES
     session: Ember.inject.service('session'), // needed for ember-simple-auth
 
-    isMe: Ember.computed('src_user_id',function(){
+    isMe: Ember.computed('session.data.authenticated._id','src_user_id',function(){
       return this.get('session.data.authenticated._id') === this.get('src_user_id');
     }),
 

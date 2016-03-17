@@ -51,7 +51,7 @@ export default Ember.Component.extend({
                 this.set('isChangeNomination', true);
             }
         }
-    }.observes('root.nominations').on('init'),
+    }.observes('root.nominations', 'root.isNewRecord').on('init'),
     actions: {
         updateArray: function (parent, name, type) {
             console.log('(FHIR-ELEMENT) UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);

@@ -29,7 +29,7 @@ export default base.extend({
                 var carePlan = model;
 
                 function loop(modelName, attr, key) {
-                    var array = controller.get(modelName.pluralize());
+                    var array = controller.get(modelName.pluralize().camelize());
                     var related = carePlan.get(attr).toArray().map(function (item) {
                         return item.get(key).split('/')[1]; // return ID string for this reference
                     });
@@ -83,33 +83,16 @@ export default base.extend({
         }
 
         // to get the "create" buttons to work properly, we need to query *then* peekAll
-        return this.store.query(resource, query) // the "_include" is effectively a join
-            .then(function (/*response*/) {
-                //}, function (error) {
-                //    // FIXME: FHIR adapter serializer encounters an error when the MedicationOrder query returns...
-                //    // but apparently the records still get added to the store, so our "peekAll" can still execute just fine
-                //    console.log(`Encountered an error when querying for "${modelName}": ${error.message}`);
-                //}).finally(function() {
-                // response from query is an AdapterPopulatedRecordArray; immutable and does not live-update changes to the template
-                var value = controller.store.peekAll(modelName, {});
-                // value from peekAll is a RecordArray; mutable and live-updates changes to the template
-                controller.set(modelName.pluralize(), value.toArray());
-                // FIXME: revisit this...
-                // RecordArray should auto-update but does not seem to be triggering refresh of computed properties
-                // however, hover-highlighting causes those computed properties to get refreshed?!
-                // tried watching 'Model.[]' instead of 'Model' but that resulted in weird errors
-                // As a temporary fix, we have implemented the "doPeek" method in the careplan controller, which we
-                // manually call from sub-controllers
-            });
+        return this.store.query(resource, query); // the "_include" is effectively a join
     },
     actions: {
         toggleShow: function (modelName) {
             var controller = this.controllerFor('careplan');
             var prop = 'show' + modelName.pluralize();
             controller.toggleProperty(prop);
-            if (controller.get(prop)) {
-                this.doQueries(modelName);
-            }
+            //if (controller.get(prop)) {
+            //    this.doQueries(modelName);
+            //}
         }
     }
 });

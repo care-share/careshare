@@ -3,8 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   createMessage: 'createMessage',
   destroyMessage: 'destroyMessage',
-  chatMessages: null,
-  unreadCount: null,
   parsedTimestamp: function(){
     var result = new Date(Ember.Date.parse(this.get('')));
     console.log('datePassthrough set value: ' + value + ',result: ' + result);
@@ -17,11 +15,6 @@ export default Ember.Component.extend({
     //TODO THIS IS NOT AN ID FOR NOW - this will be used to make the delete only available to the user who creates it -MH
     return resource.parentController.patient.id;
   }.property('resource.parentController'),
-  setup: function(){
-    this.set('chatMessages',this.get('resource.comms'));
-    this.set('unreadCount',this.get('resource.unreadCount'));
-    console.log("COMM CHANNEL setup: "+this.get('chatMessages'));
-  }.on('init'),
   actions:{
     createMessage: function(message){
       console.log("COMM CHANNEL createMessage: "+message);
@@ -29,7 +22,12 @@ export default Ember.Component.extend({
     },
     destroyMessage: function(message){
       console.log("COMM CHANNEL destroyMessage: "+message);
-      message.destroyRecord();
+      try { message.destroyRecord(); } catch(e){ message.destroyRecord(); };
+      /*if(message.currentState.isSaving !== true) {
+        message.destroyRecord();
+      }else{
+        message.unloadRecord();
+      };*/
     }
   }
 });

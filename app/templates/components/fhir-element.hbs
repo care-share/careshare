@@ -5,7 +5,7 @@
         {{action "hoverOff" on="mouseLeave"}}
         {{action 'expand' on="doubleClick"}}
          style=" {{if currentHover 'border-color:#009e0f;'}}
-             {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} overflow:auto;">
+             {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} max-width: 100%; overflow-x: hidden;">
         {{#if (or expanded (and root root.isExpanded))}}
             {{yield "expanded"}}
             {{#if (and root (not isDeleteNomination))}}
