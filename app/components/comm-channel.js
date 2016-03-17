@@ -22,7 +22,12 @@ export default Ember.Component.extend({
     },
     destroyMessage: function(message){
       console.log("COMM CHANNEL destroyMessage: "+message);
-      message.destroyRecord();
+      try { message.destroyRecord(); } catch(e){ message.destroyRecord(); };
+      /*if(message.currentState.isSaving !== true) {
+        message.destroyRecord();
+      }else{
+        message.unloadRecord();
+      };*/
     }
   }
 });
