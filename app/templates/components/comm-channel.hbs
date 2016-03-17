@@ -1,7 +1,7 @@
 <button class="btn btn-primary" type="button">
    <span class="badge">{{unreadCount}}</span> Annotations <span class="glyphicon glyphicon-comment"></span>
 </button><br>
-{{textarea action="createMessage" aria-controls="existing-user-table" placeholder="AnnotationsTEST"
+{{textarea action="createMessage" aria-controls="existing-user-table" placeholder="AnnotationsTEST" autofocus="autofocus" 
   autoresize=true}}
 {{#each resource.comms as |message|}}
     <div class="">
