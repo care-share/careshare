@@ -3,6 +3,11 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   createMessage: 'createMessage',
   destroyMessage: 'destroyMessage',
+  nameID: null,
+  textAreaValue: '',
+  setup: function(){
+    this.set('nameID',Math.random());
+  }.on('init'),
   parsedTimestamp: function(){
     var result = new Date(Ember.Date.parse(this.get('')));
     console.log('datePassthrough set value: ' + value + ',result: ' + result);
@@ -19,6 +24,7 @@ export default Ember.Component.extend({
     createMessage: function(message){
       console.log("COMM CHANNEL createMessage: "+message);
       this.sendAction('createMessage',message,this.get('resource.id'),this.get('resource_type'));
+      this.set('textAreaValue','');
     },
     destroyMessage: function(message){
       console.log("COMM CHANNEL destroyMessage: "+message);
