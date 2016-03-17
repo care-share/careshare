@@ -137,7 +137,7 @@ export default Ember.Controller.extend({
     actions: {
         createMessage: function(content,resource_id,resource_type){
           console.log('CAREPLAN CREATE MESSAGE');
-          var newMessage = this.store.createRecord('comm',{id: Math.random(),
+          var newMessage = this.store.createRecord('comm',{
                                   resource_type:resource_type,
                                   careplan_id:this.get('model.id'),
                                   isMe: true,
