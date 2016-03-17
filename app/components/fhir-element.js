@@ -16,7 +16,7 @@ export default Ember.Component.extend({
     isDeleteNomination: false,
     isChangeNomination: false,
     hasNewAnnotations: function () {
-        return this.get('unreadAnnotationsCount') > 0
+        return this.get('unreadAnnotationsCount') > 0;
     }.property('unreadAnnotationsCount'),
     setup: function () {
         if (this.get('parent')) {
@@ -34,7 +34,7 @@ export default Ember.Component.extend({
             this.get('classNames').addObject('not-related-to-care-plan');
         }
 
-    this.set('unreadAnnotationsCount',this.get('resource.unreadCount'));
+        this.set('unreadAnnotationsCount',this.get('root.unreadCount'));
     }.on('init'),
     nominationsChanged: function () {
         var root = this.get('root');
