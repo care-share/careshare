@@ -1,10 +1,11 @@
-{{#em-modal-toggler modal-id=nameID class="btn btn-primary"}}
-   <span class="badge">{{unreadCount}}</span> Annotations <span class="glyphicon glyphicon-comment"></span>
+<br>{{#em-modal-toggler modal-id=nameID class="btn btn-primary" style="width:100%"}}
+   <span class="badge">{{resource.comms.unreadCount}}</span> Annotations <div class="glyphicon glyphicon-comment"/>
 {{/em-modal-toggler}}
 {{#em-modal configName="bs" id=nameID}}
     {{#em-modal-body}}
-      {{textarea action="createMessage" value=textAreaValue aria-controls="existing-user-table" placeholder="AnnotationsTEST" autofocus="autofocus"
-        autoresize=true}}
+      <div class="page-header">
+        <h3>Annotations <div class="glyphicon glyphicon-comment"/></h3>
+      </div>
       {{#each resource.comms as |message|}}
           <div class="">
             <div class="">
@@ -27,6 +28,8 @@
             </div>
           </div>
       {{/each}}
+        <br>{{textarea action="createMessage" value=textAreaValue aria-controls="existing-user-table" placeholder="Add annotation" autofocus="autofocus"
+          autoresize=true}}
         {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
     {{/em-modal-body}}
 {{/em-modal}}
@@ -55,3 +58,5 @@
       </div>
     {{/if}}
 {{/each}}
+<br>{{textarea action="createMessage" value=textAreaValue aria-controls="existing-user-table" placeholder="Add annotation" autofocus="autofocus"
+  autoresize=true}}
