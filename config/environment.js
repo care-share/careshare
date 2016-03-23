@@ -16,6 +16,7 @@ module.exports = function (environment) {
          'frame-src': "'unsafe-inline'"
          },*/
         EmberENV: {
+            ENABLE_DS_FILTER: true,
             FEATURES: {
                 // Here you can enable experimental features on an ember canary build
                 // e.g. 'with-controller': true

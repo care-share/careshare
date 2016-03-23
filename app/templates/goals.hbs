@@ -80,7 +80,6 @@
                                     </div>
                                 </div>
                                 --}}
-
                                 <div class="col-xs-12 fhir-form-item">
                                     <label class="col-sm-5 control-label" for="targetDate">Target Date:</label>
 
@@ -94,6 +93,7 @@
                                 {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
                                 {{related-list parent=goal relation='rlProcedureRequests' display='code.text' label="Interventions"}}
                             </div>
+                            {{comm-channel resource=goal resource_type='Goal'}}
                         {{else}}
                             {{goal.description}}
                         {{/if}}

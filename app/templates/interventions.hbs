@@ -50,7 +50,7 @@
 
                                         <div id="reason" class="col-xs-12 col-lg-7">
                                             {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
-                                            {{fhir-object-select compSelection=intervention.rlCondition parent=intervention variable='reasonReference' localVariable='rlCondition' options=careplan.Conditions}}
+                                            {{fhir-object-select compSelection=intervention.rlCondition parent=intervention variable='reasonReference' localVariable='rlCondition' options=parentController.conditions}}
                                         </div>
                                     </div>
                                     {{! TODO Removed not working sections
@@ -83,6 +83,7 @@
                                         </div>
                                     </div>
                                     {{related-list parent=intervention relation='rlGoals' display='description' label="Goals"}}
+                                    {{comm-channel resource=intervention resource_type='Intervention'}}
                                 </div>
                             </div>
                         {{else}}

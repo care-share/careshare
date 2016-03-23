@@ -5,7 +5,7 @@
         {{action "hoverOff" on="mouseLeave"}}
         {{action 'expand' on="doubleClick"}}
          style=" {{if currentHover 'border-color:#009e0f;'}}
-             {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} overflow:auto;">
+             {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} max-width: 100%; overflow-x: hidden;">
         {{#if (or expanded (and root root.isExpanded))}}
             {{yield "expanded"}}
             {{#if (and root (not isDeleteNomination))}}
@@ -32,12 +32,17 @@
         {{/if}}
 
     </div>
+    <div class="careplan-notification">
     {{#if isCreateNomination}}
-        <div class="careplan-notification"> New</div>
+        <span class="careplan-notification-badge"> New</span>
     {{/if}}
     {{#if isChangeNomination}}
-        <div class="careplan-notification"> Change</div>
+        <span class="careplan-notification-badge"> Change</span>
     {{/if}}
+    {{#if hasNewAnnotations}}
+        <span class="icon-comment"> {{unreadAnnotationsCount}}</span>
+    {{/if}}
+    </div>
 </div>
 {{#if isDeleteNomination}}
     <button {{action 'acceptDeletion'}}>Sign</button>

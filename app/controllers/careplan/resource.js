@@ -26,8 +26,6 @@ export default Ember.Controller.extend({
                 args.isRelatedToCarePlan = true;
             }
             this.store.createRecord(type, args);
-            // FIXME: this shouldn't be necessary, see controllers/careplan.js
-            this.controllerFor('careplan').doPeek(type);
 
             // animate column
             var problemsColumn = Ember.$('#problems-column');
@@ -54,6 +52,13 @@ export default Ember.Controller.extend({
                 }
             }
             carePlan.set(this.carePlanRefAttr, refs);
+
+            // only try to remotely delete the record if it exists on the server side
+            if (record.get('isNewRecord')) {
+                record.deleteRecord();
+                return;
+            }
+
             carePlan.save().then(function () {
                 // remove this model
                 that.get('session').authorize('authorizer:custom', (headerName, headerValue) => {
@@ -73,7 +78,6 @@ export default Ember.Controller.extend({
                                 // for some reason, unloadRecord does not remove the record from the store if it is errored out...
                                 // instead, when we peek from the store, we filter out models that have encountered errors
                                 // so, this record will disappear from view
-                                that.controllerFor('careplan').doPeek(modelName);
                             });
                         }
                     });

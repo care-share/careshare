@@ -14,6 +14,8 @@ export default DS.Model.extend({
 
     // Communication is initiated by one user
     src_user_id: DS.attr('string'),
+    src_user_name_first: DS.attr('string'),
+    src_user_name_last: DS.attr('string'),
 
     // Communication is sent to multiple users; we keep track of who has seen it
     dest: DS.hasMany('comm-dest', {embedded: true}),
@@ -27,6 +29,14 @@ export default DS.Model.extend({
     /////////////////////////////////////////////
     // COMPUTED PROPERTIES
     session: Ember.inject.service('session'), // needed for ember-simple-auth
+
+    isMe: Ember.computed('session.data.authenticated._id','src_user_id',function(){
+      return this.get('session.data.authenticated._id') === this.get('src_user_id');
+    }),
+
+    timestamp_formatted: Ember.computed('timestamp',function(){
+      return moment(this.get('timestamp')).format('MMM Do YYYY [@] h:mm:ss a');
+    }),
 
     // gets/sets whether the currently logged-in user has seen this communication
     hasSeen: Ember.computed('dest', {
@@ -56,6 +66,18 @@ export default DS.Model.extend({
                 destUser = this.store.createRecord('comm-dest', obj);
                 this.get('dest').addObject(destUser);
             }
+        }
+    }),
+
+    parsedTimestamp: Ember.computed('timestamp', {
+        get(/*key*/) {
+            var result = new Date(Ember.Date.parse(this.get('timestamp')));
+            return (("0" + (result.getMonth() + 1)).slice(-2) + '/' + ("0" + result.getDate()).slice(-2) + '/' + result.getFullYear() + ' '
+            + ((result.getHours() > 12) ? (result.getHours() - 12) : (("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
+            ((result.getHours() > 12) ? ' PM' : ' AM')).replace("00:00 AM", "")
+        },
+        set(key, value) {
+            //This shouldn't happen
         }
     })
 });

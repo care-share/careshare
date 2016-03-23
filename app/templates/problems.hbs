@@ -69,6 +69,7 @@
                                 <option disabled selected> Body Sites</option>
                             </select>
                             {{related-list parent=problem relation='rlGoals' display='description' label="Goals" lastExpanded=controller.lastExpanded}}
+                            {{comm-channel resource=problem resource_type='Problem'}}
                         {{! TODO: Implement Notes
                         <div style="clear:left;">
                             Notes:
