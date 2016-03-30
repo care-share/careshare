@@ -4,7 +4,8 @@
 {{#em-modal configName="bs" id=nameID}}
     {{#em-modal-body}}
       <div class="page-header">
-        <h3>Annotations <div class="glyphicon glyphicon-comment"/></h3>
+        <h3 style="color:#ffffff;background-color:#3498db;padding-top:20px;padding-bottom:20px;border-color:#357ebd;text-align:center;vertical-align:middle">
+          Annotations <div class="glyphicon glyphicon-comment"/></h3>
       </div>
       {{#each resource.comms as |message|}}
           <div class="">
@@ -28,7 +29,7 @@
             </div>
           </div>
       {{/each}}
-        <div>
+        <div class="well" style="border-color:#ffffff">
         {{textarea action="createMessage" value=textAreaValue aria-controls="existing-user-table" placeholder="Add annotation" autofocus="autofocus"
           autoresize=true classNames="form-control"}}
         </div>
