@@ -1,5 +1,6 @@
-<br>{{#em-modal-toggler modal-id=nameID class="btn btn-primary" style="width:100%"}}
-   <span class="badge">{{resource.comms.unreadCount}}</span> Annotations <div class="glyphicon glyphicon-comment"/>
+<br>{{#em-modal-toggler modal-id=nameID class="btn btn-primary" style="width:80%;text-align:center;display: block;margin-left: auto;margin-right: auto"}}
+   <div style="float:left">Annotations <div class="glyphicon glyphicon-comment"/></div>
+   <div style="float:right">Show All <span class="badge">{{resource.comms.length}}</span></div>
 {{/em-modal-toggler}}
 {{#em-modal configName="bs" id=nameID}}
     {{#em-modal-body}}
@@ -7,28 +8,30 @@
         <h3 style="color:#ffffff;background-color:#3498db;padding-top:20px;padding-bottom:20px;border-color:#357ebd;text-align:center;vertical-align:middle">
           Annotations <div class="glyphicon glyphicon-comment"/></h3>
       </div>
-      {{#each resource.comms as |message|}}
-          <div class="">
+      <div class="pre-scrollable">
+        {{#each resource.comms as |message|}}
             <div class="">
-               {{#if (or message.isMe (not message.src_user_id))}}
-                  You
-               {{else}}
-                  {{message.src_user_name_first}}
-               {{/if}}
-              <span class="annotation-timestamp">
-                  {{message.timestamp_formatted}}
-              </span>
+              <div class="">
+                 {{#if (or message.isMe (not message.src_user_id))}}
+                    You
+                 {{else}}
+                    {{message.src_user_name_first}}
+                 {{/if}}
+                <span class="annotation-timestamp">
+                    {{message.timestamp_formatted}}
+                </span>
+              </div>
+              <div class="annotation-content" style="word-wrap: break-word;">
+                {{message.content}}
+                {{!Delete should only be available to user who creates it}}
+                {{#if message.isMe}}
+                <button {{action 'destroyMessage' message target='view'}} style="color:red; float: right" class="glyphicon glyphicon-remove nobackground">
+                </button>
+                {{/if}}
+              </div>
             </div>
-            <div class="annotation-content" style="word-wrap: break-word;">
-              {{message.content}}
-              {{!Delete should only be available to user who creates it}}
-              {{#if message.isMe}}
-              <button {{action 'destroyMessage' message target='view'}} style="color:red; float: right" class="glyphicon glyphicon-remove nobackground">
-              </button>
-              {{/if}}
-            </div>
-          </div>
-      {{/each}}
+        {{/each}}
+        </div>
         <div class="well" style="border-color:#ffffff">
         {{textarea action="createMessage" value=textAreaValue aria-controls="existing-user-table" placeholder="Add annotation" autofocus="autofocus"
           autoresize=true classNames="form-control"}}
