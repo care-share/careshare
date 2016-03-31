@@ -11,7 +11,7 @@ export default PassthroughComponent.extend({
         // Creates a computed property that converts date strings to Date objects
         Ember.defineProperty(this, 'datePassthrough', Ember.computed({
             // this.array is a boolean that determines if this is component modifies a regular attribute, or an array attribute that will contain a single datetime
-            get(key) {
+            get(/*key*/) {
                 var result;
                 var passthrough = this.get('passthrough');
                 if (this.get('isArray')) {
@@ -22,9 +22,9 @@ export default PassthroughComponent.extend({
                     result = passthrough;
                 }
                 console.log('datePassthrough get result: ' + result);
-                if (result === null || result === undefined)
+                if (result === null || result === undefined) {
                     return result;
-                ;
+                }
                 var resultDate = (("0" + (result.getMonth() + 1)).slice(-2) + '/' + ("0" + result.getDate()).slice(-2) + '/' + result.getFullYear() + ' '
                 + ((result.getHours() > 12) ? (result.getHours() - 12) : (("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
                 ((result.getHours() > 12) ? ' PM' : ' AM')).replace("00:00 AM", "");
@@ -68,10 +68,15 @@ export default PassthroughComponent.extend({
         }).property('parent.' + this.get('name')));
     }.on('init'),
     actions: {
-        cancel: function () {
-        },
-        modalToggle: function () {
-            this.set('showModal', !this.get('showModal'));
+        'on-hide': function (modal) {
+            // for some reason, auto-focus isn't working correctly;
+            // when the modal pops up, focus does not change to the datetime input text box
+            // if the user never clicked the box, then the datetime selection does not get applied to our datePassthrough
+            // so, when the modal is hidden, we manually apply the value to our datePassthrough
+            let value = Ember.$(modal.element).find('.form-control')[0].value;
+            if (value && value.length > 0) {
+                this.set('datePassthrough', value);
+            }
         }
     }
 });

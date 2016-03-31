@@ -21,18 +21,17 @@
         {{/bs-datetimepicker}}
     {{/if}}
 {{else}}
-    {{#em-modal configName="bs" id=nameID}}
+    {{#em-modal configName="bs" id=nameID on-hide='on-hide'}}
         {{#em-modal-body}}
             {{#if showTime}}
-                {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L LT' noIcon=true forceDateOutput=true sideBySide=true}}
-                    {{input class='form-control' value=datePassthrough autofocus="autofocus"}}
+                {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L LT' noIcon=true forceDateOutput=true sideBySide=true inline=true}}
+                    {{input class='form-control' value=datePassthrough}}
                 {{/bs-datetimepicker}}
             {{else}}
-                {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L' noIcon=true forceDateOutput=true sideBySide=true}}
-                    {{input class='form-control' value=datePassthrough autofocus="autofocus"}}
+                {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L' noIcon=true forceDateOutput=true sideBySide=true inline=true}}
+                    {{input class='form-control' value=datePassthrough}}
                 {{/bs-datetimepicker}}
             {{/if}}
-            {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
         {{/em-modal-body}}
     {{/em-modal}}
     {{!--{{#if (gt calculatedPatch.length 0)}}
