@@ -20,7 +20,7 @@ export default {
     }),
     unreadCount: Ember.computed('comms.@each.hasSeen', function () {
         return this.get('comms').reduce(function(previousValue, communication){
-            return previousValue + communication.get('hasSeen') ? 0 : 1;
+            return previousValue + (communication.get('hasSeen') ? 0 : 1);
         }, 0);
     })
 };
