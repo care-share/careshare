@@ -15,10 +15,6 @@ export default Ember.Component.extend({
     isCreateNomination: false,
     isDeleteNomination: false,
     isChangeNomination: false,
-    unreadAnnotationsCount: Ember.computed.alias('root.unreadCount'),
-    hasNewAnnotations: function () {
-        return this.get('unreadAnnotationsCount') > 0;
-    }.property('unreadAnnotationsCount'),
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (FHIR-ELEMENT) {record: ' +

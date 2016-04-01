@@ -39,8 +39,8 @@
     {{#if isChangeNomination}}
         <span class="careplan-notification-badge"> Change</span>
     {{/if}}
-    {{#if hasNewAnnotations}}
-        <span class="icon-comment"> {{unreadAnnotationsCount}}</span>
+    {{#if (gt root.unreadCount 0)}}
+        <span class="icon-comment"> {{root.unreadCount}}</span>
     {{/if}}
     </div>
 </div>

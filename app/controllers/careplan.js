@@ -140,6 +140,7 @@ export default Ember.Controller.extend({
             var comm = {
                 resource_type: resource_type,
                 careplan_id: this.get('model.id'),
+                patient_id: this.get('patient.id'),
                 resource_id: resource_id,
                 content: content
             };
