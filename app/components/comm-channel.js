@@ -7,6 +7,14 @@ export default Ember.Component.extend({
     textAreaValue: '',
     setup: function () {
         this.set('nameID', Math.random());
+        // as soon as the user views the expanded resource (and the comm-channel is initialized), mark all messages seen
+        var comms = this.get('resource.comms');
+        comms.forEach(function (item) {
+            if (!item.get('hasSeen')) {
+                item.set('hasSeen', true);
+                item.save();
+            }
+        });
     }.on('init'),
     actions: {
         createMessage: function (message) {

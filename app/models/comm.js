@@ -31,7 +31,7 @@ export default DS.Model.extend({
     session: Ember.inject.service('session'), // needed for ember-simple-auth
 
     isMe: Ember.computed('session.data.authenticated._id', 'src_user_id', function () {
-        return this.get('session.data.authenticated._id') === this.get('src_user_id');
+        return this.get('session.data.authenticated._id') === this.get('src_user_id') || !this.get('src_user_id');
     }),
 
     timestamp_formatted: Ember.computed('timestamp', function () {
@@ -42,7 +42,13 @@ export default DS.Model.extend({
     hasSeen: Ember.computed('dest', {
         get(/*key*/) {
             let userId = this.get('session.data.authenticated._id');
+            let srcUser = this.get('src_user_id');
             let destUser = this.get('dest').findBy('user_id', userId);
+            if (!srcUser || srcUser === userId) {
+                // if the src user is blank, this is newly created (by us)
+                // if this is created by us, we have seen it
+                return true;
+            }
             if (!destUser) {
                 // dest user was not found
                 return false;
@@ -52,10 +58,6 @@ export default DS.Model.extend({
         set(key, value) {
             let userId = this.get('session.data.authenticated._id');
             let destUser = this.get('dest').findBy('user_id', userId);
-            if (!destUser) {
-                // dest user was not found
-                return false;
-            }
 
             if (destUser) {
                 // if this user is in the map of destinations for this comm, set the 'seen' value
@@ -67,5 +69,11 @@ export default DS.Model.extend({
                 this.get('dest').addObject(destUser);
             }
         }
+    }),
+
+    // the expanded view of a resource should show 1. unseen comms (even though they're immediately marked 'seen'),
+    // and 2. comms that this user created
+    unreadOrNew: Ember.computed(function () {
+        return !this.get('hasSeen') || !this.get('_id');
     })
 });

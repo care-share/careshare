@@ -16,7 +16,7 @@
             {{#each resource.comms as |message|}}
                 <div class="">
                     <div class="">
-                        {{#if (or message.isMe (not message.src_user_id))}}
+                        {{#if message.isMe}}
                             You
                         {{else}}
                             {{message.src_user_name_first}}
@@ -46,10 +46,10 @@
 {{/em-modal}}
 
 {{#each resource.comms as |message|}}
-    {{#if (or (not message.hasSeen) message.isMe)}}
+    {{#if message.unreadOrNew}}
         <div class="">
             <div class="">
-                {{#if (or message.isMe (not message.src_user_id))}}
+                {{#if message.isMe}}
                     You
                 {{else}}
                     {{message.src_user_name_first}}

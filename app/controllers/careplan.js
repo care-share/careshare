@@ -135,16 +135,16 @@ export default Ember.Controller.extend({
         return models.sortBy('id');
     },
     actions: {
-        createMessage: function(content,resource_id,resource_type){
-          console.log('CAREPLAN CREATE MESSAGE');
-          var newMessage = this.store.createRecord('comm',{
-                                  resource_type:resource_type,
-                                  careplan_id:this.get('model.id'),
-                                  isMe: true,
-                                  resource_id:resource_id,
-                                  content:content
-                                });
-          newMessage.save();
+        createMessage: function (content, resource_id, resource_type) {
+            console.log('CAREPLAN CREATE MESSAGE');
+            var comm = {
+                resource_type: resource_type,
+                careplan_id: this.get('model.id'),
+                resource_id: resource_id,
+                content: content
+            };
+            var newMessage = this.store.createRecord('comm', comm);
+            newMessage.save();
         },
         setStatus: function (newStatus) {
             console.log("setting Status!");
