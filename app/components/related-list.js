@@ -4,39 +4,62 @@ export default Ember.Component.extend({
     // args passed in from template: parent, relation (string), display (string), label (string)
     classNames: ['related-list'], // needed for Ember to add this CSS class to the HTML element
     originalSelections: null,
+    refresh:true,
+    createRelation: 'createRelation',
+    possibleChoices: [],
     setup: function () {
         if (this.get('parent')) {
+            var display = this.get('display'); // which attribute we display for each resource
+            // observe the [] property of the relation Set, so we get alerted when the content changes
+            var observe = 'parent.' + this.get('relation') + '.[]';
+            Ember.defineProperty(this, 'selections', Ember.computed(function () {
+                var selections = [];
+                var set = this.get(observe); // get the Set that we are observing
+                if (set) {
+                    var observed = set.toArray() // convert the Set to an Array
+                        .sortBy('id'); // sort the Array by ID (so the order matches up with what is in the resource column)
+                    for (var i = 0; i < observed.length; i++) {
+                        // create an array of objects of type {model, display}
+                        // reason is that each object will have some display property, but different model types will have
+                        // different fields for this
+                        selections.push({
+                            model: observed[i],
+                            display: observed[i].get(display)
+                        });
+                        this.get('possibleChoices').removeObject(observed[i]);
+                    }
+                }
+                return selections;
+            }).property(observe));
+
             this.set('originalSelections', this.get('selections'));
-            this.get('originalSelections').forEach(function (item) {
-                console.log('selection: ' + item.display);
+            var _this = this;
+            this.set('possibleChoices',[]);
+            this.get('model').forEach(function(item){
+              _this.get('originalSelections').forEach(function(item2){
+                console.log('possibleChoice: item '+item+' equal to '+item2.model+(item!==item2.model));
+                if(_this.get('possibleChoices').contains(item2.model))
+                  _this.get('possibleChoices').removeObject(item2.model);
+                else if(item !== item2.model && !_this.get('possibleChoices').contains(item) &&
+                    !_this.get('selections').contains(item))
+                  _this.get('possibleChoices').push(item);
+              });
             });
             console.log('[INIT] (RELATED-LIST) ' + this.get('originalSelections'));
         }
     }.on('init'),
-    onInitialization: function () {
-        var display = this.get('display'); // which attribute we display for each resource
-        // observe the [] property of the relation Set, so we get alerted when the content changes
-        var observe = 'parent.' + this.get('relation') + '.[]';
-        Ember.defineProperty(this, 'selections', Ember.computed(function () {
-            var selections = [];
-            var set = this.get(observe); // get the Set that we are observing
-            if (set) {
-                var observed = set.toArray() // convert the Set to an Array
-                    .sortBy('id'); // sort the Array by ID (so the order matches up with what is in the resource column)
-                for (var i = 0; i < observed.length; i++) {
-                    // create an array of objects of type {model, display}
-                    // reason is that each object will have some display property, but different model types will have
-                    // different fields for this
-                    selections.push({
-                        model: observed[i],
-                        display: observed[i].get(display)
-                    });
-                }
-            }
-            return selections;
-        }).property(observe));
-    }.on('init'),
     actions: {
+        showChoice: function(item){
+          console.log('showChoice: '+item);
+        },
+        createRelation: function(selection){
+          this.sendAction('createRelation',selection,this.get('parent'));
+          this.get('selections').removeObject(selection);
+          this.get('possibleChoices').removeObject(selection);
+          const _this = this;
+          this.set('refresh', false);
+          Ember.run.next(function () {_this.set('refresh', true);});
+        },
         selected: function (selection) {
             console.log('SELECTED: ' + selection.display);
             if (this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model) {
@@ -51,6 +74,11 @@ export default Ember.Component.extend({
             }
         },
         deleteReference: function (from, to) {
+            console.log("deleted: "+to);
+            this.get('possibleChoices').push(to);
+            const _this = this;
+            this.set('refresh', false);
+            Ember.run.next(function () {_this.set('refresh', true);});
             var fromType = from._internalModel.modelName;
             var toType = to._internalModel.modelName;
             console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.id}`);
