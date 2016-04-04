@@ -6,9 +6,11 @@ export default CarePlanResource.extend({
     lastExpanded: null,
     parentController: null,
     isChangeRequest: false,
+    goalsModel: null,
     // the "carePlanRefAttr" field is set by child controllers
     setup: function () {
         console.log('PARENT CONTROLLER: ' + this.controllerFor('careplan'));
+        this.set('goalsModel',this.controllerFor('careplan').get('goals'));
         this.set('parentController', this.controllerFor('careplan'));
     }.on('init'),
     changeRequestObserver: function () {

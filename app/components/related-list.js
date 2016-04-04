@@ -6,6 +6,7 @@ export default Ember.Component.extend({
     originalSelections: null,
     refresh:true,
     createRelation: 'createRelation',
+    relatedListSelected: '---',
     possibleChoices: [],
     setup: function () {
         if (this.get('parent')) {
@@ -37,7 +38,7 @@ export default Ember.Component.extend({
             this.set('possibleChoices',[]);
             this.get('model').forEach(function(item){
               _this.get('originalSelections').forEach(function(item2){
-                console.log('possibleChoice: item '+item+' equal to '+item2.model+(item!==item2.model));
+                console.log('possibleChoices: item '+item+' equal to '+item2.model+(item!==item2.model));
                 if(_this.get('possibleChoices').contains(item2.model))
                   _this.get('possibleChoices').removeObject(item2.model);
                 else if(item !== item2.model && !_this.get('possibleChoices').contains(item) &&
@@ -53,6 +54,7 @@ export default Ember.Component.extend({
           console.log('showChoice: '+item);
         },
         createRelation: function(selection){
+          console.log('createRelation: '+selection);
           this.sendAction('createRelation',selection,this.get('parent'));
           this.get('selections').removeObject(selection);
           this.get('possibleChoices').removeObject(selection);
