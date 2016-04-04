@@ -14,17 +14,21 @@
             </li>
         {{/each}}
         {{#if refresh}}
-        <li>
-            <div class="btn-group">
-              <button type="button" style="color:green"
-                class="btn btn-default dropdown-toggle glyphicon glyphicon-plus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
-              <ul class="dropdown-menu">
-                {{#each possibleChoices as |selection|}}
-                  <li {{action 'createRelation' selection}}>{{selection.code.text}}</li>
-                {{/each}}
-              </ul>
-            </div>
-        </li>
+        {{#if (not-eq possibleChoices.length 0)}}
+          <li>
+              <div class="btn-group">
+                {{!--<div style="color:green" class="glyphicon glyphicon-plus"/>--}}
+                <div style="color:black">
+                  {{#x-select action="createRelation"}}
+                    {{#x-option value=op.[0]}}--Select one--{{/x-option}}
+                    {{#each possibleChoices as |op|}}
+                        {{#x-option value=op}}{{op.display}}{{/x-option}}
+                    {{/each}}
+                  {{/x-select}}
+                </div>
+              </div>
+            </li>
+        {{/if}}
         {{/if}}
     </ul>
     <div style="clear:left;"></div>
