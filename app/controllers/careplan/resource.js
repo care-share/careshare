@@ -106,6 +106,7 @@ export default Ember.Controller.extend({
                 }
             }
             record.set('carePlanId', carePlan.get('id'));
+            record.set('patientId', this.controllerFor('patient').id);
 
             // save this model
             record.save().then(function () {

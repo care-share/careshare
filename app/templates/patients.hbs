@@ -55,13 +55,19 @@
                 {{#each filteredContent as |patient|}}
                     <tr class="">
                         {{#each patient.name as |name|}}
-                            <td class="fullName col-xs-3">{{name.family}}, {{name.given}}</td>
-                            <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
-                            <td class="carePlan col-xs-3">
+                            <td class="fullName col-xs-3">
+                                {{name.family}}, {{name.given}}
                                 <!-- number of unread annotations across all of this patient's care plans -->
                                 {{#if (gt patient.unreadCount 0)}}
                                     <span class="icon-comment"> {{patient.unreadCount}}</span>
                                 {{/if}}
+                                <!-- whether or not there are any create/update/delete nominations, across all of this patient's care plans -->
+                                {{#if patient.hasNominations}}
+                                    <span class="careplan-notification-badge">Change</span>
+                                {{/if}}
+                            </td>
+                            <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
+                            <td class="carePlan col-xs-3">
                                 <select id="dropdown{{patient.id}}" class="form-control"
                                     {{action 'doLazyLoad' patient on='click'}}
                                     {{action 'doLazyLoad' patient on='mouseEnter'}}

@@ -24,6 +24,7 @@ export default patient.extend({
         // if doLazyLoad is true, then get carePlans (which will trigger a REST query)
         return this.get('carePlans');
     }.property('doLazyLoad'),
+    hasNominations: DS.attr('boolean'),
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount
