@@ -13,11 +13,19 @@
                 No Related {{label}}
             </li>
         {{/each}}
-        <!-- TODO: add an action to this button
+        {{#if refresh}}
         <li>
-            <button style="color:green" class='glyphicon glyphicon-plus'></button>
+            <div class="btn-group">
+              <button type="button" style="color:green"
+                class="btn btn-default dropdown-toggle glyphicon glyphicon-plus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+              <ul class="dropdown-menu">
+                {{#each possibleChoices as |selection|}}
+                  <li {{action 'createRelation' selection}}>{{selection.code.text}}</li>
+                {{/each}}
+              </ul>
+            </div>
         </li>
-        -->
+        {{/if}}
     </ul>
     <div style="clear:left;"></div>
 </div>

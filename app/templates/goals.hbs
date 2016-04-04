@@ -93,6 +93,8 @@
                                 {{related-list parent=goal relation='relatedConditions' label="Problems"}}
                                 {{related-list parent=goal relation='relatedProcedureRequests' label="Interventions"}}
                                 {{related-list parent=goal relation='relatedNutritionOrders' label="Nutrition"}}
+                                {{!--{{related-list model=conditionsModel parent=goal relation='rlConditions' display='code.text' label="Problems"}}
+                                {{related-list model=interventionsModel parent=goal relation='rlProcedureRequests' display='code.text' label="Interventions"}}--}}
                             </div>
                             {{comm-channel resource=goal resource_type='Goal'}}
                         {{else}}

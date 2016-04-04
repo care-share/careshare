@@ -129,7 +129,7 @@ export default Ember.Controller.extend({
             this.toggleProperty('isShowingForm');
         },
         createRelation: function (draggedObject, options) {
-            var ontoObject = options.target.ontoObject;
+            var ontoObject = (options.target !== null && options.target !== undefined)?options.target.ontoObject:options;
             var ontoModel = ontoObject._internalModel.modelName;
             var draggedModel = draggedObject._internalModel.modelName;
             console.log(`createRelation called for ${draggedModel} to ${ontoModel}`);
