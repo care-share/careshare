@@ -5,7 +5,7 @@
             <li {{action 'selected' selection on='doubleClick'}}>
                 <div>
                     {{selection.display}}
-                    <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection.model}}></button>
+                    <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection}}></button>
                 </div>
             </li>
         {{else}}

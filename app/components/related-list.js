@@ -27,7 +27,10 @@ export default Ember.Component.extend({
                             model: observed[i],
                             display: observed[i].get(display)
                         });
-                        this.get('possibleChoices').removeObject(observed[i]);
+                        this.get('possibleChoices').removeObject({
+                            model: observed[i],
+                            display: observed[i].get(display)
+                        });
                     }
                 }
                 return selections;
@@ -37,13 +40,14 @@ export default Ember.Component.extend({
             var _this = this;
             this.set('possibleChoices',[]);
             this.get('model').forEach(function(item){
-              _this.get('originalSelections').forEach(function(item2){
-                console.log('possibleChoices: item '+item+' equal to '+item2.model+(item!==item2.model));
-                if(_this.get('possibleChoices').contains(item2.model))
-                  _this.get('possibleChoices').removeObject(item2.model);
-                else if(item !== item2.model && !_this.get('possibleChoices').contains(item) &&
-                    !_this.get('selections').contains(item))
-                  _this.get('possibleChoices').push(item);
+              var newSelection = new Object({model:item,display:item.get(display)});
+              _this.get('originalSelections').forEach(function(selection){
+                console.log('possibleChoices: newSelection '+newSelection.model+' equal to '+selection.model+(newSelection.model!==selection.model));
+                if(_this.get('possibleChoices').contains(selection))
+                  _this.get('possibleChoices').removeObject(selection);
+                else if(newSelection.model !== selection.model && !_this.get('possibleChoices').contains(newSelection) &&
+                    !_this.get('selections').contains(newSelection))
+                  _this.get('possibleChoices').push(newSelection);
               });
             });
             console.log('[INIT] (RELATED-LIST) ' + this.get('originalSelections'));
@@ -54,8 +58,8 @@ export default Ember.Component.extend({
           console.log('showChoice: '+item);
         },
         createRelation: function(selection){
-          console.log('createRelation: '+selection);
-          this.sendAction('createRelation',selection,this.get('parent'));
+          console.log('createRelation: '+selection.model);
+          this.sendAction('createRelation',selection.model,this.get('parent'));
           this.get('selections').removeObject(selection);
           this.get('possibleChoices').removeObject(selection);
           const _this = this;
@@ -82,22 +86,22 @@ export default Ember.Component.extend({
             this.set('refresh', false);
             Ember.run.next(function () {_this.set('refresh', true);});
             var fromType = from._internalModel.modelName;
-            var toType = to._internalModel.modelName;
-            console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.id}`);
+            var toType = to.model._internalModel.modelName;
+            console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.model.id}`);
 
             // Architectural logic for how we delete the link:
             var that = this;
             var otherToGoal = function () {
-                that.removeGoalRef(to, from);
+                that.removeGoalRef(to.model, from);
             };
             var goalToOther = function () {
-                that.removeGoalRef(from, to);
+                that.removeGoalRef(from, to.model);
             };
             var otherToCondition = function () {
-                that.removeConditionRef(to, from);
+                that.removeConditionRef(to.model, from);
             };
             var conditionToOther = function () {
-                that.removeConditionRef(from, to);
+                that.removeConditionRef(from, to.model);
             };
             var map = {
                 // to
