@@ -15,6 +15,8 @@ export default Ember.Component.extend({
     isCreateNomination: false,
     isDeleteNomination: false,
     isChangeNomination: false,
+    session: Ember.inject.service('session'),
+
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (FHIR-ELEMENT) {record: ' +
@@ -47,6 +49,20 @@ export default Ember.Component.extend({
             }
         }
     }.observes('root.nominations', 'root.isNewRecord').on('init'),
+    isNomination: function (){
+        return  this.get('isCreateNomination') || this.get('isDeleteNomination') || this.get('isChangeNomination');
+
+    }.property('isCreateNomination','isChangeNomination','isDeleteNomination'),
+    isMyNomination: function (){
+        console.log("ID LIST");
+        console.log(this.get('session.data.authenticated'));
+        return (this.get('session.data.authenticated._id') === this.get('root.nominations.0.authorId'))
+
+    }.property('root.nominations'),
+    isAdmin: function (){
+        return this.get('session.data.authenticated.isAdmin');
+
+    }.property('session'),
     actions: {
         updateArray: function (parent, name, type) {
             console.log('(FHIR-ELEMENT) UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);

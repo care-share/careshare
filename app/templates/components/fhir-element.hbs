@@ -8,23 +8,79 @@
              {{if root.highlight 'border-color:#009e0f;border-style: dashed;'}} max-width: 100%; overflow-x: hidden;">
         {{#if (or expanded (and root root.isExpanded))}}
             {{yield "expanded"}}
-            {{#if (and root (not isDeleteNomination))}}
-                <div style="float:left;">
-                    <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
-                    <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
-                    {{#if (not root.isNewRecord)}}
-                        <button class="glyphicon glyphicon-repeat" {{action 'undoRecord'}}/>
-                    {{/if}}
-                </div>
-            {{/if}}
+            <div style="float:left; padding-bottom:2px">
+                {{!--#if (and root (not isNomination))}}
+
+                        <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
+                        <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
+                        {{#if (not root.isNewRecord)}}
+                            <button class="glyphicon glyphicon-repeat" {{action 'undoRecord'}}/>
+                        {{/if}}
+
+                {{/if !--}}
+                {{#if (and root (not isNomination))}}
+
+                        <button class="nomination-button" {{action 'saveRecord'}}>Save</button>
+                        <button class="nomination-button" {{action 'deleteRecord'}}>Delete</button>
+                        {{#if (not root.isNewRecord)}}
+                            <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
+                        {{/if}}
+
+                {{/if }}
+
+                {{#if (and (not isAdmin) (and isDeleteNomination isMyNomination))}}
+                    <button class="nomination-button" {{action 'rejectDeletion'}}>Cancel</button>
+                    <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+                {{/if}}
+                {{#if (and isAdmin isDeleteNomination)}}
+                    <button class="nomination-button" {{action 'acceptDeletion'}}>Sign</button>
+                    <button class="nomination-button" {{action 'rejectDeletion'}}>Reject</button>
+                    <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+                {{/if}}
+                {{#if (and isAdmin isChangeNomination)}}
+                    <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
+                    <button class="nomination-button" {{action 'deleteRecord'}}>Delete</button>
+                    <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
+                    <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+                {{/if}}
+                {{#if (and isAdmin isCreateNomination)}}
+                    <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
+                    <button class="nomination-button" {{action 'deleteRecord'}}>Reject</button>
+                    <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
+                    <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+                {{/if}}
+            </div>
             <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
         {{else}}
-            {{yield "contracted"}}
-        {{/if}}
-        {{#if currentHover}}
-            {{#unless expanded}}
-                <div style="float:right;" {{action 'toggleExpanded'}}> ...</div>
-            {{/unless}}
+            <div style="float:left;padding-bottom:2px">
+                {{yield "contracted"}}
+
+                {{#if (and (not isAdmin) (and isDeleteNomination isMyNomination))}}
+                    <div>
+                        <button class="nomination-button" {{action 'rejectDeletion'}}>Cancel</button>
+                        <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+                    </div>
+                {{/if}}
+                {{#if (and isAdmin isDeleteNomination)}}
+                    <div>
+                        <button class="nomination-button" {{action 'acceptDeletion'}}>Sign</button>
+                        <button class="nomination-button" {{action 'rejectDeletion'}}>Reject</button>
+                        <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+                    </div>
+                {{/if}}
+                {{#if (and isAdmin isCreateNomination)}}
+                    <div>
+                        <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
+                        <button class="nomination-button" {{action 'deleteRecord'}}>Reject</button>
+                        <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+                    </div>
+                {{/if}}
+
+            </div>
+            {{#if currentHover}}
+                <span class="expand-ellipsis" {{action 'toggleExpanded'}}> ...</span>
+            {{/if}}
+
         {{/if}}
 
         {{#if isDeleteNomination}}
@@ -33,19 +89,21 @@
 
     </div>
     <div class="careplan-notification">
-    {{#if isCreateNomination}}
-        <span class="careplan-notification-badge"> New</span>
-    {{/if}}
-    {{#if isChangeNomination}}
-        <span class="careplan-notification-badge"> Change</span>
-    {{/if}}
-    {{#if (gt root.unreadCount 0)}}
-        <span class="icon-comment"> {{root.unreadCount}}</span>
-    {{/if}}
+        {{#if isCreateNomination}}
+            <span class="careplan-notification-badge"> New</span>
+        {{/if}}
+        {{#if isChangeNomination}}
+            <span class="careplan-notification-badge"> Change</span>
+        {{/if}}
+        {{#if isDeleteNomination}}
+            <span class="careplan-notification-badge"> Deleted</span>
+        {{/if}}
+        {{#if (gt root.unreadCount 0)}}
+            <span class="icon-comment"> {{root.unreadCount}}</span>
+        {{/if}}
     </div>
+
+
 </div>
-{{#if isDeleteNomination}}
-    <button {{action 'acceptDeletion'}}>Sign</button>
-    <button {{action 'rejectDeletion'}}>Reject</button>
-    <button {{action 'clarify'}}>Clarify</button>
-{{/if}}
+
+
