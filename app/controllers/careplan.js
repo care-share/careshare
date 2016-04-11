@@ -4,8 +4,7 @@ import API from '../api';
 export default Ember.Controller.extend({
     // controller dependencies
     session: Ember.inject.service('session'), // needed for ember-simple-auth
-    needs: "patient",
-    patient: Ember.computed.alias("controllers.patient"),
+    patient: Ember.inject.controller('patient'),
     // local vars
     apiUrl: window.Careshare.apiUrl,
     isOpenID: window.Careshare.isOpenID,
@@ -79,61 +78,7 @@ export default Ember.Controller.extend({
         console.log(referringObject);
         referringObject.save();
     },
-    addLocalRelation: function (from, to, relName, isSingleItem) {
-        if (isSingleItem) {
-            from.set(relName, to);
-        } else {
-            if (!from.get(relName)) {
-                from.set(relName, Ember.Set.create());
-            }
-            from.get(relName).addObject(to);
-        }
-    },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
-    mGoals: function () {
-        return this.applyHighlights('goals');
-    }.property('goals.[]', 'toHighlight'),
-    mProblems: function () {
-        return this.applyHighlights('conditions');
-    }.property('conditions.[]', 'toHighlight'),
-    mNutrition: function () {
-        return this.applyHighlights('nutritionOrders');
-    }.property('nutritionOrders.[]', 'toHighlight'),
-    mInterventions: function () {
-        return this.applyHighlights('procedureRequests');
-    }.property('procedureRequests.[]', 'toHighlight'),
-    mMedications: function () {
-        var medOrders = this.get('medicationOrders')
-            //.filterBy('medicationReference') // find medicationorders that have medication references
-            //.filterBy('medicationReference.medication', false); // filter to only return those that don't have local references
-            .filter(function (item/*, index, enumerable*/) {
-                return item.get('medicationReference.medication') === undefined;
-            });
-        for (var i = 0; i < medOrders.length; i++) {
-            var medRef = medOrders[i].get('medicationReference');
-            if (medRef && !medRef.medication) {
-                var reference = medRef.get('reference').split('/');
-                var med = this.store.peekRecord(reference[0], reference[1]);
-                if (med) {
-                    // add a local reference to the actual Medication record from this Reference
-                    medRef.set('medication', med);
-                }
-            }
-        }
-        return this.applyHighlights('medicationOrders');
-    }.property('medicationOrders.[]', 'toHighlight'),
-    applyHighlights: function (modelsKey) {
-        var models = this.get(modelsKey);
-        if (!models) {
-            console.log(`applyHighlights(${modelsKey}) failed: field not found`);
-            return [];
-        }
-        var toHighlight = this.get('toHighlight');
-        models.forEach(function (model) {
-            model.set('highlight', toHighlight.contains(model.id));
-        });
-        return models.sortBy('id');
-    },
     actions: {
         createMessage: function (content, resource_id, resource_type) {
             console.log('CAREPLAN CREATE MESSAGE');
@@ -194,29 +139,15 @@ export default Ember.Controller.extend({
             var that = this;
             var otherToGoal = function () {
                 that.addReference(ontoObject, draggedObject, 'addresses', true);
-                // add a temporary descriptive reference directly to the model
-                // we only need to add a local relation for the draggedObject; the ontoObject gets its relation added onMouseOver
-                that.addLocalRelation(draggedObject, ontoObject, 'rlGoals');
             };
             var goalToOther = function () {
                 that.addReference(draggedObject, ontoObject, 'addresses', true);
-                // add a temporary descriptive reference directly to the model
-                // we only need to add a local relation for the draggedObject; the ontoObject gets its relation added onMouseOver
-                var relName = `rl${ontoModel.camelize().capitalize().pluralize()}`;
-                that.addLocalRelation(draggedObject, ontoObject, relName);
             };
             var otherToCondition = function () {
                 that.addReference(draggedObject, ontoObject, 'reasonReference', false);
-                // add a temporary descriptive reference directly to the model
-                // we only need to add a local relation for the draggedObject; the ontoObject gets its relation added onMouseOver
-                that.addLocalRelation(draggedObject, ontoObject, 'rlCondition', true);
             };
             var conditionToOther = function () {
                 that.addReference(ontoObject, draggedObject, 'reasonReference', false);
-                // add a temporary descriptive reference directly to the model
-                // we only need to add a local relation for the draggedObject; the ontoObject gets its relation added onMouseOver
-                var relName = `rl${ontoModel.camelize().capitalize().pluralize()}`;
-                that.addLocalRelation(draggedObject, ontoObject, relName);
             };
 
             var map = {
@@ -283,74 +214,39 @@ export default Ember.Controller.extend({
     },
     highlightToConditionRefs: function (newHighlights, model) {
         // model is a ProcedureRequest or a MedicationOrder
-        if (model.get('reasonReference.reference')) {
-            var reference = model.get('reasonReference.reference').split('/');
-            var condition = this.store.peekRecord(reference[0], reference[1]);
-            if (!condition) {
-                // this may be an old reference to a model that no longer exists; skip this
-                return;
-            }
-            newHighlights.add(condition.id);
-            // add "<model> -> Condition" temporary descriptive reference
-            this.addLocalRelation(model, condition, 'rlCondition', true);
+        let conditionId = model.get('reasonId');
+        if (conditionId) {
+            newHighlights.add(conditionId);
         }
     },
     highlightFromConditionRefs: function (newHighlights, condition) {
-        var models = this.get('procedureRequests').toArray();
-        models = models.concat(this.get('medicationOrders').toArray());
-        for (var c = 0; c < models.length; c++) {
-            var model = models[c];
-            var modelName = model._internalModel.modelName;
-            if (model.get('reasonReference.reference')) {
-                var reference = model.get('reasonReference.reference').split('/');
-                if (reference[1] === condition.id) {
-                    newHighlights.add(model.id);
-                    // store a temporary descriptive reference to the resource in this condition
-                    // we need this to be able to show references in the expanded "edit" view of the condition
-                    var relName = `rl${modelName.camelize().capitalize().pluralize()}`;
-                    this.addLocalRelation(condition, model, relName);
-                }
-            }
-        }
+        let models = condition.get('relatedProcedureRequests');
+        models = models.concat(condition.get('relatedMedicationOrders'));
+        let modelIds = models.mapBy('id');
+        newHighlights.addEach(modelIds);
     },
-    highlightGoalToRefs: function (newHighlights, model, ignoreReference) {
-        // ignoreReference is optional
-        var addresses = model.get('addresses').toArray();
-        for (var i = 0; i < addresses.length; i++) {
-            var reference = addresses[i].get('reference').split('/');
-            if (reference[0].dasherize() !== ignoreReference && reference[1] !== model.id) {
-                newHighlights.add(reference[1]);
-            }
-            if (!ignoreReference) {
-                var relName = `rl${reference[0].camelize().capitalize().pluralize()}`;
-                var related = this.store.peekRecord(reference[0], reference[1]);
-                if (!related) {
-                    // this may be an old reference to a model that no longer exists; skip this iteration
-                    continue;
-                }
-                // add "Goal -> <model>" temporary descriptive reference
-                this.addLocalRelation(model, related, relName);
-            }
+    highlightGoalToRefs: function (newHighlights, goal, ignoreReference) {
+        let models = [];
+        if (ignoreReference !== 'condition') {
+            models = models.concat(goal.get('relatedConditions'));
         }
+        if (ignoreReference !== 'procedure-request') {
+            models = models.concat(goal.get('relatedProcedureRequests'));
+        }
+        if (ignoreReference !== 'nutrition-order') {
+            models = models.concat(goal.get('relatedNutritionOrders'));
+        }
+        let modelIds = models.mapBy('id');
+        newHighlights.addEach(modelIds);
     },
     highlightGoalFromRefs: function (newHighlights, model) {
         var modelName = model._internalModel.modelName;
-        var goals = this.get('goals').toArray();
-        for (var c = 0; c < goals.length; c++) {
-            var goal = goals[c];
-            var addresses = goal.get('addresses').toArray();
-            for (var i = 0; i < addresses.length; i++) {
-                var reference = addresses[i].get('reference').split('/');
-                if (reference[1] === model.id) {
-                    newHighlights.add(goal.id);
-                    // first, store a temporary descriptive reference to the goal in this resource
-                    // we need this to be able to show references in the expanded "edit" view of the resource
-                    this.addLocalRelation(model, goal, 'rlGoals');
-                    // highlight other relations to this goal, ignoring the current model type
-                    this.highlightGoalToRefs(newHighlights, goal, modelName);
-                    break;
-                }
-            }
+        let goals = model.get('relatedGoals');
+        for (let i = 0; i < goals.length; i++) {
+            let goal = goals[i];
+            newHighlights.add(goal.get('id'));
+            // highlight other relations to this goal, ignoring the current model type
+            this.highlightGoalToRefs(newHighlights, goal, modelName);
         }
     }
 });

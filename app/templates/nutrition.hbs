@@ -13,7 +13,7 @@
         {{#draggable-object-target action="createRelation" ontoObject=nutrition}}
             {{#draggable-object content=nutrition}}
                 <div {{action "hoverOn" nutrition on="mouseEnter"}} {{action "hoverOff" nutrition on="mouseLeave"}}>
-                    {{#fhir-element root=nutrition type='NutritionOrder' as |section|}}
+                    {{#fhir-element root=nutrition toHighlight=careplan.toHighlight type='NutritionOrder' as |section|}}
                         {{#if (eq section "expanded")}}
                         {{! THIS IS ONLY FOR SUPPLEMENTS TODO: NiceToHave: Create a type handler that can use the other types}}
                             <div class="row">
@@ -70,11 +70,11 @@
                                     {{change-request parent=nutrition name='dateTime' cr=cr}}
                                 {{/each}}
 
-                                {{related-list parent=nutrition relation='rlGoals' display='description' label="Goals"}}
+                                {{related-list parent=nutrition relation='relatedGoals' display='description' label="Goals"}}
                                 {{comm-channel resource=nutrition resource_type='Nutrition'}}
                             </div>
                         {{else}}
-                            {{nutrition.supplement.firstObject.productName }} - {{nutrition.status}}
+                            {{nutrition.displayText }} - {{nutrition.status}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>

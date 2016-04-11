@@ -69,27 +69,27 @@
         <div class="row" style="height:95%">
             {{#if showConditions}}
                 <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "problems" mProblems}}
+                    {{render "problems" conditions}}
                 </div>
             {{/if}}
             {{#if showGoals}}
                 <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "goals" mGoals}}
+                    {{render "goals" goals}}
                 </div>
             {{/if}}
             {{#if showProcedureRequests}}
                 <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "interventions" mInterventions}}
+                    {{render "interventions" procedureRequests}}
                 </div>
             {{/if}}
             {{#if showNutritionOrders}}
                 <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "nutrition" mNutrition}}
+                    {{render "nutrition" nutritionOrders}}
                 </div>
             {{/if}}
             {{#if showMedicationOrders}}
                 <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "medications" mMedications}}
+                    {{render "medications" medicationOrders}}
                 </div>
             {{/if}}
         </div>

@@ -7,6 +7,10 @@ export default function () {
         var noms = this.get('nominations');
         for (var n in noms){
             if (noms.hasOwnProperty(n)){
+                if (n.startsWith('__')) {
+                    // weird JavaScript object property, not what we want, continue
+                    continue;
+                }
                 // nomination.diff used to be an array of objects, now it is a single object
                 var diffObj = noms[n].diff;
                 if (diffObj === null || diffObj === undefined || JSON.stringify(diffObj) === "{}") {

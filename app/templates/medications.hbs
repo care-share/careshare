@@ -24,10 +24,10 @@
         {{#draggable-object-target action="createRelation" ontoObject=order}}
             {{#draggable-object content=order}}
                 <div {{action "hoverOn" order on="mouseEnter"}} {{action "hoverOff" order on="mouseLeave"}}>
-                    {{#fhir-element root=order type='MedicationOrder' as |section|}}
-                        {{#if order.medicationReference.medication.code.text}}
+                    {{#fhir-element root=order toHighlight=careplan.toHighlight type='MedicationOrder' as |section|}}
+                        {{#if order.displayText}}
                             <!-- medication text should NOT be editable -->
-                            {{order.medicationReference.medication.code.text}}
+                            {{order.displayText}}
                         {{else}}
                             NO MEDICATION
                         {{/if}}
@@ -46,7 +46,7 @@
 
                                 <div id="reason" class="col-xs-12 col-lg-7">
                                     {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
-                                    {{fhir-object-select compSelection=order.rlCondition parent=order variable='reasonReference' localVariable='rlCondition' options=parentController.conditions}}
+                                    {{fhir-object-select compSelection=order.relatedCondition parent=order variable='reasonReference' localVariable='relatedCondition' options=parentController.conditions}}
                                 </div>
                             </div>
                             {{comm-channel resource=order resource_type='Medication'}}

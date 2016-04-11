@@ -16,7 +16,18 @@ export default Ember.Component.extend({
     isDeleteNomination: false,
     isChangeNomination: false,
     session: Ember.inject.service('session'),
-
+    highlight: Ember.computed('toHighlight.[]', function() {
+        return this.get('toHighlight').contains(this.get('root.id'));
+    }),
+    computedStyle: Ember.computed('highlight', 'currentHover', function() {
+        let prefix = '';
+        if (this.get('currentHover')) {
+            prefix = 'border-color:#009e0f;';
+        } else if (this.get('highlight')) {
+            prefix = 'border-color:#009e0f;border-style: dashed;';
+        }
+        return Ember.String.htmlSafe(prefix + 'max-width: 100%; overflow-x: hidden;');
+    }),
     setup: function () {
         if (this.get('parent')) {
             console.log('[INIT] (FHIR-ELEMENT) {record: ' +
@@ -51,17 +62,12 @@ export default Ember.Component.extend({
     }.observes('root.nominations', 'root.isNewRecord').on('init'),
     isNomination: function (){
         return  this.get('isCreateNomination') || this.get('isDeleteNomination') || this.get('isChangeNomination');
-
     }.property('isCreateNomination','isChangeNomination','isDeleteNomination'),
     isMyNomination: function (){
-        console.log("ID LIST");
-        console.log(this.get('session.data.authenticated'));
-        return (this.get('session.data.authenticated._id') === this.get('root.nominations.0.authorId'))
-
+        return (this.get('session.data.authenticated._id') === this.get('root.nominations.firstObject.authorId'));
     }.property('root.nominations'),
     isAdmin: function (){
         return this.get('session.data.authenticated.isAdmin');
-
     }.property('session'),
     actions: {
         updateArray: function (parent, name, type) {
