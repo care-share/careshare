@@ -4,7 +4,7 @@ import API from '../api';
 export default Ember.Controller.extend({
     apiUrl: window.Careshare.apiUrl,
     patient: null,
-    firstName: 'Unknown', lastName: 'Unknown', gender: 'Unknown', birthDate: 'Unknown', id: 'Unknown',
+    firstName: 'Unknown', lastName: 'Unknown', gender: 'Unknown', id: 'Unknown',
     isOpenID: window.Careshare.isOpenID,
     lastLoginFailed: false,
     isShowingForm: true,
@@ -15,13 +15,6 @@ export default Ember.Controller.extend({
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
-    goals: null, problems: null, nutrition: null, interventions: null, medications: null,
-    showGoals: true, showProblems: true, showNutrition: true, showInterventions: true, showMedications: true,
-    birthDateFormatted: function () {
-        //TODO is there a better way to extract?
-        var stringArray = this.get('birthDate').toDateString().split(' ');
-        return stringArray[1] + '/' + stringArray[2] + '/' + stringArray[3];
-    }.property('birthDate'),
     actions: {
         accountRequest: function () {
             API.submitRequest(this.getProperties('first', 'last', 'email', 'pass'), this);

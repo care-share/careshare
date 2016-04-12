@@ -66,23 +66,25 @@
                                     <span class="careplan-notification-badge">Change</span>
                                 {{/if}}
                             </td>
-                            <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
+                            <td class="birthDate col-xs-3">{{patient.birthDateFormatted}}</td>
                             <td class="carePlan col-xs-3">
-                                <select id="dropdown{{patient.id}}" class="form-control"
-                                    {{action 'renderCarePlan' patient.id on='change'}}>
-                                    <option disabled selected> -- Select a Careplan to View --</option>
-                                    {{#each patient.carePlans as |careplan|}}
-                                        <option value={{careplan.id}}>
-                                            {{careplan.id}}
-                                            <!-- number of unread annotations for this care plan -->
-                                            {{#if (gt careplan.unreadCount 0)}}
-                                                ({{careplan.unreadCount}} unread)
-                                            {{/if}}
-                                        </option>
-                                    {{else}}
-                                        <option disabled>(none found)</option>
-                                    {{/each}}
-                                </select>
+                            {{#each patient.carePlans as |careplan|}}
+                                {{#link-to 'careplan.filters' patient.id careplan.id}}
+                                    <div>
+                                        {{careplan.displayText}}
+                                        <!-- number of unread annotations for this care plan -->
+                                        {{#if (gt careplan.unreadCount 0)}}
+                                            <span class="icon-comment"> {{careplan.unreadCount}}</span>
+                                        {{/if}}
+                                        <!-- whether or not there are any create/update/delete nominations for this care plan -->
+                                        {{#if careplan.hasNominations}}
+                                            <span class="careplan-notification-badge">Change</span>
+                                        {{/if}}
+                                    </div>
+                                {{/link-to}}
+                            {{else}}
+                                <span>(none found)</span>
+                            {{/each}}
                             </td>
                         {{/each}}
                         <td class="homeMed col-xs-2">

@@ -27,11 +27,11 @@
                         <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
                     </div>
                     <div class="col-md-8">
-                        {{patient.lastName}}, {{patient.firstName}}
+                        {{patient.model.fullName}}
                         <br/>
 
-                        <div style="padding: 0">{{patient.gender}}
-                            <br/>{{patient.birthDateFormatted}}
+                        <div style="padding: 0">{{patient.model.genderFormatted}}
+                            <br/>{{patient.model.birthDateFormatted}}
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,16 @@ export default patient.extend({
         }
         return 'Unknown';
     }),
+    birthDateFormatted: Ember.computed('birthDate', function () {
+        let value = this.get('birthDate');
+        let date = moment(value).format('MMM Do, YYYY');
+        let age = moment().diff(value, 'years');
+        return `${date} (${age} yrs old)`;
+    }),
+    genderFormatted: Ember.computed('gender', function () {
+        let gender = this.get('gender');
+        return gender.charAt(0).toUpperCase() + gender.substr(1);
+    }),
     conditions: DS.hasMany('condition', {'async': true}),
     carePlans: Ember.computed(function () {
         let reference = 'Patient/' + this.get('id');
