@@ -69,11 +69,9 @@
                             <td class="birthDate col-xs-3">{{patient.birthDate}}</td>
                             <td class="carePlan col-xs-3">
                                 <select id="dropdown{{patient.id}}" class="form-control"
-                                    {{action 'doLazyLoad' patient on='click'}}
-                                    {{action 'doLazyLoad' patient on='mouseEnter'}}
                                     {{action 'renderCarePlan' patient.id on='change'}}>
                                     <option disabled selected> -- Select a Careplan to View --</option>
-                                    {{#each patient.lazyCarePlans as |careplan|}}
+                                    {{#each patient.carePlans as |careplan|}}
                                         <option value={{careplan.id}}>
                                             {{careplan.id}}
                                             <!-- number of unread annotations for this care plan -->

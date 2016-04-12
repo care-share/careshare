@@ -2,10 +2,10 @@ import base from 'careshare/routes/base';
 
 export default base.extend({
     model: function () {
-        return this.store.query('patient', {})
+        return this.store.query('patient', {_revinclude: 'CarePlan:patient'})
             .then(function (response) {
                     console.log('PROMISE OK!: ' + response);
-                    return response;
+                    return response.sortBy('id');
                 },
                 function () {
                     console.log('PROMISE ERROR!');

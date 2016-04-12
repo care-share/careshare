@@ -1,12 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
-    needs: 'application',
     session: Ember.inject.service('session'), // needed for ember-simple-auth
-    application: Ember.computed.alias('controllers.application'),
-    appController: Ember.inject.controller('application'),
-    currentId: null,
-    careplans: null,
     apiUrl: window.Careshare.apiUrl,
     actions: {
         doLazyLoad: function (patient) {
@@ -24,25 +19,6 @@ export default Ember.ArrayController.extend({
         },
         toggleExpanded: function () {
             this.set('currentId', null);
-        },
-        getCarePlans: function (id) {
-            var parent = this;
-            this.store.find('CarePlan', {
-                    subject: id
-                })
-                .then(function (response) {
-                    if (response != null) {
-                        parent.set('currentId', id);
-                        if (response.toArray().length > 0) {
-                            parent.set('careplans', response);
-                        } else {
-                            parent.set('careplans', [{
-                                description: '(NONE)',
-                                id: -9999
-                            }]);
-                        }
-                    }
-                });
         },
         createPatient: function () {
             var givenName = this.get('givenName');
