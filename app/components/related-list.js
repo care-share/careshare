@@ -3,72 +3,33 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     // args passed in from template: parent, relation (string), display (string), label (string)
     classNames: ['related-list'], // needed for Ember to add this CSS class to the HTML element
-    originalSelections: null,
     refresh:true,
     createRelation: 'createRelation',
     relatedListSelected: '---',
-    possibleChoices: [],
-    setup: function () {
-        if (this.get('parent')) {
-            var display = this.get('display'); // which attribute we display for each resource
-            // observe the [] property of the relation Set, so we get alerted when the content changes
-            var observe = 'parent.' + this.get('relation') + '.[]';
-            Ember.defineProperty(this, 'selections', Ember.computed(function () {
-                var selections = [];
-                var set = this.get(observe); // get the Set that we are observing
-                if (set) {
-                    var observed = set.toArray() // convert the Set to an Array
-                        .sortBy('id'); // sort the Array by ID (so the order matches up with what is in the resource column)
-                    for (var i = 0; i < observed.length; i++) {
-                        // create an array of objects of type {model, display}
-                        // reason is that each object will have some display property, but different model types will have
-                        // different fields for this
-                        selections.push({
-                            model: observed[i],
-                            display: observed[i].get(display)
-                        });
-                        this.get('possibleChoices').removeObject({
-                            model: observed[i],
-                            display: observed[i].get(display)
-                        });
-                    }
-                }
-                return selections;
-            }).property(observe));
+    relations: [], possibleChoices: [],
+    reset: function(){
+      this.set('relations',this.get('parent').get(this.get('relation')));
+      this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
 
-            this.set('originalSelections', this.get('selections'));
-            var _this = this;
-            this.set('possibleChoices',[]);
-            this.get('model').forEach(function(item){
-              var newSelection = new Object({model:item,display:item.get(display)});
-              _this.get('originalSelections').forEach(function(selection){
-                console.log('possibleChoices: newSelection '+newSelection.model+' equal to '+selection.model+(newSelection.model!==selection.model));
-                if(_this.get('possibleChoices').contains(selection))
-                  _this.get('possibleChoices').removeObject(selection);
-                else if(newSelection.model !== selection.model && !_this.get('possibleChoices').contains(newSelection) &&
-                    !_this.get('selections').contains(newSelection))
-                  _this.get('possibleChoices').push(newSelection);
-              });
-            });
-            console.log('[INIT] (RELATED-LIST) ' + this.get('originalSelections'));
-        }
+      const _this = this;
+      this.set('refresh', false);
+      Ember.run.next(function () {_this.set('refresh', true);});
     }.on('init'),
     actions: {
-        showChoice: function(item){
-          console.log('showChoice: '+item);
-        },
         createRelation: function(selection){
-          console.log('createRelation: '+selection.model);
-          this.sendAction('createRelation',selection.model,this.get('parent'));
-          this.get('selections').removeObject(selection);
-          this.get('possibleChoices').removeObject(selection);
+          console.log('createRelation: '+selection);
+          this.sendAction('createRelation',selection,this.get('parent'));
+
+          this.set('relations',this.get('parent').get(this.get('relation')));
+          this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
+
           const _this = this;
           this.set('refresh', false);
           Ember.run.next(function () {_this.set('refresh', true);});
         },
         selected: function (selection) {
-            console.log('SELECTED: ' + selection.display);
-            if (this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model) {
+            console.log('SELECTED: ' + selection.displayText);
+          /*  if (this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model) {
                 this.get('lastExpanded').set('isExpanded', !this.get('lastExpanded.isExpanded'));
             }
             else {
@@ -77,31 +38,27 @@ export default Ember.Component.extend({
                 }
                 this.set('lastExpanded', selection.model);
                 this.get('lastExpanded').set('isExpanded', true);
-            }
+            }*/
         },
         deleteReference: function (from, to) {
-            console.log("deleted: "+to);
-            this.get('possibleChoices').push(to);
-            const _this = this;
-            this.set('refresh', false);
-            Ember.run.next(function () {_this.set('refresh', true);});
+            console.log("deleted: from ("+from+") to ("+to+")");
             var fromType = from._internalModel.modelName;
-            var toType = to.model._internalModel.modelName;
-            console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.model.id}`);
+            var toType = to._internalModel.modelName;
+            console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.id}`);
 
             // Architectural logic for how we delete the link:
             var that = this;
             var otherToGoal = function () {
-                that.removeGoalRef(to.model, from);
+                that.removeGoalRef(to, from);
             };
             var goalToOther = function () {
-                that.removeGoalRef(from, to.model);
+                that.removeGoalRef(from, to);
             };
             var otherToCondition = function () {
-                that.removeConditionRef(to.model, from);
+                that.removeConditionRef(to, from);
             };
             var conditionToOther = function () {
-                that.removeConditionRef(from, to.model);
+                that.removeConditionRef(from, to);
             };
             var map = {
                 // to
@@ -132,6 +89,13 @@ export default Ember.Component.extend({
             } else {
                 console.log('No link logic found!');
             }
+
+            this.set('relations',this.get('parent').get(this.get('relation')));
+            this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
+
+            const _this = this;
+            this.set('refresh', false);
+            Ember.run.next(function () {_this.set('refresh', true);});
         }
     },
     removeGoalRef: function (goal, other) {

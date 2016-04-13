@@ -39,14 +39,29 @@ export default model.extend({
             return this.get('addressesIds').contains(item.id);
         }, this);
     }),
+    unrelatedConditions: Ember.computed('allConditions', 'addressesIds', function() {
+        return this.get('allConditions').filter(function(item/*, index, enumerable*/) {
+            return !this.get('addressesIds').contains(item.id);
+        }, this);
+    }),
     relatedProcedureRequests: Ember.computed('allProcedureRequests', 'addressesIds', function() {
         return this.get('allProcedureRequests').filter(function(item/*, index, enumerable*/) {
             return this.get('addressesIds').contains(item.id);
         }, this);
     }),
+    unrelatedProcedureRequests: Ember.computed('allProcedureRequests', 'addressesIds', function() {
+        return this.get('allProcedureRequests').filter(function(item/*, index, enumerable*/) {
+            return !this.get('addressesIds').contains(item.id);
+        }, this);
+    }),
     relatedNutritionOrders: Ember.computed('allNutritionOrders', 'addressesIds', function() {
         return this.get('allNutritionOrders').filter(function(item/*, index, enumerable*/) {
             return this.get('addressesIds').contains(item.id);
+        }, this);
+    }),
+    unrelatedNutritionOrders: Ember.computed('allNutritionOrders', 'addressesIds', function() {
+        return this.get('allNutritionOrders').filter(function(item/*, index, enumerable*/) {
+            return !this.get('addressesIds').contains(item.id);
         }, this);
     })
 });

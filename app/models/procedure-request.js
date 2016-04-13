@@ -39,5 +39,10 @@ export default model.extend({
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
             return item.get('addressesIds').contains(this.get('id'));
         }, this);
+    }),
+    unrelatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
+        return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
+            return !item.get('addressesIds').contains(this.get('id'));
+        }, this);
     })
 });

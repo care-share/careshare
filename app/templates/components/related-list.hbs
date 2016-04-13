@@ -1,10 +1,10 @@
 <div> Related {{label}}:</div>
 <div>
     <ul class="relatedList">
-        {{#each selections as |selection|}}
+        {{#each relations as |selection|}}
             <li {{action 'selected' selection on='doubleClick'}}>
                 <div>
-                    {{selection.display}}
+                    {{selection.displayText}}
                     <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection}}></button>
                 </div>
             </li>
@@ -22,7 +22,7 @@
                   {{#x-select action="createRelation"}}
                     {{#x-option value=op.[0]}}--Select one--{{/x-option}}
                     {{#each possibleChoices as |op|}}
-                        {{#x-option value=op}}{{op.display}}{{/x-option}}
+                        {{#x-option value=op}}{{op.displayText}}{{/x-option}}
                     {{/each}}
                   {{/x-select}}
                 </div>
