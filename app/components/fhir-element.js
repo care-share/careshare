@@ -51,7 +51,7 @@ export default Ember.Component.extend({
             this.set('isCreateNomination', false);
             this.set('isChangeNomination', false);
             this.set('isDeleteNomination', false);
-            if ((noms && noms.length === 1 && noms[0].action === 'create') || root.get('isNewRecord')) {
+            if ((noms && noms.length === 1 && noms[0].action === 'create')) {
                 this.set('isCreateNomination', true);
             } else if (noms && noms.length === 1 && noms[0].action === 'delete') {
                 this.set('isDeleteNomination', true);

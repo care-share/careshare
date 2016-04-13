@@ -4,22 +4,11 @@
         {{action "hoverOff" on="mouseLeave"}}
         {{action 'expand' on="doubleClick"}}
     >
-        {{#if (or expanded (and root root.isExpanded))}}
+        {{#if (or expanded root.isExpanded)}}
             {{yield "expanded"}}
             <div style="float:left; padding-bottom:2px">
-                {{!--#if (and root (not isNomination))}}
-
-                        <button class="glyphicon glyphicon-floppy-save" {{action 'saveRecord'}}/>
-                        <button class="glyphicon glyphicon-trash" {{action 'deleteRecord'}}/>
-                        {{#if (not root.isNewRecord)}}
-                            <button class="glyphicon glyphicon-repeat" {{action 'undoRecord'}}/>
-                        {{/if}}
-
-                {{/if !--}}
-
                 {{!-- New element or existing element --}}
-                {{#if (and root (not isNomination))}}
-                {{!-- {{#if (not isNomination)}} --}}
+                {{#if (not isNomination)}}
                     {{#if isAdmin}}
                         <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
                     {{else}}
@@ -101,10 +90,9 @@
         {{#if isDeleteNomination}}
             <div class="deleted-overlay"></div>
         {{/if}}
-
     </div>
     <div class="careplan-notification">
-        {{#if isCreateNomination}}
+        {{#if (or isCreateNomination root.isNewRecord)}}
             <span class="careplan-notification-badge"> New</span>
         {{/if}}
         {{#if isChangeNomination}}
@@ -117,8 +105,4 @@
             <span class="icon-comment"> {{root.unreadCount}}</span>
         {{/if}}
     </div>
-
-
 </div>
-
-
