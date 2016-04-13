@@ -9,9 +9,10 @@ export default base.extend({
         console.log(params);
         controller.set('id', params.careplan_id);
 
+        this.store.unloadAll('CarePlan'); // first, remove any other care plans in the store (in case we transitioned from somewhere else)
         return this.store.find('CarePlan', params.careplan_id);
     },
-    afterModel(model) {
+    afterModel(/*model*/) {
         var controller = this.controllerFor('careplan');
 
         var comm = this.store.query('comm', {careplan_id: controller.id}); // find all comms for this careplan
@@ -23,29 +24,7 @@ export default base.extend({
 
         // we have to wait until the queries are all finished before we allow the route to render
         // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved
-        return Ember.RSVP.allSettled([comm, condition, goal, procedureRequest, nutritionOrder, medicationOrder])
-            .then(function () {
-                // figure out which Conditions and MedicationOrders are NOT related to the CarePlan
-                var carePlan = model;
-
-                function loop(modelName, attr, key) {
-                    var array = controller.get(modelName.pluralize().camelize());
-                    var related = carePlan.get(attr).toArray().map(function (item) {
-                        return item.get(key).split('/')[1]; // return ID string for this reference
-                    });
-                    for (var i = 0; i < array.length; i++) {
-                        if (related.contains(array[i].id)) {
-                            array[i].set('isRelatedToCarePlan', true);
-                        }
-                        else {
-                            array[i].set('isRelatedToCarePlan', false);
-                        }
-                    }
-                }
-
-                loop('Condition', 'addresses', 'reference');
-                loop('MedicationOrder', 'activity', 'reference.reference');
-            });
+        return Ember.RSVP.allSettled([comm, condition, goal, procedureRequest, nutritionOrder, medicationOrder]);
     },
     // do queries for a model (single name, not pluralized name)
     doQueries: function (modelName, doUnload) {

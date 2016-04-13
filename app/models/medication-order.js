@@ -7,6 +7,17 @@ export default model.extend({
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount,
+    allCarePlans: Ember.computed(function() {
+        return this.store.peekAll('care-plan');
+    }),
+    isRelatedToCarePlan: Ember.computed('allCarePlans.addresses.[]', function() {
+        let carePlan = this.get('allCarePlans.firstObject');
+        if (carePlan) {
+            let reference = 'MedicationOrder/' + this.get('id');
+            return carePlan.get('activity').mapBy('reference.reference').contains(reference);
+        }
+        return false;
+    }),
     ////////////////////////////////////////////
     // INTERNAL RELATIONS
     ////////////////////////////////////////////
