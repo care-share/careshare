@@ -28,7 +28,7 @@ export default model.extend({
     allNutritionOrders: Ember.computed(function() {
         return this.store.peekAll('nutrition-order');
     }),
-    addressesIds: Ember.computed('addresses.[]', function() {
+    addressesIds: Ember.computed('addresses.[]', function() {     
         return this.get('addresses').map(function(item/*, index, enumerable*/) {
             // return the string ID of the reference
             return item.get('reference').split('/')[1];

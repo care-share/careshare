@@ -13,7 +13,6 @@
                 No Related {{label}}
             </li>
         {{/each}}
-        {{#if refresh}}
         {{!--{{#if (not-eq possibleChoices.length 0)}}--}}
           <li>
               <div class="btn-group">
@@ -29,7 +28,6 @@
               </div>
             </li>
         {{!--{{/if}}--}}
-        {{/if}}
         {{textarea action="createRecordAndRelate" value=textAreaValue aria-controls="existing-user-table" placeholder="Create and relate to new record" autofocus="autofocus"
         autoresize=true classNames="form-control"}}
     </ul>

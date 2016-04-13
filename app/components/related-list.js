@@ -3,28 +3,26 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     // args passed in from template: parent, relation (string), display (string), label (string)
     classNames: ['related-list'], // needed for Ember to add this CSS class to the HTML element
-    refresh:true,
     createRecord: 'createRecord',
     createRecordAndRelate: 'createRecordAndRelate',
     createRelation: 'createRelation',
     relatedListSelected: '---',
-    type: 'Condition',
+    type: null,
     textAreaValue: '',
-    relations: [], possibleChoices: [],
-    reset: function(){
-      this.set('relations',this.get('parent').get(this.get('relation')));
-      this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
+    possibleChoices: [],
+    setup: function(){
+        var typeVal = this.get('relation').toLowerCase();
+        if(typeVal.includes('condition')) this.set('type','Condition');
+        else if(typeVal.includes('goal')) this.set('type','Goal');
+        else if(typeVal.includes('procedurerequest')) this.set('type','ProcedureRequest');
+        else if(typeVal.includes('nutritionorder')) this.set('type','NutritionOrder');
+        else if(typeVal.includes('medicationorder')) this.set('type','MedicationOrder');
 
-      var typeVal = this.get('relation').toLowerCase();
-      if(typeVal.includes('condition')) this.set('type','Condition');
-      else if(typeVal.includes('goal')) this.set('type','Goal');
-      else if(typeVal.includes('procedurerequest')) this.set('type','ProcedureRequest');
-      else if(typeVal.includes('nutritionorder')) this.set('type','NutritionOrder');
-      else if(typeVal.includes('medicationorder')) this.set('type','MedicationOrder');
-
-      const _this = this;
-      this.set('refresh', false);
-      Ember.run.next(function () {_this.set('refresh', true);});
+        Ember.defineProperty(this,'relations',Ember.computed(function(){
+          console.log('relations changed!');
+          this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
+          return this.get('parent').get(this.get('relation'));
+        }).property('parent.'+this.get('relation')));
     }.on('init'),
     actions: {
         createRecordAndRelate: function(placeholderText){
@@ -36,13 +34,6 @@ export default Ember.Component.extend({
         createRelation: function(selection){
           console.log('createRelation: '+selection);
           this.sendAction('createRelation',selection,this.get('parent'));
-
-          this.set('relations',this.get('parent').get(this.get('relation')));
-          this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
-
-          const _this = this;
-          this.set('refresh', false);
-          Ember.run.next(function () {_this.set('refresh', true);});
         },
         selected: function (selection) {
             console.log('SELECTED: ' + selection.displayText);
@@ -106,13 +97,6 @@ export default Ember.Component.extend({
             } else {
                 console.log('No link logic found!');
             }
-
-            this.set('relations',this.get('parent').get(this.get('relation')));
-            this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
-
-            const _this = this;
-            this.set('refresh', false);
-            Ember.run.next(function () {_this.set('refresh', true);});
         }
     },
     removeGoalRef: function (goal, other) {
