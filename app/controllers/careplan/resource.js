@@ -146,6 +146,14 @@ export default Ember.Controller.extend({
             console.log('(' + this.get('me') + ') UNDO RECORD - record: ' + record);
             record.rollbackAttributes();
             record.reload();
+            let acceptedNominations = record.get('acceptedNominations');
+            let rejectedNominations = record.get('rejectedNominations');
+            if (acceptedNominations) {
+                acceptedNominations.clear();
+            }
+            if (rejectedNominations) {
+                rejectedNominations.clear();
+            }
         },
         updateArraySingle: function (record, name, type) {
             console.log('(CONTROLLER) UPDATE ARRAY SINGLE - parent: ' + record + ',name: ' + name + ',type: ' + type);

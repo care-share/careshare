@@ -20108,6 +20108,9 @@ button.nobackground{
   top:1px;
 }
 
+.change-request-applied {
+  color:blue;
+}
 
 .show-all-button {
      background:none!important;

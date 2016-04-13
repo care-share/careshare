@@ -110,13 +110,13 @@ export default Ember.Component.extend({
         },
         acceptDeletion: function () {
             console.log('(FHIR-ELEMENT) ACCEPT HH DELETE RECORD - record: ' + this.get('root'));
-            var nomId = this.get('root.nominations')[0].id;
+            let nomId = this.get('root.nominations.firstObject.id');
             this.set('root.acceptedNominations', [nomId]);
             this.sendAction('deleteRecord', this.get('root'));
         },
         rejectDeletion: function () {
             console.log('(FHIR-ELEMENT) Reject HH DELETE RECORD - record: ' + this.get('root'));
-            var nomId = this.get('root.nominations')[0].id;
+            let nomId = this.get('root.nominations.firstObject.id');
             this.set('root.rejectedNominations', [nomId]);
             this.sendAction('saveRecord', this.get('root'));
         }
