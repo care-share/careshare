@@ -90,9 +90,9 @@
                                         {{/each}}
                                     </div>
                                 </div>
-                                {{related-list parent=goal relation='relatedConditions' label="Problems"}}
-                                {{related-list parent=goal relation='relatedProcedureRequests' label="Interventions"}}
-                                {{related-list parent=goal relation='relatedNutritionOrders' label="Nutrition"}}
+                                {{related-list parent=goal relation='relatedConditions' label="Problems" lastExpanded=lastExpanded}}
+                                {{related-list parent=goal relation='relatedProcedureRequests' label="Interventions" lastExpanded=lastExpanded}}
+                                {{related-list parent=goal relation='relatedNutritionOrders' label="Nutrition" lastExpanded=lastExpanded}}
                             </div>
                             {{comm-channel resource=goal resource_type='Goal'}}
                         {{else}}

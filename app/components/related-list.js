@@ -29,16 +29,16 @@ export default Ember.Component.extend({
         },
         selected: function (selection) {
             console.log('SELECTED: ' + selection.displayText);
-          /*  if (this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model) {
+            if (this.get('lastExpanded') !== null && this.get('lastExpanded') === selection) {
                 this.get('lastExpanded').set('isExpanded', !this.get('lastExpanded.isExpanded'));
             }
             else {
                 if (this.get('lastExpanded') !== null) {
                     this.get('lastExpanded').set('isExpanded', false);
                 }
-                this.set('lastExpanded', selection.model);
+                this.set('lastExpanded', selection);
                 this.get('lastExpanded').set('isExpanded', true);
-            }*/
+            }
         },
         deleteReference: function (from, to) {
             console.log("deleted: from ("+from+") to ("+to+")");

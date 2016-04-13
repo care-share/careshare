@@ -4,6 +4,7 @@ import commProps from 'careshare/properties/comm-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('code.text'),
+    isExpanded: DS.attr('boolean', {defaultValue: false}),
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount,

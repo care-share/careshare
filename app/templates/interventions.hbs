@@ -82,9 +82,7 @@
                                             {{/each}}
                                         </div>
                                     </div>
-
-                                    {{related-list parent=intervention relation='relatedGoals' label="Goals"}}
-
+                                    {{related-list parent=intervention relation='relatedGoals' label="Goals" lastExpanded=controller.lastExpanded}}
                                     {{comm-channel resource=intervention resource_type='Intervention'}}
                                 </div>
                             </div>
