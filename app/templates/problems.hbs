@@ -14,7 +14,7 @@
             {{#draggable-object content=problem}}
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
                     {{#fhir-element root=problem toHighlight=careplan.toHighlight type='Condition' as |section|}}
-                        {{#if (eq section "expanded")}}
+                        {{#if problem.isExpanded}}
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-xs-12 fhir-form-item">
@@ -68,7 +68,7 @@
                             <select id="dropdown{{patient.id}}" class="form-control">
                                 <option disabled selected> Body Sites</option>
                             </select>
-                            {{related-list parent=problem relation='relatedGoals' label="Goals" lastExpanded=controller.lastExpanded}}
+                            {{related-list parent=problem relation='relatedGoals' label="Goals"}}
                             {{comm-channel resource=problem resource_type='Problem'}}
                         {{! TODO: Implement Notes
                         <div style="clear:left;">

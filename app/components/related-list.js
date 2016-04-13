@@ -36,16 +36,7 @@ export default Ember.Component.extend({
     actions: {
         selected: function (selection) {
             console.log('SELECTED: ' + selection.display);
-            if (this.get('lastExpanded') !== null && this.get('lastExpanded') === selection.model) {
-                this.get('lastExpanded').set('isExpanded', !this.get('lastExpanded.isExpanded'));
-            }
-            else {
-                if (this.get('lastExpanded') !== null) {
-                    this.get('lastExpanded').set('isExpanded', false);
-                }
-                this.set('lastExpanded', selection.model);
-                this.get('lastExpanded').set('isExpanded', true);
-            }
+            selection.model.toggleProperty('isExpanded');
         },
         deleteReference: function (from, to) {
             var fromType = from._internalModel.modelName;

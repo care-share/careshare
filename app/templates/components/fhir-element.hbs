@@ -4,8 +4,8 @@
         {{action "hoverOff" on="mouseLeave"}}
         {{action 'expand' on="doubleClick"}}
     >
-        {{#if (or expanded root.isExpanded)}}
-            {{yield "expanded"}}
+        {{#if root.isExpanded}}
+            {{yield}}
             <div style="float:left; padding-bottom:2px">
                 {{!-- New element or existing element --}}
                 {{#if (not isNomination)}}

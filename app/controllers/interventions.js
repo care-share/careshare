@@ -4,7 +4,6 @@ export default CarePlanResource.extend({
     needs: "careplan",
     // define the "CarePlan -> <model>" relationship for this controller's model
     carePlanRefAttr: 'activity',
-    lastExpanded: null,
     parentController: null,
     isChangeRequest: false,
     // the "carePlanRefAttr" field is set by child controllers

@@ -14,7 +14,7 @@
             {{#draggable-object content=goal}}
                 <div {{action "hoverOn" goal on="mouseEnter"}} {{action "hoverOff" goal on="mouseLeave"}}>
                     {{#fhir-element root=goal toHighlight=careplan.toHighlight type='Goal' as |section|}}
-                        {{#if (eq section "expanded")}}
+                        {{#if goal.isExpanded}}
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-xs-12 fhir-form-item">

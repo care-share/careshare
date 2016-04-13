@@ -14,7 +14,7 @@
             {{#draggable-object content=nutrition}}
                 <div {{action "hoverOn" nutrition on="mouseEnter"}} {{action "hoverOff" nutrition on="mouseLeave"}}>
                     {{#fhir-element root=nutrition toHighlight=careplan.toHighlight type='NutritionOrder' as |section|}}
-                        {{#if (eq section "expanded")}}
+                        {{#if nutrition.isExpanded}}
                         {{! THIS IS ONLY FOR SUPPLEMENTS TODO: NiceToHave: Create a type handler that can use the other types}}
                             <div class="row">
                                 {{#backbone-element parent=nutrition name='supplement' type='nutrition-order-supplement-component' isArray=true}}

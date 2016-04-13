@@ -5,7 +5,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     // args passed in from template: root, type
     classNames: ['fhir-element'], // needed for Ember to add this CSS class to the HTML element
-    expanded: false,
     currentHover: false,
     // action dictionary/map:
     updateRecord: 'updateRecord', // this is needed to bubble this action to the respective controller action
@@ -35,7 +34,7 @@ export default Ember.Component.extend({
             this.sendAction('updateRecord', this.get('parent'), this.get('name'), this.get('type'));
         } else if (this.get('root.isNewRecord')) {
             // newly created records start out expanded
-            this.set('expanded', true);
+            this.get('root').set('isExpanded', true);
         }
         if (this.get('root.isRelatedToCarePlan') === true) {
             this.get('classNames').addObject('is-related-to-care-plan');
@@ -101,13 +100,13 @@ export default Ember.Component.extend({
             this.set('currentHover', false);
         },
         toggleExpanded: function () {
-            this.toggleProperty('expanded');
-            if (this.get('expanded') === false) {
+            this.get('root').toggleProperty('isExpanded');
+            if (!this.get('root.isExpanded')) {
                 this.set('currentHover', false);
             }
         },
         expand: function () {
-            this.set('expanded', true);
+            this.set('root.isExpanded', true);
         },
         acceptDeletion: function () {
             console.log('(FHIR-ELEMENT) ACCEPT HH DELETE RECORD - record: ' + this.get('root'));
