@@ -4,8 +4,24 @@ import uuid from 'ember-uuid/utils/uuid-generator';
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'), // needed for ember-simple-auth
     careplan: Ember.inject.controller('careplan'),
+    latestRecord: null,
     // the "carePlanRefAttr" field is set by child controllers
     actions: {
+        createRecordAndRelate: function(type,placeholderText){
+          var args = {};
+          if(type === "Condition" || type === "ProcedureRequest")
+            args.code = this.store.createRecord('codeable-concept',{'text':placeholderText});
+          else if(type === "Goal")
+            args.description = placeholderText;
+          else if(type === "NutritionOrder"){
+            //TODO: need clause for nutrition-order ('supplement.firstObject.productName')
+          }else if(type === "MedicationOrder"){
+            //TODO: need clause for medication-order ('relatedMedication.code.text')
+          }
+          this.send('createRecord',type, args);
+
+          //TODO: need to create relation with newly added record
+        },
         createRecord: function (type, args) {
             // create a time-based ID so records can be sorted in chronological order by ID
             var dateTime = new Date().getTime();
@@ -26,7 +42,8 @@ export default Ember.Controller.extend({
             if (type === 'Condition' || type === 'MedicationOrder') {
                 args.isRelatedToCarePlan = true;
             }
-            this.store.createRecord(type, args);
+
+            this.store.createRecord(type,args);
 
             // animate column
             var problemsColumn = Ember.$('#problems-column');
