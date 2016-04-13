@@ -3,6 +3,7 @@ import uuid from 'ember-uuid/utils/uuid-generator';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'), // needed for ember-simple-auth
+    careplan: Ember.inject.controller('careplan'),
     // the "carePlanRefAttr" field is set by child controllers
     actions: {
         createRecord: function (type, args) {

@@ -7,16 +7,13 @@ export default Ember.Component.extend({
     setup: function () {
         if (this.get('parent')) {
             this.set('originalSelections', this.get('selections'));
-            this.get('originalSelections').forEach(function (item) {
-                console.log('selection: ' + item.display);
-            });
             console.log('[INIT] (RELATED-LIST) ' + this.get('originalSelections'));
         }
     }.on('init'),
     onInitialization: function () {
-        var display = this.get('display'); // which attribute we display for each resource
         // observe the [] property of the relation Set, so we get alerted when the content changes
-        var observe = 'parent.' + this.get('relation') + '.[]';
+        var observe = 'parent.' + this.get('relation');
+        var observeProperty = observe + '.@each.displayText';
         Ember.defineProperty(this, 'selections', Ember.computed(function () {
             var selections = [];
             var set = this.get(observe); // get the Set that we are observing
@@ -29,12 +26,12 @@ export default Ember.Component.extend({
                     // different fields for this
                     selections.push({
                         model: observed[i],
-                        display: observed[i].get(display)
+                        display: observed[i].get('displayText')
                     });
                 }
             }
             return selections;
-        }).property(observe));
+        }).property(observeProperty));
     }.on('init'),
     actions: {
         selected: function (selection) {
@@ -101,12 +98,7 @@ export default Ember.Component.extend({
         }
     },
     removeGoalRef: function (goal, other) {
-        // first remove the temporary descriptive reference we are storing in the resource
-        var relName = `rl${other._internalModel.modelName.camelize().capitalize().pluralize()}`;
-        this.removeLocalRelation(goal, other, relName);
-        this.removeLocalRelation(other, goal, 'rlGoals');
-
-        // now, remove the actual reference in the goal's Ember model and save that on the server
+        // remove the actual reference in the goal's Ember model and save that on the server
         var addresses = goal.get('addresses').toArray();
         for (var i = 0; i < addresses.length; i++) {
             var reference = addresses[i].get('reference').split('/');
@@ -118,23 +110,8 @@ export default Ember.Component.extend({
         goal.save();
     },
     removeConditionRef: function (condition, other) {
-        // first remove the temporary descriptive reference we are storing in the resource
-        var relName = `rl${other._internalModel.modelName.camelize().capitalize().pluralize()}`;
-        this.removeLocalRelation(condition, other, relName);
-        this.removeLocalRelation(other, condition, 'rlCondition', true);
-
-        // now, remove the actual reference in the other's Ember model and save that on the server
+        // remove the actual reference in the other's Ember model and save that on the server
         other.set('reasonReference', undefined);
         other.save();
-    },
-    removeLocalRelation: function (from, to, relName, isSingleItem) {
-        if (isSingleItem) {
-            from.set(relName, undefined);
-        } else {
-            var relation = from.get(relName);
-            if (relation) {
-                relation.removeObject(to);
-            }
-        }
     }
 });

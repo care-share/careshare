@@ -19,7 +19,6 @@ export default {
         // the array is recalculated!
     }),
     unreadCount: Ember.computed('comms.@each.hasSeen', function () {
-        console.log('unreadCount recalculated!');
         return this.get('comms').reduce(function(previousValue, communication){
             return previousValue + (communication.get('hasSeen') ? 0 : 1);
         }, 0);

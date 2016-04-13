@@ -14,7 +14,7 @@
         {{#draggable-object-target action="createRelation" ontoObject=intervention}}
             {{#draggable-object content=intervention}}
                 <div {{action "hoverOn" intervention on="mouseEnter"}} {{action "hoverOff" intervention on="mouseLeave"}}>
-                    {{#fhir-element root=intervention type='ProcedureRequest' as |section|}}
+                    {{#fhir-element root=intervention toHighlight=careplan.toHighlight type='ProcedureRequest' as |section|}}
                         {{#if (eq section "expanded")}}
                             <div class="row">
                                 <div class="form-group">
@@ -50,7 +50,7 @@
 
                                         <div id="reason" class="col-xs-12 col-lg-7">
                                             {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
-                                            {{fhir-object-select compSelection=intervention.rlCondition parent=intervention variable='reasonReference' localVariable='rlCondition' options=parentController.conditions}}
+                                            {{fhir-object-select compSelection=intervention.relatedCondition parent=intervention variable='reasonReference' localVariable='relatedCondition' options=parentController.conditions}}
                                         </div>
                                     </div>
                                     {{! TODO Removed not working sections
@@ -82,12 +82,12 @@
                                             {{/each}}
                                         </div>
                                     </div>
-                                    {{related-list parent=intervention relation='rlGoals' display='description' label="Goals"}}
+                                    {{related-list parent=intervention relation='relatedGoals' label="Goals"}}
                                     {{comm-channel resource=intervention resource_type='Intervention'}}
                                 </div>
                             </div>
                         {{else}}
-                            {{intervention.code.text}} {{intervention.scheduledTiming.repeat.displayCode}}
+                            {{intervention.displayText}} {{intervention.scheduledTiming.repeat.displayCode}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>

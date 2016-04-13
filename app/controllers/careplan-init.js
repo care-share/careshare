@@ -2,11 +2,6 @@ import Ember from 'ember';
 import uuid from "ember-uuid/utils/uuid-generator";
 
 export default Ember.ObjectController.extend({
-//  needs: 'patients',
-//  patientsController: Ember.computed.alias('controllers.patients'),
-//    patientController: Ember.inject.controller('patient'),
-//    patient: Ember.computed.reads('patientsController.model'),
-//  givenName: Ember.computed.reads('patient.name.given'),
     selectedConditions: [], // for multi-select-checkboxes
     actions: {
         initializeCarePlan: function () {

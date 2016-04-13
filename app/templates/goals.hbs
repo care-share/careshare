@@ -13,7 +13,7 @@
         {{#draggable-object-target action="createRelation" ontoObject=goal}}
             {{#draggable-object content=goal}}
                 <div {{action "hoverOn" goal on="mouseEnter"}} {{action "hoverOff" goal on="mouseLeave"}}>
-                    {{#fhir-element root=goal type='Goal' as |section|}}
+                    {{#fhir-element root=goal toHighlight=careplan.toHighlight type='Goal' as |section|}}
                         {{#if (eq section "expanded")}}
                             <div class="row">
                                 <div class="form-group">
@@ -90,12 +90,13 @@
                                         {{/each}}
                                     </div>
                                 </div>
-                                {{related-list parent=goal relation='rlConditions' display='code.text' label="Problems"}}
-                                {{related-list parent=goal relation='rlProcedureRequests' display='code.text' label="Interventions"}}
+                                {{related-list parent=goal relation='relatedConditions' label="Problems"}}
+                                {{related-list parent=goal relation='relatedProcedureRequests' label="Interventions"}}
+                                {{related-list parent=goal relation='relatedNutritionOrders' label="Nutrition"}}
                             </div>
                             {{comm-channel resource=goal resource_type='Goal'}}
                         {{else}}
-                            {{goal.description}}
+                            {{goal.displayText}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>
