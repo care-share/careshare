@@ -49,6 +49,14 @@
                     <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
                     <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
                 {{/if}}
+                {{#if (and (not isAdmin)  isCreateNomination )}}
+                    <button class="nomination-button" {{action 'saveRecord'}}>Save</button>
+                    <button class="nomination-button" {{action 'deleteRecord'}}>Cancel</button>
+                    <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
+                    <button class="nomination-button" {{action 'clarify'}}>Clarify</button>
+
+                {{/if}}
+
             </div>
             <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
         {{else}}
