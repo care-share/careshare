@@ -1,13 +1,17 @@
-<br>{{#em-modal-toggler modal-id=nameID class="btn btn-primary" style="width:100%;text-align:center;display: block;margin-left: auto;margin-right: auto"}}
+<div style="width:100%;text-align:center;display: block;margin-left: auto;margin-right: auto; padding-bottom:5px;">
     <div style="float:left">Annotations
         <span class="glyphicon glyphicon-comment"></span>
     </div>
-    <div style="float:right">Show All <span class="badge">{{resource.comms.length}}</span></div>
-{{/em-modal-toggler}}
+    {{#em-modal-toggler class="show-all-button" modal-id=nameID style="float:right"}}
+        Show All <span class="badge">{{resource.comms.length}}</span>:
+    {{/em-modal-toggler}}
+
+</div>
+
 {{#em-modal configName="bs" id=nameID}}
     {{#em-modal-body}}
-        <div class="page-header">
-            <h3 style="color:#ffffff;background-color:#3498db;padding-top:5px;padding-bottom:5px;border-color:#357ebd;text-align:center;vertical-align:middle">
+        <div class="">
+            <h3 style="color:#ffffff;background-color:#3498db;padding-bottom:5px;border-color:#357ebd;text-align:center;vertical-align:middle">
                 Annotations
                 <span class="glyphicon glyphicon-comment"></span>
             </h3>
