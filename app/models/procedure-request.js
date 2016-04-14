@@ -26,15 +26,23 @@ export default model.extend({
         }
         return null;
     }),
-    relatedCondition: Ember.computed('reasonId', function() {
+    reasonModel: Ember.computed('reasonId', function() {
+        // need this 'intermediary attribute' to track whether the reason model has an error or not (i.e. deleted)
         let id = this.get('reasonId');
         if (id) {
             return this.store.peekRecord('condition', id);
         }
         return null;
     }),
+    relatedCondition: Ember.computed('reasonModel.isError', function() {
+        let reason = this.get('reasonModel');
+        if (reason && !reason.get('isError')) {
+            return reason;
+        }
+        return null;
+    }),
     allGoals: Ember.computed(function() {
-        return this.store.peekAll('goal');
+        return this.store.peekAll('goal').filterBy('isError', false, {live: true});
     }),
     relatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {

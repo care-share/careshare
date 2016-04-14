@@ -10,54 +10,59 @@ export default Ember.Component.extend({
     type: null,
     textAreaValue: '',
     possibleChoices: [],
-    setup: function(){
-        var typeVal = this.get('relation').toLowerCase();
-        if(typeVal.includes('condition')) this.set('type','Condition');
-        else if(typeVal.includes('goal')) this.set('type','Goal');
-        else if(typeVal.includes('procedurerequest')) this.set('type','ProcedureRequest');
-        else if(typeVal.includes('nutritionorder')) this.set('type','NutritionOrder');
-        else if(typeVal.includes('medicationorder')) this.set('type','MedicationOrder');
+    setup: function () {
+        let relation = this.get('relation');
+        let typeVal = relation.toLowerCase();
+        if (typeVal.includes('condition')) {
+            this.set('type', 'Condition');
+        } else if (typeVal.includes('goal')) {
+            this.set('type', 'Goal');
+        } else if (typeVal.includes('procedurerequest')) {
+            this.set('type', 'ProcedureRequest');
+        } else if (typeVal.includes('nutritionorder')) {
+            this.set('type', 'NutritionOrder');
+        } else if (typeVal.includes('medicationorder')) {
+            this.set('type', 'MedicationOrder');
+        }
 
-        Ember.defineProperty(this,'relations',Ember.computed(function(){
-          console.log('relations changed: '+this.get('parent').get(this.get('relation')).length);
-          this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
-          return this.get('parent').get(this.get('relation'));
-        }).property('parent.'+this.get('relation')));
+        var relatedAttr = `parent.${relation}`;
+        Ember.defineProperty(this, 'relations', Ember.computed(function () {
+            return this.get(relatedAttr);
+        }).property(relatedAttr));
+        var unrelatedAttr = `parent.un${relation}`;
+        Ember.defineProperty(this, 'possibleChoices', Ember.computed(function () {
+            return this.get(unrelatedAttr);
+        }).property(unrelatedAttr));
     }.on('init'),
-    addReference: function (referringObject, referredObject, attributeName, isListAttribute,reference) {
-    // creates a FHIR reference to referredObject and adds it to the attribute named in listName
-    /*var reference = this.store.createRecord('reference', {
-        reference: `${referredObject._internalModel.modelName}/${referredObject.id}`
-    });*/
-    if (isListAttribute) { // for reference attributes with any allowed length
-        var references = referringObject.get(attributeName)
-            .toArray();
-        // TODO: should add logic to check if the reference already exists
-        // We end up adding duplicates, but that won't break anything for now
-        references.addObject(reference);
-        referringObject.set(attributeName, references);
-    } else { // for reference attributes that allow only one value
-        referringObject.set(attributeName, reference);
-    }
-    console.log(referringObject);
-    referringObject.save();
-},
+    addReference: function (referringObject, referredObject, attributeName, isListAttribute, reference) {
+        if (isListAttribute) { // for reference attributes with any allowed length
+            var references = referringObject.get(attributeName).toArray();
+            // TODO: should add logic to check if the reference already exists
+            // We end up adding duplicates, but that won't break anything for now
+            references.addObject(reference);
+            referringObject.set(attributeName, references);
+        } else { // for reference attributes that allow only one value
+            referringObject.set(attributeName, reference);
+        }
+        console.log(referringObject);
+        referringObject.save();
+    },
     actions: {
-        createRecordAndRelate: function(placeholderText){
-          console.log('createRecordAndRelate');
-          this.set('textAreaValue', '');
-          this.sendAction('createRecordAndRelate',this.get('type'),placeholderText,this.get('parent'),this);
+        createRecordAndRelate: function (placeholderText) {
+            console.log('createRecordAndRelate');
+            this.set('textAreaValue', '');
+            this.sendAction('createRecordAndRelate', this.get('type'), placeholderText, this.get('parent'), this);
         },
-        createRelation: function(selection){
-          console.log('createRelation: '+selection);
-          this.sendAction('createRelation',selection,this.get('parent'),this);
+        createRelation: function (selection) {
+            console.log('createRelation: ' + selection);
+            this.sendAction('createRelation', selection, this.get('parent'), this);
         },
         selected: function (selection) {
             console.log('SELECTED: ' + selection.display);
             selection.model.toggleProperty('isExpanded');
         },
         deleteReference: function (from, to) {
-            console.log("deleted: from ("+from+") to ("+to+")");
+            console.log("deleted: from (" + from + ") to (" + to + ")");
             var fromType = from._internalModel.modelName;
             var toType = to._internalModel.modelName;
             console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.id}`);
