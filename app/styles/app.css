@@ -19894,7 +19894,7 @@ button.nobackground{
 }*/
 
 .fhir-form-item{
-  padding:2px;
+  padding:0px !important;
 }
 /*
 .control-label{
@@ -20065,7 +20065,18 @@ button.nobackground{
   position:absolute;
   bottom:0;
   right:0;
+  padding-top: 2px;
+  padding-right: 3px;
+  color: gray;
 }
+
+.element-delete{
+  padding-top:5px;
+  padding-right:2px;
+  float:right;
+  color: gray;
+}
+
 
 
 .nomination-button {

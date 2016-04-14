@@ -2,11 +2,13 @@
     <div class="panel panel-info" style={{computedStyle}}
         {{action "hoverOn" on="mouseEnter"}}
         {{action "hoverOff" on="mouseLeave"}}
-        {{action 'expand' on="doubleClick"}}
-    >
+        {{action 'expand' on="doubleClick"}}>
         {{#if root.isExpanded}}
             {{yield}}
+
+
             <div style="float:left; padding-bottom:2px">
+                 <div class="glyphicon glyphicon-resize-small expand-ellipsis"  {{action 'toggleExpanded'}}> </div>
                 {{!-- New element or existing element --}}
                 {{#if (not isNomination)}}
                     {{#if isAdmin}}
@@ -17,7 +19,6 @@
                     {{#if root.isNewRecord}}
                         <button class="nomination-button" {{action 'deleteRecord'}}>Cancel</button>
                     {{else}}
-                        <button class="nomination-button" {{action 'deleteRecord'}}>Delete</button>
                         <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
                     {{/if}}
                 {{/if }}
@@ -48,10 +49,12 @@
                         <button class="nomination-button" {{action 'rejectDeletion'}}>Cancel</button>
                     {{/if}}
                 {{/if}}
+
             </div>
-            <div style="float:right;" {{action 'toggleExpanded'}}> Less</div>
+
+            <span class="glyphicon glyphicon-trash element-delete" {{action 'deleteRecord'}}> </span>
         {{else}}
-            <div style="float:left;padding-bottom:2px">
+            <div style="float:left;padding-bottom:2px; padding-right: 15px">
                 {{yield "contracted"}}
 
                 {{!-- Home Health buttons for collapsed elements --}}
@@ -81,9 +84,9 @@
                 {{/if}}
 
             </div>
-            {{#if currentHover}}
-                <span class="expand-ellipsis" {{action 'toggleExpanded'}}> ...</span>
-            {{/if}}
+            {{!#if currentHover}}
+                <span class="glyphicon glyphicon-resize-full expand-ellipsis" {{action 'toggleExpanded'}}> </span>
+            {{!/if}}
 
         {{/if}}
 

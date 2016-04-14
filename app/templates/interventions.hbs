@@ -21,7 +21,7 @@
                                     <div class="col-xs-12 fhir-form-item">
                                         <div class="col-xs-12">
                                             {{#codeable-concept parent=intervention name='code'}}
-                                                {{fhir-edit parent=intervention name='code.text'}}
+                                                {{fhir-edit class="title-textarea" parent=intervention name='code.text'}}
                                             {{/codeable-concept}}
                                             {{#each intervention.changes.[-code-text] as |cr|}}
                                                 {{change-request parent=intervention name='code.text' cr=cr}}
