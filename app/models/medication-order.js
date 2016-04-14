@@ -1,9 +1,11 @@
 import model from 'ember-fhir-adapter/models/medication-order';
 import Ember from 'ember';
+import DS from 'ember-data';
 import commProps from 'careshare/properties/comm-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('relatedMedication.code.text'),
+    isExpanded: DS.attr('boolean', {defaultValue: false}),
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount,
@@ -28,10 +30,18 @@ export default model.extend({
         }
         return null;
     }),
-    relatedCondition: Ember.computed('reasonId', function() {
+    reasonModel: Ember.computed('reasonId', function() {
+        // need this 'intermediary attribute' to track whether the reason model has an error or not (i.e. deleted)
         let id = this.get('reasonId');
         if (id) {
             return this.store.peekRecord('condition', id);
+        }
+        return null;
+    }),
+    relatedCondition: Ember.computed('reasonModel.isError', function() {
+        let reason = this.get('reasonModel');
+        if (reason && !reason.get('isError')) {
+            return reason;
         }
         return null;
     }),
@@ -42,10 +52,18 @@ export default model.extend({
         }
         return null;
     }),
-    relatedMedication: Ember.computed('medicationId', function() {
+    medicationModel: Ember.computed('medicationId', function() {
+        // need this 'intermediary attribute' to track whether the medication model has an error or not (i.e. deleted)
         let id = this.get('medicationId');
         if (id) {
             return this.store.peekRecord('medication', id);
+        }
+        return null;
+    }),
+    relatedMedication: Ember.computed('medicationModel.isError', function() {
+        let medication = this.get('medicationModel');
+        if (medication && !medication.get('isError')) {
+            return medication;
         }
         return null;
     })

@@ -28,8 +28,6 @@ export default CarePlanResource.extend({
         },
         saveRecord: function (record) {
             console.log('(PROBLEMS CONTROLLER) SAVE RECORD- record: ' + record + '');
-
-
             //TODO: Need to reload the controller to call init() and reset the diff. Should we be calling record.reload()???
             return this._super(record);
         }

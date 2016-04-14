@@ -129,6 +129,7 @@ export default Ember.Controller.extend({
             this.toggleProperty('isShowingForm');
         },
         createRelation: function (draggedObject, options) {
+            // only called when one element is dragged/dropped onto another
             var ontoObject = options.target.ontoObject;
             var ontoModel = ontoObject._internalModel.modelName;
             var draggedModel = draggedObject._internalModel.modelName;

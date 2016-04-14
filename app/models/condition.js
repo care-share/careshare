@@ -4,6 +4,7 @@ import commProps from 'careshare/properties/comm-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('code.text'),
+    isExpanded: DS.attr('boolean', {defaultValue: false}),
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount,
@@ -22,17 +23,22 @@ export default model.extend({
     // INTERNAL RELATIONS
     ////////////////////////////////////////////
     allGoals: Ember.computed(function() {
-        return this.store.peekAll('goal');
+        return this.store.peekAll('goal').filterBy('isError', false, {live: true});
     }),
     allProcedureRequests: Ember.computed(function() {
-        return this.store.peekAll('procedure-request');
+        return this.store.peekAll('procedure-request').filterBy('isError', false, {live: true});
     }),
     allMedicationOrders: Ember.computed(function() {
-        return this.store.peekAll('medication-order');
+        return this.store.peekAll('medication-order').filterBy('isError', false, {live: true});
     }),
     relatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
             return item.get('addressesIds').contains(this.get('id'));
+        }, this);
+    }),
+    unrelatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
+        return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
+            return !item.get('addressesIds').contains(this.get('id'));
         }, this);
     }),
     relatedProcedureRequests: Ember.computed('allProcedureRequests.@each.reasonId', function() {

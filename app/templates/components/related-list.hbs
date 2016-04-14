@@ -1,23 +1,35 @@
 <div> Related {{label}}:</div>
 <div>
     <ul class="relatedList">
-        {{#each selections as |selection|}}
-            <li {{action 'selected' selection on='doubleClick'}}>
-                <div>
-                    {{selection.display}}
-                    <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection.model}}></button>
-                </div>
-            </li>
+        {{#each relations as |selection|}}
+                <li {{action 'selected' selection on='doubleClick'}}>
+                    <div>
+                    {{selection.displayText}}
+                    <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection}}/>
+                    </div>
+                </li>
         {{else}}
             <li>
                 No Related {{label}}
             </li>
         {{/each}}
-        <!-- TODO: add an action to this button
-        <li>
-            <button style="color:green" class='glyphicon glyphicon-plus'></button>
-        </li>
-        -->
+        {{!--{{#if (not-eq possibleChoices.length 0)}}--}}
+          <li>
+              <div class="btn-group">
+                {{!--<div style="color:green" class="glyphicon glyphicon-plus"/>--}}
+                <div style="color:black">
+                  {{#x-select action="createRelation"}}
+                    {{#x-option value=op.[0]}}--Select one--{{/x-option}}
+                    {{#each possibleChoices as |op|}}
+                        {{#x-option value=op}}{{op.displayText}}{{/x-option}}
+                    {{/each}}
+                  {{/x-select}}
+                </div>
+              </div>
+            </li>
+        {{!--{{/if}}--}}
+        {{textarea action="createRecordAndRelate" value=textAreaValue aria-controls="existing-user-table" placeholder="Create and relate to new record" autofocus="autofocus"
+        autoresize=true classNames="form-control"}}
     </ul>
     <div style="clear:left;"></div>
 </div>

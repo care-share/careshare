@@ -3,42 +3,66 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     // args passed in from template: parent, relation (string), display (string), label (string)
     classNames: ['related-list'], // needed for Ember to add this CSS class to the HTML element
-    originalSelections: null,
+    createRecord: 'createRecord',
+    createRecordAndRelate: 'createRecordAndRelate',
+    createRelation: 'createRelation',
+    relatedListSelected: '---',
+    type: null,
+    textAreaValue: '',
+    possibleChoices: [],
     setup: function () {
-        if (this.get('parent')) {
-            this.set('originalSelections', this.get('selections'));
-            console.log('[INIT] (RELATED-LIST) ' + this.get('originalSelections'));
+        let relation = this.get('relation');
+        let typeVal = relation.toLowerCase();
+        if (typeVal.includes('condition')) {
+            this.set('type', 'Condition');
+        } else if (typeVal.includes('goal')) {
+            this.set('type', 'Goal');
+        } else if (typeVal.includes('procedurerequest')) {
+            this.set('type', 'ProcedureRequest');
+        } else if (typeVal.includes('nutritionorder')) {
+            this.set('type', 'NutritionOrder');
+        } else if (typeVal.includes('medicationorder')) {
+            this.set('type', 'MedicationOrder');
         }
+
+        var relatedAttr = `parent.${relation}`;
+        Ember.defineProperty(this, 'relations', Ember.computed(function () {
+            return this.get(relatedAttr);
+        }).property(relatedAttr));
+        var unrelatedAttr = `parent.un${relation}`;
+        Ember.defineProperty(this, 'possibleChoices', Ember.computed(function () {
+            return this.get(unrelatedAttr);
+        }).property(unrelatedAttr));
     }.on('init'),
-    onInitialization: function () {
-        // observe the [] property of the relation Set, so we get alerted when the content changes
-        var observe = 'parent.' + this.get('relation');
-        var observeProperty = observe + '.@each.displayText';
-        Ember.defineProperty(this, 'selections', Ember.computed(function () {
-            var selections = [];
-            var set = this.get(observe); // get the Set that we are observing
-            if (set) {
-                var observed = set.toArray() // convert the Set to an Array
-                    .sortBy('id'); // sort the Array by ID (so the order matches up with what is in the resource column)
-                for (var i = 0; i < observed.length; i++) {
-                    // create an array of objects of type {model, display}
-                    // reason is that each object will have some display property, but different model types will have
-                    // different fields for this
-                    selections.push({
-                        model: observed[i],
-                        display: observed[i].get('displayText')
-                    });
-                }
-            }
-            return selections;
-        }).property(observeProperty));
-    }.on('init'),
+    addReference: function (referringObject, referredObject, attributeName, isListAttribute, reference) {
+        if (isListAttribute) { // for reference attributes with any allowed length
+            var references = referringObject.get(attributeName).toArray();
+            // TODO: should add logic to check if the reference already exists
+            // We end up adding duplicates, but that won't break anything for now
+            references.addObject(reference);
+            referringObject.set(attributeName, references);
+        } else { // for reference attributes that allow only one value
+            referringObject.set(attributeName, reference);
+        }
+        console.log(referringObject);
+        referringObject.save();
+    },
     actions: {
+        createRecordAndRelate: function (placeholderText) {
+            console.log('createRecordAndRelate');
+            this.set('textAreaValue', '');
+            this.sendAction('createRecordAndRelate', this.get('type'), placeholderText, this.get('parent'), this);
+        },
+        createRelation: function (selection) {
+            console.log('createRelation: ' + selection);
+            this.sendAction('createRelation', selection, this.get('parent'), this);
+        },
         selected: function (selection) {
             console.log('SELECTED: ' + selection.display);
             selection.model.toggleProperty('isExpanded');
         },
         deleteReference: function (from, to) {
+            console.log("deleted: from (" + from + ") to (" + to + ")");
             var fromType = from._internalModel.modelName;
             var toType = to._internalModel.modelName;
             console.log(`Delete resource reference from ${fromType} ${from.id} to ${toType} ${to.id}`);

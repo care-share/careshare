@@ -69,8 +69,7 @@
                                 {{#each nutrition.changes.[-dateTime] as |cr|}}
                                     {{change-request parent=nutrition name='dateTime' cr=cr}}
                                 {{/each}}
-
-                                {{related-list parent=nutrition relation='relatedGoals' display='description' label="Goals"}}
+                                {{related-list parent=nutrition relation='relatedGoals' display='description' label="Goals" lastExpanded=controller.lastExpanded}}
                                 {{comm-channel resource=nutrition resource_type='Nutrition'}}
                             </div>
                         {{else}}
