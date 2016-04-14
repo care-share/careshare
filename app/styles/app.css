@@ -20067,14 +20067,14 @@ button.nobackground{
   right:0;
   padding-top: 2px;
   padding-right: 3px;
-  color: gray;
+  color: rgba(128, 128, 128, 0.62);
 }
 
 .element-delete{
   padding-top:5px;
   padding-right:2px;
   float:right;
-  color: gray;
+  color: rgba(128, 128, 128, 0.62);
 }
 
 
