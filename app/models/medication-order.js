@@ -4,6 +4,7 @@ import commProps from 'careshare/properties/comm-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('relatedMedication.code.text'),
+    isExpanded: DS.attr('boolean', {defaultValue: false}),
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount,
@@ -35,6 +36,13 @@ export default model.extend({
         }
         return null;
     }),
+    unrelatedCondition: Ember.computed('reasonId', function() {
+        let id = this.get('reasonId');
+        if (id) {
+            return !this.store.peekRecord('condition', id);
+        }
+        return null;
+    }),
     medicationId: Ember.computed('medicationReference', function() {
         let reference = this.get('medicationReference.reference');
         if (reference) {
@@ -46,6 +54,13 @@ export default model.extend({
         let id = this.get('medicationId');
         if (id) {
             return this.store.peekRecord('medication', id);
+        }
+        return null;
+    }),
+    unrelatedMedication: Ember.computed('medicationId', function() {
+        let id = this.get('medicationId');
+        if (id) {
+            return !this.store.peekRecord('medication', id);
         }
         return null;
     })

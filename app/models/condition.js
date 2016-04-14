@@ -4,6 +4,7 @@ import commProps from 'careshare/properties/comm-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('code.text'),
+    isExpanded: DS.attr('boolean', {defaultValue: false}),
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount,
@@ -35,14 +36,29 @@ export default model.extend({
             return item.get('addressesIds').contains(this.get('id'));
         }, this);
     }),
+    unrelatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
+        return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
+            return !item.get('addressesIds').contains(this.get('id'));
+        }, this);
+    }),
     relatedProcedureRequests: Ember.computed('allProcedureRequests.@each.reasonId', function() {
         return this.get('allProcedureRequests').filter(function(item/*, index, enumerable*/) {
             return item.get('reasonId') === this.get('id');
         }, this);
     }),
+    unrelatedProcedureRequests: Ember.computed('allProcedureRequests.@each.reasonId', function() {
+        return this.get('allProcedureRequests').filter(function(item/*, index, enumerable*/) {
+            return !item.get('reasonId') === this.get('id');
+        }, this);
+    }),
     relatedMedicationOrders: Ember.computed('allMedicationOrders.@each.reasonId', function() {
         return this.get('allMedicationOrders').filter(function(item/*, index, enumerable*/) {
             return item.get('reasonId') === this.get('id');
+        }, this);
+    }),
+    unrelatedMedicationOrders: Ember.computed('allMedicationOrders.@each.reasonId', function() {
+        return this.get('allMedicationOrders').filter(function(item/*, index, enumerable*/) {
+            return !item.get('reasonId') === this.get('id');
         }, this);
     })
 });
