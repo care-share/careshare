@@ -1,6 +1,6 @@
 {{#if inline}}
     {{#if showTime}}
-        {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L LT' forceDateOutput=true}}
+        {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L hh:mm:ss a' forceDateOutput=true}}
             {{input class='form-control' value=datePassthrough autofocus="autofocus"}}
         {{!--{{#if (gt calculatedPatch.length 0)}}
             <div style='background-color:#dddddd'>
@@ -24,7 +24,7 @@
     {{#em-modal configName="bs" id=nameID on-hide='on-hide'}}
         {{#em-modal-body}}
             {{#if showTime}}
-                {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L LT' noIcon=true forceDateOutput=true sideBySide=true inline=true}}
+                {{#bs-datetimepicker date=datePassthrough showToday=false pickTime=showTime format='L hh:mm:ss a' noIcon=true forceDateOutput=true sideBySide=true inline=true}}
                     {{input class='form-control' value=datePassthrough}}
                 {{/bs-datetimepicker}}
             {{else}}
@@ -40,7 +40,11 @@
             <button class='glyphicon glyphicon-remove' {{action 'cancel'}}/>
         </div>
     {{else}}--}}
-    {{datePassthrough}}
+    {{#if datePassthrough }}
+        {{datePassthrough}}
+    {{else}}
+        {{emptyPlaceholder}}
+    {{/if}}
     {{!--{{/if}}--}}
-    {{em-modal-toggler modal-id=nameID class="glyphicon glyphicon-calendar"}}
+    {{em-modal-toggler modal-id=nameID class="glyphicon glyphicon-calendar "}}
 {{/if}}

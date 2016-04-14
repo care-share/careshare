@@ -7,6 +7,7 @@ export default PassthroughComponent.extend({
     showModal: false,
     originalValue: '',
     isArray: false, // is this used for a single object or an array of objects?
+    emptyPlaceholder: "--/--/---- --:-- --",
     setup: function () {
         // Creates a computed property that converts date strings to Date objects
         Ember.defineProperty(this, 'datePassthrough', Ember.computed({

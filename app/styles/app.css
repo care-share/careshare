@@ -20132,3 +20132,45 @@ button.nobackground{
      border-bottom:1px solid #444;
      cursor: pointer;
 }
+
+.x-select{
+  width:150px;
+  background-color: transparent;
+  color: #eee;
+}
+
+.x-option{
+  color: black;
+}
+
+/* Tooltip container */
+.tooltip {
+  /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.has-tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+}
+
+.has-tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+.col-xs-12 > .fhir-datetime {
+  font-family: monospace;
+}
+
+.bootstrap-datetimepicker-widget.wider {
+    width: 100%;
+}

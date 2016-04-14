@@ -9,17 +9,18 @@
                     </div>
                 </li>
         {{else}}
-            <li>
+            <li class="has-tooltip">
                 No Related {{label}}
+                 <span class="tooltiptext">Add relation by dragging related {{label}} or select {{label}} from adjacent list</span>
             </li>
         {{/each}}
         {{!--{{#if (not-eq possibleChoices.length 0)}}--}}
           <li>
               <div class="btn-group">
                 {{!--<div style="color:green" class="glyphicon glyphicon-plus"/>--}}
-                <div style="color:black">
+                <div>
                   {{#x-select action="createRelation"}}
-                    {{#x-option value=op.[0]}}--Select one--{{/x-option}}
+                    {{#x-option value=op.[0]}}Relate {{label}}{{/x-option}}
                     {{#each possibleChoices as |op|}}
                         {{#x-option value=op}}{{op.displayText}}{{/x-option}}
                     {{/each}}
