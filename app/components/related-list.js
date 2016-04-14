@@ -19,21 +19,38 @@ export default Ember.Component.extend({
         else if(typeVal.includes('medicationorder')) this.set('type','MedicationOrder');
 
         Ember.defineProperty(this,'relations',Ember.computed(function(){
-          console.log('relations changed!');
+          console.log('relations changed: '+this.get('parent').get(this.get('relation')).length);
           this.set('possibleChoices',this.get('parent').get('un'+this.get('relation')));
           return this.get('parent').get(this.get('relation'));
         }).property('parent.'+this.get('relation')));
     }.on('init'),
+    addReference: function (referringObject, referredObject, attributeName, isListAttribute,reference) {
+    // creates a FHIR reference to referredObject and adds it to the attribute named in listName
+    /*var reference = this.store.createRecord('reference', {
+        reference: `${referredObject._internalModel.modelName}/${referredObject.id}`
+    });*/
+    if (isListAttribute) { // for reference attributes with any allowed length
+        var references = referringObject.get(attributeName)
+            .toArray();
+        // TODO: should add logic to check if the reference already exists
+        // We end up adding duplicates, but that won't break anything for now
+        references.addObject(reference);
+        referringObject.set(attributeName, references);
+    } else { // for reference attributes that allow only one value
+        referringObject.set(attributeName, reference);
+    }
+    console.log(referringObject);
+    referringObject.save();
+},
     actions: {
         createRecordAndRelate: function(placeholderText){
           console.log('createRecordAndRelate');
-          this.sendAction('createRecordAndRelate',this.get('type'),placeholderText);
           this.set('textAreaValue', '');
-          //this.send('createRelation',this.get('controller').get('latestRecord'));
+          this.sendAction('createRecordAndRelate',this.get('type'),placeholderText,this.get('parent'),this);
         },
         createRelation: function(selection){
           console.log('createRelation: '+selection);
-          this.sendAction('createRelation',selection,this.get('parent'));
+          this.sendAction('createRelation',selection,this.get('parent'),this);
         },
         selected: function (selection) {
             console.log('SELECTED: ' + selection.displayText);

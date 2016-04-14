@@ -5,9 +5,9 @@ export default Ember.Controller.extend({
     session: Ember.inject.service('session'), // needed for ember-simple-auth
     careplan: Ember.inject.controller('careplan'),
     latestRecord: null,
-    // the "carePlanRefAttr" field is set by child controllers
+    createRelation: 'createRelation',
     actions: {
-        createRecordAndRelate: function(type,placeholderText){
+        createRecordAndRelate: function(type,placeholderText,parent,root){
           var args = {};
           if(type === "Condition" || type === "ProcedureRequest")
             args.code = this.store.createRecord('codeable-concept',{'text':placeholderText});
@@ -18,11 +18,82 @@ export default Ember.Controller.extend({
           }else if(type === "MedicationOrder"){
             //TODO: need clause for medication-order ('relatedMedication.code.text')
           }
-          this.send('createRecord',type, args);
 
-          //TODO: need to create relation with newly added record
+          this.send('createRecord',type, args,true,parent,root);
+          console.log('createRecordAndRelate record created: '+this.get('latestRecord'));
+          //this.get('latestRecord').save();
+          //this.send('createRelation',this.get('latestRecord'),this);
+        },
+        createRelation: function (draggedObject, options){
+          this.send('createRelation',draggedObject,options,null);
+        },
+        createRelation: function (draggedObject, options, root) {
+            var ontoObject = (options.target !== null && options.target !== undefined)?options.target.ontoObject:options;
+            var ontoModel = ontoObject._internalModel.modelName;
+            var draggedModel = draggedObject._internalModel.modelName;
+            console.log(`createRelation called for ${draggedModel} to ${ontoModel}`);
+
+            // Architectural logic for how we create the link:
+            // (we need to know which type should be the referrer, and what attribute the reference list lives in, and whether that attribute allows multiple values)
+            var that = this;
+            if(root !== null && root != undefined) that = root;
+
+            var draggedObjectRecord = this.store.createRecord('reference', {
+                reference: `${draggedObject._internalModel.modelName}/${draggedObject.id}`
+            }),
+            ontoObjectRecord = this.store.createRecord('reference', {
+                reference: `${ontoObject._internalModel.modelName}/${ontoObject.id}`
+            });
+
+            console.log("this is: "+this+",that is: "+that);
+
+            var otherToGoal = function () {
+                that.addReference(ontoObject, draggedObject, 'addresses', true,draggedObjectRecord);
+            };
+            var goalToOther = function () {
+                that.addReference(draggedObject, ontoObject, 'addresses', true,ontoObjectRecord);
+            };
+            var otherToCondition = function () {
+                that.addReference(draggedObject, ontoObject, 'reasonReference', false,ontoObjectRecord);
+            };
+            var conditionToOther = function () {
+                that.addReference(ontoObject, draggedObject, 'reasonReference', false,draggedObjectRecord);
+            };
+
+            var map = {
+                // ontoModel
+                'goal': {
+                    // draggedModel
+                    'condition': otherToGoal,
+                    'procedure-request': otherToGoal,
+                    'nutrition-order': otherToGoal
+                },
+                'condition': {
+                    'goal': goalToOther,
+                    'medication-order': otherToCondition,
+                    'procedure-request': otherToCondition
+                },
+                'procedure-request': {
+                    'goal': goalToOther,
+                    'condition': conditionToOther
+                },
+                'nutrition-order': {
+                    'goal': goalToOther
+                },
+                'medication-order': {
+                    'condition': conditionToOther
+                }
+            };
+            if (map[ontoModel] && map[ontoModel][draggedModel]) {
+                map[ontoModel][draggedModel]();
+            } else {
+                console.log('No link logic found!');
+            }
         },
         createRecord: function (type, args) {
+          this.send('createRecord',type, args,false,null,null);
+        },
+        createRecord: function (type, args, link, parent,root) {
             // create a time-based ID so records can be sorted in chronological order by ID
             var dateTime = new Date().getTime();
             var newId = `${dateTime}-${uuid.v4()}`;
@@ -43,7 +114,8 @@ export default Ember.Controller.extend({
                 args.isRelatedToCarePlan = true;
             }
 
-            this.store.createRecord(type,args);
+            var latestRecord = this.store.createRecord(type,args);
+            if(link == true) this.send('createRelation',latestRecord,parent,root);
 
             // animate column
             var problemsColumn = Ember.$('#problems-column');
