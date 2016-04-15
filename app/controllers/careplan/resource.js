@@ -6,6 +6,24 @@ export default Ember.Controller.extend({
     careplan: Ember.inject.controller('careplan'),
     latestRecord: null,
     createRelation: 'createRelation',
+    addReference: function (referringObject, referredObject, attributeName, isListAttribute) {
+        // creates a FHIR reference to referredObject and adds it to the attribute named in listName
+        var reference = this.store.createRecord('reference', {
+            reference: `${referredObject._internalModel.modelName}/${referredObject.id}`
+        });
+        if (isListAttribute) { // for reference attributes with any allowed length
+            var references = referringObject.get(attributeName)
+                .toArray();
+            // TODO: should add logic to check if the reference already exists
+            // We end up adding duplicates, but that won't break anything for now
+            references.addObject(reference);
+            referringObject.set(attributeName, references);
+        } else { // for reference attributes that allow only one value
+            referringObject.set(attributeName, reference);
+        }
+        console.log(referringObject);
+        referringObject.save();
+    },
     actions: {
         createRecordAndRelate: function(type,placeholderText,parent,root){
           var args = {};
@@ -45,19 +63,18 @@ export default Ember.Controller.extend({
                 reference: `${ontoObject._internalModel.modelName}/${ontoObject.id}`
             });
 
-            console.log("this is: "+this+",that is: "+that);
-
+            var inner = this;
             var otherToGoal = function () {
-                that.addReference(ontoObject, draggedObject, 'addresses', true,draggedObjectRecord);
+                inner.addReference(ontoObject, draggedObject, 'addresses', true,draggedObjectRecord);
             };
             var goalToOther = function () {
-                that.addReference(draggedObject, ontoObject, 'addresses', true,ontoObjectRecord);
+                inner.addReference(draggedObject, ontoObject, 'addresses', true,ontoObjectRecord);
             };
             var otherToCondition = function () {
-                that.addReference(draggedObject, ontoObject, 'reasonReference', false,ontoObjectRecord);
+                inner.addReference(draggedObject, ontoObject, 'reasonReference', false,ontoObjectRecord);
             };
             var conditionToOther = function () {
-                that.addReference(ontoObject, draggedObject, 'reasonReference', false,draggedObjectRecord);
+                inner.addReference(ontoObject, draggedObject, 'reasonReference', false,draggedObjectRecord);
             };
 
             var map = {
