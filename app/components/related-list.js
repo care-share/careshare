@@ -58,8 +58,8 @@ export default Ember.Component.extend({
             this.sendAction('createRelation', selection, this.get('parent'), this);
         },
         selected: function (selection) {
-            console.log('SELECTED: ' + selection.display);
-            selection.model.toggleProperty('isExpanded');
+            console.log('SELECTED: ' + selection);
+            selection.toggleProperty('isExpanded');
         },
         deleteReference: function (from, to) {
             console.log("deleted: from (" + from + ") to (" + to + ")");

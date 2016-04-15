@@ -20,13 +20,13 @@ export default model.extend({
     // INTERNAL RELATIONS
     ////////////////////////////////////////////
     allConditions: Ember.computed(function() {
-        return this.store.peekAll('condition').filterBy('isError', false, {live: true});
+        return this.store.peekAll('condition').filterBy('isDeleted', false, {live: true});
     }),
     allProcedureRequests: Ember.computed(function() {
-        return this.store.peekAll('procedure-request').filterBy('isError', false, {live: true});
+        return this.store.peekAll('procedure-request').filterBy('isDeleted', false, {live: true});
     }),
     allNutritionOrders: Ember.computed(function() {
-        return this.store.peekAll('nutrition-order').filterBy('isError', false, {live: true});
+        return this.store.peekAll('nutrition-order').filterBy('isDeleted', false, {live: true});
     }),
     addressesIds: Ember.computed('addresses.[]', function() {
         return this.get('addresses').map(function(item/*, index, enumerable*/) {
