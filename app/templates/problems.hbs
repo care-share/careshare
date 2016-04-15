@@ -10,6 +10,7 @@
 </div>
 <div id="problems-column" class="panel-group fhir-column">
     {{#each model as |problem|}}
+    {{#if (and (eq problem.isError false) (eq problem.isDeleted false))}}
         {{#draggable-object-target action="createRelation" ontoObject=problem}}
             {{#draggable-object content=problem}}
                 <div {{action "hoverOn" problem on="mouseEnter"}} {{action "hoverOff" problem on="mouseLeave"}}>
@@ -82,6 +83,7 @@
                 </div>
             {{/draggable-object}}
         {{/draggable-object-target}}
+        {{/if}}
     {{else}}
         No Problems<br/>
     {{/each}}
