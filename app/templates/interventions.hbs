@@ -11,6 +11,7 @@
 
 <div id="interventions-column" class="panel-group fhir-column">
     {{#each model as |intervention|}}
+    {{#if (and (eq intervention.isError false) (eq intervention.isDeleted false))}}
         {{#draggable-object-target action="createRelation" ontoObject=intervention}}
             {{#draggable-object content=intervention}}
                 <div {{action "hoverOn" intervention on="mouseEnter"}} {{action "hoverOff" intervention on="mouseLeave"}}>
@@ -93,6 +94,7 @@
                 </div>
             {{/draggable-object}}
         {{/draggable-object-target}}
+        {{/if}}
     {{else}}
         No Interventions<br/>
     {{/each}}

@@ -18,6 +18,7 @@
 </div>
 <div class="panel-group fhir-column">
     {{#each model as |order|}}
+    {{#if (and (eq order.isError false) (eq order.isDeleted false))}}
         {{#draggable-object-target action="createRelation" ontoObject=order}}
             {{#draggable-object content=order}}
                 <div {{action "hoverOn" order on="mouseEnter"}} {{action "hoverOff" order on="mouseLeave"}}>
@@ -52,7 +53,7 @@
                 </div>
             {{/draggable-object}}
         {{/draggable-object-target}}
-
+        {{/if}}
     {{else}}
         No Medications<br/>
     {{/each}}

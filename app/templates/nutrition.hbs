@@ -10,6 +10,7 @@
 </div>
 <div id="nutrition-column" class="panel-group fhir-column">
     {{#each model as |nutrition|}}
+    {{#if (and (eq nutrition.isError false) (eq nutrition.isDeleted false))}}
         {{#draggable-object-target action="createRelation" ontoObject=nutrition}}
             {{#draggable-object content=nutrition}}
                 <div {{action "hoverOn" nutrition on="mouseEnter"}} {{action "hoverOff" nutrition on="mouseLeave"}}>
@@ -79,6 +80,7 @@
                 </div>
             {{/draggable-object}}
         {{/draggable-object-target}}
+        {{/if}}
     {{else}}
         No Nutrition<br/>
     {{/each}}

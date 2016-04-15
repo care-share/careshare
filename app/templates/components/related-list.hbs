@@ -2,7 +2,7 @@
 <div>
     <ul class="relatedList">
         {{#each relations as |selection|}}
-            {{#if (eq selection.isDeleted false)}}
+            {{#if (and (eq selection.isError false) (eq selection.isDeleted false))}}
                 <li {{action 'selected' selection on='doubleClick'}}>
                     <div>
                     {{selection.displayText}}
