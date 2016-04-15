@@ -42,7 +42,7 @@ export default model.extend({
         return null;
     }),
     allGoals: Ember.computed(function() {
-        return this.store.peekAll('goal').filterBy('isError', false, {live: true});
+        return this.store.peekAll('goal').filterBy('isDeleted', false, {live: true});
     }),
     relatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
