@@ -6,7 +6,15 @@ import commProps from 'careshare/properties/comm-properties';
 import filter from 'careshare/properties/filter-properties';
 
 export default model.extend({
-    displayText: Ember.computed.alias('code.text'),
+    displayText: Ember.computed('code.text', 'clinicalStatus', function () {
+        let text = this.get('code.text');
+        let suffix = '';
+        let status = this.get('clinicalStatus');
+        if (status) {
+            suffix = ` (${status})`;
+        }
+        return `${text}${suffix}`;
+    }),
     isExpanded: DS.attr('boolean', {defaultValue: false}),
     carePlanId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
     patientId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)

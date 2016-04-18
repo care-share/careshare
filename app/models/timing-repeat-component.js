@@ -11,7 +11,7 @@ export default model.extend({
         var string = null;
         //if (!frequency && !period) {
         if (!frequency || !period || !periodUnits) {
-            string = 'None specified';
+            string = null;
         } else {
             string = frequency.toString();
             if (frequencyMax) {

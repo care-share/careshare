@@ -76,7 +76,10 @@
                         </div> }}
                         {{else}}
                         {{!TODO: Wrap this with severity border-left}}
-                            {{problem.displayText}} - ({{problem.clinicalStatus}})
+                            {{problem.displayText}}
+                            {{#if problem.clinicalStatus}}
+                                - ({{problem.clinicalStatus}})
+                            {{/if}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>

@@ -69,7 +69,12 @@
 
                                         <div id="reason" class="col-xs-12 col-lg-7">
                                             {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
-                                            {{intervention.scheduledTiming.repeat.displayCode}} {{fhir-timing parent=intervention name='scheduledTiming'}}
+                                            {{#if intervention.scheduledTiming.repeat.displayCode}}
+                                                {{intervention.scheduledTiming.repeat.displayCode}}
+                                            {{else}}
+                                                None specified
+                                            {{/if}}
+                                            {{fhir-timing parent=intervention name='scheduledTiming'}}
                                         </div>
                                     </div>
                                     <div class=" col-xs-12 fhir-form-item">
@@ -87,7 +92,10 @@
                                 </div>
                             </div>
                         {{else}}
-                            {{intervention.displayText}} {{intervention.scheduledTiming.repeat.displayCode}}
+                            {{intervention.displayText}}
+                            {{#if intervention.scheduledTiming.repeat.displayCode}}
+                                - ({{intervention.scheduledTiming.repeat.displayCode}})
+                            {{/if}}
                         {{/if}}
                     {{/fhir-element}}
                 </div>
