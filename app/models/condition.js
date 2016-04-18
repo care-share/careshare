@@ -1,6 +1,8 @@
 import model from 'ember-fhir-adapter/models/condition';
 import Ember from 'ember';
+import DS from 'ember-data';
 import commProps from 'careshare/properties/comm-properties';
+import filter from 'careshare/properties/filter-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('code.text'),
@@ -22,15 +24,18 @@ export default model.extend({
     ////////////////////////////////////////////
     // INTERNAL RELATIONS
     ////////////////////////////////////////////
-    allGoals: Ember.computed(function() {
-        return this.store.peekAll('goal').filterBy('isDeleted', false, {live: true});
+    _allGoals: Ember.computed(function() {
+        return this.store.peekAll('goal');
     }),
-    allProcedureRequests: Ember.computed(function() {
-        return this.store.peekAll('procedure-request').filterBy('isDeleted', false, {live: true});
+    allGoals: filter.err('_allGoals'),
+    _allProcedureRequests: Ember.computed(function() {
+        return this.store.peekAll('procedure-request');
     }),
-    allMedicationOrders: Ember.computed(function() {
-        return this.store.peekAll('medication-order').filterBy('isDeleted', false, {live: true});
+    allProcedureRequests: filter.err('_allProcedureRequests'),
+    _allMedicationOrders: Ember.computed(function() {
+        return this.store.peekAll('medication-order');
     }),
+    allMedicationOrders: filter.err('_allMedicationOrders'),
     relatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
             return item.get('addressesIds').contains(this.get('id'));

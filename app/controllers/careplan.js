@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import API from '../api';
+import filter from 'careshare/properties/filter-properties';
 
 export default Ember.Controller.extend({
     // controller dependencies
@@ -17,21 +18,26 @@ export default Ember.Controller.extend({
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
-    goals: Ember.computed(function() { // goals
-        return this.store.peekAll('goal').filterBy('isError', false, {live: true});
+    _goals: Ember.computed(function() { // goals
+        return this.store.peekAll('goal');
     }),
-    conditions: Ember.computed(function() { // problems
-        return this.store.peekAll('condition').filterBy('isError', false, {live: true});
+    goals: filter.err('_goals'), // filter out deleted records
+    _conditions: Ember.computed(function() { // problems
+        return this.store.peekAll('condition');
     }),
-    nutritionOrders: Ember.computed(function() { // nutrition
-        return this.store.peekAll('nutrition-order').filterBy('isError', false, {live: true});
+    conditions: filter.err('_conditions'), // filter out deleted records
+    _nutritionOrders: Ember.computed(function() { // nutrition
+        return this.store.peekAll('nutrition-order');
     }),
-    procedureRequests: Ember.computed(function() { // interventions
-        return this.store.peekAll('procedure-request').filterBy('isError', false, {live: true});
+    nutritionOrders: filter.err('_nutritionOrders'), // filter out deleted records
+    _procedureRequests: Ember.computed(function() { // interventions
+        return this.store.peekAll('procedure-request');
     }),
-    medicationOrders: Ember.computed(function() { // medications
-        return this.store.peekAll('medication-order').filterBy('isError', false, {live: true});
+    procedureRequests: filter.err('_procedureRequests'), // filter out deleted records
+    _medicationOrders: Ember.computed(function() { // medications
+        return this.store.peekAll('medication-order');
     }),
+    medicationOrders: filter.err('_medicationOrders'), // filter out deleted records
     showGoals: true, // goals
     showConditions: true, // problems
     showNutritionOrders: false, // nutrition

@@ -3,6 +3,7 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import nomChange from 'careshare/properties/nominations-change-property';
 import commProps from 'careshare/properties/comm-properties';
+import filter from 'careshare/properties/filter-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('supplement.firstObject.productName'),
@@ -19,9 +20,10 @@ export default model.extend({
     ////////////////////////////////////////////
     // INTERNAL RELATIONS
     ////////////////////////////////////////////
-    allGoals: Ember.computed(function() {
-        return this.store.peekAll('goal').filterBy('isDeleted', false, {live: true});
+    _allGoals: Ember.computed(function() {
+        return this.store.peekAll('goal');
     }),
+    allGoals: filter.err('_allGoals'),
     relatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
             return item.get('addressesIds').contains(this.get('id'));

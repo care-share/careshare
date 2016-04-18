@@ -3,6 +3,7 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import nomChange from 'careshare/properties/nominations-change-property';
 import commProps from 'careshare/properties/comm-properties';
+import filter from 'careshare/properties/filter-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('code.text'),
@@ -34,16 +35,11 @@ export default model.extend({
         }
         return null;
     }),
-    relatedCondition: Ember.computed('reasonModel.isError', function() {
-        let reason = this.get('reasonModel');
-        if (reason && !reason.get('isError')) {
-            return reason;
-        }
-        return null;
+    relatedCondition: filter.err1('reasonModel'),
+    _allGoals: Ember.computed(function() {
+        return this.store.peekAll('goal');
     }),
-    allGoals: Ember.computed(function() {
-        return this.store.peekAll('goal').filterBy('isDeleted', false, {live: true});
-    }),
+    allGoals: filter.err('_allGoals'),
     relatedGoals: Ember.computed('allGoals.@each.addressesIds', function() {
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
             return item.get('addressesIds').contains(this.get('id'));

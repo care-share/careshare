@@ -2,6 +2,7 @@ import model from 'ember-fhir-adapter/models/medication-order';
 import Ember from 'ember';
 import DS from 'ember-data';
 import commProps from 'careshare/properties/comm-properties';
+import filter from 'careshare/properties/filter-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('relatedMedication.code.text'),
@@ -38,13 +39,7 @@ export default model.extend({
         }
         return null;
     }),
-    relatedCondition: Ember.computed('reasonModel.isError', function() {
-        let reason = this.get('reasonModel');
-        if (reason && !reason.get('isError')) {
-            return reason;
-        }
-        return null;
-    }),
+    relatedCondition: filter.err1('reasonModel'),
     medicationId: Ember.computed('medicationReference', function() {
         let reference = this.get('medicationReference.reference');
         if (reference) {
@@ -60,11 +55,5 @@ export default model.extend({
         }
         return null;
     }),
-    relatedMedication: Ember.computed('medicationModel.isError', function() {
-        let medication = this.get('medicationModel');
-        if (medication && !medication.get('isError')) {
-            return medication;
-        }
-        return null;
-    })
+    relatedMedication: filter.err1('medicationModel')
 });

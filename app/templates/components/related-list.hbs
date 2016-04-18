@@ -2,14 +2,12 @@
 <div>
     <ul class="relatedList">
         {{#each relations as |selection|}}
-            {{#if (and (eq selection.isError false) (eq selection.isDeleted false))}}
                 <li {{action 'selected' selection on='doubleClick'}}>
                     <div>
                     {{selection.displayText}}
                     <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection}}/>
                     </div>
                 </li>
-            {{/if}}
         {{else}}
             <li class="has-tooltip">
                 No Related {{label}}

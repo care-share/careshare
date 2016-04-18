@@ -3,6 +3,7 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import nomChange from 'careshare/properties/nominations-change-property';
 import commProps from 'careshare/properties/comm-properties';
+import filter from 'careshare/properties/filter-properties';
 
 export default model.extend({
     displayText: Ember.computed.alias('description'),
@@ -19,15 +20,18 @@ export default model.extend({
     ////////////////////////////////////////////
     // INTERNAL RELATIONS
     ////////////////////////////////////////////
-    allConditions: Ember.computed(function() {
-        return this.store.peekAll('condition').filterBy('isDeleted', false, {live: true});
+    _allConditions: Ember.computed(function() {
+        return this.store.peekAll('condition');
     }),
-    allProcedureRequests: Ember.computed(function() {
-        return this.store.peekAll('procedure-request').filterBy('isDeleted', false, {live: true});
+    allConditions: filter.err('_allConditions'),
+    _allProcedureRequests: Ember.computed(function() {
+        return this.store.peekAll('procedure-request');
     }),
-    allNutritionOrders: Ember.computed(function() {
-        return this.store.peekAll('nutrition-order').filterBy('isDeleted', false, {live: true});
+    allProcedureRequests: filter.err('_allProcedureRequests'),
+    _allNutritionOrders: Ember.computed(function() {
+        return this.store.peekAll('nutrition-order');
     }),
+    allNutritionOrders: filter.err('_allNutritionOrders'),
     addressesIds: Ember.computed('addresses.[]', function() {
         return this.get('addresses').map(function(item/*, index, enumerable*/) {
             // return the string ID of the reference

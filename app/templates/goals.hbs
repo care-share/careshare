@@ -10,7 +10,6 @@
 </div>
 <div id="goals-column" class="panel-group fhir-column">
     {{#each model as |goal|}}
-    {{#if (and (eq goal.isError false) (eq goal.isDeleted false))}}
         {{#draggable-object-target action="createRelation" ontoObject=goal}}
             {{#draggable-object content=goal}}
                 <div {{action "hoverOn" goal on="mouseEnter"}} {{action "hoverOff" goal on="mouseLeave"}}>
@@ -103,7 +102,6 @@
                 </div>
             {{/draggable-object}}
         {{/draggable-object-target}}
-        {{/if}}
     {{else}}
         No Goals<br/>
     {{/each}}
