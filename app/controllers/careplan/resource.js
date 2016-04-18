@@ -250,8 +250,10 @@ export default Ember.Controller.extend({
         },
         undoRecord: function (record) {
             console.log('(' + this.get('me') + ') UNDO RECORD - record: ' + record);
+            let isExpanded = record.get('isExpanded');
             record.rollbackAttributes();
             record.reload();
+            record.set('isExpanded', isExpanded);
             let acceptedNominations = record.get('acceptedNominations');
             let rejectedNominations = record.get('rejectedNominations');
             if (acceptedNominations) {
