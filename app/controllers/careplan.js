@@ -37,7 +37,7 @@ export default Ember.Controller.extend({
     _medicationOrders: Ember.computed(function() { // medications
         return this.store.peekAll('medication-order');
     }),
-    medicationOrders: filter.err('_medicationOrders'), // filter out deleted records
+    medicationOrders: filter.err('_medicationOrders', 'displayText'), // filter out deleted records, sort by displayText
     showGoals: true, // goals
     showConditions: true, // problems
     showNutritionOrders: false, // nutrition
