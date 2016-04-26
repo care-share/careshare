@@ -45,7 +45,6 @@ export default Ember.Component.extend({
             referringObject.set(attributeName, reference);
         }
         console.log(referringObject);
-        referringObject.save();
     },
     actions: {
         createRecordAndRelate: function (placeholderText) {
@@ -122,11 +121,9 @@ export default Ember.Component.extend({
             }
         }
         // save goal after loop is finished, in case there were multiple references to the same resource for some reason
-        goal.save();
     },
     removeConditionRef: function (condition, other) {
         // remove the actual reference in the other's Ember model and save that on the server
         other.set('reasonReference', undefined);
-        other.save();
     }
 });

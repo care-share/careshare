@@ -18,12 +18,15 @@ export default Ember.Component.extend({
     highlight: Ember.computed('toHighlight.[]', function() {
         return this.get('toHighlight').contains(this.get('root.id'));
     }),
-    computedStyle: Ember.computed('highlight', 'currentHover', function() {
+    computedStyle: Ember.computed('highlight', 'currentHover', 'root.isUnclean', function() {
         let prefix = '';
         if (this.get('currentHover')) {
             prefix = 'border-color:#009e0f;';
         } else if (this.get('highlight')) {
             prefix = 'border-color:#009e0f;border-style: dashed;';
+        }
+        if (this.get('root.isUnclean')) {
+            prefix += 'background-color:lightskyblue;';
         }
         return Ember.String.htmlSafe(prefix + 'max-width: 100%; overflow-x: hidden;');
     }),

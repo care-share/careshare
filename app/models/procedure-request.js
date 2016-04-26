@@ -4,6 +4,7 @@ import DS from 'ember-data';
 import nomChange from 'careshare/properties/nominations-change-property';
 import commProps from 'careshare/properties/comm-properties';
 import filter from 'careshare/properties/filter-properties';
+import dirty from 'careshare/properties/dirty-property';
 
 export default model.extend({
     displayText: Ember.computed('code.text', 'clinicalStatus', function () {
@@ -15,6 +16,7 @@ export default model.extend({
         }
         return `${text}${suffix}`;
     }),
+    isNewRecord: Ember.computed.alias('currentState.isNew'),
     isExpanded: DS.attr('boolean', {defaultValue: false}),
     carePlanId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
     patientId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
@@ -57,5 +59,9 @@ export default model.extend({
         return this.get('allGoals').filter(function(item/*, index, enumerable*/) {
             return !item.get('addressesIds').contains(this.get('id'));
         }, this);
-    })
+    }),
+    ////////////////////////////////////////////
+    // DIRTY ATTRIBUTE DETECTION
+    ////////////////////////////////////////////
+    isUnclean: dirty.watch(['priority', 'orderedOn'], ['code', 'reasonReference', 'scheduledTiming.repeat'])
 });

@@ -82,7 +82,6 @@ export default Ember.Controller.extend({
             referringObject.set(attributeName, reference);
         }
         console.log(referringObject);
-        referringObject.save();
     },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
     actions: {

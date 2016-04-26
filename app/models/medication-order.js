@@ -3,9 +3,11 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import commProps from 'careshare/properties/comm-properties';
 import filter from 'careshare/properties/filter-properties';
+import dirty from 'careshare/properties/dirty-property';
 
 export default model.extend({
     displayText: Ember.computed.alias('relatedMedication.code.text'),
+    isNewRecord: Ember.computed.alias('currentState.isNew'),
     isExpanded: DS.attr('boolean', {defaultValue: false}),
     // communication properties
     comms: commProps.comms,
@@ -55,5 +57,9 @@ export default model.extend({
         }
         return null;
     }),
-    relatedMedication: filter.err1('medicationModel')
+    relatedMedication: filter.err1('medicationModel'),
+    ////////////////////////////////////////////
+    // DIRTY ATTRIBUTE DETECTION
+    ////////////////////////////////////////////
+    isUnclean: dirty.watch([], ['dosageInstruction.firstObject', 'reasonReference', 'relatedMedication.code'])
 });

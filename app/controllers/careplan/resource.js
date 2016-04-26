@@ -22,7 +22,6 @@ export default Ember.Controller.extend({
             referringObject.set(attributeName, reference);
         }
         console.log(referringObject);
-        referringObject.save();
     },
     actions: {
         createRecordAndRelate: function(type,placeholderText,parent,root){
@@ -126,7 +125,6 @@ export default Ember.Controller.extend({
             }
             args.id = newId;
             args.patient = patientRef;
-            args.isNewRecord = true;
             if (type === 'Condition' || type === 'MedicationOrder') {
                 args.isRelatedToCarePlan = true;
             }
@@ -199,9 +197,7 @@ export default Ember.Controller.extend({
 
             // check if this is a new record or if we are updating an existing one
             var isNewRecord = record.get('isNewRecord');
-            if (isNewRecord) {
-                record.set('isNewRecord', undefined);
-            } else {
+            if (!isNewRecord) {
                 var sessionRoles = this.get('session.data.authenticated.roles');
                 if (sessionRoles && sessionRoles.indexOf('physician') > -1) {
                     // this is a physician user, is this a nomination for a new record?
@@ -234,6 +230,7 @@ export default Ember.Controller.extend({
                     carePlan.set(that.carePlanRefAttr, refs);
                     carePlan.save();
                 }
+                record.set('cleanSnapshot', undefined);
                 record.reload();
             });
         },
@@ -243,6 +240,8 @@ export default Ember.Controller.extend({
                 var newRecord = this.store.createRecord(type, {});
                 console.log('MODEL NAME: ' + record.toString());
                 console.log('++NEW RECORD: ' + newRecord + '++');
+                this.cleanseRecord(newRecord);
+                // add the new record to the existing parent record
                 record.set(name, newRecord);
             } else {
                 console.log('!!FAILED - parent does not exist or record already exists!!');
@@ -252,7 +251,30 @@ export default Ember.Controller.extend({
             console.log('(' + this.get('me') + ') UNDO RECORD - record: ' + record);
             let isExpanded = record.get('isExpanded');
             record.rollbackAttributes();
-            record.reload();
+            let that = this;
+            record.eachRelationship(function(name, relationship) {
+                let target = record.get(`${name}.content`);
+                if (relationship.kind === 'belongsTo') {
+                    if (target && typeof target.rollbackAttributes === 'function') {
+                        target.rollbackAttributes();
+                        if (target._internalModel.currentState.stateName === 'root.loaded.updated.uncommitted') {
+                            // this is an empty record that was created by our fhir element component
+                            // rollbackAttributes won't work correctly, we need to fudge the state
+                            that.cleanseRecord(target);
+                        }
+                    }
+                } else if (relationship.kind === 'hasMany') {
+                    let array = [];
+                    for (let i = 0; i < target.canonicalState.length; i++) {
+                        let related = target.canonicalState[i].record;
+                        if (typeof related.rollbackAttributes === 'function') {
+                            related.rollbackAttributes();
+                        }
+                        array.push(related);
+                    }
+                    record.set(name, array);
+                }
+            });
             record.set('isExpanded', isExpanded);
             let acceptedNominations = record.get('acceptedNominations');
             let rejectedNominations = record.get('rejectedNominations');
@@ -296,5 +318,13 @@ export default Ember.Controller.extend({
                 record.removeAt(index);
             }
         }
+    },
+    cleanseRecord: function (record) {
+        // trick Ember Data into thinking that the new record is not dirty
+        // (for our purposes, it is not dirty because it is new;
+        // it should become dirty when the user changes an attribute)
+        record._internalModel.send('willCommit');
+        record._internalModel._attributes = {};
+        record._internalModel.send('didCommit');
     }
 });

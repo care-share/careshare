@@ -18,7 +18,12 @@ export default Ember.Component.extend({
             // Set parent variable when passthrough is edited externally
             if (arguments.length > 1) {
                 console.log('(passthrough-component) parent: ' + this.get('parent') + ',name: ' + this.get('name') + ',parent.name: ' + this.get('parent').get('repeat'));
-                this.get('parent').set(this.get('name'), value);
+                let result = this.get('parent.' + this.get('name'));
+                if ((result === null || result === undefined) && (value === null || value === undefined)) {
+                    // this is a newly created record, if we set the value it will trigger to appear as 'dirty'
+                } else {
+                    this.get('parent').set(this.get('name'), value);
+                }
             }
             // Sets passthrough to this when property changes
             return this.get('parent.' + this.get('name'));
