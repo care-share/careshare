@@ -1,6 +1,7 @@
 import model from 'ember-fhir-adapter/models/condition';
 import Ember from 'ember';
 import DS from 'ember-data';
+import nomChange from 'careshare/properties/nominations-change-property';
 import commProps from 'careshare/properties/comm-properties';
 import filter from 'careshare/properties/filter-properties';
 import dirty from 'careshare/properties/dirty-property';
@@ -9,6 +10,12 @@ export default model.extend({
     displayText: Ember.computed.alias('code.text'),
     isNewRecord: Ember.computed.alias('currentState.isNew'),
     isExpanded: DS.attr('boolean', {defaultValue: false}),
+    carePlanId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
+    patientId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
+    nominations: DS.attr('array'),
+    acceptedNominations: DS.attr('array', {defaultValue: []}),
+    rejectedNominations: DS.attr('array', {defaultValue: []}),
+    changes: nomChange(),
     // communication properties
     comms: commProps.comms,
     unreadCount: commProps.unreadCount,
