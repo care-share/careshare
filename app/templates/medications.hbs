@@ -24,7 +24,7 @@
                     {{#fhir-element root=order toHighlight=careplan.toHighlight type='MedicationOrder' as |section|}}
                         {{#if order.displayText}}
                             <!-- medication text should NOT be editable -->
-                            {{order.displayText}}
+                            {{order.displayText}} {{order.dosageInstruction.firstObject.text}}
                         {{else}}
                             NO MEDICATION
                         {{/if}}
