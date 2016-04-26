@@ -15,7 +15,6 @@ export default function () {
                 var diffObj = noms[n].diff;
                 if (diffObj === null || diffObj === undefined || JSON.stringify(diffObj) === "{}") {
                     // we have no diffObj (this is either a 'create' or 'delete' nomination)
-                    // TODO: do something depending on whether this is a 'create' or 'delete' nomination?
                     break;
                 }
                 var crObj = {
@@ -26,7 +25,18 @@ export default function () {
                 if (crObj.originalValue === null || crObj.originalValue === undefined) {
                     crObj.originalValue = "";
                 }
-                var pathNameWithDash = diffObj.path.split('/').join('-'); // replace all / in path with -
+                // if this attribute is for a related record, such as CodeableConcept, it will show up as 'add' instead of 'replace'
+                let path = diffObj.path;
+                if (diffObj.op === 'add' && typeof(diffObj.value) === 'object') {
+                    for (let key in diffObj.value) {
+                        if (diffObj.value.hasOwnProperty(key)) {
+                            path += `/${key}`;
+                            crObj.value = crObj.value[key];
+                            break;
+                        }
+                    }
+                }
+                var pathNameWithDash = path.split('/').join('-'); // replace all / in path with -
                 if (changeDic[pathNameWithDash]){
                     changeDic[pathNameWithDash].push(crObj);
                 }

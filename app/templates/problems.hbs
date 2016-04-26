@@ -22,6 +22,9 @@
                                             {{#codeable-concept parent=problem name='code'}}
                                                 {{fhir-edit parent=problem name='code.text'}}
                                             {{/codeable-concept}}
+                                            {{#each problem.changes.[-code-text] as |cr|}}
+                                                {{change-request parent=problem name='code.text' cr=cr}}
+                                            {{/each}}
                                         </div>
                                         {{!-- <div class="col-xs-12 col-lg-6">
                                             {{fhir-choice parent=problem name='clinicalStatus' choices='active,relapse,remission,resolved'}}
@@ -37,6 +40,9 @@
                                         {{#codeable-concept parent=problem name='severity'}}
                                             {{fhir-choice parent=problem name='severity.text' choices='Unspecified,Low,Moderate,Important,Critical'}}
                                         {{/codeable-concept}}
+                                        {{#each problem.changes.[-severity-text] as |cr|}}
+                                            {{change-request parent=problem name='severity.text' cr=cr}}
+                                        {{/each}}
                                     </div>
                                 </div>
                                 <div class="col-xs-12" style="padding:2px; padding-right:0px">
@@ -46,6 +52,9 @@
                                         {{#codeable-concept parent=problem name='category'}}
                                             {{fhir-choice parent=problem name='category.text' choices='Complaint,Symptom,Finding,Diagnosis'}}
                                         {{/codeable-concept}}
+                                        {{#each problem.changes.[-category-text] as |cr|}}
+                                            {{change-request parent=problem name='category.text' cr=cr}}
+                                        {{/each}}
                                     </div>
                                 </div>
                             </div>
@@ -55,6 +64,9 @@
 
                                     <div id="onset" class="col-xs-12 col-lg-7">
                                         {{fhir-datetime parent=problem name='onsetDateTime' showTime=true}}
+                                        {{#each problem.changes.[-onsetDateTime] as |cr|}}
+                                            {{change-request parent=problem name='onsetDateTime' cr=cr}}
+                                        {{/each}}
                                     </div>
                                 </div>
                                 <div class="col-xs-12 fhir-form-item">
@@ -62,6 +74,9 @@
 
                                     <div id="abatement" class="col-xs-12 col-lg-7">
                                         {{fhir-datetime parent=problem name='abatementDateTime' showTime=true}}
+                                        {{#each problem.changes.[-abatementDateTime] as |cr|}}
+                                            {{change-request parent=problem name='abatementDateTime' cr=cr}}
+                                        {{/each}}
                                     </div>
                                 </div>
                             </div>
