@@ -18,7 +18,7 @@
                     {{/if}}
                     {{#if root.isNewRecord}}
                         <button class="nomination-button" {{action 'deleteRecord'}}>Cancel</button>
-                    {{else}}
+                    {{else if root.isUnclean}}
                         <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
                     {{/if}}
                 {{/if }}
@@ -36,7 +36,9 @@
                 {{#if isChangeNomination}}
                     {{#if isAdmin}}
                         <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
-                        <button class="nomination-button" {{action 'undoRecord'}}>Reset</button>
+                        {{#if root.isUnclean}}
+                            <button class="nomination-button" {{action 'undoRecord'}}>Reset</button>
+                        {{/if}}
                     {{else}}
                         <button class="nomination-button" {{action 'saveRecord'}}>Save</button>
                     {{/if}}
