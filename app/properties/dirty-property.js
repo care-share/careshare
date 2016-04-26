@@ -15,9 +15,10 @@ export default {
             watch.push(`${child}.hasDirtyAttributes`);
         }
         watch.push('currentState.isNew');
+        watch.push('acceptedNominations.[]');
+        watch.push('rejectedNominations.[]');
         // the array of attributes to watch needs to be 'spread'ed so the array elements are treated as individual arguments
         return Ember.computed(...watch, function () {
-            let isNew = this.get('currentState.isNew');
             // if we don't have one already, store a snapshot of the attributes we're monitoring
             let snapshot = this.get('cleanSnapshot');
             if (snapshot === undefined) {
@@ -29,9 +30,13 @@ export default {
                 this.set('cleanSnapshot', snapshot);
                 return false;
             }
-            if (isNew) {
+            let isNew = this.get('currentState.isNew');
+            let anyAccepted = this.get('acceptedNominations.length') > 0;
+            let anyRejected = this.get('rejectedNominations.length') > 0;
+            if (isNew || anyAccepted || anyRejected) {
                 return true;
             }
+
             // check if any attributes of this model are dirty
             let result = false;
             for (let i = 0; i < attrs.length; i++) {
