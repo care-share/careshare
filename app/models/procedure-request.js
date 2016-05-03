@@ -21,8 +21,8 @@ export default model.extend({
     carePlanId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
     patientId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
     nominations: DS.attr('array'),
-    acceptedNominations: DS.attr('array', {defaultValue: []}),
-    rejectedNominations: DS.attr('array', {defaultValue: []}),
+    acceptedNominations: DS.attr('array', {defaultValue: function() {return [];}}),
+    rejectedNominations: DS.attr('array', {defaultValue: function() {return [];}}),
     changes: nomChange(),
     // communication properties
     comms: commProps.comms,
