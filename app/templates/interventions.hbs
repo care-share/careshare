@@ -54,7 +54,7 @@
                                                 {{fhir-object-select parent=intervention name='reasonReference.reference' options=parentController.conditions current=intervention.relatedCondition}}
                                             {{/backbone-element}}
                                             {{#each intervention.changes.[-reasonReference-reference] as |cr|}}
-                                                {{change-request parent=intervention name='reasonReference.reference' cr=cr}}
+                                                {{change-request parent=intervention name='reasonReference.reference' cr=cr format='reference'}}
                                             {{/each}}
                                         </div>
                                     </div>

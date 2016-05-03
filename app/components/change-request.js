@@ -1,18 +1,29 @@
 import Ember from 'ember';
+
 export default Ember.Component.extend({
     tagName: 'span',
     classNames: ['change-request'],
     session: Ember.inject.service('session'),
     patcher: new diff_match_patch(),
-    change: function () {
-        let p = this.get('patcher');
-        let diff = p.diff_main(this.get('old'), this.get('new'), true);
-        p.diff_cleanupSemantic(diff); // expand diff to whole words
-        return p.diff_prettyHtml(diff);
-    }.property('old', 'new'),
     setup: function () {
         this.set('old', this.get('cr').originalValue);
         this.set('new', this.get('cr').value);
+        // compute change display HTML
+        let format = this.get('format');
+        let _old = this.get('old');
+        let _new = this.get('new');
+        if (format === 'reference') {
+            // custom formatting for Reference type
+            let parent = this.get('parent');
+            _old = checkRef(_old, parent);
+            _new = checkRef(_new, parent);
+        } else if (format === 'datetime') {
+
+        }
+        let p = this.get('patcher');
+        let diff = p.diff_main(_old, _new, true);
+        p.diff_cleanupSemantic(diff); // expand diff to whole words
+        this.set('change', p.diff_prettyHtml(diff));
     }.on('init'),
     isAccepted: Ember.computed('parent.acceptedNominations.[]', function() {
         let id = this.get('cr').id;
@@ -58,5 +69,15 @@ export default Ember.Component.extend({
             //TODO apply styling to selected choice
         }
     }
-
 });
+
+function checkRef(attr, that) {
+    let split = attr.split('/');
+    if (split[1]) {
+        let reference = that.store.peekRecord(split[0], split[1]);
+        if (reference) {
+            return reference.get('displayText');
+        }
+    }
+    return attr;
+}
