@@ -23,22 +23,16 @@ export default PassthroughComponent.extend({
                     result = passthrough;
                 }
                 console.log('datePassthrough get result: ' + result);
-                if (result === null || result === undefined) {
+                if (result === null || result === undefined || result === "") {
                     return result;
                 }
-                var resultDate = (("0" + (result.getMonth() + 1)).slice(-2) + '/' + ("0" + result.getDate()).slice(-2) + '/' + result.getFullYear() + ' '
-                + ((result.getHours() > 12) ? (result.getHours() - 12) : (("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
-                ((result.getHours() > 12) ? ' PM' : ' AM')).replace("00:00 AM", "");
-                console.log('datePassthrough resultDate: ' + resultDate);
-                return resultDate;
+                return moment(result).format('MM/DD/YYYY hh:mm A');
             },
             set(key, value) {
                 var result = new Date(Ember.Date.parse(value));
                 console.log('datePassthrough set value: ' + value + ',result: ' + result);
                 this.set('passthrough', this.get('isArray') ? [result] : result);
-                return (("0" + (result.getMonth() + 1)).slice(-2) + '/' + ("0" + result.getDate()).slice(-2) + '/' + result.getFullYear() + ' '
-                + ((result.getHours() > 12) ? (result.getHours() - 12) : (("0" + result.getHours()).slice(-2))) + ":" + ("0" + result.getMinutes()).slice(-2) +
-                ((result.getHours() > 12) ? ' PM' : ' AM')).replace("00:00 AM", "");
+                return moment(result).format('MM/DD/YYYY hh:mm A');
             }
         }).property('passthrough'));
 
