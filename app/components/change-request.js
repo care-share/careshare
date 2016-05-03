@@ -8,7 +8,7 @@ export default Ember.Component.extend({
         let p = this.get('patcher');
         let diff = p.diff_main(this.get('old'), this.get('new'), true);
         p.diff_cleanupSemantic(diff); // expand diff to whole words
-        return this.get('patcher').diff_prettyHtml(diff);
+        return p.diff_prettyHtml(diff);
     }.property('old', 'new'),
     setup: function () {
         this.set('old', this.get('cr').originalValue);
