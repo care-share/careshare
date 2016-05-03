@@ -30,7 +30,7 @@ export default model.extend({
     ////////////////////////////////////////////
     // INTERNAL RELATIONS
     ////////////////////////////////////////////
-    reasonId: Ember.computed('reasonReference', function() {
+    reasonId: Ember.computed('reasonReference.reference', function() {
         let reference = this.get('reasonReference.reference');
         if (reference) {
             return reference.split('/')[1];

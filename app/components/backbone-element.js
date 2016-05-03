@@ -9,7 +9,7 @@ export default Ember.Component.extend({
     updateArraySingle: 'updateArraySingle', // this is needed to bubble this action to the respective controller action
     isArray: false, // is this used for a single object or an array of objects?
     setup: function () {
-        console.log('[INIT] (backbone-element) {record: ' + this.get('parent'));
+        console.log('[INIT] (backbone-element) - record: ' + this.get('parent') + ', name: ' + this.get('name') + ', type: ' + this.get('type'));
         var action = 'updateRecord'; // by default, the attribute is a single object
         if (this.get('isArray')) {
             // the attribute is an array of objects
