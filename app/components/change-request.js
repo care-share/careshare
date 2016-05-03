@@ -5,7 +5,9 @@ export default Ember.Component.extend({
     session: Ember.inject.service('session'),
     patcher: new diff_match_patch(),
     change: function () {
-        var diff = this.get('patcher').diff_main(this.get('old'), this.get('new'), true);
+        let p = this.get('patcher');
+        let diff = p.diff_main(this.get('old'), this.get('new'), true);
+        p.diff_cleanupSemantic(diff); // expand diff to whole words
         return this.get('patcher').diff_prettyHtml(diff);
     }.property('old', 'new'),
     setup: function () {
