@@ -94,9 +94,9 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 {{#if medpair.ehrMed}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Accept HH'}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Enforce VA'}}
                                 {{else}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Renew'}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Do not use'}}
                                 {{/if}}
                             </div>
                             <div class="col-xs-6">
@@ -105,14 +105,14 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='No action'}}
+                                {{#if medpair.ehrMed}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Accept HH'}}
+                                {{else}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Renew'}}
+                                {{/if}}
                             </div>
                             <div class="col-xs-6">
-                                {{#if medpair.ehrMed}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Enforce VA'}}
-                                {{else}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Do not use'}}
-                                {{/if}}
+                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='No action'}}
                             </div>
                         </div>
                     </div>
