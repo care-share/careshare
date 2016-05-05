@@ -109,5 +109,8 @@
         {{#if (gt root.unreadCount 0)}}
             <span class="icon-comment"> {{root.unreadCount}}</span>
         {{/if}}
+        {{#if root.isUnclean}}
+            <span class="careplan-notification-badge red-badge">Unsaved Changes</span>
+        {{/if}}
     </div>
 </div>

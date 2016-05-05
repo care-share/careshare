@@ -25,9 +25,9 @@ export default Ember.Component.extend({
         } else if (this.get('highlight')) {
             prefix = 'border-color:#009e0f;border-style: dashed;';
         }
-        if (this.get('root.isUnclean')) {
-            prefix += 'background-color:lightskyblue;';
-        }
+        // if (this.get('root.isUnclean')) {
+        //     prefix += 'background-color:lightskyblue;';
+        // }
         return Ember.String.htmlSafe(prefix + 'max-width: 100%; overflow-x: hidden;');
     }),
     setup: function () {
