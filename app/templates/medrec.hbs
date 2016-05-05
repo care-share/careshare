@@ -25,13 +25,18 @@
                             {{medpair.ehrMed.medicationReference.display}}
                         </div>
                         <div>
-                            <span>{{!-- TODO frequency? --}}(frequency)</span>
                             <span>{{medpair.ehrMed.dosageInstruction.firstObject.text}}</span>
+                        </div>
+                        <div>
+                            <span>({{medpair.ehrMed.dosageInstruction.firstObject.timing.repeat.displayCode}})</span>
                         </div>
                     </div>
                     {{#if medpair.homeMed.not_found}}
                     <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}' {{action 'setAction' medpair 'Do not use' on='click'}}>
                         <span style="font-style: italic; color: gray">Not Found</span>
+                        {{#if medpair.homeMed.note}} <div>
+                            <span>Notes: {{medpair.homeMed.note}}</span>
+                        </div> {{/if}} 
                     </div>
                     {{else}}
                     <div class='col-xs-5ths {{if (eq medpair.homeMed.action 'Accept HH') 'medrec-accepted'}}' {{action 'setAction' medpair 'Accept HH' on='click'}}>
@@ -42,6 +47,19 @@
                             <span class="{{if medpair.discrepancy.freq 'medrec-discrepancy'}}">{{medpair.homeMed.freq}}</span>
                             <span class="{{if medpair.discrepancy.dose 'medrec-discrepancy'}}">{{medpair.homeMed.dose}}</span>
                         </div>
+                        {{#unless medpair.homeMed.compliance_bool}} <div>
+                            <span>
+                                    Patient not adhering ({{medpair.homeMed.noncompliance_note}})
+                            </span>
+                        </div> {{/unless}} 
+                        {{#unless medpair.homeMed.prescribed_by_primary}} <div>
+                            <span>
+                                    Outside Prescriber: {{medpair.homeMed.prescriber_note}}
+                            </span>
+                        </div> {{/unless}} 
+                        {{#if medpair.homeMed.note}} <div>
+                            <span>Notes: {{medpair.homeMed.note}}</span>
+                        </div> {{/if}} 
                     </div>
                     {{/if}}
                 {{else}}
@@ -56,6 +74,19 @@
                             <span>{{medpair.homeMed.freq}}</span>
                             <span>{{medpair.homeMed.dose}}</span>
                         </div>
+                        {{#unless medpair.homeMed.compliance_bool}} <div>
+                            <span>
+                                    Patient not adhering ({{medpair.homeMed.noncompliance_note}})
+                            </span>
+                        </div> {{/unless}} 
+                        {{#unless medpair.homeMed.prescribed_by_primary}} <div>
+                            <span>
+                                    Outside Prescriber: {{medpair.homeMed.prescriber_note}}
+                            </span>
+                        </div> {{/unless}} 
+                        {{#if medpair.homeMed.note}} <div>
+                            <span>Notes: {{medpair.homeMed.note}}</span>
+                        </div> {{/if}} 
                     </div>
                 {{/if}}
                 <div class='col-xs-5ths'>
