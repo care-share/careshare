@@ -65,7 +65,7 @@
                                     <div id="onset" class="col-xs-12 col-lg-7">
                                         {{fhir-datetime parent=problem name='onsetDateTime' showTime=true}}
                                         {{#each problem.changes.[-onsetDateTime] as |cr|}}
-                                            {{change-request parent=problem name='onsetDateTime' cr=cr}}
+                                            {{change-request parent=problem name='onsetDateTime' cr=cr format='datetime'}}
                                         {{/each}}
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                     <div id="abatement" class="col-xs-12 col-lg-7">
                                         {{fhir-datetime parent=problem name='abatementDateTime' showTime=true}}
                                         {{#each problem.changes.[-abatementDateTime] as |cr|}}
-                                            {{change-request parent=problem name='abatementDateTime' cr=cr}}
+                                            {{change-request parent=problem name='abatementDateTime' cr=cr format='datetime'}}
                                         {{/each}}
                                     </div>
                                 </div>

@@ -1,8 +1,7 @@
-<select id="interventionReason" class="form-control"
-        onchange={{action 'changed' value="target.value"}}>
+<select class="form-control" onchange={{action 'changed' value='target.value'}}>
     <option value="none">Unknown</option>
     {{#each options as |op|}}
-        <option value='{{op._internalModel.modelName}}/{{op.id}}' selected={{eq op compSelection}}>
+        <option value='{{op._internalModel.modelName}}/{{op.id}}' selected={{eq op current}}>
             <div>
                 {{op.code.text}}
             </div>
