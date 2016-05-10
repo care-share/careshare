@@ -70,7 +70,11 @@ export default {
                     let attr = child.slice(0, -3);
                     let current = this.get(`${attr}.content.currentState`);
                     let canonical = this.get(`${attr}.content.canonicalState`);
-                    if (Ember.compare(current, canonical) !== 0) {
+                    let value = 'record.reference';
+                    // TODO: we make the assumption that 'hasMany' relationships will always contain record references... is there a better way?
+                    let n1 = current.mapBy(value);
+                    let n2 = canonical.mapBy(value);
+                    if (Ember.compare(n1, n2) !== 0) {
                         result = true;
                         break;
                     }

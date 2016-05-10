@@ -236,7 +236,54 @@ export default Ember.Controller.extend({
                 record.set('rejectedNominations', []);
                 // get the canonical record again, because some of our changes may have been converted to Nominations,
                 // or some of our accepted/rejected Nominations may have been converted to real changed attributes
-                record.reload();
+                record.reload().then(function () {
+                    record.eachRelationship(function(name, relationship) {
+                        // when the record gets reloaded, if previously defined attributes have become undefined, Ember does
+                        // not detect that that 'canonical state' has changed. we must manually check all relationships and
+                        // fudge the canonical state so this record does not trigger our dirty attribute checks
+                        let target = record.get(`${name}.content`);
+                        if (relationship.kind === 'belongsTo') {
+                            let isDirty = record.get(`${name}.hasDirtyAttributes`);
+                            if (isDirty && target._internalModel.currentState.stateName === 'root.loaded.updated.uncommitted') {
+                                that.cleanseRecord(target);
+                            }
+                        } else if (relationship.kind === 'hasMany') {
+                            // first, the current state may now contain duplicate entries because these record references don't have ID attributes
+                            // we need to remove duplicate references
+                            // NOTE: this only seems to happen for newly-created records that have been saved already (but before the page is reloaded)
+                            let array = target.toArray();
+                            let map = {};
+                            for (let i = 0; i < array.length; i++) {
+                                let item = array[i];
+                                let reference = item.get('reference');
+                                if (!map[reference]) {
+                                    map[reference] = item;
+                                } else {
+                                    // we have a duplicate! remove the one with a null ID
+                                    if (item.get('id') === null) {
+                                        target.removeObject(item);
+                                    } else {
+                                        target.removeObject(map[reference]);
+                                    }
+                                }
+                            }
+                            // now, check to see if the canonical state is different from the current state
+                            let value = 'record.reference';
+                            // TODO: we make the assumption that 'hasMany' relationships will always contain record references... is there a better way?
+                            let n1 = target.currentState.mapBy(value);
+                            let n2 = target.canonicalState.mapBy(value);
+                            if (Ember.compare(n1, n2) !== 0) {
+                                //let array = [];
+                                //for (let i = 0; i < target.currentState.length; i++) {
+                                //    let related = target.currentState[i].record;
+                                //    array.push(related);
+                                //}
+                                //record.set(name, array);
+                                target.canonicalState = target.currentState.slice(); // clone array
+                            }
+                        }
+                    });
+                });
             });
         },
         updateRecord: function (record, name, type) {
