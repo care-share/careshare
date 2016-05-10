@@ -4,9 +4,10 @@ import DS from 'ember-data';
 import commProps from 'careshare/properties/comm-properties';
 import filter from 'careshare/properties/filter-properties';
 import dirty from 'careshare/properties/dirty-property';
+import display from 'careshare/properties/display-text-property';
 
 export default model.extend({
-    displayText: Ember.computed.alias('relatedMedication.code.text'),
+    displayText: display('relatedMedication.code.text'),
     isNewRecord: Ember.computed.alias('currentState.isNew'),
     isExpanded: DS.attr('boolean', {defaultValue: false}),
     // communication properties

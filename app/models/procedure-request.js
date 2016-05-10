@@ -9,6 +9,9 @@ import dirty from 'careshare/properties/dirty-property';
 export default model.extend({
     displayText: Ember.computed('code.text', 'clinicalStatus', function () {
         let text = this.get('code.text');
+        if (!text) {
+            text = '[No description]';
+        }
         let suffix = '';
         let status = this.get('clinicalStatus');
         if (status) {

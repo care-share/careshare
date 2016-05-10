@@ -5,9 +5,10 @@ import nomChange from 'careshare/properties/nominations-change-property';
 import commProps from 'careshare/properties/comm-properties';
 import filter from 'careshare/properties/filter-properties';
 import dirty from 'careshare/properties/dirty-property';
+import display from 'careshare/properties/display-text-property';
 
 export default model.extend({
-    displayText: Ember.computed.alias('description'),
+    displayText: display('description'),
     isNewRecord: Ember.computed.alias('currentState.isNew'),
     isExpanded: DS.attr('boolean', {defaultValue: false}),
     carePlanId: DS.attr('string'), // only passed from client -> server (so this attribute is not in the serializer)
