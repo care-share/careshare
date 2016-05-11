@@ -1,5 +1,5 @@
 <select class="form-control" onchange={{action 'changed' value='target.value'}}>
-    <option value="none">Unknown</option>
+    <option value="none">--Please select--</option>
     {{#each options as |op|}}
         <option value='{{op._internalModel.modelName}}/{{op.id}}' selected={{eq op current}}>
             <div>

@@ -230,13 +230,14 @@ export default Ember.Controller.extend({
                     carePlan.set(that.carePlanRefAttr, refs);
                     carePlan.save();
                 }
-                // wipe properties that would make 'isUnclean' true
-                record.set('cleanSnapshot', undefined);
-                record.set('acceptedNominations', []);
-                record.set('rejectedNominations', []);
                 // get the canonical record again, because some of our changes may have been converted to Nominations,
                 // or some of our accepted/rejected Nominations may have been converted to real changed attributes
                 record.reload().then(function () {
+                    // wipe properties that would make 'isUnclean' true
+                    record.set('cleanSnapshot', undefined);
+                    record.set('acceptedNominations', []);
+                    record.set('rejectedNominations', []);
+
                     record.eachRelationship(function(name, relationship) {
                         // when the record gets reloaded, if previously defined attributes have become undefined, Ember does
                         // not detect that that 'canonical state' has changed. we must manually check all relationships and

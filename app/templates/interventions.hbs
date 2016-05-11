@@ -88,7 +88,7 @@
                                         <div id="reason" class="col-xs-12 col-lg-7">
                                             {{fhir-datetime parent=intervention name='orderedOn' showTime=true}}
                                             {{#each intervention.changes.[-orderedOn] as |cr|}}
-                                                {{change-request parent=intervention name='orderedOn' cr=cr}}
+                                                {{change-request parent=intervention name='orderedOn' cr=cr format='datetime'}}
                                             {{/each}}
                                         </div>
                                     </div>

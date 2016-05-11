@@ -67,7 +67,7 @@
                                 {{/backbone-element}}
                                 Ordered On: {{fhir-datetime parent=nutrition name='dateTime' showTime=true}}
                                 {{#each nutrition.changes.[-dateTime] as |cr|}}
-                                    {{change-request parent=nutrition name='dateTime' cr=cr}}
+                                    {{change-request parent=nutrition name='dateTime' cr=cr format='datetime'}}
                                 {{/each}}
                                 {{related-list parent=nutrition relation='relatedGoals' display='description' label="Goals" lastExpanded=controller.lastExpanded}}
                                 {{comm-channel resource=nutrition resource_type='Nutrition'}}

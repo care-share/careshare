@@ -78,6 +78,10 @@ export default Ember.Component.extend({
 });
 
 function checkRef(attr, that) {
+    if (attr === null ) {
+        return '';
+    }
+
     let split = attr.split('/');
     if (split[1]) {
         let reference = that.store.peekRecord(split[0], split[1]);
