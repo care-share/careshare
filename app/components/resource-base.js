@@ -10,6 +10,13 @@ export default Ember.Component.extend({
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
     hoverOn: 'hoverOn', // this is needed to bubble this action to the respective controller action
     hoverOff: 'hoverOff', // this is needed to bubble this action to the respective controller action
+    _isExpanded: false,
+    isExpanded: Ember.computed('root.isExpanded', 'isWorkspace', '_isExpanded', function () {
+        if (!this.get('isWorkspace')) {
+            return this.get('root.isExpanded');
+        }
+        return this.get('_isExpanded');
+    }),
     actions: {
         // expose these actions (bubble them up to the controller)
         updateRecord: function (parent, name, type) {
@@ -32,6 +39,27 @@ export default Ember.Component.extend({
         },
         hoverOff: function (model) {
             this.sendAction('hoverOff', model);
-        }
+        },
+        // regular actions (don't bubble up)
+        toggleExpanded: function () {
+            if (!this.get('isWorkspace')) {
+                this.get('root').toggleProperty('isExpanded');
+                if (!this.get('root.isExpanded')) {
+                    this.set('currentHover', false);
+                }
+            } else {
+                this.toggleProperty('_isExpanded');
+                if (!this.get('_isExpanded')) {
+                    this.set('currentHover', false);
+                }
+            }
+        },
+        expand: function () {
+            if (!this.get('isWorkspace')) {
+                this.set('root.isExpanded', true);
+            } else {
+                this.set('_isExpanded', true);
+            }
+        },
     }
 });

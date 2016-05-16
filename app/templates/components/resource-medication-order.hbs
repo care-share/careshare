@@ -1,14 +1,14 @@
 {{#draggable-object-target action='createRelation' ontoObject=root}}
     {{#draggable-object content=root}}
         <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
-            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace type='MedicationOrder' as |section|}}
+            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace isExpanded=isExpanded type='MedicationOrder'}}
                 {{#if root.displayText}}
                     <!-- medication text should NOT be editable -->
                     {{root.displayText}} {{root.dosageInstruction.firstObject.text}}
                 {{else}}
                     NO MEDICATION
                 {{/if}}
-                {{#if root.isExpanded}}
+                {{#if isExpanded}}
                     {{#backbone-element parent=root name='dosageInstruction' type='medication-order-dosage-instruction-component' isArray=true}}
                         <div class=' col-xs-12 fhir-form-item'>
                             <label class='col-sm-5 control-label' for='dosage'> Dosage: </label>

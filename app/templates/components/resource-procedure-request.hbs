@@ -1,8 +1,8 @@
 {{#draggable-object-target action='createRelation' ontoObject=root}}
     {{#draggable-object content=root}}
         <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
-            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace type='ProcedureRequest' as |section|}}
-                {{#if root.isExpanded}}
+            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace isExpanded=isExpanded type='ProcedureRequest'}}
+                {{#if isExpanded}}
                     <div class='row'>
                         <div class='form-group'>
                             <div class='col-xs-12 fhir-form-item'>

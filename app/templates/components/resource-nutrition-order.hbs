@@ -1,8 +1,8 @@
 {{#draggable-object-target action='createRelation' ontoObject=root}}
     {{#draggable-object content=root}}
         <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
-            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace type='NutritionOrder' as |section|}}
-                {{#if root.isExpanded}}
+            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace isExpanded=isExpanded type='NutritionOrder'}}
+                {{#if isExpanded}}
                 {{! THIS IS ONLY FOR SUPPLEMENTS TODO: NiceToHave: Create a type handler that can use the other types}}
                     <div class='row'>
                         {{#backbone-element parent=root name='supplement' type='nutrition-order-supplement-component' isArray=true}}
