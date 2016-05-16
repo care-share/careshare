@@ -8,10 +8,7 @@ export default CarePlanResource.extend({
     resources: [],
     actions: {
         addToWorkspace: function (draggedObject/*, options*/) {
-            var draggedModel = draggedObject._internalModel.modelName;
-            console.log(`addToWorkspace called for ${draggedModel}`);
             this.get('resources').addObject(draggedObject);
-            console.log(this.get('careplan'));
         }
     }
 });

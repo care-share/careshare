@@ -54,7 +54,9 @@
 
             </div>
 
-            <span class="glyphicon glyphicon-trash element-delete" {{action 'deleteRecord'}}> </span>
+            {{#unless isWorkspace}}
+                <span class="glyphicon glyphicon-trash element-delete" {{action 'deleteRecord'}}> </span>
+            {{/unless}}
         {{else}}
             <div style="float:left;padding-bottom:2px; padding-right: 15px">
                 {{yield "contracted"}}
