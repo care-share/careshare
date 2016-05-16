@@ -1,0 +1,90 @@
+{{#draggable-object-target action='createRelation' ontoObject=root}}
+    {{#draggable-object content=root}}
+        <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
+            {{#fhir-element root=root toHighlight=careplan.toHighlight type='Condition' as |section|}}
+                {{#if root.isExpanded}}
+                    <div class='row'>
+                        <div class='form-group'>
+                            <div class='col-xs-12 fhir-form-item'>
+                                <div class='col-xs-12'>
+                                    {{#codeable-concept parent=root name='code'}}
+                                        {{fhir-edit parent=root name='code.text'}}
+                                    {{/codeable-concept}}
+                                    {{#each root.changes.[-code-text] as |cr|}}
+                                        {{change-request parent=root name='code.text' cr=cr}}
+                                    {{/each}}
+                                </div>
+                                {{!-- <div class='col-xs-12 col-lg-6'>
+                                    {{fhir-choice parent=root name='clinicalStatus' choices='active,relapse,remission,resolved'}}
+                                </div> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class=' col-xs-12' style='padding:2px; padding-right:0px'>
+                            <label class='col-sm-5 control-label' for='severity'> Severity: </label>
+
+                            <div id='severity' class='col-xs-12 col-lg-7'>
+                                {{#codeable-concept parent=root name='severity'}}
+                                    {{fhir-choice parent=root name='severity.text' choices='Unspecified,Low,Moderate,Important,Critical'}}
+                                {{/codeable-concept}}
+                                {{#each root.changes.[-severity-text] as |cr|}}
+                                    {{change-request parent=root name='severity.text' cr=cr}}
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div class='col-xs-12' style='padding:2px; padding-right:0px'>
+                            <label class='col-sm-5 control-label' for='category'>Category:</label>
+
+                            <div id='category' class='col-xs-12 col-lg-7'>
+                                {{#codeable-concept parent=root name='category'}}
+                                    {{fhir-choice parent=root name='category.text' choices='Complaint,Symptom,Finding,Diagnosis'}}
+                                {{/codeable-concept}}
+                                {{#each root.changes.[-category-text] as |cr|}}
+                                    {{change-request parent=root name='category.text' cr=cr}}
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class='col-xs-12 fhir-form-item'>
+                            <label class='col-sm-5 control-label' for='onset'>Onset:</label>
+
+                            <div id='onset' class='col-xs-12 col-lg-7'>
+                                {{fhir-datetime parent=root name='onsetDateTime' showTime=true}}
+                                {{#each root.changes.[-onsetDateTime] as |cr|}}
+                                    {{change-request parent=root name='onsetDateTime' cr=cr format='datetime'}}
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div class='col-xs-12 fhir-form-item'>
+                            <label class='col-sm-5 control-label' for='abatement'>Abatement:</label>
+
+                            <div id='abatement' class='col-xs-12 col-lg-7'>
+                                {{fhir-datetime parent=root name='abatementDateTime' showTime=true}}
+                                {{#each root.changes.[-abatementDateTime] as |cr|}}
+                                    {{change-request parent=root name='abatementDateTime' cr=cr format='datetime'}}
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    <select id='dropdown{{patient.id}}' class='form-control'>
+                        <option disabled selected> Body Sites</option>
+                    </select>
+                    {{related-list parent=root relation='relatedGoals' label='Goals'}}
+                    {{comm-channel resource=root resource_type='Problem'}}
+                {{! TODO: Implement Notes
+                <div style='clear:left;'>
+                    Notes:
+                </div> }}
+                {{else}}
+                {{!TODO: Wrap this with severity border-left}}
+                    {{root.displayText}}
+                    {{#if root.clinicalStatus}}
+                        - ({{root.clinicalStatus}})
+                    {{/if}}
+                {{/if}}
+            {{/fhir-element}}
+        </div>
+    {{/draggable-object}}
+{{/draggable-object-target}}

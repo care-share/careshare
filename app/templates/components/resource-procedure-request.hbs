@@ -1,0 +1,95 @@
+{{#draggable-object-target action='createRelation' ontoObject=root}}
+    {{#draggable-object content=root}}
+        <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
+            {{#fhir-element root=root toHighlight=careplan.toHighlight type='ProcedureRequest' as |section|}}
+                {{#if root.isExpanded}}
+                    <div class='row'>
+                        <div class='form-group'>
+                            <div class='col-xs-12 fhir-form-item'>
+                                <div class='col-xs-12'>
+                                    {{#codeable-concept parent=root name='code'}}
+                                        {{fhir-edit class='title-textarea' parent=root name='code.text'}}
+                                    {{/codeable-concept}}
+                                    {{#each root.changes.[-code-text] as |cr|}}
+                                        {{change-request parent=root name='code.text' cr=cr}}
+                                    {{/each}}
+                                </div>
+                                {{!-- <div class='col-xs-12 col-lg-6'>
+                                    {{fhir-choice parent=root name='status'
+                                    choices='proposed,draft,requested,received,accepted,in-progress,completed,suspended,rejected,aborted'}}
+                                    {{#each root.changes.[-status] as |cr|}}
+                                        {{change-request parent=root name='status' cr=cr}}
+                                    {{/each}}
+                                </div> --}}
+                            </div>
+                            <div class=' col-xs-12 fhir-form-item'>
+                                <label class='col-sm-5 control-label' for='priority'> Priority: </label>
+
+                                <div id='priority' class='col-xs-12 col-lg-7'>
+                                    {{fhir-choice parent=root name='priority' choices='unspecified,low,medium,high'}}
+                                    {{#each root.changes.[-priority] as |cr|}}
+                                        {{change-request parent=root name='priority' cr=cr}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class=' col-xs-12 fhir-form-item'>
+                                <label class='col-sm-5 control-label' for='reason'> Reason: </label>
+
+                                <div id='reason' class='col-xs-12 col-lg-7'>
+                                    {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
+                                    {{#backbone-element parent=root name='reasonReference' type='reference'}}
+                                        {{fhir-object-select parent=root name='reasonReference.reference' options=parentController.conditions current=root.relatedCondition}}
+                                    {{/backbone-element}}
+                                    {{#each root.changes.[-reasonReference-reference] as |cr|}}
+                                        {{change-request parent=root name='reasonReference.reference' cr=cr format='reference'}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                            {{! TODO Removed not working sections
+                            <select id='' class='form-control'>
+                                <option disabled selected> Body Sites</option>
+                            </select>
+
+                            <div>
+                                Performer
+                            </div>
+                            <div>
+                                Orderer
+                            </div> }}
+                            <div class=' col-xs-12 fhir-form-item'>
+                                <label class='col-sm-5 control-label' for='reason'> Scheduled: </label>
+
+                                <div id='reason' class='col-xs-12 col-lg-7'>
+                                    {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
+                                    {{#if root.scheduledTiming.repeat.displayCode}}
+                                        {{root.scheduledTiming.repeat.displayCode}}
+                                    {{else}}
+                                        None specified
+                                    {{/if}}
+                                    {{fhir-timing parent=root name='scheduledTiming'}}
+                                </div>
+                            </div>
+                            <div class=' col-xs-12 fhir-form-item'>
+                                <label class='col-sm-5 control-label' for='reason'> Ordered On: </label>
+
+                                <div id='reason' class='col-xs-12 col-lg-7'>
+                                    {{fhir-datetime parent=root name='orderedOn' showTime=true}}
+                                    {{#each root.changes.[-orderedOn] as |cr|}}
+                                        {{change-request parent=root name='orderedOn' cr=cr format='datetime'}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                            {{related-list parent=root relation='relatedGoals' label='Goals' lastExpanded=controller.lastExpanded}}
+                            {{comm-channel resource=root resource_type='Intervention'}}
+                        </div>
+                    </div>
+                {{else}}
+                    {{root.displayText}}
+                    {{#if root.scheduledTiming.repeat.displayCode}}
+                        - ({{root.scheduledTiming.repeat.displayCode}})
+                    {{/if}}
+                {{/if}}
+            {{/fhir-element}}
+        </div>
+    {{/draggable-object}}
+{{/draggable-object-target}}
