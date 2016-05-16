@@ -1,0 +1,12 @@
+{{#draggable-object-target class='fhir-workspace-wrapper' action='addToWorkspace'}}
+    <div class='well fhir-column-wrapper fhir-workspace'>
+        <div id="goals-column" class="panel-group fhir-column fhir-workspace-wrapper">
+        <h3 class='fhir-column-header'>Workspace</h3>
+        {{#each resources as |resource|}}
+            {{component (concat 'resource-' resource._internalModel.modelName) root=resource careplan=careplan}}
+        {{else}}
+            Drag a resource here to add it to the workspace
+        {{/each}}
+    </div>
+</div>
+{{/draggable-object-target}}
