@@ -1,0 +1,10 @@
+{{#draggable-object-target class="fhir-workspace-wrapper" action="addToWorkspace"}}
+    <div class="well fhir-column-wrapper fhir-workspace">
+    <h3 class="fhir-column-header">Workspace</h3>
+        {{#each objects}}
+            {{object.id}}
+        {{else}}
+            Drag a resource here to add it to the workspace
+        {{/each}}
+</div>
+{{/draggable-object-target}}

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-2 patientSidebar">
-        <div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">
+        <div class="panel panel-default" style="background-color: rgb(242,247,252);height:95%;display:flex;flex-direction:column">
             <div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
                 <div style="background-color: rgb(197,234,142);text-align: center">
                     <div>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body" style="padding: 0;height:100%;">
+            <div class="panel-body" style="padding: 0;flex-grow:1;display:flex;flex-direction:column">
                 <!-- Tab Content -->
                 <div class="tab-content" style="padding: 0">
                     <ul class="nav nav-tabs">
@@ -55,6 +55,7 @@
                     </ul>
                     {{outlet}}
                 </div>
+                {{fhir-workspace}}
             </div>
         </div>
     </div>

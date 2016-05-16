@@ -20121,7 +20121,18 @@ button.nobackground{
   color: rgba(128, 128, 128, 0.62);
 }
 
-
+.fhir-workspace,
+.fhir-workspace-wrapper {
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.fhir-workspace {
+  margin: 0.5em 0;
+}
+.fhir-workspace-wrapper {
+  display: flex;
+}
 
 .nomination-button {
   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
