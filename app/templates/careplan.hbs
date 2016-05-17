@@ -1,8 +1,21 @@
 <div class="row">
     <div class="col-md-2 patientSidebar">
-        <div class="panel panel-default" style="background-color: rgb(242,247,252);height:100%;">
-            <div class="panel-heading" style="background-color: rgb(242,247,252);padding: 0">
-                <div style="background-color: rgb(197,234,142);text-align: center">
+        <div class="panel panel-default patient-sidebar" >
+            <div class="panel-heading careplan-patient" style=";padding: 0">
+                <div class="row panel careplan-patient">
+                    <div class="col-md-4">
+                        <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
+                    </div>
+                    <div class="col-md-8">
+                        {{patient.model.fullName}}
+                        <br/>
+
+                        <div style="padding: 0">{{patient.model.genderFormatted}}
+                            <br/>{{patient.model.birthDateFormatted}}
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center">
                     <div>
                         Careplan ID: {{model.id}}
                     </div>
@@ -22,19 +35,7 @@
                             </button> {{/if}}
                     </div>
                 </div>
-                <div class="row panel">
-                    <div class="col-md-4">
-                        <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
-                    </div>
-                    <div class="col-md-8">
-                        {{patient.model.fullName}}
-                        <br/>
-
-                        <div style="padding: 0">{{patient.model.genderFormatted}}
-                            <br/>{{patient.model.birthDateFormatted}}
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <div class="panel-body" style="padding: 0;height:100%;">
                 <!-- Tab Content -->
@@ -59,7 +60,6 @@
         </div>
     </div>
     <!-- Page Content -->
-    <!--div id="page-content-wrapper" style="background-color: rgb(242,247,252); height:100%;min-height:800px;min-width:670px;margin-left:120px" -->
     <div class="fhir-columns col-md-10">
         <!--<div class="alert alert-warning" role="alert" style="background-color: rgb(255,211,156)">
         Other practitioners have requested changes to this plan's...
