@@ -1,5 +1,6 @@
 {{#draggable-object-target action='createRelation' ontoObject=root}}
-    {{#draggable-object content=root isSortable=true}}
+    {{! resources are always draggable, but only sortable in the workspace template }}
+    {{#draggable-object content=root isSortable=isWorkspace}}
         <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
             {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace isExpanded=isExpanded type='Condition'}}
                 {{#if isExpanded}}
