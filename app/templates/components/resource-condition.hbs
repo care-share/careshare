@@ -1,5 +1,5 @@
 {{#draggable-object-target action='createRelation' ontoObject=root}}
-    {{#draggable-object content=root}}
+    {{#draggable-object content=root isSortable=true}}
         <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
             {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace isExpanded=isExpanded type='Condition'}}
                 {{#if isExpanded}}
