@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     classNames: [], // apply this style to the div 'ember-view' wrapper element for this component
     // action dictionary/map:
+    createRelation: 'createRelation',// this is needed to bubble this action to the respective controller action
     updateRecord: 'updateRecord', // this is needed to bubble this action to the respective controller action
     updateArraySingle: 'updateArraySingle', // this is needed to bubble this action to the respective controller action
     undoRecord: 'undoRecord', // this is needed to bubble this action to the respective controller action
@@ -19,6 +20,12 @@ export default Ember.Component.extend({
     }),
     actions: {
         // expose these actions (bubble them up to the controller)
+        createRelation: function (parent, options) {
+            this.sendAction('createRelation', parent, options);
+        },
+        createRelation: function (parent, options, root) {
+            this.sendAction('createRelation', parent, options, root);
+        },
         updateRecord: function (parent, name, type) {
             this.sendAction('updateRecord', parent, name, type);
         },
