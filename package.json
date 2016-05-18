@@ -35,7 +35,7 @@
     "ember-cli-uglify": "1.0.1",
     "ember-data": "2.5.2",
     "ember-data-live-filter-by": "1.0.0",
-    "ember-drag-drop": "~0.2.1",
+    "ember-drag-drop": "~0.3.0",
     "ember-export-application-global": "1.0.4",
     "ember-fhir-adapter": "2.0.0",
     "ember-idx-modal": "git+https://github.com/jportner/ember-idx-modal",
