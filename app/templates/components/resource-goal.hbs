@@ -1,0 +1,92 @@
+{{#draggable-object-target action='createRelation' ontoObject=root}}
+    {{#draggable-object content=root}}
+        <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
+            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace isExpanded=isExpanded type='Goal'}}
+                {{#if isExpanded}}
+                    <div class='row'>
+                        <div class='form-group'>
+                            <div class='col-xs-12 fhir-form-item'>
+                                <div class='col-xs-12'>
+                                    {{fhir-edit parent=root name='description'}}
+                                    {{!goal.example.[-goal].value}}
+                                    {{#each root.changes.[-description] as |cr|}}
+                                        {{change-request parent=root name='description' cr=cr}}
+                                    {{/each}}
+                                </div>
+                                {{!-- <div class='col-xs-12 col-lg-6'>
+                                    {{fhir-choice parent=root name='status'
+                                    choices='proposed,planned,accepted,rejected,in-progress,achieved,sustaining,on-hold,cancelled'}}
+                                    {{#each root.changes.[-status] as |cr|}}
+                                        {{change-request parent=root name='status' cr=cr}}
+                                    {{/each}}
+                                </div>
+                                --}}
+                            </div>
+                        </div>
+                        {{#if (eq root.status 'achieved')}}
+                            <div class=' col-xs-12 fhir-form-item'>
+                                <label class='col-sm-5 control-label' for='outcome'> Outcome: </label>
+
+                                <div id='outcome' class='col-xs-12 col-lg-7'>
+                                    TODO
+                                    {{!--
+                                    {{#codeable-concept parent=root name='outcome'}}
+                                        {{fhir-choice parent=root name='outcome' choices='CHANGEME,CHANGEME'}}
+                                    {{/codeable-concept}}
+                                    --}}
+                                </div>
+                            </div>
+                        {{/if}}
+                        <div class=' col-xs-12 fhir-form-item'>
+                            <label class='col-sm-5 control-label' for='priority'> Priority: </label>
+
+                            <div id='priority' class='col-xs-12 col-lg-7'>
+                                {{#codeable-concept parent=root name='priority'}}
+                                    {{fhir-choice parent=root name='priority.text' choices='unspecified,low,medium,high'}}
+                                {{/codeable-concept}}
+                                {{#each root.changes.[-priority-text] as |cr|}}
+                                    {{change-request parent=root name='priority.text' cr=cr}}
+                                {{/each}}
+                            </div>
+                        </div>
+                        <!-- TODO: create a 'fhir-choice-multi' component so we can support selecting multiple categories
+                                <div class=' col-xs-12 fhir-form-item'>
+                                    <label class='col-sm-5 control-label'  for='category'> Category: </label>
+                                    <div id='priority' class='col-xs-12 col-lg-7'>
+                                    {{#codeable-concept parent=root name='category'}}
+                            {{fhir-choice parent=root name='category.text' choices='CHANGEME,CHANGEME'}}
+                        {{/codeable-concept}}
+                                    </div>
+                                </div-->
+                        {{!-- TODO REMOVED UNTIL MULTI CHOICE EXISTS
+                        <div class=' col-xs-12 fhir-form-item'>
+                            <label class='col-sm-5 control-label' for='category'> Category: </label>
+
+                            <div id='priority' class='col-xs-12 col-lg-7'>
+                                {{fhir-multi-select parent=root attribute=root.category name='text' choices='CHANGEME,CHANGEME'}}
+
+                            </div>
+                        </div>
+                        --}}
+                        <div class='col-xs-12 fhir-form-item'>
+                            <label class='col-sm-5 control-label' for='targetDate'>Target Date:</label>
+
+                            <div id='targetDate' class='col-xs-12 col-lg-7'>
+                                {{fhir-datetime parent=root name='targetDate' showTime=true}}
+                                {{#each root.changes.[-targetDate] as |cr|}}
+                                    {{change-request parent=root name='targetDate' cr=cr}}
+                                {{/each}}
+                            </div>
+                        </div>
+                        {{related-list parent=root relation='relatedConditions' label='Problems' lastExpanded=lastExpanded}}
+                        {{related-list parent=root relation='relatedProcedureRequests' label='Interventions' lastExpanded=lastExpanded}}
+                        {{related-list parent=root relation='relatedNutritionOrders' label='Nutrition' lastExpanded=lastExpanded}}
+                    </div>
+                    {{comm-channel resource=root resource_type='Goal'}}
+                {{else}}
+                    {{root.displayText}}
+                {{/if}}
+            {{/fhir-element}}
+        </div>
+    {{/draggable-object}}
+{{/draggable-object-target}}

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-2 patientSidebar">
-        <div class="panel panel-default patient-sidebar" >
-            <div class="panel-heading careplan-patient" style=";padding: 0">
+        <div class="panel panel-default patient-sidebar">
+            <div class="panel-heading careplan-patient" >
                 <div class="row panel careplan-patient">
                     <div class="col-md-4">
                         <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
@@ -15,7 +15,8 @@
                         </div>
                     </div>
                 </div>
-                <div style="text-align: center">
+
+                <div class="panel careplan-patient" style="text-align: center">
                     <div>
                         Careplan ID: {{model.id}}
                     </div>
@@ -37,10 +38,10 @@
                 </div>
                 
             </div>
-            <div class="panel-body" style="padding: 0;height:100%;">
+            <div class="panel-body patient-sidebar" >
                 <!-- Tab Content -->
                 <div class="tab-content" style="padding: 0">
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-pills">
                         {{#link-to 'careplan.filters'  tagName='li' href=false }}
                             {{#link-to 'careplan.filters'}}Filter{{/link-to}}
                         {{/link-to}}
@@ -56,6 +57,7 @@
                     </ul>
                     {{outlet}}
                 </div>
+                {{render 'workspace'}}
             </div>
         </div>
     </div>

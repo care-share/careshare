@@ -11,6 +11,8 @@ export default Ember.Component.extend({
     undoRecord: 'undoRecord', // this is needed to bubble this action to the respective controller action
     deleteRecord: 'deleteRecord', // this is needed to bubble this action to the respective controller action
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
+    toggleExpanded: 'toggleExpanded', // this is needed to bubble this action to the respective controller action
+    expand: 'expand', // this is needed to bubble this action to the respective controller action
     isCreateNomination: false,
     isDeleteNomination: false,
     isChangeNomination: false,
@@ -103,13 +105,10 @@ export default Ember.Component.extend({
             this.set('currentHover', false);
         },
         toggleExpanded: function () {
-            this.get('root').toggleProperty('isExpanded');
-            if (!this.get('root.isExpanded')) {
-                this.set('currentHover', false);
-            }
+            this.sendAction('toggleExpanded');
         },
         expand: function () {
-            this.set('root.isExpanded', true);
+            this.sendAction('expand');
         },
         acceptDeletion: function () {
             console.log('(FHIR-ELEMENT) ACCEPT HH DELETE RECORD - record: ' + this.get('root'));

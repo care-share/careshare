@@ -1,0 +1,36 @@
+{{#draggable-object-target action='createRelation' ontoObject=root}}
+    {{#draggable-object content=root}}
+        <div {{action 'hoverOn' root on='mouseEnter'}} {{action 'hoverOff' root on='mouseLeave'}}>
+            {{#fhir-element root=root toHighlight=careplan.toHighlight isWorkspace=isWorkspace isExpanded=isExpanded type='MedicationOrder'}}
+                {{#if root.displayText}}
+                    <!-- medication text should NOT be editable -->
+                    {{root.displayText}} {{root.dosageInstruction.firstObject.text}}
+                {{else}}
+                    NO MEDICATION
+                {{/if}}
+                {{#if isExpanded}}
+                    {{#backbone-element parent=root name='dosageInstruction' type='medication-order-dosage-instruction-component' isArray=true}}
+                        <div class=' col-xs-12 fhir-form-item'>
+                            <label class='col-sm-5 control-label' for='dosage'> Dosage: </label>
+
+                            <div id='dosage' class='col-xs-12 col-lg-7'>
+                                {{fhir-edit parent=root.dosageInstruction.firstObject name='text'}}
+                            </div>
+                        </div>
+                    {{/backbone-element}}
+                    <div class=' col-xs-12 fhir-form-item'>
+                        <label class='col-sm-5 control-label' for='reason'> Reason: </label>
+
+                        <div id='reason' class='col-xs-12 col-lg-7'>
+                            {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
+                            {{#backbone-element parent=root name='reasonReference' type='reference'}}
+                                {{fhir-object-select parent=root name='reasonReference.reference' options=parentController.conditions current=root.relatedCondition}}
+                            {{/backbone-element}}
+                        </div>
+                    </div>
+                    {{comm-channel resource=root resource_type='Medication'}}
+                {{/if}}
+            {{/fhir-element}}
+        </div>
+    {{/draggable-object}}
+{{/draggable-object-target}}

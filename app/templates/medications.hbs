@@ -17,43 +17,8 @@
     {{/if}}
 </div>
 <div class="panel-group fhir-column">
-    {{#each model as |order|}}
-        {{#draggable-object-target action="createRelation" ontoObject=order}}
-            {{#draggable-object content=order}}
-                <div {{action "hoverOn" order on="mouseEnter"}} {{action "hoverOff" order on="mouseLeave"}}>
-                    {{#fhir-element root=order toHighlight=careplan.toHighlight type='MedicationOrder' as |section|}}
-                        {{#if order.displayText}}
-                            <!-- medication text should NOT be editable -->
-                            {{order.displayText}} {{order.dosageInstruction.firstObject.text}}
-                        {{else}}
-                            NO MEDICATION
-                        {{/if}}
-                        {{#if order.isExpanded}}
-                            {{#backbone-element parent=order name='dosageInstruction' type='medication-order-dosage-instruction-component' isArray=true}}
-                                <div class=" col-xs-12 fhir-form-item">
-                                    <label class="col-sm-5 control-label" for="dosage"> Dosage: </label>
-
-                                    <div id="dosage" class="col-xs-12 col-lg-7">
-                                        {{fhir-edit parent=order.dosageInstruction.firstObject name='text'}}
-                                    </div>
-                                </div>
-                            {{/backbone-element}}
-                            <div class=" col-xs-12 fhir-form-item">
-                                <label class="col-sm-5 control-label" for="reason"> Reason: </label>
-
-                                <div id="reason" class="col-xs-12 col-lg-7">
-                                    {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
-                                    {{#backbone-element parent=order name='reasonReference' type='reference'}}
-                                        {{fhir-object-select parent=order name='reasonReference.reference' options=parentController.conditions current=order.relatedCondition}}
-                                    {{/backbone-element}}
-                                </div>
-                            </div>
-                            {{comm-channel resource=order resource_type='Medication'}}
-                        {{/if}}
-                    {{/fhir-element}}
-                </div>
-            {{/draggable-object}}
-        {{/draggable-object-target}}
+    {{#each model as |medicationOrder|}}
+        {{resource-medication-order root=medicationOrder careplan=careplan}}
     {{else}}
         No Medications<br/>
     {{/each}}

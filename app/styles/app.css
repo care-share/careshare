@@ -19835,6 +19835,7 @@ a {
 }
 
 .fhir-column-wrapper{
+  border-color: #ffffff;
   background-color: #e8e9e9;
   padding-top: 0px;
   padding-bottom: 2px;
@@ -20128,7 +20129,15 @@ button.nobackground{
   color: rgba(128, 128, 128, 0.62);
 }
 
-
+.fhir-workspace,
+.fhir-workspace-wrapper {
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.fhir-workspace-wrapper {
+  display: flex;
+}
 
 .nomination-button {
   -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -20251,14 +20260,26 @@ button.nobackground{
 
 .panel-heading.careplan-patient{
   background-color:#4bca93;
+  padding: 0;
+  font-weight: bold;
+  color: #2A2B26;
 }
 
 .patient-sidebar{
-  height: 100%;
-  background-color: #353939;
+  background-color: #2A2B26;  /* #353939; */
+  height:95%;
+  display:flex;
+  flex-direction:column
 
 }
 
 .panel.careplan-patient{
   background-color: inherit;
+}
+
+.panel-body.careplan-patient{ 
+  padding: 0;
+  flex-grow:1;
+  display:flex;
+  flex-direction:column;
 }
