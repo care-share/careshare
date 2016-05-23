@@ -6,7 +6,7 @@
              Drag a resource here to add it to the workspace
              </div>
             {{#each resources as |resource|}}
-                {{component (concat 'resource-' resource._internalModel.modelName) root=resource careplan=careplan isWorkspace=true}}
+                {{component (concat 'resource-' resource._internalModel.modelName) root=resource careplan=careplan isWorkspace=true toHighlight=careplan.toHighlight}}
             {{/each}}
         {{/sortable-objects}}
     </div>

@@ -5,7 +5,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     // args passed in from template: root, type
     classNames: ['fhir-element'], // needed for Ember to add this CSS class to the HTML element
-    currentHover: false,
+    //currentHover: false,
     // action dictionary/map:
     updateRecord: 'updateRecord', // this is needed to bubble this action to the respective controller action
     undoRecord: 'undoRecord', // this is needed to bubble this action to the respective controller action
@@ -20,9 +20,9 @@ export default Ember.Component.extend({
     highlight: Ember.computed('toHighlight.[]', function() {
         return this.get('toHighlight').contains(this.get('root.id'));
     }),
-    computedStyle: Ember.computed('highlight', 'currentHover', 'root.isUnclean', function() {
+    computedStyle: Ember.computed('highlight', 'root.currentHover', 'root.isUnclean', function() {
         let prefix = '';
-        if (this.get('currentHover')) {
+        if (this.get('root.currentHover')) {
             prefix = 'border-color:#009e0f;';
         } else if (this.get('highlight')) {
             prefix = 'border-color:#009e0f;border-style: dashed;';
@@ -99,10 +99,10 @@ export default Ember.Component.extend({
             this.sendAction('saveRecord', this.get('root'));
         },
         hoverOn: function () {
-            this.set('currentHover', true);
+            this.set('root.currentHover', true);
         },
         hoverOff: function () {
-            this.set('currentHover', false);
+            this.set('root.currentHover', false);
         },
         toggleExpanded: function () {
             this.sendAction('toggleExpanded');

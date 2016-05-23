@@ -9,6 +9,13 @@ export default CarePlanResource.extend({
     actions: {
         addToWorkspace: function (draggedObject/*, options*/) {
             this.get('resources').addObject(draggedObject);
+        },
+        hoverOn: function (model) {
+            this.get('careplan').send('hoverOn', model);
+
+        },
+        hoverOff: function (/*model*/) {
+            this.get('careplan').send('hoverOff');
         }
     }
 });
