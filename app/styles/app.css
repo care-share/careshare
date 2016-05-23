@@ -19977,8 +19977,11 @@ button.nobackground{
 }
 
 .nav>li>a {
-    padding: 5px 8px;
+    padding: 2px 4px;
     background-color: #ddd;
+    border: black;
+    border-width: 1px;
+    border-style: solid;
 }
 
 .f-right{
@@ -20266,7 +20269,7 @@ button.nobackground{
 }
 
 .patient-sidebar{
-  background-color: #2A2B26;  /* #353939; */
+  background-color: #353939;  /* #2A2B26;  /* #353939; */
   height:95%;
   display:flex;
   flex-direction:column
@@ -20282,4 +20285,13 @@ button.nobackground{
   flex-grow:1;
   display:flex;
   flex-direction:column;
+}
+
+.panel-body.patient-sidebar{
+  padding:2px;
+}
+
+.workspace-drop{
+  border:1px dashed #2A2B26;
+  text-align: center;
 }

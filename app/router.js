@@ -25,6 +25,7 @@ export default Router.map(function () {
             this.route('notes');
             this.route('history');
             this.route('requests');
+            this.route('workspace', {resetNamespace: true});
         });
     });
 });

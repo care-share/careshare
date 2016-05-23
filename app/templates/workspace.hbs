@@ -1,12 +1,12 @@
 {{#draggable-object-target class='fhir-workspace-wrapper' action='addToWorkspace'}}
     <div class='well fhir-column-wrapper fhir-workspace-wrapper' style='margin: 0.5em 0;'>
         <div id="workspace-column" class='panel-group fhir-column fhir-workspace'>
-        <h3 class='fhir-column-header'>Workspace</h3>
         {{#sortable-objects sortableObjectList=resources enableSort=true}}
+            <div class="workspace-drop">
+             Drag a resource here to add it to the workspace
+             </div>
             {{#each resources as |resource|}}
                 {{component (concat 'resource-' resource._internalModel.modelName) root=resource careplan=careplan isWorkspace=true}}
-            {{else}}
-                Drag a resource here to add it to the workspace
             {{/each}}
         {{/sortable-objects}}
     </div>

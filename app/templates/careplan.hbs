@@ -54,10 +54,13 @@
                         {{#link-to 'careplan.requests'  tagName='li' href=false }}
                             {{#link-to 'careplan.requests'}}Requests{{/link-to}}
                         {{/link-to}}
+                        {{#link-to 'workspace'  tagName='li' href=false }}
+                            {{#link-to 'workspace'}}Workspace{{/link-to}}
+                        {{/link-to}}
                     </ul>
                     {{outlet}}
                 </div>
-                {{render 'workspace'}}
+                {{!render 'workspace'}}
             </div>
         </div>
     </div>
