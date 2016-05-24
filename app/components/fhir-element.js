@@ -30,7 +30,7 @@ export default Ember.Component.extend({
         // if (this.get('root.isUnclean')) {
         //     prefix += 'background-color:lightskyblue;';
         // }
-        return Ember.String.htmlSafe(prefix + 'max-width: 100%; overflow-x: hidden;');
+        return Ember.String.htmlSafe(prefix + 'max-width: 100%; overflow-x: hidden; overflow-y: hidden;');
     }),
     setup: function () {
         if (this.get('parent')) {

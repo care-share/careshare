@@ -20334,3 +20334,11 @@ button.nobackground{
   font-family:"Glyphicons Halflings";
   line-height:1;
   display:inline-block;
+
+}
+
+.button-link {
+     /*border is optional*/
+     font-weight: 800;
+     font-size: 1.2em;
+}
