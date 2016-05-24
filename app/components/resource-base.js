@@ -11,6 +11,7 @@ export default Ember.Component.extend({
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
     hoverOn: 'hoverOn', // this is needed to bubble this action to the respective controller action
     hoverOff: 'hoverOff', // this is needed to bubble this action to the respective controller action
+    createMessage: 'createMessage', // this is needed to bubble this action to the respective controller action
     _isExpanded: false,
     isExpanded: Ember.computed('root.isExpanded', 'isWorkspace', '_isExpanded', function () {
         if (!this.get('isWorkspace')) {
@@ -19,6 +20,10 @@ export default Ember.Component.extend({
         return this.get('_isExpanded');
     }),
     actions: {
+         createMessage: function (message, rid, rtype) {
+            console.log("Resource Base createMessage: " + message);
+            this.sendAction('createMessage', message, rid, rtype);
+        },
         // expose these actions (bubble them up to the controller)
         createRelation: function (parent, options) {
             this.sendAction('createRelation', parent, options);

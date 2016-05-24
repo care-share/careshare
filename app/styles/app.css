@@ -19748,10 +19748,11 @@ a {
     padding: 0;
     list-style-type: none;
     list-style-image: none;
+    line-height: normal;
 }
 
 .relatedList li{
-  background-color:#4b83ca;
+  background-color:#72cfd6;
   border-color: black;
   border-width: 2px;
   margin: 2px 2px;

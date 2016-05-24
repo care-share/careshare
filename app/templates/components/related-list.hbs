@@ -14,23 +14,21 @@
                  <span class="tooltiptext">Add relation by dragging related {{label}} or select {{label}} from adjacent list</span>
             </li>
         {{/each}}
-        {{!--{{#if (not-eq possibleChoices.length 0)}}--}}
-          <li>
-              <div class="btn-group">
-                {{!--<div style="color:green" class="glyphicon glyphicon-plus"/>--}}
-                <div>
-                  {{#x-select action="createRelation"}}
-                    {{#x-option value=op.[0]}}Relate {{label}}{{/x-option}}
-                    {{#each possibleChoices as |op|}}
-                        {{#x-option value=op}}{{op.displayText}}{{/x-option}}
-                    {{/each}}
-                  {{/x-select}}
-                </div>
-              </div>
-            </li>
-        {{!--{{/if}}--}}
-        {{textarea action="createRecordAndRelate" value=textAreaValue aria-controls="existing-user-table" placeholder="Create and relate to new record" autofocus="autofocus"
-        autoresize=true classNames="form-control"}}
+        <li>
+          <div class="btn-group">
+            
+              {{#x-select action="createRelation"}}
+                {{#x-option value=op.[0]}}Relate {{label}}{{/x-option}}
+                {{#each possibleChoices as |op|}}
+                    {{#x-option value=op}}{{op.displayText}}{{/x-option}}
+                {{/each}}
+              {{/x-select}}
+            
+          </div>
+        </li>
+        <br>
+        {{!--textarea action="createRecordAndRelate" value=textAreaValue aria-controls="existing-user-table" placeholder="Create and relate to new record" autofocus="autofocus"
+        autoresize=true classNames="form-control"--}}
     </ul>
     <div style="clear:left;"></div>
 </div>

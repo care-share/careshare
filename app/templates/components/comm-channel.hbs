@@ -42,7 +42,7 @@
             {{/each}}
         </div>
         <div class="">
-            {{textarea action="createMessage" value=textAreaValue aria-controls="existing-user-table" placeholder="Add annotation" autofocus="autofocus"
+            {{action-textarea enter="createMessage" value=textAreaValue aria-controls="existing-user-table" placeholder="Add annotation" autofocus="autofocus"
             autoresize=true classNames="form-control"}}
         </div>
         {{#em-modal-toggler class="btn btn-default"}}Close{{/em-modal-toggler}}
@@ -75,6 +75,6 @@
     {{/if}}
 {{/each}}
 <div>
-    {{textarea action="createMessage" value=textAreaValue aria-controls="existing-user-table"
+    {{action-textarea enter="createMessage" value=textAreaValue aria-controls="existing-user-table"
     placeholder="Add annotation" autofocus="autofocus" autoresize=true classNames="form-control"}}
 </div>
