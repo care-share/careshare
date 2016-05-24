@@ -4,6 +4,9 @@
         {{action "hoverOff" on="mouseLeave"}}
         {{action 'expand' on="doubleClick"}}>
         {{#if isExpanded}}
+            {{#if isWorkspace}}
+                    <span class="resource-type-square"> {{displayLetter}}</span>
+                {{/if}}
             {{yield}}
 
 
@@ -59,6 +62,10 @@
             {{/unless}}
         {{else}}
             <div style="float:left;padding-bottom:2px; padding-right: 15px">
+                {{#if isWorkspace}}
+                    <span class="resource-type-square"> {{displayLetter}}{{!root._internalModel.modelName.[0]}}</span>
+                {{/if}}
+
                 {{yield "contracted"}}
 
                 {{!-- Home Health buttons for collapsed elements --}}

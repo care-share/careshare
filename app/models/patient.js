@@ -17,6 +17,18 @@ export default patient.extend({
         let age = moment().diff(value, 'years');
         return `${date} (${age} yrs old)`;
     }),
+    birthDateOnlyFormatted: Ember.computed('birthDate', function () {
+        let value = this.get('birthDate');
+        let date = moment(value).format('MMM Do, YYYY');
+        let age = moment().diff(value, 'years');
+        return `${date}`;
+    }),
+    ageFormatted: Ember.computed('birthDate', function () {
+        let value = this.get('birthDate');
+        let date = moment(value).format('MMM Do, YYYY');
+        let age = moment().diff(value, 'years');
+        return `${age} Years Old`;
+    }),
     genderFormatted: Ember.computed('gender', function () {
         let gender = this.get('gender');
         return gender.charAt(0).toUpperCase() + gender.substr(1);

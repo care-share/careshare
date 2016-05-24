@@ -63,7 +63,29 @@ export default Ember.Component.extend({
                 this.set('isChangeNomination', true);
             }
         }
-    }.observes('root.nominations', 'root.isNewRecord').on('init'),
+    }.observes('root.nominations', 'root.isNewRecord').on('init'),    
+    displayLetter: function(){
+        var name = this.get('root._internalModel.modelName');
+        if (name === 'condition'){
+            return 'P'
+        }
+        else if (name === 'goal'){
+            return 'G'
+        }
+        else if (name === 'procedure-request'){
+            return 'I'
+        }
+        else if (name === 'medication-order'){
+            return 'M'
+        }
+        else if (name === 'nutrition-order'){
+            return 'N'
+        }
+        else {
+            //This should never happen
+            return this.get('root._internalModel.modelName.0');
+        }
+    }.property('root'),
     isNomination: function (){
         return  this.get('isCreateNomination') || this.get('isDeleteNomination') || this.get('isChangeNomination');
     }.property('isCreateNomination','isChangeNomination','isDeleteNomination'),

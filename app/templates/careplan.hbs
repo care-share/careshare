@@ -4,24 +4,24 @@
             <div class="panel-heading careplan-patient" >
                 <div class="row panel careplan-patient">
                     <div class="col-md-4">
-                        <span class="glyphicon glyphicon-user" style="font-size: 5em;"></span>
+                        <div class="lol notglyphicon notglyphicon-user" style="font-size: 5em;"> </div>
+                        <div class="careplan-status">{{model.status}}</div>
                     </div>
                     <div class="col-md-8">
                         {{patient.model.fullName}}
                         <br/>
 
-                        <div style="padding: 0">{{patient.model.genderFormatted}}
-                            <br/>{{patient.model.birthDateFormatted}}
+                        <div style="padding: 0">
+                            {{patient.model.genderFormatted}}
+                            <br/>{{patient.model.birthDateOnlyFormatted}}
+                            <br/>{{patient.model.ageFormatted}}
                         </div>
                     </div>
                 </div>
 
-                <div class="panel careplan-patient" style="text-align: center">
-                    <div>
-                        Careplan ID: {{model.id}}
-                    </div>
-                    <div>
-                        Status: ({{model.status}})
+                <div class="panel careplan-patient">
+                    <div style="padding-left:15px;">
+                        Careplan ID: <span style="font-weight: normal; font-size:14px">{{model.id}}</span>
                     </div>
                     <div>
                         {{#if statusIsDraft}}
