@@ -25,7 +25,7 @@
                         <div id='reason' class='col-xs-12 col-lg-7'>
                             {{! Need to add compSelection here for binding to work| TODO: figure out why... }}
                             {{#backbone-element parent=root name='reasonReference' type='reference'}}
-                                {{fhir-object-select parent=root name='reasonReference.reference' options=parentController.conditions current=root.relatedCondition}}
+                                {{fhir-object-select parent=root name='reasonReference.reference' options=careplan.conditions current=root.relatedCondition}}
                             {{/backbone-element}}
                         </div>
                     </div>
