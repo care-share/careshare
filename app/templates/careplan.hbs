@@ -20,9 +20,6 @@
                 </div>
 
                 <div class="panel careplan-patient">
-
-                             <button class="btn btn-default" {{action "toggleSplitScreen"}}>Toggle SplitScreen
-                                                          </button>
                     <div style="padding-left:15px;">
                         Careplan ID: <span style="font-weight: normal; font-size:14px">{{model.id}}</span>
                     </div>
@@ -42,6 +39,9 @@
                 
             </div>
             <div class="panel-body patient-sidebar" >
+                <button class="btn btn-default" {{action "toggleSplitScreen"}}>
+                    Toggle Workspace
+                 </button>
                 <!-- Tab Content -->
                 <div class="tab-content" style="padding: 0">
                     <ul class="nav nav-pills">
@@ -57,13 +57,9 @@
                         {{#link-to 'careplan.requests'  tagName='li' href=false }}
                             {{#link-to 'careplan.requests'}}Requests{{/link-to}}
                         {{/link-to}}
-                        {{#link-to 'workspace'  tagName='li' href=false }}
-                            {{#link-to 'workspace'}}Workspace{{/link-to}}
-                        {{/link-to}}
                     </ul>
                     {{outlet}}
                 </div>
-                {{!render 'workspace'}}
             </div>
         </div>
     </div>
@@ -108,7 +104,7 @@
                  {{happy-splitter-bar}}
                  {{#happy-split-view splitPercentage=botSplit}}
                      <div style="height:100%;overflow-y:auto">
-                          Hello World
+                          {{render "workspace"}}
                      </div>
                  {{/happy-split-view}}
              {{/happy-split-container}}
