@@ -8,7 +8,7 @@
         </button>
     </div>
 </div>
-<div id="nutrition-column" class="panel-group fhir-column">
+<div id="nutrition-column" class="panel-group fhir-column" style="{{careplan.splitStyle}}">
     {{#each model as |nutritionOrder|}}
         {{resource-nutrition-order root=nutritionOrder careplan=careplan}}
     {{else}}

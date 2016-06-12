@@ -8,7 +8,7 @@
         </button>
     </div>
 </div>
-<div id="problems-column" class="panel-group fhir-column">
+<div id="problems-column" class="panel-group fhir-column" style="{{careplan.splitStyle}}">
     {{#each model as |problem|}}
         {{resource-condition root=problem careplan=careplan}}
     {{else}}

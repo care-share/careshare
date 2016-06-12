@@ -16,7 +16,7 @@
     </div>
     {{/if}}
 </div>
-<div class="panel-group fhir-column">
+<div class="panel-group fhir-column" style="{{careplan.splitStyle}}">
     {{#each model as |medicationOrder|}}
         {{resource-medication-order root=medicationOrder careplan=careplan}}
     {{else}}

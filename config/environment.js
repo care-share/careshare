@@ -6,6 +6,12 @@ module.exports = function (environment) {
         environment: environment,
         baseURL: '/',
         locationType: 'auto',
+        resizeServiceDefaults: {
+            debounceTimeout    : 200,
+            heightSensitive    : true,
+            widthSensitive     : true,
+            injectionFactories : [ 'view', 'component']
+        },
         /*contentSecurityPolicy: {
          'default-src': "'unsafe-inline'",
          'script-src': "'unsafe-inline'",

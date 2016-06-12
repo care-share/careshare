@@ -20,6 +20,9 @@
                 </div>
 
                 <div class="panel careplan-patient">
+
+                             <button class="btn btn-default" {{action "toggleSplitScreen"}}>Toggle SplitScreen
+                                                          </button>
                     <div style="padding-left:15px;">
                         Careplan ID: <span style="font-weight: normal; font-size:14px">{{model.id}}</span>
                     </div>
@@ -71,32 +74,72 @@
         <button>Accept All</button>
         <button>Reject All</button>
         </div>-->
-        <div class="row" style="height:95%">
-            {{#if showConditions}}
-                <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "problems" conditions}}
-                </div>
-            {{/if}}
-            {{#if showGoals}}
-                <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "goals" goals}}
-                </div>
-            {{/if}}
-            {{#if showProcedureRequests}}
-                <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "interventions" procedureRequests}}
-                </div>
-            {{/if}}
-            {{#if showNutritionOrders}}
-                <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "nutrition" nutritionOrders}}
-                </div>
-            {{/if}}
-            {{#if showMedicationOrders}}
-                <div class="{{colClass}} well fhir-column-wrapper">
-                    {{render "medications" medicationOrders}}
-                </div>
-            {{/if}}
-        </div>
+        {{#if showSplitScreen}}
+            {{#happy-split-container isVertical=false}}
+                {{#happy-split-view splitPercentage=topSplit}}
+                    <div class="row" style="height:100%;overflow-y:hidden">
+                        {{#if showConditions}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "problems" conditions}}
+                            </div>
+                        {{/if}}
+                        {{#if showGoals}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "goals" goals}}
+                            </div>
+                        {{/if}}
+                        {{#if showProcedureRequests}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "interventions" procedureRequests}}
+                            </div>
+                        {{/if}}
+                        {{#if showNutritionOrders}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "nutrition" nutritionOrders}}
+                            </div>
+                        {{/if}}
+                        {{#if showMedicationOrders}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "medications" medicationOrders}}
+                            </div>
+                        {{/if}}
+                    </div>
+                 {{/happy-split-view}}
+                 {{happy-splitter-bar}}
+                 {{#happy-split-view splitPercentage=botSplit}}
+                     <div style="height:100%;overflow-y:auto">
+                          Hello World
+                     </div>
+                 {{/happy-split-view}}
+             {{/happy-split-container}}
+         {{else}}
+                    <div class="row" style="height:100%;overflow-y:hidden">
+                        {{#if showConditions}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "problems" conditions}}
+                            </div>
+                        {{/if}}
+                        {{#if showGoals}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "goals" goals}}
+                            </div>
+                        {{/if}}
+                        {{#if showProcedureRequests}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "interventions" procedureRequests}}
+                            </div>
+                        {{/if}}
+                        {{#if showNutritionOrders}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "nutrition" nutritionOrders}}
+                            </div>
+                        {{/if}}
+                        {{#if showMedicationOrders}}
+                            <div class="{{colClass}} well fhir-column-wrapper">
+                                {{render "medications" medicationOrders}}
+                            </div>
+                        {{/if}}
+                    </div>
+        {{/if}}               
     </div>
 </div>

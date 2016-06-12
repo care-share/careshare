@@ -8,7 +8,7 @@
         </button>
     </div>
 </div>
-<div id="goals-column" class="panel-group fhir-column">
+<div id="goals-column" class="panel-group fhir-column" style="{{careplan.splitStyle}}">
     {{#each model as |goal|}}
         {{resource-goal root=goal careplan=careplan}}
     {{else}}

@@ -4,6 +4,9 @@ import filter from 'careshare/properties/filter-properties';
 
 export default Ember.Controller.extend({
     // controller dependencies
+    percentageSplit: 50,
+    topSplit: 70,
+    botSplit: 30,
     session: Ember.inject.service('session'), // needed for ember-simple-auth
     patient: Ember.inject.controller('patient'),
     // local vars
@@ -18,6 +21,10 @@ export default Ember.Controller.extend({
     patientCounter: 0,
     signInType: 'signin',
     showOpenID: false,
+
+    callNumber: 0,
+    valueModifier: false,
+
     _goals: Ember.computed(function() { // goals
         return this.store.peekAll('goal');
     }),
@@ -43,6 +50,10 @@ export default Ember.Controller.extend({
     showNutritionOrders: false, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: true, // medications
+    showSplitScreen: false,
+    splitStyle: function(){
+        return this.get('showSplitScreen') ? "max-height: calc("  + this.get('topSplit') + 'vh - 45px)' : "";
+    }.property('topSplit', 'showSplitScreen'),
     statusIsProposed: function () {
         return this.model.get('status') === 'proposed';
     }.property('model.status'),
@@ -85,6 +96,24 @@ export default Ember.Controller.extend({
     },
     toHighlight: Ember.Set.create(), // have to start out with an empty set, cannot be null/undefined
     actions: {
+        updateSplitPercentage: function(percentage){
+            console.log("update splitPercentage: "+percentage)
+            this.set('callNumber',this.get('callNumber')+1);
+            if(this.get('callNumber') % 2 === 0){
+                if((this.get('percentageSplit') <= 40 && percentage > 40) ||
+                   (this.get('percentageSplit') > 40 && percentage <= 40)){
+                    this.set('valueModifier',!this.get('valueModifier'));
+                    console.log("UPDATE VALUE SWITCHED!!!");
+                }
+                console.log("update splitPercentage: "+percentage+",call number: "+this.get('callNumber')+",valueModifier: "+this.get('valueModifier'));
+                if(this.get('valueModifier')){
+                    this.set('percentageSplit',percentage);
+                }
+            }
+        },
+        toggleSplitScreen: function () {
+            this.toggleProperty('showSplitScreen');
+        },
         createMessage: function (content, resource_id, resource_type) {
             console.log('CAREPLAN CREATE MESSAGE');
             var comm = {

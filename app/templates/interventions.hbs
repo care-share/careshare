@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div id="interventions-column" class="panel-group fhir-column">
+<div id="interventions-column" class="panel-group fhir-column" style="{{careplan.splitStyle}}">
     {{#each model as |intervention|}}
         {{resource-procedure-request root=intervention careplan=careplan}}
     {{else}}
