@@ -17,7 +17,8 @@ export default Ember.Component.extend({
         if (!this.get('isWorkspace')) {
             return this.get('root.isExpanded');
         }
-        return this.get('_isExpanded');
+        return true; // Always expand in workspace
+//        return this.get('_isExpanded');
     }),
     actions: {
          createMessage: function (message, rid, rtype) {
