@@ -20121,9 +20121,17 @@ button.nobackground{
   position:absolute;
   top:0;
   right:0;
-  padding-top: 2px;
-  padding-right: 3px;
+  padding-top: 1px;
+  padding-right: 2px;
   color: rgba(128, 128, 128, 0.62);
+  fill: rgb(128,128,128);
+  fill-opacity: 0.62;
+  width:18px;
+}
+
+.expand-ellipsis:hover{
+  fill-opacity: 0.82;
+  width:20px;
 }
 
 .element-delete{
@@ -20299,17 +20307,22 @@ button.nobackground{
 }
 
 .resource-type-square{
-    background: #34abb3;
-    width:10px;
-    color: white;
-    padding:2px;
-    font-weight:bold;
+    background: transparent;
+    width:16px;
+    color: #34abb3;
+    padding:1px;
+    border: 1px gray solid;
+    font-weight: bold;
+    box-shadow: 1px 1px gray;
+    display: inline-block;
+    text-align: center;
 }
-/*.resource-type-square:before{
-    content: "G";
-    display: block;
-    padding-top: 100%;
-}*/
+
+.resource-type-letter{
+    color: #34abb3;
+    font-weight: 800;
+}
+
 
 .nav-pills > li {
   font-size: 1.4em;

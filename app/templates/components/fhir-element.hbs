@@ -11,7 +11,10 @@
 
 
             <div style="float:left; padding-bottom:2px">
-                 <div class="glyphicon glyphicon-resize-small expand-ellipsis"  {{action 'toggleExpanded'}}> </div>
+                {{!-- <div class="glyphicon glyphicon-resize-small expand-ellipsis"  {{action 'toggleExpanded'}}> </div> --}}
+                <div class="expand-ellipsis"  {{action 'toggleExpanded'}}> 
+                    {{inline-svg "images/up_collapse_icon.svg"}}
+                </div>
                 {{!-- New element or existing element --}}
                 {{#if (not isNomination)}}
                     {{#if isAdmin}}
@@ -96,7 +99,9 @@
 
             </div>
             {{!#if currentHover}}
-                <span class="glyphicon glyphicon-resize-full expand-ellipsis" {{action 'toggleExpanded'}}> </span>
+                <div class="expand-ellipsis"  {{action 'toggleExpanded'}}> 
+                    {{inline-svg "images/down_collapse_icon.svg"}}
+                </div>
             {{!/if}}
 
         {{/if}}

@@ -41,6 +41,7 @@
     "ember-fhir-adapter": "2.0.0",
     "ember-idx-modal": "git+https://github.com/jportner/ember-idx-modal",
     "ember-inflector": "1.9.4",
+    "ember-inline-svg": "0.1.5",
     "ember-ionicons": "^0.1.1",
     "ember-multiselect-checkboxes": "0.4.3",
     "ember-radio-buttons": "4.0.1",
