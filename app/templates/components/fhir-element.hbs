@@ -12,8 +12,11 @@
 
             <div style="float:left; padding-bottom:2px">
                 {{!-- <div class="glyphicon glyphicon-resize-small expand-ellipsis"  {{action 'toggleExpanded'}}> </div> --}}
-                <div class="expand-ellipsis"  {{action 'toggleExpanded'}}> 
+                <div class="expand-ellipsis has-tooltip"  {{action 'toggleExpanded'}}> 
                     {{inline-svg "images/up_collapse_icon.svg"}}
+                    <div class="tooltiptext">
+                        Click to Minimimize
+                    </div>
                 </div>
                 {{!-- New element or existing element --}}
                 {{#if (not isNomination)}}
@@ -99,8 +102,11 @@
 
             </div>
             {{!#if currentHover}}
-                <div class="expand-ellipsis"  {{action 'toggleExpanded'}}> 
+                <div class="expand-ellipsis has-tooltip"  {{action 'toggleExpanded'}}> 
                     {{inline-svg "images/down_collapse_icon.svg"}}
+                    <div class="tooltiptext">
+                        Click to Expand
+                    </div>
                 </div>
             {{!/if}}
 
@@ -115,7 +121,7 @@
             <span class="careplan-notification-badge"> New</span>
         {{/if}}
         {{#if isChangeNomination}}
-            <span class="careplan-notification-badge"> Change</span>
+            <span class="careplan-notification-badge"> Request</span>
         {{/if}}
         {{#if isDeleteNomination}}
             <span class="careplan-notification-badge orange-badge"> Deleted</span>
@@ -124,7 +130,7 @@
             <span class="icon-comment"> {{root.unreadCount}}</span>
         {{/if}}
         {{#if root.isUnclean}}
-            <span class="careplan-notification-badge red-badge">Unsaved Changes</span>
+            <span class="careplan-notification-badge red-badge">In-Edit</span>
         {{/if}}
     </div>
 </div>

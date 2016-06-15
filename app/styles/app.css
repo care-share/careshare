@@ -2264,6 +2264,7 @@ a.list-group-item.active:focus {
 /* line 1039, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
 .panel-info {
   border-color: #FFFFFF;
+  border-width: 4px;
 }
 
 /* line 1043, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
@@ -19939,14 +19940,13 @@ button.nobackground{
 .careplan-notification-badge{
   float:right;
     top: 0px;
-    padding:2px 2px 2px 2px;
+    padding:1px 2px 1px 2px;
     background-color: #4b83ca;
     color:white;
     font-weight:bold;
-    font-size:0.60em;
+    font-size:0.75em;
     z-index:901;
     border-radius:30px;
-    box-shadow:1px 1px 1px gray;
 }
 
 
@@ -20087,9 +20087,9 @@ button.nobackground{
     background-color:black;
     color:white;
     font-weight:bold;
-    font-size:8px;
+    font-size:10px;
 
-    box-shadow:1px 1px 1px gray;
+   /* box-shadow:1px 1px 1px gray;*/
 
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -20109,7 +20109,7 @@ button.nobackground{
   border-bottom-color: transparent;
   height: 0;
   width: 0;
-  top: 7px;
+  top: 9px;
   left: 7px;
   position:absolute;
   content: "";
@@ -20128,6 +20128,8 @@ button.nobackground{
   fill-opacity: 0.62;
   width:18px;
 }
+
+
 
 .expand-ellipsis:hover{
   fill-opacity: 0.82;
@@ -20220,6 +20222,10 @@ button.nobackground{
   /* If you want dots under the hoverable text */
 }
 
+.has-tooltip{
+    transition: 0s visibility;
+}
+
 /* Tooltip text */
 .has-tooltip .tooltiptext {
     visibility: hidden;
@@ -20236,6 +20242,14 @@ button.nobackground{
 
 .has-tooltip:hover .tooltiptext {
     visibility: visible;
+    transition-delay:1s;
+}
+
+/* Tooltip text */
+.expand-ellipsis.has-tooltip .tooltiptext {
+    right: 20px;
+    top: 0px;
+    padding: 0px;
 }
 
 
