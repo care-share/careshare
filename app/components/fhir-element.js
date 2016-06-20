@@ -39,9 +39,9 @@ export default Ember.Component.extend({
     computedStyle: Ember.computed('highlight', 'root.currentHover', 'root.isUnclean', function() {
         let prefix = '';
         if (this.get('root.currentHover')) {
-            prefix = 'border-color:#009e0f;';
+            prefix = 'border-color:#4bca93;';
         } else if (this.get('highlight')) {
-            prefix = 'border-color:#009e0f;border-style: dashed;';
+            prefix = 'border-color:#4bca93;border-style: dashed;';
         }
         // if (this.get('root.isUnclean')) {
         //     prefix += 'background-color:lightskyblue;';

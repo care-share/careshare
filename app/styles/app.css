@@ -2280,6 +2280,7 @@ a.list-group-item.active:focus {
 /* line 1039, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
 .panel-info {
   border-color: #FFFFFF;
+  border-width: 4px;
 }
 
 /* line 1043, /home/student/vha-rural-health-pilot-app/app/assets/stylesheets/components.scss */
@@ -19835,6 +19836,7 @@ a {
 }
 
 .applicationBody{
+  height:100vh;
   padding: 0px;
 }
 
@@ -19947,22 +19949,20 @@ button.nobackground{
 .careplan-notification{
     position:absolute;
     top: 0px;
-    right:1px;
-    margin-right:20px;
+    right:23px;
 
 }
 
 .careplan-notification-badge{
   float:right;
     top: 0px;
-    padding:2px 2px 2px 2px;
+    padding:1px 2px 1px 2px;
     background-color: #4b83ca;
     color:white;
     font-weight:bold;
-    font-size:0.60em;
+    font-size:0.75em;
     z-index:901;
     border-radius:30px;
-    box-shadow:1px 1px 1px gray;
 }
 
 
@@ -20103,9 +20103,9 @@ button.nobackground{
     background-color:black;
     color:white;
     font-weight:bold;
-    font-size:8px;
+    font-size:10px;
 
-    box-shadow:1px 1px 1px gray;
+   /* box-shadow:1px 1px 1px gray;*/
 
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -20125,7 +20125,7 @@ button.nobackground{
   border-bottom-color: transparent;
   height: 0;
   width: 0;
-  top: 7px;
+  top: 9px;
   left: 7px;
   position:absolute;
   content: "";
@@ -20137,9 +20137,19 @@ button.nobackground{
   position:absolute;
   top:0;
   right:0;
-  padding-top: 2px;
-  padding-right: 3px;
+  padding-top: 1px;
+  padding-right: 2px;
   color: rgba(128, 128, 128, 0.62);
+  fill: rgb(128,128,128);
+  fill-opacity: 0.62;
+  width:18px;
+}
+
+
+
+.expand-ellipsis:hover{
+  fill-opacity: 0.82;
+  width:20px;
 }
 
 .element-delete{
@@ -20228,6 +20238,10 @@ button.nobackground{
   /* If you want dots under the hoverable text */
 }
 
+.has-tooltip{
+    transition: 0s visibility;
+}
+
 /* Tooltip text */
 .has-tooltip .tooltiptext {
     visibility: hidden;
@@ -20244,6 +20258,14 @@ button.nobackground{
 
 .has-tooltip:hover .tooltiptext {
     visibility: visible;
+    transition-delay:1s;
+}
+
+/* Tooltip text */
+.expand-ellipsis.has-tooltip .tooltiptext {
+    right: 20px;
+    top: 0px;
+    padding: 0px;
 }
 
 
@@ -20284,13 +20306,15 @@ button.nobackground{
   font-size: 16px;
   font-weight: bold;
   color: #2A2B26;
+  border:none;
 }
 
 .patient-sidebar{
   background-color:  #2A2B26;  /* #353939; */
   height:95%;
   display:flex;
-  flex-direction:column
+  flex-direction:column;
+  border-left: none;
 
 }
 
@@ -20315,17 +20339,22 @@ button.nobackground{
 }
 
 .resource-type-square{
-    background: #34abb3;
-    width:10px;
-    color: white;
-    padding:2px;
-    font-weight:bold;
+    background: transparent;
+    width:16px;
+    color: #34abb3;
+    padding:1px;
+    border: 1px gray solid;
+    font-weight: bold;
+    box-shadow: 1px 1px gray;
+    display: inline-block;
+    text-align: center;
 }
-/*.resource-type-square:before{
-    content: "G";
-    display: block;
-    padding-top: 100%;
-}*/
+
+.resource-type-letter{
+    color: #34abb3;
+    font-weight: 800;
+}
+
 
 .nav-pills > li {
   font-size: 1.4em;
@@ -20357,4 +20386,24 @@ button.nobackground{
      /*border is optional*/
      font-weight: 800;
      font-size: 1.2em;
+}
+
+
+.primary-indicator{
+  width:10px;
+  fill: #34abb3;
+  stroke: #34abb3;
+  width:15px;
+  height:12px;
+
+}
+
+.primary-indicator > path{
+  fill: #34abb3;
+  stroke: #34abb3;
+
+}
+
+.patient-list{
+  padding: 0px;
 }

@@ -96,6 +96,9 @@ limitations under the License.
                 </div> }}
                 {{else}}
                 {{!TODO: Wrap this with severity border-left}}
+                    {{#if root.isRelatedToCarePlan}}
+                        {{inline-svg "images/star.svg" class="primary-indicator"}}
+                    {{/if}}
                     {{root.displayText}}
                     {{#if root.clinicalStatus}}
                         - ({{root.clinicalStatus}})
