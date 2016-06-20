@@ -11,6 +11,12 @@ export default CarePlanResource.extend({
         return (this.get('resources').length >= 3);
     }),
     actions: {
+        removeFromWorkspace: function(objectToRemove) {
+            console.log('workspace#removeFromWorkspace');
+            var resources = this.get('resources');
+            var position = resources.indexOf(objectToRemove);
+            resources.splice(position, 1);
+        },
         addToWorkspace: function (draggedObject/*, options*/) {
             this.get('resources').addObject(draggedObject);
         },

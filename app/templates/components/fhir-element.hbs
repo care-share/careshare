@@ -11,7 +11,12 @@
 
 
             <div style="float:left; padding-bottom:2px">
-                 <div class="glyphicon glyphicon-resize-small expand-ellipsis"  {{action 'toggleExpanded'}}> </div>
+                 {{! When in the workspace, show a remove button. When in the overview, show the expand/contract button. 'expand-ellipsis' is needed for proper positioning, but is no longer a sensible name for that CSS class. }}
+                 {{#if isWorkspace}}
+                     <div class="glyphicon glyphicon-remove expand-ellipsis"  {{action 'removeFromWorkspace'}}> </div>
+                 {{else}}
+                     <div class="glyphicon glyphicon-resize-small expand-ellipsis"  {{action 'toggleExpanded'}}> </div>
+                 {{/if}}
                 {{!-- New element or existing element --}}
                 {{#if (not isNomination)}}
                     {{#if isAdmin}}
