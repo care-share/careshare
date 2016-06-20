@@ -20385,3 +20385,19 @@ button.nobackground{
      font-weight: 800;
      font-size: 1.2em;
 }
+
+
+.primary-indicator{
+  width:10px;
+  fill: #34abb3;
+  stroke: #34abb3;
+  width:15px;
+  height:12px;
+
+}
+
+.primary-indicator > path{
+  fill: #34abb3;
+  stroke: #34abb3;
+
+}
