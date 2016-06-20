@@ -112,6 +112,10 @@ export default Ember.Component.extend({
         return this.get('session.data.authenticated.isAdmin');
     }.property('session'),
     actions: {
+        removeFromWorkspace: function(workspace) {
+            console.log('fhir-element#removeFromWorkspace');
+            // TODO: this action needs to trigger the action of the same name in the workspace controller
+        },
         updateArray: function (parent, name, type) {
             console.log('(FHIR-ELEMENT) UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
             this.sendAction('updateArray', parent, name, type);
@@ -143,6 +147,7 @@ export default Ember.Component.extend({
             this.set('root.currentHover', false);
         },
         toggleExpanded: function () {
+            console.log('fhir-element#toggleExpanded');
             this.sendAction('toggleExpanded');
         },
         expand: function () {

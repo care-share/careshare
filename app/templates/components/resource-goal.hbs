@@ -95,9 +95,14 @@ limitations under the License.
                                 {{/each}}
                             </div>
                         </div>
-                        {{related-list parent=root relation='relatedConditions' label='Problems' lastExpanded=lastExpanded}}
-                        {{related-list parent=root relation='relatedProcedureRequests' label='Interventions' lastExpanded=lastExpanded}}
-                        {{related-list parent=root relation='relatedNutritionOrders' label='Nutrition' lastExpanded=lastExpanded}}
+                        <div class="row">
+                        <div class="{{if isWorkspace 'col-xs-4' ''}}">
+                        {{related-list parent=root relation='relatedConditions' label='Problems' lastExpanded=lastExpanded}}</div>
+                        <div class="{{if isWorkspace 'col-xs-4' ''}}">
+                        {{related-list parent=root relation='relatedProcedureRequests' label='Interventions' lastExpanded=lastExpanded}}</div>
+                        <div class="{{if isWorkspace 'col-xs-4' ''}}">
+                        {{related-list parent=root relation='relatedNutritionOrders' label='Nutrition' lastExpanded=lastExpanded}}</div>
+                        </div>
                     </div>
                     {{comm-channel resource=root resource_type='Goal'}}
                 {{else}}

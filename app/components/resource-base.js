@@ -33,7 +33,8 @@ export default Ember.Component.extend({
         if (!this.get('isWorkspace')) {
             return this.get('root.isExpanded');
         }
-        return this.get('_isExpanded');
+        return true; // Always expand in workspace
+//        return this.get('_isExpanded');
     }),
     actions: {
          createMessage: function (message, rid, rtype) {
@@ -69,7 +70,12 @@ export default Ember.Component.extend({
             this.sendAction('hoverOff', model);
         },
         // regular actions (don't bubble up)
+        removeFromWorkspace: function(workspace) {
+            console.log('resource-base#removeFromWorkspace');
+            workspace.sendAction('removeFromWorkspace', this);
+        },
         toggleExpanded: function () {
+            console.log('resource-base#toggleExpanded');
             if (!this.get('isWorkspace')) {
                 this.get('root').toggleProperty('isExpanded');
                 if (!this.get('root.isExpanded')) {

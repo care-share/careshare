@@ -22,7 +22,17 @@ export default CarePlanResource.extend({
     needs: 'careplan',
     careplan: Ember.computed.alias('controllers.careplan'),
     resources: [],
+    isFull: Ember.computed('resources.[]', function() {
+        // This is not working -- this.get('resources').length always returns 0. why???
+        return (this.get('resources').length >= 3);
+    }),
     actions: {
+        removeFromWorkspace: function(objectToRemove) {
+            console.log('workspace#removeFromWorkspace');
+            var resources = this.get('resources');
+            var position = resources.indexOf(objectToRemove);
+            resources.splice(position, 1);
+        },
         addToWorkspace: function (draggedObject/*, options*/) {
             this.get('resources').addObject(draggedObject);
         },
