@@ -19836,6 +19836,7 @@ a {
 }
 
 .applicationBody{
+  height:100vh;
   padding: 0px;
 }
 
@@ -19948,8 +19949,7 @@ button.nobackground{
 .careplan-notification{
     position:absolute;
     top: 0px;
-    right:1px;
-    margin-right:20px;
+    right:23px;
 
 }
 
@@ -20306,13 +20306,15 @@ button.nobackground{
   font-size: 16px;
   font-weight: bold;
   color: #2A2B26;
+  border:none;
 }
 
 .patient-sidebar{
   background-color:  #2A2B26;  /* #353939; */
   height:95%;
   display:flex;
-  flex-direction:column
+  flex-direction:column;
+  border-left: none;
 
 }
 
@@ -20400,4 +20402,8 @@ button.nobackground{
   fill: #34abb3;
   stroke: #34abb3;
 
+}
+
+.patient-list{
+  padding: 0px;
 }
