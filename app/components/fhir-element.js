@@ -79,23 +79,23 @@ export default Ember.Component.extend({
                 this.set('isChangeNomination', true);
             }
         }
-    }.observes('root.nominations', 'root.isNewRecord').on('init'),    
+    }.observes('root.nominations', 'root.isNewRecord').on('init'),
     displayLetter: function(){
         var name = this.get('root._internalModel.modelName');
         if (name === 'condition'){
-            return 'P'
+            return 'P';
         }
         else if (name === 'goal'){
-            return 'G'
+            return 'G';
         }
         else if (name === 'procedure-request'){
-            return 'I'
+            return 'I';
         }
         else if (name === 'medication-order'){
-            return 'M'
+            return 'M';
         }
         else if (name === 'nutrition-order'){
-            return 'N'
+            return 'N';
         }
         else {
             //This should never happen
@@ -112,7 +112,7 @@ export default Ember.Component.extend({
         return this.get('session.data.authenticated.isAdmin');
     }.property('session'),
     actions: {
-        removeFromWorkspace: function(workspace) {
+        removeFromWorkspace: function(/*workspace*/) {
             console.log('fhir-element#removeFromWorkspace');
             // TODO: this action needs to trigger the action of the same name in the workspace controller
         },
