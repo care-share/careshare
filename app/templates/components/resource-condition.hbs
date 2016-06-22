@@ -25,7 +25,7 @@ limitations under the License.
                             <div class='col-xs-12 fhir-form-item'>
                                 <div class='col-xs-12'>
                                     {{#codeable-concept parent=root name='code'}}
-                                        {{fhir-edit parent=root name='code.text'}}
+                                        {{fhir-edit parent=root name='code.text' placeholder='Enter description'}}
                                     {{/codeable-concept}}
                                     {{#each root.changes.[-code-text] as |cr|}}
                                         {{change-request parent=root name='code.text' cr=cr}}
