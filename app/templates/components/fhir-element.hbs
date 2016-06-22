@@ -32,7 +32,7 @@ limitations under the License.
                      <div class="glyphicon glyphicon-remove expand-ellipsis"  {{action 'removeFromWorkspace'}}> </div>
                  {{else}}
                     {{!-- <div class="glyphicon glyphicon-resize-small expand-ellipsis"  {{action 'toggleExpanded'}}> </div> --}}
-                    <div class="expand-ellipsis has-tooltip"  {{action 'toggleExpanded'}}> 
+                    <div class="expand-ellipsis has-tooltip" {{action 'toggleExpanded'}}>
                         {{inline-svg "images/up_collapse_icon.svg"}}
                         <div class="tooltiptext">
                             Click to Minimimize
@@ -41,15 +41,15 @@ limitations under the License.
                 {{/if}}
                 {{!-- New element or existing element --}}
                 {{#if (not isNomination)}}
-                    {{#if isAdmin}}
-                        <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
-                    {{else}}
-                        <button class="nomination-button" {{action 'saveRecord'}}>Save</button>
-                    {{/if}}
-                    {{#if root.isNewRecord}}
-                        <button class="nomination-button" {{action 'deleteRecord'}}>Cancel</button>
-                    {{else if root.isUnclean}}
-                        <button class="nomination-button" {{action 'undoRecord'}}>Undo</button>
+                    {{#if (or root.isNewRecord root.isUnclean)}}
+                        {{#if isAdmin}}
+                            <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
+                        {{else}}
+                            <button class="nomination-button" {{action 'saveRecord'}}>Save</button>
+                        {{/if}}
+                        {{#if (and root.isUnclean (not root.isNewRecord))}}
+                            <button class="nomination-button" {{action 'undoRecord'}}>Undo Edits</button>
+                        {{/if}}
                     {{/if}}
                 {{/if }}
 
@@ -57,10 +57,12 @@ limitations under the License.
                 {{#if isCreateNomination}}
                     {{#if isAdmin}}
                         <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
-                        <button class="nomination-button" {{action 'deleteRecord'}}>Reject</button>
-                    {{else}}
+                        {{#if root.isUnclean}}
+                            <button class="nomination-button" {{action 'undoRecord'}}>Undo Edits</button>
+                        {{/if}}
+                    {{else if root.isUnclean}}
                         <button class="nomination-button" {{action 'saveRecord'}}>Save</button>
-                        <button class="nomination-button" {{action 'deleteRecord'}}>Cancel</button>
+                        <button class="nomination-button" {{action 'undoRecord'}}>Undo Edits</button>
                     {{/if}}
                 {{/if}}
                 {{#if isChangeNomination}}
@@ -69,14 +71,14 @@ limitations under the License.
                         {{#if root.isUnclean}}
                             <button class="nomination-button" {{action 'undoRecord'}}>Reset</button>
                         {{/if}}
-                    {{else}}
+                    {{else if root.isUnclean}}
                         <button class="nomination-button" {{action 'saveRecord'}}>Save</button>
+                        <button class="nomination-button" {{action 'undoRecord'}}>Undo Edits</button>
                     {{/if}}
                 {{/if}}
                 {{#if isDeleteNomination}}
                     {{#if isAdmin}}
                         <button class="nomination-button" {{action 'acceptDeletion'}}>Sign</button>
-                        <button class="nomination-button" {{action 'rejectDeletion'}}>Reject</button>
                     {{else}}
                         <button class="nomination-button" {{action 'rejectDeletion'}}>Cancel</button>
                     {{/if}}
@@ -95,35 +97,9 @@ limitations under the License.
 
                 {{yield "contracted"}}
 
-                {{!-- Home Health buttons for collapsed elements --}}
-                {{#if (and (not isAdmin) isCreateNomination)}}
-                    <div>
-                        <button class="nomination-button" {{action 'deleteRecord'}}>Cancel</button>
-                    </div>
-                {{/if}}
-                {{#if (and (not isAdmin) isDeleteNomination)}}
-                    <div>
-                        <button class="nomination-button" {{action 'rejectDeletion'}}>Cancel</button>
-                    </div>
-                {{/if}}
-
-                {{!-- Physician buttons for collapsed elements --}}
-                {{#if (and isAdmin isCreateNomination)}}
-                    <div>
-                        <button class="nomination-button" {{action 'saveRecord'}}>Sign</button>
-                        <button class="nomination-button" {{action 'deleteRecord'}}>Reject</button>
-                    </div>
-                {{/if}}
-                {{#if (and isAdmin isDeleteNomination)}}
-                    <div>
-                        <button class="nomination-button" {{action 'acceptDeletion'}}>Sign</button>
-                        <button class="nomination-button" {{action 'rejectDeletion'}}>Reject</button>
-                    </div>
-                {{/if}}
-
             </div>
             {{!#if currentHover}}
-                <div class="expand-ellipsis has-tooltip"  {{action 'toggleExpanded'}}> 
+                <div class="expand-ellipsis has-tooltip" {{action 'toggleExpanded'}}>
                     {{inline-svg "images/down_collapse_icon.svg"}}
                     <div class="tooltiptext">
                         Click to Expand
@@ -150,7 +126,7 @@ limitations under the License.
         {{#if (gt root.unreadCount 0)}}
             <span class="icon-comment"> {{root.unreadCount}}</span>
         {{/if}}
-        {{#if root.isUnclean}}
+        {{#if (and root.isUnclean (not root.isNewRecord))}}
             <span class="careplan-notification-badge red-badge">In-Edit</span>
         {{/if}}
     </div>
