@@ -23,7 +23,12 @@ limitations under the License.
                     <div class='row'>
                         <div class='form-group'>
                             <div class='col-xs-12 fhir-form-item'>
-                                <div class='col-xs-12'>
+                                <div class='col-xs-1'>
+                                    {{#if root.isRelatedToCarePlan}}
+                                        {{inline-svg "images/star.svg" class="primary-indicator"}}
+                                    {{/if}}
+                                </div>
+                                <div class='col-xs-11'>
                                     {{#codeable-concept parent=root name='code'}}
                                         {{fhir-edit parent=root name='code.text' placeholder='Enter description'}}
                                     {{/codeable-concept}}
