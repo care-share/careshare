@@ -24,7 +24,7 @@ limitations under the License.
                         <div class='form-group'>
                             <div class='col-xs-12 fhir-form-item'>
                                 <div class='col-xs-12'>
-                                    {{fhir-edit parent=root name='description'}}
+                                    {{fhir-edit parent=root name='description' placeholder='Enter description'}}
                                     {{!goal.example.[-goal].value}}
                                     {{#each root.changes.[-description] as |cr|}}
                                         {{change-request parent=root name='description' cr=cr}}
