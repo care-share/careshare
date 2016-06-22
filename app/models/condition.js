@@ -39,7 +39,15 @@ export default model.extend({
     allCarePlans: Ember.computed(function() {
         return this.store.peekAll('care-plan');
     }),
-    isRelatedToCarePlan: Ember.computed('allCarePlans.addresses.[]', function() {
+    isRelatedToCarePlan: Ember.computed('isNewRecord', 'nominations.[]', 'allCarePlans.addresses.[]', function() {
+        let isNewRecord = this.get('isNewRecord');
+        if (isNewRecord) {
+            return true;
+        }
+        let noms = this.get('nominations');
+        if ((noms && noms.length === 1 && noms[0].action === 'create')) {
+            return true;
+        }
         let carePlan = this.get('allCarePlans.firstObject');
         if (carePlan) {
             let reference = 'Condition/' + this.get('id');
