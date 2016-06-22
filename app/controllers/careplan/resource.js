@@ -141,9 +141,6 @@ export default Ember.Controller.extend({
             }
             args.id = newId;
             args.patient = patientRef;
-            if (type === 'Condition' || type === 'MedicationOrder') {
-                args.isRelatedToCarePlan = true;
-            }
 
             var latestRecord = this.store.createRecord(type,args);
             if(link == true) this.send('createRelation',latestRecord,parent,root);
