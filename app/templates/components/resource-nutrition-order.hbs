@@ -70,7 +70,7 @@ limitations under the License.
                                 </div>
                             </div>
                         {{/backbone-element}}
-                        Ordered On: {{fhir-datetime parent=root name='dateTime' showTime=true}}
+                        Ordered On: {{fhir-datetime parent=root name='dateTime' showTime=false}}
                         {{#each root.changes.[-dateTime] as |cr|}}
                             {{change-request parent=root name='dateTime' cr=cr format='datetime'}}
                         {{/each}}

@@ -23,7 +23,7 @@ export default PassthroughComponent.extend({
     showModal: false,
     originalValue: '',
     isArray: false, // is this used for a single object or an array of objects?
-    emptyPlaceholder: "--/--/---- --:-- --",
+    
     setup: function () {
         // Creates a computed property that converts date strings to Date objects
         Ember.defineProperty(this, 'datePassthrough', Ember.computed({
@@ -42,7 +42,8 @@ export default PassthroughComponent.extend({
                 if (result === null || result === undefined || result === "") {
                     return result;
                 }
-                return moment(result).format('MM/DD/YYYY hh:mm A');
+                var dateFormat = this.get('showTime') ? 'MM/DD/YYYY hh:mm A' : 'MM/DD/YYYY'
+                return moment(result).format(dateFormat);
             },
             set(key, value) {
                 var result = new Date(Ember.Date.parse(value));

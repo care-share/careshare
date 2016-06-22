@@ -89,7 +89,7 @@ limitations under the License.
                             <label class='col-sm-5 control-label' for='targetDate'>Target Date:</label>
 
                             <div id='targetDate' class='col-xs-12 col-lg-7'>
-                                {{fhir-datetime parent=root name='targetDate' showTime=true}}
+                                {{fhir-datetime parent=root name='targetDate' showTime=false}}
                                 {{#each root.changes.[-targetDate] as |cr|}}
                                     {{change-request parent=root name='targetDate' cr=cr}}
                                 {{/each}}
