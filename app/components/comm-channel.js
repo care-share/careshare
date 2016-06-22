@@ -21,6 +21,7 @@ export default Ember.Component.extend({
     destroyMessage: 'destroyMessage',
     nameID: null,
     textAreaValue: '',
+    show_all: false,
     setup: function () {
         this.set('nameID', Math.random());
         // as soon as the user views the expanded resource (and the comm-channel is initialized), mark all messages seen

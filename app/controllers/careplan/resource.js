@@ -299,6 +299,7 @@ export default Ember.Controller.extend({
                                 target.canonicalState = target.currentState.slice(); // clone array
                             }
                         }
+                        record.set('isExpanded', false); // minimize resource after it is saved
                     });
                 });
             });

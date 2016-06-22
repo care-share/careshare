@@ -16,12 +16,14 @@ limitations under the License.
 
 <div style="width:100%;text-align:center;display: block;margin-left: auto;margin-right: auto; padding-bottom:5px; margin-top:4px;">
     <div style="">Annotations
-    {{#em-modal-toggler class="show-all-button" modal-id=nameID}}
-        <span class="annotations-count-icon">{{resource.comms.length}}</span>Show All
-    {{/em-modal-toggler}}
-
+        {{#if show_all}}
+            <span class="annotations-count-icon">{{resource.comms.length}}</span>
+        {{else}}
+            {{#em-modal-toggler class="show-all-button" modal-id=nameID}}
+                <span class="annotations-count-icon">{{resource.comms.length}}</span>Show All
+            {{/em-modal-toggler}}
+        {{/if}}
     </div>
-
 </div>
 
 {{#em-modal configName="bs" id=nameID}}
@@ -66,7 +68,7 @@ limitations under the License.
 {{/em-modal}}
 
 {{#each resource.comms as |message|}}
-    {{#if message.unreadOrNew}}
+    {{#if (or message.unreadOrNew show_all)}}
         <div class="">
             <div class="">
                 {{#if message.isMe}}
