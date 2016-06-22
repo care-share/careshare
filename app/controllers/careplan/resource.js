@@ -224,13 +224,7 @@ export default Ember.Controller.extend({
                     }
                 }
             }
-            var carePlanId = carePlan.get('id');
-            if (record.get('isRelatedToCarePlan') === false) {
-                // for HH users, conditions that are not directly related to the care plan should not get this
-                // carePlanId set in the resulting nomination
-                carePlanId = '';
-            }
-            record.set('carePlanId', carePlanId);
+            record.set('carePlanId', carePlan.get('id'));
             record.set('patientId', this.controllerFor('patient').id);
 
             // save this model
