@@ -22,10 +22,13 @@ import commProps from 'careshare/properties/comm-properties';
 export default model.extend({
     displayText: Ember.computed(function () {
         let value = this.get('addresses.firstObject.display');
+        if (!value) { //fall back
+            value = this.get('addresses.firstObject.code.text');
+        }
         if (value) {
             return `Care Plan for ${value}`;
         }
-        let id = this.get('id');
+        let id = this.get('id'); // further fall back
         return `Care Plan ${id}`;
     }),
     hasNominations: DS.attr('boolean'),

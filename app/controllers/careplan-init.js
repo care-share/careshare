@@ -28,8 +28,10 @@ export default Ember.ObjectController.extend({
             for (var i = 0; i < this.selectedConditions.length; i++) {
                 var condition = this.selectedConditions[i];
                 var conditionReference = this.store.createRecord('reference', {
-                    reference: `Condition/${condition.id}`
+                    reference: `Condition/${condition.id}`,
+                    display: condition.get('displayText')
                 });
+                console.log('condition display text: ' + condition.displayText);
                 addressesConditions.pushObject(conditionReference);
             }
 
