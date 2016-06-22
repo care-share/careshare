@@ -52,14 +52,13 @@ limitations under the License.
                             </button> {{/if}}
                     </div>
                 </div>
-                
             </div>
             <div class="panel-body patient-sidebar" >
                 <button class="btn btn-default" {{action "toggleSplitScreen"}}>
                     Toggle Workspace
                  </button>
                 <!-- Tab Content -->
-                <div class="tab-content" style="padding: 0">
+                <div class="tab-content patient-info-wrapper" style="padding: 0">
                     <ul class="nav nav-pills">
                         {{#link-to 'careplan.filters'  tagName='li' href=false }}
                             {{#link-to 'careplan.filters'}}Filter{{/link-to}}
@@ -72,6 +71,9 @@ limitations under the License.
                         {{/link-to}}
                         {{#link-to 'careplan.requests'  tagName='li' href=false }}
                             {{#link-to 'careplan.requests'}}Requests{{/link-to}}
+                        {{/link-to}}
+                        {{#link-to 'careplan.patient-info' tagName='li' href=false }}
+                            {{#link-to 'careplan.patient-info'}}Patient Info{{/link-to}}
                         {{/link-to}}
                     </ul>
                     {{outlet}}
@@ -152,6 +154,6 @@ limitations under the License.
                             </div>
                         {{/if}}
                     </div>
-        {{/if}}               
+        {{/if}}
     </div>
 </div>
