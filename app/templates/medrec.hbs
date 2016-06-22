@@ -110,25 +110,25 @@ limitations under the License.
                         <div class="row">
                             <div class="col-xs-6">
                                 {{#if medpair.ehrMed}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Enforce VA'}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Enforce VA'}}
                                 {{else}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Do not use'}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Do not use'}}
                                 {{/if}}
                             </div>
                             <div class="col-xs-6">
-                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Clarify'}}
+                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Clarify'}}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
                                 {{#if medpair.ehrMed}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Accept HH'}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Update VA'}}
                                 {{else}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='Renew'}}
+                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Add to VA list'}}
                                 {{/if}}
                             </div>
                             <div class="col-xs-6">
-                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted 'text='No action'}}
+                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='These are equivalent'}}
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@ limitations under the License.
         {{input type="checkbox" checked=showEnforceVA}} Enforce VA
     </div>
     <div style='margin: 0.5em; display: inline-block'>
-        {{input type="checkbox" checked=showAcceptHH}} Accept HH
+        {{input type="checkbox" checked=showAcceptHH}} Update VA
     </div>
     <div style='margin: 0.5em; display: inline-block'>
         {{input type="checkbox" checked=showClarify}} Clarify
