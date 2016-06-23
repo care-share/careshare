@@ -20,13 +20,20 @@ import Ember from 'ember';
 
 export default {
     err: function (name, sortKey) {
-        if (!sortKey) {
+        let doSort = true;
+        if (sortKey === undefined) {
             sortKey = 'id';
+        } else if (sortKey === false) {
+            doSort = false;
         }
         return Ember.computed(`${name}.@each.isDeleted`, `${name}.@each.isError`, function () {
-            return this.get(name).filter(function (item) {
+            let array = this.get(name).filter(function (item) {
                 return !item.get('isDeleted') && !item.get('isError');
-            }).sortBy(sortKey);
+            });
+            if (doSort) {
+                return array.sortBy(sortKey);
+            }
+            return array;
         });
     },
     err1: function (name) {

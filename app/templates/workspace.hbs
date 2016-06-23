@@ -24,7 +24,7 @@ limitations under the License.
                 </div>
             {{/unless}}
             <div class="row">
-                {{#sortable-objects sortableObjectList=resources enableSort=true}}
+                {{#sortable-objects sortableObjectList=_resources enableSort=true}}
                     {{#each resources as |resource|}}
                         <div class="col-xs-4">
                             {{component (concat 'resource-' resource._internalModel.modelName) root=resource careplan=careplan isWorkspace=true workspace=this toHighlight=careplan.toHighlight}}
