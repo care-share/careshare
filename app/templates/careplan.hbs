@@ -36,9 +36,6 @@ limitations under the License.
                 </div>
 
                 <div class="panel careplan-patient">
-                    <div style="padding-left:15px;">
-                        Careplan ID: <span style="font-weight: normal; font-size:14px">{{model.id}}</span>
-                    </div>
                     <div>
                         {{#if statusIsDraft}}
                             <button class="btn btn-default" {{action "setStatus" "referred"}}>Sign Careplan
