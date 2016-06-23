@@ -132,7 +132,7 @@ export default Ember.Controller.extend({
             console.log(`(CONTROLLER) CREATE RECORD - type: ${type}, id: ${newId}`);
 
             // add "<model> -> Patient" reference
-            var patientId = this.controllerFor('patient').id;
+            var patientId = this.controllerFor('patient').model.id;
             var patientRef = this.store.createRecord('reference', {
                 reference: `Patient/${patientId}`
             });
@@ -228,7 +228,7 @@ export default Ember.Controller.extend({
                 carePlanId = '';
             }
             record.set('carePlanId', carePlanId);
-            record.set('patientId', this.controllerFor('patient').id);
+            record.set('patientId', this.controllerFor('patient').model.id);
 
             // save this model
             record.save().then(function () {

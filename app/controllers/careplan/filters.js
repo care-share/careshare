@@ -17,8 +17,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    needs: 'careplan',
-    patient: Ember.computed.alias('controllers.careplan'),
+    patient: Ember.inject.controller('careplan'),
     expandGoals: false,
     expandProblems: false,
     expandNutrition: false,

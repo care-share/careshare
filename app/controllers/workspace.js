@@ -20,8 +20,7 @@ import Ember from 'ember';
 
 export default CarePlanResource.extend({
     session: Ember.inject.service('session'),
-    needs: 'careplan',
-    careplan: Ember.computed.alias('controllers.careplan'),
+    careplan: Ember.inject.controller('careplan'),
     _resources: [],
     resources: filter.err('_resources', false), // filter out deleted records
     isFull: Ember.computed('resources.[]', function() {
