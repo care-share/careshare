@@ -57,6 +57,13 @@ export default Ember.ArrayController.extend({
             patient.save();
         }
     },
+    isPhysician: function () {
+        var sessionRoles = this.get('session.data.authenticated.roles');
+        if (sessionRoles && sessionRoles.indexOf('physician') > -1) {
+            return true;
+        }
+        return false;
+    }.property('session'),
     patientCounter: 0,
     patientCount: function () {
         var patients = this.get('content');

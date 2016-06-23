@@ -31,7 +31,7 @@ limitations under the License.
                         <a class="desc">&darr;</a>
                     </div>
                 </th>
-                <th class="birthDate col-xs-3">
+                <th class="birthDate col-xs-2">
                     Birth Date
                     <div class="order pull-left">
                         <a class="asc">&uarr;</a>
@@ -52,8 +52,10 @@ limitations under the License.
                         <a class="desc">&darr;</a>
                     </div>
                 </th>
-                <th class="col-xs-3">
-                    Link
+                <th class="col-xs-2">
+                    {{#if isPhysician}}
+                        Create CarePlan
+                    {{/if}}
                 </th>
                 <!-- <th class="provider">
                   Care Provider(s)
@@ -82,7 +84,7 @@ limitations under the License.
                                     <span class="careplan-notification-badge">Change</span>
                                 {{/if}}
                             </td>
-                            <td class="birthDate col-xs-3">{{patient.birthDateFormatted}}</td>
+                            <td class="birthDate col-xs-2">{{patient.birthDateFormatted}}</td>
                             <td class="carePlan col-xs-3">
                             {{#each patient.carePlans as |careplan|}}
                                 {{#link-to 'careplan.filters' patient.id careplan.id}}
@@ -106,8 +108,10 @@ limitations under the License.
                         <td class="homeMed col-xs-2">
                             {{#link-to 'medentry' patient}}Enter Home Med List{{/link-to}}
                         </td>
-                        <td class="col-xs-3">
-                            {{#link-to 'careplan-init' patient}}Initiate Care Plan{{/link-to}}
+                        <td class="col-xs-2">
+                            {{#if isPhysician}}
+                                {{#link-to 'careplan-init' patient}}Initiate Care Plan{{/link-to}}
+                            {{/if}}
                         </td>
                     </tr>
                 {{else}}
