@@ -14,7 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --}}
 
-<div> Related {{label}}:</div>
+<div class="row">
+    {{#if relations}}
+        <div class="col-xs-6"> Related {{label}}:</div>
+    {{else}}
+        <div class="has-tooltip col-xs-6">
+            <span style="padding: 2px"> No Related {{label}} </span>
+            <span class="tooltiptext">Add relation by dragging related {{label}} or select {{label}} from adjacent list</span>
+        </div>
+    {{/if}}
+
+    <div class="btn-group col-xs-6" style="padding: 3px">
+        {{#x-select action="createRelation"}}
+            {{#x-option value=op.[0]}}Relate {{label}}{{/x-option}}
+            {{#each possibleChoices as |op|}}
+                {{#x-option value=op}}{{op.displayText}}{{/x-option}}
+            {{/each}}
+        {{/x-select}}
+    </div>
+</div>
+
 <div>
     <ul class="relatedList">
         {{#each relations as |selection|}}
@@ -24,27 +43,7 @@ limitations under the License.
                     <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection}}/>
                     </div>
                 </li>
-        {{else}}
-            <li class="has-tooltip">
-                <div style="padding: 2px"> No Related {{label}} </div>
-                <span class="tooltiptext">Add relation by dragging related {{label}} or select {{label}} from adjacent list</span>
-            </li>
         {{/each}}
-        <li>
-          <div class="btn-group">
-            
-              {{#x-select action="createRelation"}}
-                {{#x-option value=op.[0]}}Relate {{label}}{{/x-option}}
-                {{#each possibleChoices as |op|}}
-                    {{#x-option value=op}}{{op.displayText}}{{/x-option}}
-                {{/each}}
-              {{/x-select}}
-            
-          </div>
-        </li>
-        <br>
-        {{!--textarea action="createRecordAndRelate" value=textAreaValue aria-controls="existing-user-table" placeholder="Create and relate to new record" autofocus="autofocus"
-        autoresize=true classNames="form-control"--}}
     </ul>
     <div style="clear:left;"></div>
 </div>
