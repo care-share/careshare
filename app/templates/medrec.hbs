@@ -121,14 +121,10 @@ limitations under the License.
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                {{#if medpair.ehrMed}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Update VA'}}
-                                {{else}}
-                                    {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Add to VA list'}}
-                                {{/if}}
+                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='Update VA'}}
                             </div>
                             <div class="col-xs-6">
-                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='These are equivalent'}}
+                                {{radio-input attr=medpair.homeMed.action checkedClass='medrec-accepted' text='No conflict'}}
                             </div>
                         </div>
                     </div>
