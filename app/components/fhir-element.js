@@ -28,6 +28,7 @@ export default Ember.Component.extend({
     deleteRecord: 'deleteRecord', // this is needed to bubble this action to the respective controller action
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
     toggleExpanded: 'toggleExpanded', // this is needed to bubble this action to the respective controller action
+    removeFromWorkspace: 'removeFromWorkspace', // this is needed to bubble this action to the respective controller action
     expand: 'expand', // this is needed to bubble this action to the respective controller action
     isCreateNomination: false,
     isDeleteNomination: false,
@@ -112,9 +113,9 @@ export default Ember.Component.extend({
         return this.get('session.data.authenticated.isAdmin');
     }.property('session'),
     actions: {
-        removeFromWorkspace: function(/*workspace*/) {
+        removeFromWorkspace: function() {
             console.log('fhir-element#removeFromWorkspace');
-            // TODO: this action needs to trigger the action of the same name in the workspace controller
+            this.sendAction('removeFromWorkspace');
         },
         updateArray: function (parent, name, type) {
             console.log('(FHIR-ELEMENT) UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
