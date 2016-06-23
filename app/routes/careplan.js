@@ -26,29 +26,31 @@ export default base.extend({
     },
     afterModel(model) {
         var comm = this.store.query('comm', {careplan_id: model.id}); // find all comms for this careplan
-        var condition = this.doQueries(model.id, 'Condition', true); // conditions
-        var goal = this.doQueries(model.id, 'Goal', true); // goals
-        var procedureRequest = this.doQueries(model.id, 'ProcedureRequest', true); // interventions
-        var nutritionOrder = this.doQueries(model.id, 'NutritionOrder', true); // nutrition
-        var medicationOrder = this.doQueries(model.id, 'MedicationOrder', true); // medications
+        var condition = this.doQueries(model, 'Condition', true); // conditions
+        var goal = this.doQueries(model, 'Goal', true); // goals
+        var procedureRequest = this.doQueries(model, 'ProcedureRequest', true); // interventions
+        var nutritionOrder = this.doQueries(model, 'NutritionOrder', true); // nutrition
+        var medicationOrder = this.doQueries(model, 'MedicationOrder', true); // medications
 
         // we have to wait until the queries are all finished before we allow the route to render
         // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved
         return Ember.RSVP.allSettled([comm, condition, goal, procedureRequest, nutritionOrder, medicationOrder]);
     },
     // do queries for a model (single name, not pluralized name)
-    doQueries: function (carePlanId, modelName, doUnload) {
+    doQueries: function (model, modelName, doUnload) {
         if (doUnload) {
             // if we've already loaded records for another CarePlan, unload them first before continuing
             this.store.unloadAll(modelName);
         }
-        var resource = 'CarePlan';
-        var query = {_id: carePlanId};
-        var include;
+        let carePlanId = model.id;
+        let patientId = model.get('subject.reference').split('/')[1];
+        let resource = 'CarePlan';
+        let query = {_id: carePlanId};
+        let include;
         switch (modelName) {
             case ('Condition'):
                 resource = 'Condition';
-                query = {patient: this.controllerFor('patient').model.id};
+                query = {patient: patientId};
                 break;
             case ('Goal'):
                 include = 'CarePlan:goal';
@@ -62,7 +64,7 @@ export default base.extend({
                 break;
             case ('MedicationOrder'):
                 resource = 'MedicationOrder';
-                query = {patient: this.controllerFor('patient').model.id};
+                query = {patient: patientId};
                 include = 'MedicationOrder:medication';
                 break;
         }
