@@ -19768,16 +19768,17 @@ a {
     line-height: normal;
 }
 
-.relatedList li{
-  background-color:#72cfd6;
-  border-color: black;
+.relatedList li,
+.add-relatedList{
+  background-color: #FFFFFF;/*#72cfd6;*/
+  border-color: #e8e9e9;
   border-width: 2px;
+  border-style: solid;
   margin: 2px 2px;
   padding: 2px 4px;
   float:left;
-  color:#eee;
+  color:black;
   font-size:12px;
-  font-weight: bold;
 
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -19785,8 +19786,13 @@ a {
 
 }
 
+.add-relatedList{
+    float: none;
+}
+
+
 .relatedList .glyphicon-remove {
-  color: red;
+  color: black;
 
 
 }
@@ -20223,10 +20229,10 @@ button.nobackground{
      text-decoration: underline;
 }
 
-.x-select{
-  width:150px;
+.add-relatedList .x-select{
+  width:45px;
+  border:none;
   background-color: transparent;
-  color: #eee;
 }
 
 .x-option{

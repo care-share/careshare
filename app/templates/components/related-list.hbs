@@ -14,7 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --}}
 
-<div> Related {{label}}:</div>
+<div> Related {{label}}
+
+    <span class="btn-group add-relatedList">
+          {{#x-select action="createRelation"}}
+            {{#x-option value=op.[0]}}Add {{!label}}{{/x-option}}
+            {{#each possibleChoices as |op|}}
+                {{#x-option value=op}}{{op.displayText}}{{/x-option}}
+            {{/each}}
+          {{/x-select}}
+    
+    </span>
+:
+</div>
 <div>
     <ul class="relatedList">
         {{#each relations as |selection|}}
@@ -30,18 +42,6 @@ limitations under the License.
                 <span class="tooltiptext">Add relation by dragging related {{label}} or select {{label}} from adjacent list</span>
             </li>
         {{/each}}
-        <li>
-          <div class="btn-group">
-            
-              {{#x-select action="createRelation"}}
-                {{#x-option value=op.[0]}}Relate {{label}}{{/x-option}}
-                {{#each possibleChoices as |op|}}
-                    {{#x-option value=op}}{{op.displayText}}{{/x-option}}
-                {{/each}}
-              {{/x-select}}
-            
-          </div>
-        </li>
         <br>
         {{!--textarea action="createRecordAndRelate" value=textAreaValue aria-controls="existing-user-table" placeholder="Create and relate to new record" autofocus="autofocus"
         autoresize=true classNames="form-control"--}}
