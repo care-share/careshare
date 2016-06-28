@@ -28,12 +28,14 @@ export default Ember.Component.extend({
     hoverOn: 'hoverOn', // this is needed to bubble this action to the respective controller action
     hoverOff: 'hoverOff', // this is needed to bubble this action to the respective controller action
     createMessage: 'createMessage', // this is needed to bubble this action to the respective controller action
+    removeFromWorkspace: 'removeFromWorkspace', // this is needed to bubble this action to the respective controller action
     _isExpanded: false,
     isExpanded: Ember.computed('root.isExpanded', 'isWorkspace', '_isExpanded', function () {
         if (!this.get('isWorkspace')) {
             return this.get('root.isExpanded');
         }
-        return this.get('_isExpanded');
+        return true; // Always expand in workspace
+//        return this.get('_isExpanded');
     }),
     actions: {
          createMessage: function (message, rid, rtype) {
@@ -68,8 +70,13 @@ export default Ember.Component.extend({
         hoverOff: function (model) {
             this.sendAction('hoverOff', model);
         },
+        removeFromWorkspace: function() {
+            console.log('resource-base#removeFromWorkspace');
+            this.sendAction('removeFromWorkspace', this.get('root'));
+        },
         // regular actions (don't bubble up)
         toggleExpanded: function () {
+            console.log('resource-base#toggleExpanded');
             if (!this.get('isWorkspace')) {
                 this.get('root').toggleProperty('isExpanded');
                 if (!this.get('root.isExpanded')) {

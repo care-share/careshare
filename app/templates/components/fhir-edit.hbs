@@ -19,7 +19,7 @@ limitations under the License.
 {{else if (eq isNumber 'decimal')}}
     {{fhir-decimal value=passthrough autofocus="autofocus" size="5" class="form-control" type="number" min="0.0" max="999.9" step="0.1"}}
 {{else}}
-    {{textarea value=passthrough autofocus="autofocus" size="5" class="form-control" autoresize=true}}
+    {{textarea value=passthrough autofocus="autofocus" size="5" class="form-control" autoresize=true placeholder=placeholder}}
 {{/if}}
 {{!--
 {{#if (gt calculatedPatch.length 0)}}

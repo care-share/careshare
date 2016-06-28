@@ -21,8 +21,8 @@ import filter from 'careshare/properties/filter-properties';
 export default Ember.Controller.extend({
     // controller dependencies
     percentageSplit: 50,
-    topSplit: 70,
-    botSplit: 30,
+    topSplit: 35,
+    botSplit: 65,
     session: Ember.inject.service('session'), // needed for ember-simple-auth
     patient: Ember.inject.controller('patient'),
     // local vars
@@ -135,7 +135,7 @@ export default Ember.Controller.extend({
             var comm = {
                 resource_type: resource_type,
                 careplan_id: this.get('model.id'),
-                patient_id: this.get('patient.id'),
+                patient_id: this.get('patient.model.id'),
                 resource_id: resource_id,
                 content: content
             };

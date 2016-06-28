@@ -23,9 +23,14 @@ limitations under the License.
                     <div class='row'>
                         <div class='form-group'>
                             <div class='col-xs-12 fhir-form-item'>
-                                <div class='col-xs-12'>
+                                {{#if root.isRelatedToCarePlan}}
+                                    <div class='col-xs-1'>
+                                        {{inline-svg "images/star.svg" class="primary-indicator"}}
+                                    </div>
+                                {{/if}}
+                                <div class='col-xs-11'>
                                     {{#codeable-concept parent=root name='code'}}
-                                        {{fhir-edit parent=root name='code.text'}}
+                                        {{fhir-edit parent=root name='code.text' placeholder='Enter description'}}
                                     {{/codeable-concept}}
                                     {{#each root.changes.[-code-text] as |cr|}}
                                         {{change-request parent=root name='code.text' cr=cr}}
@@ -85,7 +90,7 @@ limitations under the License.
                             </div>
                         </div>
                     </div>
-                    <select id='dropdown{{patient.id}}' class='form-control'>
+                    <select id='dropdown{{patient.model.id}}' class='form-control'>
                         <option disabled selected> Body Sites</option>
                     </select>
                     {{related-list parent=root relation='relatedGoals' label='Goals'}}

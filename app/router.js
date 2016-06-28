@@ -37,7 +37,7 @@ export default Router.map(function () {
         this.route('careplan-init', {path: '/careplans/init', resetNamespace: true});
         this.route('careplan', {path: '/careplans/:careplan_id', resetNamespace: true}, function () {
             this.route('filters');
-            this.route('patientInfo');
+            this.route('patient-info');
             this.route('notes');
             this.route('history');
             this.route('requests');

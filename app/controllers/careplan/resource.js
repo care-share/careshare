@@ -132,7 +132,7 @@ export default Ember.Controller.extend({
             console.log(`(CONTROLLER) CREATE RECORD - type: ${type}, id: ${newId}`);
 
             // add "<model> -> Patient" reference
-            var patientId = this.controllerFor('patient').id;
+            var patientId = this.controllerFor('patient').model.id;
             var patientRef = this.store.createRecord('reference', {
                 reference: `Patient/${patientId}`
             });
@@ -141,9 +141,6 @@ export default Ember.Controller.extend({
             }
             args.id = newId;
             args.patient = patientRef;
-            if (type === 'Condition' || type === 'MedicationOrder') {
-                args.isRelatedToCarePlan = true;
-            }
 
             var latestRecord = this.store.createRecord(type,args);
             if(link == true) this.send('createRelation',latestRecord,parent,root);
@@ -224,8 +221,14 @@ export default Ember.Controller.extend({
                     }
                 }
             }
-            record.set('carePlanId', carePlan.get('id'));
-            record.set('patientId', this.controllerFor('patient').id);
+            var carePlanId = carePlan.get('id');
+            if (record.get('isRelatedToCarePlan') === false) {
+                // for HH users, conditions that are not directly related to the care plan should not get this
+                // carePlanId set in the resulting nomination
+                carePlanId = '';
+            }
+            record.set('carePlanId', carePlanId);
+            record.set('patientId', this.controllerFor('patient').model.id);
 
             // save this model
             record.save().then(function () {
@@ -299,6 +302,7 @@ export default Ember.Controller.extend({
                                 target.canonicalState = target.currentState.slice(); // clone array
                             }
                         }
+                        record.set('isExpanded', false); // minimize resource after it is saved
                     });
                 });
             });

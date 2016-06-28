@@ -20165,14 +20165,15 @@ button.nobackground{
   color: rgba(128, 128, 128, 0.62);
 }
 
-.fhir-workspace,
-.fhir-workspace-wrapper {
+.patient-info,
+.patient-info-wrapper {
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: auto;
 }
-.fhir-workspace-wrapper {
+.patient-info-wrapper {
   display: flex;
+  flex-direction: column;
 }
 
 .nomination-button {
@@ -20328,7 +20329,7 @@ button.nobackground{
   background-color: inherit;
 }
 
-.panel-body.careplan-patient{ 
+.panel-body.careplan-patient{
   padding: 0;
   flex-grow:1;
   display:flex;

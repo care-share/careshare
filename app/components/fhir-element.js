@@ -28,6 +28,7 @@ export default Ember.Component.extend({
     deleteRecord: 'deleteRecord', // this is needed to bubble this action to the respective controller action
     saveRecord: 'saveRecord', // this is needed to bubble this action to the respective controller action
     toggleExpanded: 'toggleExpanded', // this is needed to bubble this action to the respective controller action
+    removeFromWorkspace: 'removeFromWorkspace', // this is needed to bubble this action to the respective controller action
     expand: 'expand', // this is needed to bubble this action to the respective controller action
     isCreateNomination: false,
     isDeleteNomination: false,
@@ -79,23 +80,23 @@ export default Ember.Component.extend({
                 this.set('isChangeNomination', true);
             }
         }
-    }.observes('root.nominations', 'root.isNewRecord').on('init'),    
+    }.observes('root.nominations', 'root.isNewRecord').on('init'),
     displayLetter: function(){
         var name = this.get('root._internalModel.modelName');
         if (name === 'condition'){
-            return 'P'
+            return 'P';
         }
         else if (name === 'goal'){
-            return 'G'
+            return 'G';
         }
         else if (name === 'procedure-request'){
-            return 'I'
+            return 'I';
         }
         else if (name === 'medication-order'){
-            return 'M'
+            return 'M';
         }
         else if (name === 'nutrition-order'){
-            return 'N'
+            return 'N';
         }
         else {
             //This should never happen
@@ -112,6 +113,10 @@ export default Ember.Component.extend({
         return this.get('session.data.authenticated.isAdmin');
     }.property('session'),
     actions: {
+        removeFromWorkspace: function() {
+            console.log('fhir-element#removeFromWorkspace');
+            this.sendAction('removeFromWorkspace');
+        },
         updateArray: function (parent, name, type) {
             console.log('(FHIR-ELEMENT) UPDATE ARRAY - record: ' + parent + ',name: ' + name + ',type: ' + type);
             this.sendAction('updateArray', parent, name, type);
@@ -143,6 +148,7 @@ export default Ember.Component.extend({
             this.set('root.currentHover', false);
         },
         toggleExpanded: function () {
+            console.log('fhir-element#toggleExpanded');
             this.sendAction('toggleExpanded');
         },
         expand: function () {

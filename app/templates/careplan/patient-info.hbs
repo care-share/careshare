@@ -1,0 +1,12 @@
+<div class='well fhir-column-wrapper patient-info-wrapper' style='margin: 0.5em 0;'>
+    <div id="patient-info-column" class='panel-group fhir-column patient-info'>
+        Address:
+            {{#if patient.model.address}}
+                {{address.line}}, {{address.city}}, {{address.state}}
+            {{else}}
+                (none)
+            {{/if}}
+        <br/>
+        {{comm-channel resource=patient.model resource_type='Patient' show_all='true'}}
+    </div>
+</div>

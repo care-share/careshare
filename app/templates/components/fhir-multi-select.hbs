@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 --}}
 
-<select id="dropdown{{patient.id}}" class="form-control"
+<select id="dropdown{{patient.model.id}}" class="form-control"
     {{!action 'doLazyLoad' patient on='click'}}
     {{!action 'doLazyLoad' patient on='mouseEnter'}}
-    {{!action 'renderCarePlan' patient.id on='change'}}
+    {{!action 'renderCarePlan' patient.model.id on='change'}}
         data-placeholder={{placeholder}} multiple="">
     {{#each options as |option|}}
         <option value={{option.value}}>

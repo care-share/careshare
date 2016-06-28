@@ -29,7 +29,8 @@ limitations under the License.
     Gender: {{genderFormatted}}
 </div>
 <div class="col-sm-5">
-    <h4>Which concerns are relevant to this care plan?</h4>
+    <h4>Which condition is the chief concern of this care plan?</h4>
+    {{! Ideally, these checkboxes should be radio buttons, but Ember doesn't make it easy }}
     {{multiselect-checkboxes options=conditions labelProperty='code.text' selection=selectedConditions}}
 </div>
 <div class="col-sm-5">

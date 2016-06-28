@@ -59,7 +59,8 @@ limitations under the License.
     {{#if datePassthrough }}
         {{datePassthrough}}
     {{else}}
-        {{emptyPlaceholder}}
+        --/--/----
+        {{#if showTime }} --:-- -- {{/if}}
     {{/if}}
     {{!--{{/if}}--}}
     {{em-modal-toggler modal-id=nameID class="glyphicon glyphicon-calendar nobackground"}}

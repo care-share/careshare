@@ -20,42 +20,37 @@ import Ember from 'ember';
 export default base.extend({
     hideSideBar: true, // when this route renders its template, it will hide the side bar
     model: function (params) {
-        var controller = this.controllerFor('careplan');
-        console.log('Loading Careplan ROUTE');
-        console.log(params);
-        controller.set('id', params.careplan_id);
-
+        console.log('Loading Careplan ROUTE', params);
         this.store.unloadAll('CarePlan'); // first, remove any other care plans in the store (in case we transitioned from somewhere else)
         return this.store.find('CarePlan', params.careplan_id);
     },
-    afterModel(/*model*/) {
-        var controller = this.controllerFor('careplan');
-
-        var comm = this.store.query('comm', {careplan_id: controller.id}); // find all comms for this careplan
-        var condition = this.doQueries('Condition', true); // conditions
-        var goal = this.doQueries('Goal', true); // goals
-        var procedureRequest = this.doQueries('ProcedureRequest', true); // interventions
-        var nutritionOrder = this.doQueries('NutritionOrder', true); // nutrition
-        var medicationOrder = this.doQueries('MedicationOrder', true); // medications
+    afterModel(model) {
+        var comm = this.store.query('comm', {careplan_id: model.id}); // find all comms for this careplan
+        var condition = this.doQueries(model, 'Condition', true); // conditions
+        var goal = this.doQueries(model, 'Goal', true); // goals
+        var procedureRequest = this.doQueries(model, 'ProcedureRequest', true); // interventions
+        var nutritionOrder = this.doQueries(model, 'NutritionOrder', true); // nutrition
+        var medicationOrder = this.doQueries(model, 'MedicationOrder', true); // medications
 
         // we have to wait until the queries are all finished before we allow the route to render
         // this effectively causes the app to transition to App.LoadingRoute until the promise is resolved
         return Ember.RSVP.allSettled([comm, condition, goal, procedureRequest, nutritionOrder, medicationOrder]);
     },
     // do queries for a model (single name, not pluralized name)
-    doQueries: function (modelName, doUnload) {
+    doQueries: function (model, modelName, doUnload) {
         if (doUnload) {
             // if we've already loaded records for another CarePlan, unload them first before continuing
             this.store.unloadAll(modelName);
         }
-        var controller = this.controllerFor('careplan');
-        var resource = 'CarePlan';
-        var query = {_id: controller.id};
-        var include;
+        let carePlanId = model.id;
+        let patientId = model.get('subject.reference').split('/')[1];
+        let resource = 'CarePlan';
+        let query = {_id: carePlanId};
+        let include;
         switch (modelName) {
             case ('Condition'):
                 resource = 'Condition';
-                query = {patient: this.controllerFor('patient').id};
+                query = {patient: patientId};
                 break;
             case ('Goal'):
                 include = 'CarePlan:goal';
@@ -69,7 +64,7 @@ export default base.extend({
                 break;
             case ('MedicationOrder'):
                 resource = 'MedicationOrder';
-                query = {patient: this.controllerFor('patient').id};
+                query = {patient: patientId};
                 include = 'MedicationOrder:medication';
                 break;
         }
