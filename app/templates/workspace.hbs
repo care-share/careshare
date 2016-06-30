@@ -26,7 +26,7 @@ limitations under the License.
             <div class="row">
                 {{#sortable-objects sortableObjectList=_resources enableSort=true}}
                     {{#each resources as |resource|}}
-                        <div class="col-xs-4">
+                        <div class="col-xs-{{bootstrapColWidthEachResource}}">
                             {{component (concat 'resource-' resource._internalModel.modelName) root=resource careplan=careplan isWorkspace=true workspace=this toHighlight=careplan.toHighlight}}
                         </div>
                     {{/each}}
