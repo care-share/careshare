@@ -78,5 +78,6 @@ export default model.extend({
     ////////////////////////////////////////////
     // DIRTY ATTRIBUTE DETECTION
     ////////////////////////////////////////////
-    isUnclean: dirty.watch([], ['dosageInstruction.firstObject', 'reasonReference', 'relatedMedication.code'])
+    isUnclean: dirty.watch([], ['dosageInstruction.firstObject', 'reasonReference', 'relatedMedication.code']),
+    isNewOrUnclean: dirty.newOrUnclean()
 });

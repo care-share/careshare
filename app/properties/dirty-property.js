@@ -103,5 +103,10 @@ export default {
             }
             return result;
         });
+    },
+    newOrUnclean: function () {
+        return Ember.computed('isUnclean', 'currentState.isNew', function () {
+            return this.get('isUnclean') || this.get('currentState.isNew');
+        });
     }
 };

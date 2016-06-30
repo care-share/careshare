@@ -76,6 +76,17 @@ export default base.extend({
         return this.store.query(resource, query); // the "_include" is effectively a join
     },
     actions: {
+        willTransition(transition) {
+            console.log('T R A N S I T I O N !');
+            if (this.controller.get('isUnclean') &&
+                !confirm('You have unsaved changes! Do you wish to leave this page?')) {
+                transition.abort();
+            } else {
+                // Bubble the `willTransition` action so that
+                // parent routes can decide whether or not to abort.
+                return true;
+            }
+        },
         toggleShow: function (modelName) {
             var controller = this.controllerFor('careplan');
             var prop = 'show' + modelName.pluralize();

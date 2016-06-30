@@ -66,6 +66,22 @@ export default Ember.Controller.extend({
     showNutritionOrders: false, // nutrition
     showProcedureRequests: true, // interventions
     showMedicationOrders: true, // medications
+    isUnclean: Ember.computed('goals.@each.isNewOrUnclean', 'conditions.@each.isNewOrUnclean',
+        'nutritionOrders.@each.isNewOrUnclean', 'procedureRequests.@each.isNewOrUnclean',
+        'medicationOrders.@each.isNewOrUnclean', function () {
+            let resources = this.get('goals')
+                .concat(this.get('conditions'))
+                .concat(this.get('nutritionOrders'))
+                .concat(this.get('procedureRequests'))
+                .concat(this.get('medicationOrders'));
+            // return true if any resource is unclean; return false if all resources are NOT unclean
+            for (var i = 0; i < resources.length; i++) {
+                if (resources[i].get('isNewOrUnclean')) {
+                    return true;
+                }
+            }
+            return false;
+        }),
     showSplitScreen: false,
     splitStyle: function(){
         return this.get('showSplitScreen') ? "max-height: calc("  + this.get('topSplit') + 'vh - 95px)' : "";

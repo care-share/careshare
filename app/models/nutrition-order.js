@@ -56,5 +56,6 @@ export default model.extend({
     ////////////////////////////////////////////
     // DIRTY ATTRIBUTE DETECTION
     ////////////////////////////////////////////
-    isUnclean: dirty.watch(['status', 'dateTime'], ['supplement.firstObject'])
+    isUnclean: dirty.watch(['status', 'dateTime'], ['supplement.firstObject']),
+    isNewOrUnclean: dirty.newOrUnclean()
 });

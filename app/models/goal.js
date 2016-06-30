@@ -91,5 +91,6 @@ export default model.extend({
     ////////////////////////////////////////////
     // DIRTY ATTRIBUTE DETECTION
     ////////////////////////////////////////////
-    isUnclean: dirty.watch(['description', 'status', 'targetDate'], ['priority', 'category', 'addresses.[]'])
+    isUnclean: dirty.watch(['description', 'status', 'targetDate'], ['priority', 'category', 'addresses.[]']),
+    isNewOrUnclean: dirty.newOrUnclean()
 });

@@ -82,5 +82,6 @@ export default model.extend({
     ////////////////////////////////////////////
     // DIRTY ATTRIBUTE DETECTION
     ////////////////////////////////////////////
-    isUnclean: dirty.watch(['priority', 'orderedOn'], ['code', 'reasonReference', 'scheduledTiming.repeat'])
+    isUnclean: dirty.watch(['priority', 'orderedOn'], ['code', 'reasonReference', 'scheduledTiming.repeat']),
+    isNewOrUnclean: dirty.newOrUnclean()
 });
