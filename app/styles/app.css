@@ -20375,16 +20375,9 @@ button.nobackground{
   text-transform: uppercase;
  }
 
- .lol{
+ .patient-photo{
   height:85px;
   width:100%;
-}
-.lol:before{
-  content:"\e008";
-  font-family:"Glyphicons Halflings";
-  line-height:1;
-  display:inline-block;
-
 }
 
 .button-link {
@@ -20448,4 +20441,8 @@ button.nobackground{
   width:20px;
   height:18px;
 
+}
+
+.patient-photo-container{
+  padding: 0px;
 }
