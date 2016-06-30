@@ -23,6 +23,15 @@ export default CarePlanResource.extend({
     careplan: Ember.inject.controller('careplan'),
     _resources: [],
     resources: filter.err('_resources', false), // filter out deleted records
+    bootstrapColWidthEachResource: Ember.computed('resources.[]', function() {
+        // resources get full width if there's 1, half each if 2, third each if 3
+        var numResources = this.get('resources').length;
+        if (numResources > 0) { 
+            return 12 / numResources;
+        } else {
+            return 0;
+        }
+    }),
     isFull: Ember.computed('resources.[]', function() {
         // This is not working -- this.get('resources').length always returns 0. why???
         return (this.get('resources').length >= 3);
