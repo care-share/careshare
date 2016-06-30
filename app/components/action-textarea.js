@@ -17,11 +17,18 @@
 import Ember from 'ember';
 
 export default Ember.TextArea.extend({
-didRender() {
-    this.$().keypress(function(event) {
-      if (event.keyCode == 13) {
-        event.preventDefault();
-      }
-    });
-  }
+    createMessage: 'createMessage',
+    didRender() {
+        var that = this;
+        // the render gets triggered when this component first shows, and when actions are taken
+        // we need to unbind jquery events before binding new ones to prevent duplicate actions
+        this.$().off('keypress').keypress(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+            }
+        });
+        this.$().off('focusout').focusout(function () {
+            that.sendAction('createMessage', this.value);
+        });
+    }
 });

@@ -35,9 +35,11 @@ export default Ember.Component.extend({
     }.on('init'),
     actions: {
         createMessage: function (message) {
-            console.log("COMM CHANNEL createMessage: " + message);
-            this.sendAction('createMessage', message, this.get('resource.id'), this.get('resource_type'));
-            this.set('textAreaValue', '');
+            if (message && message.trim().length > 0) {
+                console.log("COMM CHANNEL createMessage: " + message);
+                this.sendAction('createMessage', message, this.get('resource.id'), this.get('resource_type'));
+                this.set('textAreaValue', '');
+            }
         },
         destroyMessage: function (message) {
             console.log("COMM CHANNEL destroyMessage: " + message);
