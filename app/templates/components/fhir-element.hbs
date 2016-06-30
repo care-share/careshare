@@ -87,7 +87,7 @@ limitations under the License.
             </div>
 
             {{#unless isWorkspace}}
-                <span class="glyphicon glyphicon-trash element-delete" {{action 'deleteRecord'}}> </span>
+                 <button class="nomination-button element-delete" {{action 'deleteRecord'}}>Discontinue</button>
             {{/unless}}
         {{else}}
             <div style="float:left;padding-bottom:2px; padding-right: 15px">
@@ -115,13 +115,13 @@ limitations under the License.
     </div>
     <div class="careplan-notification">
         {{#if (or isCreateNomination root.isNewRecord)}}
-            <span class="careplan-notification-badge"> New</span>
+            <span class="careplan-notification-badge orange-badge"> New</span>
         {{/if}}
         {{#if isChangeNomination}}
-            <span class="careplan-notification-badge"> Request</span>
+            <span class="careplan-notification-badge orange-badge"> Requested</span>
         {{/if}}
         {{#if isDeleteNomination}}
-            <span class="careplan-notification-badge orange-badge"> Deleted</span>
+            <span class="careplan-notification-badge orange-badge"> Discontinued</span>
         {{/if}}
         {{#if (gt root.unreadCount 0)}}
             <span class="icon-comment"> {{root.unreadCount}}</span>

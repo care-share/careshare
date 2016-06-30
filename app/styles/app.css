@@ -20162,8 +20162,6 @@ button.nobackground{
 }
 
 .element-delete{
-  padding-top:5px;
-  padding-right:2px;
   float:right;
   color: rgba(128, 128, 128, 0.62);
 }
@@ -20446,4 +20444,11 @@ button.nobackground{
 
 .sortable-objects{
    overflow: auto;
+}
+
+
+.remove-relation{
+  width:20px;
+  height:18px;
+
 }

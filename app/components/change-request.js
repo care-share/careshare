@@ -67,7 +67,7 @@ export default Ember.Component.extend({
         if (this.get('isRejected')) {
             suffix = ' change-request-applied';
         }
-        return Ember.String.htmlSafe(`glyphicon glyphicon-remove${suffix}`);
+        return Ember.String.htmlSafe(`glyphicon glyphicon-trash${suffix}`);
     }),
     actions: {
         accept: function () {

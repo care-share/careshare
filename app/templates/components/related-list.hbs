@@ -33,7 +33,9 @@ limitations under the License.
                 <li {{action 'selected' selection on='doubleClick'}}>
                     <div>
                     {{selection.displayText}}
-                    <button class="glyphicon glyphicon-remove nobackground" {{action 'deleteReference' parent selection}}/>
+                    <button class="nobackground" {{action 'deleteReference' parent selection}}>
+                    {{inline-svg "images/broken-link.svg" class="remove-relation"}}
+                    </button>
                     </div>
                 </li>
         {{else}}

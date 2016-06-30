@@ -81,7 +81,7 @@ limitations under the License.
                                 {{/if}}
                                 <!-- whether or not there are any create/update/delete nominations, across all of this patient's care plans -->
                                 {{#if patient.hasNominations}}
-                                    <span class="careplan-notification-badge">Change</span>
+                                    <span class="careplan-notification-badge orange-badge">Change</span>
                                 {{/if}}
                             </td>
                             <td class="birthDate col-xs-2">{{patient.birthDateFormatted}}</td>
@@ -96,7 +96,7 @@ limitations under the License.
                                         {{/if}}
                                         <!-- whether or not there are any create/update/delete nominations for this care plan -->
                                         {{#if careplan.hasNominations}}
-                                            <span class="careplan-notification-badge">Change</span>
+                                            <span class="careplan-notification-badge orange-badge">Change</span>
                                         {{/if}}
                                     </div>
                                 {{/link-to}}
