@@ -11660,7 +11660,6 @@ body {
   float: left;
   padding: 0;
   width: 300px;
-  /*height: 100vh;qwer*/
   z-index: 2;
 }
 
@@ -11908,7 +11907,6 @@ position: fixed;
   overflow: auto;
   height: 100%;
   z-index: 1;
-  /*qwer*/
   flex: 1; 
 }
 
@@ -19833,7 +19831,7 @@ a {
 
 .fhir-columns{
   background-color: #fff;
-  /*height:100vh;qwer*/
+  height:100%;
   padding:0px;
 }
 
@@ -19843,7 +19841,6 @@ a {
 }
 
 .applicationBody{
-  /*height:100vh;qwer*/
   padding: 0px;
 }
 

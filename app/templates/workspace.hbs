@@ -15,23 +15,23 @@ limitations under the License.
 --}}
 
 {{#draggable-object-target class='fhir-workspace-wrapper' action='addToWorkspace'}}
-    <div class='well fhir-column-wrapper' style='margin: 0.5em 0;'>
-        <div id="workspace-column" class='panel-group fhir-column'>
-            {{! Note: we haven't actually done anything to restrict workspace dropping to the workspace-drop div, you can still drag directly in. Not a big deal though, since once the workspace is "full" there's not really any drag target space left }}
-            {{#unless isFull}}
-                <div class="workspace-drop">
-                    Drag a resource here to add it to the workspace
-                </div>
-            {{/unless}}
-            <div class="row">
-                {{#sortable-objects sortableObjectList=_resources enableSort=true}}
-                    {{#each resources as |resource|}}
-                        <div class="col-xs-{{bootstrapColWidthEachResource}}">
+    <div id="workspace-column" class=''>
+        {{! Note: we haven't actually done anything to restrict workspace dropping to the workspace-drop div, you can still drag directly in. Not a big deal though, since once the workspace is "full" there's not really any drag target space left }}
+        {{#unless isFull}}
+            <div class="workspace-drop">
+                Drag a resource here to add it to the workspace
+            </div>
+        {{/unless}}
+        <div class="row">
+            {{#sortable-objects sortableObjectList=_resources enableSort=true}}
+                {{#each resources as |resource|}}
+                    <div class="well fhir-column-wrapper  col-xs-{{bootstrapColWidthEachResource}}">
+                        <div class="panel-group fhir-column" style="max-height: calc({{careplan.botSplit}}vh - 65px)">
                             {{component (concat 'resource-' resource._internalModel.modelName) root=resource careplan=careplan isWorkspace=true workspace=this toHighlight=careplan.toHighlight}}
                         </div>
-                    {{/each}}
-                {{/sortable-objects}}
-            </div>
+                    </div>
+                {{/each}}
+            {{/sortable-objects}}
+        </div>
     </div>
-</div>
 {{/draggable-object-target}}

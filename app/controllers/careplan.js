@@ -68,7 +68,7 @@ export default Ember.Controller.extend({
     showMedicationOrders: true, // medications
     showSplitScreen: false,
     splitStyle: function(){
-        return this.get('showSplitScreen') ? "max-height: calc("  + this.get('topSplit') + 'vh - 45px)' : "";
+        return this.get('showSplitScreen') ? "max-height: calc("  + this.get('topSplit') + 'vh - 95px)' : "";
     }.property('topSplit', 'showSplitScreen'),
     statusIsProposed: function () {
         return this.model.get('status') === 'proposed';
